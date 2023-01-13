@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Fantasy Football</string>
+    <string name="dialog_button_positive">Confirm</string>
+    <string name="dialog_button_negative">Cancel</string>
+    <string name="dialog_button_neutral">OK</string>
+<!--    <string name="dialog_title_confirm">Confirm</string>-->
 </resources>
