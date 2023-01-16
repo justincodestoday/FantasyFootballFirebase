@@ -17,6 +17,7 @@
     <dimen name="xxxxl">40dp</dimen>
     <dimen name="xxxxxl">48dp</dimen>
     <dimen name="xxxxxxl">64dp</dimen>
+    <dimen name="player_card_radius">75dp</dimen>
 
     <dimen name="extra_small_text_size">10sp</dimen>
     <dimen name="small_text_size">12sp</dimen>
