@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Fantasy Football</string>
 
+    <string name="drawer_name">Full Name</string>
+    <string name="drawer_username">Username</string>
+
     <string name="player_card">Player Card</string>
     <string name="player_name">Player Name</string>
     <string name="player_team">Player Team</string>
