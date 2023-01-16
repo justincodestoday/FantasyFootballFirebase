@@ -9,7 +9,8 @@
         android:id="@+id/homeFragment"
         android:name="com.fantasy.fantasyfootball.fragment.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home"/>
+        
     <fragment
         android:id="@+id/selectPlayerFragment"
         android:name="com.fantasy.fantasyfootball.fragment.SelectPlayerFragment"
