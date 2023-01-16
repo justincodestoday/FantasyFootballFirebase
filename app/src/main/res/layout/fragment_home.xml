@@ -18,14 +18,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="70dp" />
+                android:layout_marginTop="70dp"
+                android:src="@drawable/img2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="62dp"
-
+                android:fontFamily="@font/font1"
                 android:text="Fantasy"
                 android:textColor="#4D0453"
                 android:textSize="48dp"
@@ -56,6 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/font1"
                         android:paddingHorizontal="2dp"
                         android:paddingTop="10dp"
                         android:text="Forward"
@@ -65,12 +67,14 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="44dp"
-                        android:layout_gravity="center_horizontal" />
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/img2" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/font1"
                         android:paddingHorizontal="2dp"
                         android:paddingTop="10dp"
                         android:text="League"
@@ -87,6 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="30dp"
+                        android:fontFamily="@font/font2"
                         android:text="Welcome to Fantasy"
                         android:textColor="@color/black"
                         android:textSize="24dp"
@@ -97,6 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="0dp"
+                        android:fontFamily="@font/font1"
                         android:text="The official fantasy football game of Forward School"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
@@ -106,6 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:backgroundTint="#7FFABE"
+                        android:drawableRight="@drawable/ic_arrow"
                         android:text="Pick Team"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
@@ -116,6 +123,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:backgroundTint="#82C490"
+                        android:drawableRight="@drawable/ic_arrow"
                         android:text="Sign Me Out"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
@@ -123,6 +131,5 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-
     </LinearLayout>
 </layout>
