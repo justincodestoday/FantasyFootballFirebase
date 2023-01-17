@@ -1,7 +1,9 @@
 package com.fantasy.fantasyfootball.data.model
 
+import androidx.room.Entity
 import java.util.*
 
+@Entity
 data class FantasyTeam(
     var name: String? = null,
     var points: Int = 0,
