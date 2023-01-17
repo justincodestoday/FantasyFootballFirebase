@@ -1,24 +1,25 @@
 package com.fantasy.fantasyfootball
 
 import android.app.Application
-import android.content.Context
 import androidx.room.Room
-import com.fantasy.fantasyfootball.repository.FantasyRepository
-import com.google.gson.Gson
+import com.fantasy.fantasyfootball.data.FantasyDatabase
+import com.fantasy.fantasyfootball.repository.PlayerRepository
+import com.fantasy.fantasyfootball.repository.UserRepository
 
-class MainApplication: Application() {
-    val fantasyRepo = FantasyRepository.getInstance()
-//    lateinit var fantasyRepo: FantasyRepository
+class MainApplication : Application() {
+    private lateinit var userRepo: UserRepository
+    private lateinit var playerRepo: PlayerRepository
 
-//    override fun onCreate() {
-//        super.onCreate()
-//
-//        val fantasyFootballDatabase = Room.databaseBuilder(
-//            this,
-//            FantasyFootballDatabase::class.java,
-//            FantasyFootballDatabase.DATABASE_NAME
-//        ).fallbackToDestructiveMigration()
-//            .build()
-//        fantasyRepo = FantasyRepository(fantasyFootballDatabase.fantasyDao)
-//    }
+    override fun onCreate() {
+        super.onCreate()
+
+        val fantasyDatabase = Room.databaseBuilder(
+            this,
+            FantasyDatabase::class.java,
+            FantasyDatabase.DATABASE_NAME
+        ).fallbackToDestructiveMigration()
+            .build()
+        userRepo = UserRepository(fantasyDatabase.userDao)
+        playerRepo = PlayerRepository(fantasyDatabase.playerDao)
+    }
 }
