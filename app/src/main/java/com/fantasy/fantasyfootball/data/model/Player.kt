@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.model
+package com.fantasy.fantasyfootball.data.model
 
 import androidx.room.PrimaryKey
 import com.fantasy.fantasyfootball.constant.Enums

@@ -1,8 +1,8 @@
 package com.fantasy.fantasyfootball.repository
 
-import com.fantasy.fantasyfootball.model.FantasyPlayer
-import com.fantasy.fantasyfootball.model.Player
-import com.fantasy.fantasyfootball.model.User
+import com.fantasy.fantasyfootball.data.model.FantasyPlayer
+import com.fantasy.fantasyfootball.data.model.Player
+import com.fantasy.fantasyfootball.data.model.User
 
 class FantasyRepository {
     private var counter = -1
