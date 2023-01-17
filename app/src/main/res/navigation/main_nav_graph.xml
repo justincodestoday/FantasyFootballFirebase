@@ -16,4 +16,8 @@
         android:name="com.fantasy.fantasyfootball.fragment.SelectPlayerFragment"
         android:label="SelectPlayerFragment"
         tools:layout="@layout/fragment_select_player" />
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="com.fantasy.fantasyfootball.fragment.LeaderboardFragment"
+        android:label="LeaderboardFragment" />
 </navigation>
