@@ -11,14 +11,14 @@ interface PlayerDao {
     @Query("SELECT * FROM player")
     suspend fun getPlayers(): List<Player>
 
-    @Query("SELECT * FROM player WHERE id = :id")
-    suspend fun getPlayerById(id: Int): Player?
+    @Query("SELECT * FROM player WHERE playerId = :playerId")
+    suspend fun getPlayerById(playerId: Int): Player?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(player: Player)
 
-    @Query("DELETE FROM player WHERE id = :id")
-    suspend fun delete(id: Int)
+    @Query("DELETE FROM player WHERE playerId = :playerId")
+    suspend fun delete(playerId: Int)
 
     // making sure name works for first name + last name
     @Query("SELECT * FROM player WHERE name LIKE '%'|| :name ||'%'")

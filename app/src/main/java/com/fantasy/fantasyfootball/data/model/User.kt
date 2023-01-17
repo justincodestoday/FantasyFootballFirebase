@@ -2,13 +2,16 @@ package com.fantasy.fantasyfootball.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity
 data class User(
-    @PrimaryKey
-    val id: Int? = null,
+    @PrimaryKey val userId: Int? = null,
     var username: String? = null,
     var password: String? = null,
-    var fantasyTeam: FantasyTeam? = null,
+    val teamName: String? = null,
+    var points: Int = 0,
+    var remainingBudget: Float = 0f,
+//    var lastUpdated: Date? = null,
     var role: Boolean = false
 )
