@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-//        setSupportActionBar(binding.toolbar)
+        setSupportActionBar(binding.toolbar)
 
         drawerLayout = binding.drawerLayout
         navController = findNavController(R.id.navHostFragment)

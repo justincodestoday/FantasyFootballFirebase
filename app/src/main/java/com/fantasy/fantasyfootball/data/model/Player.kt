@@ -7,11 +7,15 @@ import com.fantasy.fantasyfootball.constant.Enums
 @Entity
 data class Player(
     @PrimaryKey
-    val id: Int? = null,
+    val playerId: Int? = null,
     var firstName: String? = null,
     var lastName: String? = null,
+    var name: String = firstName + lastName,
     var price: Float = 0f,
-    var area: Enums.Area? = null
-) {
-    val name = firstName + lastName
-}
+    var area: Enums.Area? = null,
+    var position: Enums.Position? = null,
+    var color: Enums.ShirtColor? = null,
+    var isSet: Boolean = false,
+
+    val ownerId: Int? = null
+)
