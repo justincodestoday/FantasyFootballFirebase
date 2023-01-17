@@ -33,6 +33,8 @@ class LoginFragment : Fragment() {
 
     }
 
+    // register, val id = UUID.randomUUID().toString()
+
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
 //        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
