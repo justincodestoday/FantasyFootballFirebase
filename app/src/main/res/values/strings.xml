@@ -8,6 +8,16 @@
     <string name="home">Home</string>
     <string name="leaderboard">Leaderboard</string>
 
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="tag">Tag</string>
+    <string name="full_name">Full Name</string>
+    <string name="retype_password">Retype Password</string>
+    <string name="swipe_left_to_register">Swipe Left to Register</string>
+    <string name="swipe_right_to_login">Swipe Right to Login</string>
+
     <string name="player_card">Player Card</string>
     <string name="player_name">Player Name</string>
     <string name="player_team">Player Team</string>

@@ -1,36 +1,49 @@
 package com.fantasy.fantasyfootball.fragment
 
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentLoginBinding.inflate(layoutInflater)
         return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnLogin.setOnClickListener {
+            setFragment(DashboardFragment())
+        }
+    }
+
+    private fun setFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.navHostFragment, fragment)
+            commit()
+        }
+    }
+
+    companion object {
+        private var loginFragmentInstance: LoginFragment? = null
+
+        fun getInstance(): LoginFragment {
+            if (loginFragmentInstance == null) {
+                loginFragmentInstance = LoginFragment()
+            }
+            return loginFragmentInstance!!
+        }
     }
 
     // register, val id = UUID.randomUUID().toString()

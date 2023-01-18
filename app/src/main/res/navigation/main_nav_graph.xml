@@ -3,30 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/credentialsFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.fantasy.fantasyfootball.fragment.HomeFragment"
-        android:label="HomeFragment"
+        android:label="Home Fragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_pickTeamFragment"
             app:destination="@id/pickTeamFragment" />
     </fragment>
-        
-    <fragment
-        android:id="@+id/selectPlayerFragment"
-        android:name="com.fantasy.fantasyfootball.fragment.SelectPlayerFragment"
-        android:label="SelectPlayerFragment"
-        tools:layout="@layout/fragment_select_player" />
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.fantasy.fantasyfootball.fragment.LeaderboardFragment"
-        android:label="LeaderboardFragment" />
+        android:label="Leaderboard" />
     <fragment
         android:id="@+id/pickTeamFragment"
         android:name="com.fantasy.fantasyfootball.fragment.PickTeamFragment"
-        android:label="fragment_pick_team"
+        android:label="Pick Team"
         tools:layout="@layout/fragment_pick_team" />
+    <fragment
+        android:id="@+id/credentialsFragment"
+        android:name="com.fantasy.fantasyfootball.fragment.CredentialsFragment"
+        android:label="Credentials" />
 </navigation>
