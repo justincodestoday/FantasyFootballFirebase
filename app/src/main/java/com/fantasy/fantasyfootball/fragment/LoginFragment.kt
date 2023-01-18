@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -17,6 +19,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.visibility = View.GONE
         return binding.root
     }
 
@@ -24,7 +28,8 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnLogin.setOnClickListener {
-            setFragment(DashboardFragment())
+            val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
+            NavHostFragment.findNavController(this).navigate(action)
         }
     }
 
