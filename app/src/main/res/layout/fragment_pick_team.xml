@@ -1,14 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.PickTeamFragment">
+    tools:context=".fragment.PickTeamFragment"
+    android:background="@drawable/field"
+    android:gravity="center"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/ls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shirt"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="0dp"
+            android:background="@color/transparent"/>
+        <ImageButton
+            android:id="@+id/rs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="50dp"
+            android:src="@drawable/ic_shirt"
+            android:background="@color/transparent"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/lm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shirt"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/transparent"/>
+        <ImageButton
+            android:id="@+id/lcm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_shirt"
+            android:background="@color/transparent"/>
+        <ImageButton
+            android:id="@+id/rcm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shirt"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/transparent"/>
+        <ImageButton
+            android:id="@+id/rm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/ic_shirt"
+            android:background="@color/transparent"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageButton
+            android:id="@+id/lb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shirt"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/transparent"/>
+        <ImageButton
+            android:id="@+id/lcb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/ic_shirt"
+            android:background="@color/transparent"/>
+        <ImageButton
+            android:id="@+id/rcb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shirt"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/transparent"/>
+        <ImageButton
+            android:id="@+id/rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="0dp"
+            android:src="@drawable/ic_shirt"
+            android:background="@color/transparent"/>
+    </LinearLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/gk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_shirt"
+            android:background="@color/transparent"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

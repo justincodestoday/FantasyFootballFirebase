@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.fantasy.fantasyfootball.fragment.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_pickTeamFragment"
+            app:destination="@id/pickTeamFragment" />
+    </fragment>
         
     <fragment
         android:id="@+id/selectPlayerFragment"
@@ -20,4 +24,9 @@
         android:id="@+id/leaderboardFragment"
         android:name="com.fantasy.fantasyfootball.fragment.LeaderboardFragment"
         android:label="LeaderboardFragment" />
+    <fragment
+        android:id="@+id/pickTeamFragment"
+        android:name="com.fantasy.fantasyfootball.fragment.PickTeamFragment"
+        android:label="fragment_pick_team"
+        tools:layout="@layout/fragment_pick_team" />
 </navigation>
