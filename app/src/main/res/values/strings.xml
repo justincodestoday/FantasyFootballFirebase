@@ -1,28 +1,42 @@
 <resources>
+<!--    App and Database-->
     <string name="app_name">Fantasy Football</string>
     <string name="database_name">fantasy_database</string>
+    <string name="logo_name">Fantasy</string>
+    <string name="logo_welcome_message">Welcome to Fantasy</string>
+    <string name="logo_subtitle">The official fantasy football game of Forward School</string>
 
+    <!-- Drawer -->
     <string name="drawer_name">Full Name</string>
     <string name="drawer_username">Username</string>
+    <string name="drawer_logged_out_message">Please log in to use this app.</string>
 
+    <!-- Fragment -->
     <string name="home">Home</string>
     <string name="leaderboard">Leaderboard</string>
+    <string name="profile">Profile</string>
+    <string name="dashboard">Dashboard</string>
 
+    <!-- Login -->
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="retype_password">Retype Password</string>
     <string name="tag">Tag</string>
     <string name="full_name">Full Name</string>
-    <string name="retype_password">Retype Password</string>
     <string name="swipe_left_to_register">Swipe Left to Register</string>
     <string name="swipe_right_to_login">Swipe Right to Login</string>
 
+    <!-- Player Card -->
     <string name="player_card">Player Card</string>
     <string name="player_name">Player Name</string>
     <string name="player_team">Player Team</string>
     <string name="player_price">Player Price</string>
 
+    <!-- Alert -->
+    <string name="login_successful">LOGIN_SUCCESSFUL</string>
+    <string name="login_unsuccessful">LOGIN_UNSUCCESSFUL</string>
     <string name="dialog_button_positive">Confirm</string>
     <string name="dialog_button_negative">Cancel</string>
     <string name="dialog_button_neutral">OK</string>

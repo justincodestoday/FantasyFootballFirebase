@@ -18,21 +18,20 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/img2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/font1"
-                android:text="Fantasy"
-                android:textColor="#4D0453"
-                android:textSize="48dp"
+                android:text="@string/logo_name"
+                android:textColor="@color/dark_purple_700"
+                android:textSize="48sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -45,7 +44,7 @@
                 android:layout_height="205dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#80D6FDF6"
+                android:backgroundTint="@color/light_green_200"
                 app:cardCornerRadius="3dp">
 
                 <LinearLayout
@@ -93,9 +92,9 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="30dp"
                         android:fontFamily="@font/font2"
-                        android:text="Welcome to Fantasy"
+                        android:text="@string/logo_welcome_message"
                         android:textColor="@color/black"
-                        android:textSize="24dp"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -104,9 +103,9 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="0dp"
                         android:fontFamily="@font/font1"
-                        android:text="The official fantasy football game of Forward School"
+                        android:text="@string/logo_subtitle"
                         android:textColor="@color/black"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPickTeam"
