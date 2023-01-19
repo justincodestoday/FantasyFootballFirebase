@@ -39,6 +39,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+<<<<<<< HEAD
+        binding.btnPickTeam.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToPickTeamFragment()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+    }
+
+    private fun setFragment(fragment: Fragment) {
+        requireActivity().supportFragmentManager.beginTransaction().apply {
+            replace(R.id.navHostFragment, fragment)
+            commit()
+=======
         val navController = findNavController()
 //        userViewModel.user.observe(viewLifecycleOwner, Observer {user->
 //            if (user != null) {
@@ -50,6 +62,7 @@ class HomeFragment : Fragment() {
         binding.btnPickTeam.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToPickTeamFragment()
             NavHostFragment.findNavController(this).navigate(action)
+>>>>>>> f2b08e679c9ffd4548156a083531967740ce5de1
         }
     }
 

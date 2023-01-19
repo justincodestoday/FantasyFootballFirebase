@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
         android:title="@string/home" />
 
     <item
+        android:id="@+id/pickTeamFragment"
+        android:icon="@drawable/ic_shirt"
+        android:iconTint="@color/black"
+        android:title="Fantasy" />
+
+    <item
         android:id="@+id/leaderboardFragment"
-        android:icon="@drawable/ic_stats"
+        android:icon="@drawable/ic_leaderboard"
         android:title="@string/leaderboard" />
 </menu>
