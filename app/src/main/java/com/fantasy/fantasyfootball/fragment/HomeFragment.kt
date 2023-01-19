@@ -30,11 +30,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.btnPickTeam.setOnClickListener {
-//            val action = HomeFragmentDirections.actionHomeFragmentToPickTeamFragment()
-//            NavHostFragment.findNavController(this).navigate(action)
-//        }
-//        setFragment(CredentialsFragment())
+        binding.btnPickTeam.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToPickTeamFragment()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
     }
 
     private fun setFragment(fragment: Fragment) {

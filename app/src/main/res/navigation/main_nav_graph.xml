@@ -8,16 +8,17 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.fantasy.fantasyfootball.fragment.HomeFragment"
-        android:label="Home Fragment"
+        android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_pickTeamFragment"
             app:destination="@id/pickTeamFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.fantasy.fantasyfootball.fragment.LeaderboardFragment"
-        android:label="Leaderboard" />
+        android:label="LeaderboardFragment" />
     <fragment
         android:id="@+id/pickTeamFragment"
         android:name="com.fantasy.fantasyfootball.fragment.PickTeamFragment"
@@ -26,5 +27,9 @@
     <fragment
         android:id="@+id/credentialsFragment"
         android:name="com.fantasy.fantasyfootball.fragment.CredentialsFragment"
-        android:label="Credentials" />
+        android:label="CredentialsFragment" >
+        <action
+            android:id="@+id/action_credentialsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

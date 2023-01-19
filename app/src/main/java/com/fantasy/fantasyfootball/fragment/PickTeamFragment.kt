@@ -6,13 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.fantasy.fantasyfootball.R
+import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
+import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
+import com.fantasy.fantasyfootball.databinding.FragmentPickTeamBinding
 
 class PickTeamFragment : Fragment() {
+    private lateinit var binding: FragmentPickTeamBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pick_team, container, false)
+        binding = FragmentPickTeamBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
     }
 }

@@ -23,9 +23,6 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLogin.setOnClickListener {
-            setFragment(DashboardFragment())
-        }
     }
 
     private fun setFragment(fragment: Fragment) {
