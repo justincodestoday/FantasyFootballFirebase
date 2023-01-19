@@ -4,14 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.fantasy.fantasyfootball.R
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
+import com.fantasy.fantasyfootball.viewModel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
+    private val userViewModel: UserViewModel by viewModels()
+    private lateinit var savedStateHandle: SavedStateHandle
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,27 +30,22 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(layoutInflater)
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
         bottomNav.visibility = View.GONE
+        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+        toolbar.visibility = View.GONE
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLogin.setOnClickListener {
-            val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
-            NavHostFragment.findNavController(this).navigate(action)
-        }
-    }
-
-    private fun setFragment(fragment: Fragment) {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.navHostFragment, fragment)
-            commit()
-        }
+        savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
+        savedStateHandle.set(LOGIN_SUCCESSFUL, false)
     }
 
     companion object {
         private var loginFragmentInstance: LoginFragment? = null
+
+        val LOGIN_SUCCESSFUL = Enums.LoginStatus.LOGIN_SUCCESSFUL.name
 
         fun getInstance(): LoginFragment {
             if (loginFragmentInstance == null) {
