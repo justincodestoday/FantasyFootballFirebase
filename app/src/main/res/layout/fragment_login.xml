@@ -36,7 +36,7 @@
             android:layout_above="@id/et_password"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:background="@drawable/custom_button"
+            android:background="@drawable/custom_edit_text"
             android:fontFamily="@font/roboto_regular"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
@@ -58,7 +58,7 @@
             android:padding="15dp"
             android:textSize="15sp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,6 +66,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
             android:layout_marginRight="20dp"
+            android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/login"
             android:textColor="@android:color/white" />

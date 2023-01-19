@@ -8,13 +8,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.CredentialsAdapter
-import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.FragmentCredentialsBinding
 
 
 class CredentialsFragment : Fragment() {
     private lateinit var binding: FragmentCredentialsBinding
-    private lateinit var mainBinding: ActivityMainBinding
     private val loginFragment = LoginFragment.getInstance()
     private val registerFragment = RegisterFragment.getInstance()
 

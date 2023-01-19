@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/credentialsFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -27,9 +27,19 @@
     <fragment
         android:id="@+id/credentialsFragment"
         android:name="com.fantasy.fantasyfootball.fragment.CredentialsFragment"
+<<<<<<< HEAD
         android:label="CredentialsFragment" >
         <action
             android:id="@+id/action_credentialsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+=======
+        android:label="Credentials"
+        tools:layout="@layout/fragment_credentials" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.fantasy.fantasyfootball.fragment.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+>>>>>>> f2b08e679c9ffd4548156a083531967740ce5de1
 </navigation>
