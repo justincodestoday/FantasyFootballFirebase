@@ -6,8 +6,7 @@ import com.fantasy.fantasyfootball.constant.Enums
 
 @Entity
 data class Player(
-    @PrimaryKey
-    val playerId: Int? = null,
+    @PrimaryKey(autoGenerate = true) val playerId: Int? = null,
     var firstName: String? = null,
     var lastName: String? = null,
     var name: String = firstName + lastName,
@@ -16,6 +15,4 @@ data class Player(
     var position: Enums.Position? = null,
     var color: Enums.ShirtColor? = null,
     var isSet: Boolean = false,
-
-    val ownerId: Int? = null
 )
