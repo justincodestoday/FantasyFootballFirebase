@@ -6,6 +6,13 @@
     app:cardCornerRadius="0dp"
     app:cardElevation="10dp">
 
+    <TextView
+        android:id="@+id/searchPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_gravity="center|start"/>
+
     <SearchView
         android:id="@+id/svSearch"
         android:layout_width="match_parent"

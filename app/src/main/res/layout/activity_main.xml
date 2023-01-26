@@ -35,7 +35,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:itemIconTint="@color/black"
+                app:itemTextColor="@color/bottom_nav_color"
+                app:itemTextAppearanceActive="@style/Style_TextView"
+                app:itemTextAppearanceInactive="@style/Style_TextView"
+                app:itemIconTint="@color/bottom_nav_color"
+                app:backgroundTint="#000000"
+                app:elevation="8sp"
+                app:labelVisibilityMode="auto"
                 app:menu="@menu/bottom_nav_menu" />
         </LinearLayout>
 

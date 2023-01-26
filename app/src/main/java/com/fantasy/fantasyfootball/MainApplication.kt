@@ -7,8 +7,8 @@ import com.fantasy.fantasyfootball.repository.PlayerRepository
 import com.fantasy.fantasyfootball.repository.UserRepository
 
 class MainApplication : Application() {
-    private lateinit var userRepo: UserRepository
-    private lateinit var playerRepo: PlayerRepository
+     lateinit var userRepo: UserRepository
+     lateinit var playerRepo: PlayerRepository
 
     override fun onCreate() {
         super.onCreate()
