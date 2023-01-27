@@ -17,7 +17,7 @@ class PlayerAdapter(var players: List<Player>, val onClick:(player: Player) -> U
     override fun onBindViewHolder(holder: PlayerHolder, position: Int) {
         val player = players[position]
         holder.binding.run {
-            tvName.text = player.position.toString()
+            tvName.text = player.name
             tvTeam.text = player.area.toString()
             tvPrice.text = player.price.toString() + " m"
         }
@@ -25,8 +25,8 @@ class PlayerAdapter(var players: List<Player>, val onClick:(player: Player) -> U
 
     override fun getItemCount() = players.size
 
-    fun setPlayer(players: Player) {
-        this.players = listOf(players)
+    fun setPlayer(players: List<Player>) {
+        this.players = players
         notifyDataSetChanged()
     }
 

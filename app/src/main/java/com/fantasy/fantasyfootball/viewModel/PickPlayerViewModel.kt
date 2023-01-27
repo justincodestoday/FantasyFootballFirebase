@@ -10,15 +10,18 @@ import com.fantasy.fantasyfootball.repository.PlayerRepository
 import kotlinx.coroutines.launch
 
 class PickPlayerViewModel(val repo: PlayerRepository): ViewModel() {
-    val players: MutableLiveData<Player> = MutableLiveData(Player(1, "Xiang", "ze", "Xiang ze", "Chelsea", 7.0f, Enums.Area.Goalkeeper, Enums.Position.GK, Enums.ShirtColor.DARKBLUE, false))
+    val players: MutableLiveData<List<Player>> = MutableLiveData()
+//    val playerName = players.value?.name
 
     init {
-        mutableListOf(players)
+//        mutableListOf(players)
+        getPlayers("")
     }
 
-    fun getPlayers(player: Player) {
+    fun getPlayers(player: String) {
         viewModelScope.launch {
-            repo.getPlayers(player)
+            val res = repo.getPlayers(player)
+            players.value = res
         }
     }
 

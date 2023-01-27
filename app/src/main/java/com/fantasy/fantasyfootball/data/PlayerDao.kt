@@ -12,7 +12,7 @@ interface PlayerDao {
     @Query("SELECT * FROM player")
     suspend fun getPlayers(): List<Player>
 
-    @Query("SELECT * FROM player WHERE position =:position")
+    @Query("SELECT * FROM player WHERE position = :position")
     suspend fun getPlayerByPosition(position: Enums.Position): List<Player>
 
     @Query("SELECT * FROM player WHERE playerId = :playerId")
@@ -25,6 +25,6 @@ interface PlayerDao {
     suspend fun delete(playerId: Int)
 
     // making sure name works for first name + last name
-    @Query("SELECT * FROM player WHERE name LIKE '%'|| :name ||'%'")
-    suspend fun getPlayersBySearch(name: String): List<Player>
+    @Query("SELECT * FROM player WHERE firstname LIKE '%'|| :firstname || '%'")
+    suspend fun getPlayersBySearch(firstname: String): List<Player>
 }
