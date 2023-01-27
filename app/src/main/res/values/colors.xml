@@ -14,4 +14,5 @@
     <color name="red_700">#7E0000</color>
     <color name="dark_purple_700">#FF4D0453</color>
     <color name="light_green_200">#80D6FDF6</color>
+    <color name="colorAccent">#FF4F89</color>
 </resources>

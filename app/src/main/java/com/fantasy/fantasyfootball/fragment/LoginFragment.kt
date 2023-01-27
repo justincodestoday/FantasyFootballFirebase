@@ -37,8 +37,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-<<<<<<< HEAD
     }
 
     private fun setFragment(fragment: Fragment) {
@@ -46,10 +44,8 @@ class LoginFragment : Fragment() {
             replace(R.id.navHostFragment, fragment)
             commit()
         }
-=======
         savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
         savedStateHandle.set(LOGIN_SUCCESSFUL, false)
->>>>>>> f2b08e679c9ffd4548156a083531967740ce5de1
     }
 
     companion object {

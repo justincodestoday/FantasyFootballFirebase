@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_pickTeamFragment"
             app:destination="@id/pickTeamFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -23,23 +26,28 @@
         android:id="@+id/pickTeamFragment"
         android:name="com.fantasy.fantasyfootball.fragment.PickTeamFragment"
         android:label="Pick Team"
-        tools:layout="@layout/fragment_pick_team" />
+        tools:layout="@layout/fragment_pick_team" >
+        <action
+            android:id="@+id/action_pickTeamFragment_to_pickPlayerFragment"
+            app:destination="@id/pickPlayerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/credentialsFragment"
         android:name="com.fantasy.fantasyfootball.fragment.CredentialsFragment"
-<<<<<<< HEAD
-        android:label="CredentialsFragment" >
+        android:label="CredentialsFragment"
+        tools:layout="@layout/fragment_credentials"
+        >
         <action
             android:id="@+id/action_credentialsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
-=======
-        android:label="Credentials"
-        tools:layout="@layout/fragment_credentials" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.fantasy.fantasyfootball.fragment.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
->>>>>>> f2b08e679c9ffd4548156a083531967740ce5de1
+    <fragment
+        android:id="@+id/pickPlayerFragment"
+        android:name="com.fantasy.fantasyfootball.fragment.PickPlayerFragment"
+        android:label="PickPlayerFragment" />
 </navigation>

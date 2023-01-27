@@ -10,8 +10,8 @@ import com.fantasy.fantasyfootball.util.StorageService
 import com.google.gson.Gson
 
 class MainApplication : Application() {
-    private lateinit var userRepo: UserRepository
-    private lateinit var playerRepo: PlayerRepository
+     lateinit var userRepo: UserRepository
+     lateinit var playerRepo: PlayerRepository
     lateinit var storageService: StorageService
 
     override fun onCreate() {

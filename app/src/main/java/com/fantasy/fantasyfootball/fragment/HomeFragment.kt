@@ -21,7 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-//    private val userViewModel: UserViewModel by activityViewModels()
+
+    //    private val userViewModel: UserViewModel by activityViewModels()
     private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
@@ -29,29 +30,33 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
-        bottomNav.visibility = View.VISIBLE
-        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-        toolbar.visibility = View.VISIBLE
+//        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
+//        bottomNav.visibility = View.VISIBLE
+//        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+//        toolbar.visibility = View.VISIBLE
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-<<<<<<< HEAD
         binding.btnPickTeam.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToPickTeamFragment()
             NavHostFragment.findNavController(this).navigate(action)
         }
+
+        binding.profile.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+
     }
 
     private fun setFragment(fragment: Fragment) {
         requireActivity().supportFragmentManager.beginTransaction().apply {
             replace(R.id.navHostFragment, fragment)
             commit()
-=======
-        val navController = findNavController()
+            val navController = findNavController()
 //        userViewModel.user.observe(viewLifecycleOwner, Observer {user->
 //            if (user != null) {
 //                showWelcomeMessage()
@@ -59,13 +64,8 @@ class HomeFragment : Fragment() {
 //                navController.navigate(R.id.credentialsFragment)
 //            }
 //        })
-        binding.btnPickTeam.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToPickTeamFragment()
-            NavHostFragment.findNavController(this).navigate(action)
->>>>>>> f2b08e679c9ffd4548156a083531967740ce5de1
         }
-    }
-
-    private fun showWelcomeMessage() {
+        fun showWelcomeMessage() {
+        }
     }
 }
