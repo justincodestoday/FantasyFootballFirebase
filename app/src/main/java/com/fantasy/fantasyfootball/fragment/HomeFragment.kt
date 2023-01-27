@@ -13,9 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
-import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
 import com.fantasy.fantasyfootball.viewModel.UserViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
