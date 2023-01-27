@@ -23,14 +23,18 @@
 
     <!-- Login -->
     <string name="login">Login</string>
+    <string name="signin">Sign in</string>
     <string name="register">Register</string>
+    <string name="create_account">Create an account</string>
     <string name="email">Email</string>
+    <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="retype_password">Retype Password</string>
-    <string name="tag">Tag</string>
     <string name="full_name">Full Name</string>
-    <string name="swipe_left_to_register">Swipe Left to Register</string>
     <string name="swipe_right_to_login">Swipe Right to Login</string>
+    <string name="swipe_left_to_register">Swipe Left to Register</string>
+    <string name="swipe_right">Swipe Right</string>
+    <string name="swipe_left">Swipe Left</string>
 
     <!-- Home -->
     <string name="live">Live</string>
@@ -53,12 +57,16 @@
     <string name="dialog_button_negative">Cancel</string>
     <string name="dialog_button_neutral">OK</string>
 
+    <!-- Success -->
+    <string name="register_successfully">Successfully registered</string>
+
+    <!-- Errors -->
+    <string name="missing_name">Name is required</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>

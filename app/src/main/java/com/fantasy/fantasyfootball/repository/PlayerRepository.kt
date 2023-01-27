@@ -33,6 +33,11 @@ class PlayerRepository(private val playerDao: PlayerDao) {
         playerDao.delete(playerId)
     }
 
+    // Set/Unset a player
+    suspend fun changePlayerStatus(id: Int, isSet: Boolean) {
+        playerDao.updateStatusById(id, isSet)
+    }
+
     // Get players by searching for name
     suspend fun getPlayersBySearch(firstname: String): List<Player> {
         return playerDao.getPlayersBySearch(firstname)

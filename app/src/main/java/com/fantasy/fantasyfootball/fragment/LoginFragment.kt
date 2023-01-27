@@ -4,22 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
-import com.fantasy.fantasyfootball.viewModel.UserViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
-    private val userViewModel: UserViewModel by viewModels()
+    private val registerViewModel: RegisterViewModel by viewModels()
     private lateinit var savedStateHandle: SavedStateHandle
 
     override fun onCreateView(

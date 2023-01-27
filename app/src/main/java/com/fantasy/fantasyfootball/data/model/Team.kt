@@ -1,13 +1,11 @@
 package com.fantasy.fantasyfootball.data.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.Relation
 import java.util.*
 
 @Entity
-data class FantasyTeam(
+data class Team(
     @PrimaryKey(autoGenerate = true) val teamId: Int? = null,
     var name: String? = null,
     var points: Int = 0,

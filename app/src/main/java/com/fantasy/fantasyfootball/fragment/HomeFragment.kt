@@ -9,14 +9,14 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
-import com.fantasy.fantasyfootball.viewModel.UserViewModel
+import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val pickPlayerFragment = PickPlayerFragment.getInstance()
 
     //    private val userViewModel: UserViewModel by activityViewModels()
-    private val userViewModel: UserViewModel by viewModels()
+    private val registerViewModel: RegisterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,20 +51,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setFragment(fragment: Fragment) {
-        requireActivity().supportFragmentManager.beginTransaction().apply {
-            replace(R.id.navHostFragment, fragment)
-            commit()
-            val navController = findNavController()
-//        userViewModel.user.observe(viewLifecycleOwner, Observer {user->
-//            if (user != null) {
-//                showWelcomeMessage()
-//            } else {
-//                navController.navigate(R.id.credentialsFragment)
-//            }
-//        })
-        }
-        fun showWelcomeMessage() {
-        }
+    fun showWelcomeMessage() {
     }
 }

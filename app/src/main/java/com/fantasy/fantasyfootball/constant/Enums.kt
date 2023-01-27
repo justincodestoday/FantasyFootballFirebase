@@ -1,8 +1,19 @@
 package com.fantasy.fantasyfootball.constant
 
 class Enums {
+    enum class Result {
+        SUCCESSFUL, UNSUCCESSFUL
+    }
+
     enum class LoginStatus {
         LOGIN_SUCCESSFUL, LOGIN_UNSUCCESSFUL
+    }
+
+    enum class FormErrors {
+        MISSING_NAME,
+        INVALID_USERNAME,
+        INVALID_PASSWORD,
+        PASSWORDS_NOT_MATCHING,
     }
 
     enum class ShirtColor {

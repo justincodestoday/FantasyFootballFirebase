@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.CredentialsAdapter
 import com.fantasy.fantasyfootball.databinding.FragmentCredentialsBinding
 
@@ -28,7 +26,6 @@ class CredentialsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        var currentPage = 0
 
         val adapter = CredentialsAdapter(
             listOf(loginFragment, registerFragment),
@@ -36,11 +33,5 @@ class CredentialsFragment : Fragment() {
             lifecycle
         )
         binding.viewPager.adapter = adapter
-//        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                currentPage = position
-//            }
-//        })
     }
 }
