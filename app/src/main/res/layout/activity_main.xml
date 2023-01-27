@@ -35,12 +35,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:itemTextColor="@color/bottom_nav_color"
+                app:backgroundTint="@color/black"
+                app:elevation="8dp"
+                app:itemIconTint="@color/bottom_nav_color"
                 app:itemTextAppearanceActive="@style/Style_TextView"
                 app:itemTextAppearanceInactive="@style/Style_TextView"
-                app:itemIconTint="@color/bottom_nav_color"
-                app:backgroundTint="#000000"
-                app:elevation="8sp"
+                app:itemTextColor="@color/bottom_nav_color"
                 app:labelVisibilityMode="auto"
                 app:menu="@menu/bottom_nav_menu" />
         </LinearLayout>

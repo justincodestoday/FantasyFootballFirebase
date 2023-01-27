@@ -28,10 +28,10 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
-        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
-        bottomNav.visibility = View.GONE
-        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-        toolbar.visibility = View.GONE
+//        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
+//        bottomNav.visibility = View.GONE
+//        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+//        toolbar.visibility = View.GONE
         return binding.root
     }
 

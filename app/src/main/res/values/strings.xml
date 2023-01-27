@@ -1,8 +1,11 @@
 <resources>
-<!--    App and Database-->
+    <!--    App and Database-->
     <string name="app_name">Fantasy Football</string>
     <string name="database_name">fantasy_database</string>
+    <string name="logo">Logo</string>
     <string name="logo_name">Fantasy</string>
+    <string name="forward">Forward</string>
+    <string name="league">League</string>
     <string name="logo_welcome_message">Welcome to Fantasy</string>
     <string name="logo_subtitle">The official fantasy football game of Forward School</string>
 
@@ -10,6 +13,7 @@
     <string name="drawer_name">Full Name</string>
     <string name="drawer_username">Username</string>
     <string name="drawer_logged_out_message">Please log in to use this app.</string>
+    <string name="add_profile_picture">Add Profile Picture</string>
 
     <!-- Fragment -->
     <string name="home">Home</string>
@@ -27,6 +31,14 @@
     <string name="full_name">Full Name</string>
     <string name="swipe_left_to_register">Swipe Left to Register</string>
     <string name="swipe_right_to_login">Swipe Right to Login</string>
+
+    <!-- Home -->
+    <string name="live">Live</string>
+    <string name="matches">Matches</string>
+    <string name="live_matches">Live\nMatches</string>
+    <string name="pick_team">Pick Team</string>
+    <string name="sign_me_out">Sign Me Out</string>
+    <string name="running_man">Running Man</string>
 
     <!-- Player Card -->
     <string name="player_card">Player Card</string>

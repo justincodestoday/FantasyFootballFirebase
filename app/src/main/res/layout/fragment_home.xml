@@ -20,17 +20,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                android:contentDescription="@string/logo"
                 android:src="@drawable/img2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/font1"
-                android:text="Fantasy"
-                android:textColor="#4D0453"
-                android:textSize="48dp"
+                android:text="@string/logo_name"
+                android:textColor="@color/dark_purple_700"
+                android:textSize="48sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -45,7 +46,7 @@
                 android:layout_height="205dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="#80D6FDF6"
+                android:backgroundTint="@color/light_green_200"
                 app:cardCornerRadius="3dp">
 
                 <LinearLayout
@@ -61,7 +62,7 @@
                         android:fontFamily="@font/font1"
                         android:paddingHorizontal="2dp"
                         android:paddingTop="10dp"
-                        android:text="Forward"
+                        android:text="@string/forward"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
@@ -76,11 +77,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:fontFamily="@font/font1"
-                        android:textStyle="bold"
                         android:paddingHorizontal="2dp"
                         android:paddingTop="10dp"
-                        android:text="League"
-                        android:textColor="@color/black" />
+                        android:text="@string/league"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -94,7 +95,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="30dp"
                         android:fontFamily="@font/font2"
-                        android:text="Welcome to Fantasy"
+                        android:text="@string/logo_welcome_message"
                         android:textColor="@color/black"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -105,7 +106,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="0dp"
                         android:fontFamily="@font/font1"
-                        android:text="The official fantasy football game of Forward School"
+                        android:text="@string/logo_subtitle"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -114,9 +115,9 @@
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:backgroundTint="#7FFABE"
+                        android:backgroundTint="@color/light_green_500"
                         android:drawableEnd="@drawable/ic_arrow"
-                        android:text="Pick Team"
+                        android:text="@string/pick_team"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
                         app:cornerRadius="5dp" />
@@ -125,22 +126,20 @@
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:backgroundTint="#82C490"
+                        android:backgroundTint="@color/dark_green_200"
                         android:drawableEnd="@drawable/ic_arrow"
-                        android:text="Sign Me Out"
+                        android:text="@string/sign_me_out"
                         android:textAllCaps="false"
                         android:textColor="@color/black"
                         app:cornerRadius="5dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="center_horizontal"
-                >
+                android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="180dp"
@@ -148,24 +147,23 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="2dp"
                     android:layout_marginTop="10dp"
-                    android:backgroundTint="#80D6FDF6"
-                    >
+                    android:backgroundTint="@color/light_green_200">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/trophy"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/trophy" />
 
                     <TextView
                         android:id="@+id/points"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center_horizontal"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/font1"
                         android:text="135 Points"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#E3BF02"
+                        android:textColor="@color/yellow_500"
                         android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
 
@@ -175,7 +173,7 @@
                     android:layout_height="140dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:backgroundTint="#80D6FDF6">
+                    android:backgroundTint="@color/light_green_200">
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -189,36 +187,38 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|center_horizontal"
                         android:fontFamily="@font/font1"
-                        android:text="Profile"
+                        android:text="@string/profile"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
+
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="355dp"
                 android:layout_height="140dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="#80D6FDF6"
-                android:elevation="20dp"
-                >
+                android:backgroundTint="@color/light_green_200"
+                android:elevation="20dp">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/shirt"
+                    android:contentDescription="@string/running_man"
                     android:paddingEnd="120dp"
-                    />
+                    android:src="@drawable/shirt"
+                    tools:ignore="RtlSymmetry" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Live\nMatches"
                     android:layout_gravity="center|end"
-                    android:gravity="center_horizontal"
-                    android:textSize="28dp"
-                    android:fontFamily="@font/font2"
                     android:layout_marginEnd="30dp"
+                    android:fontFamily="@font/font2"
+                    android:gravity="center_horizontal"
+                    android:text="@string/live_matches"
                     android:textColor="@color/black"
-                    />
+                    android:textSize="28sp" />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </LinearLayout>
