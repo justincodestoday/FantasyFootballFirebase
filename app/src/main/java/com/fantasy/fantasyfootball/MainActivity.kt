@@ -14,8 +14,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
-    private var bytes: ByteArray? = null
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration

@@ -29,5 +29,4 @@ class PlayerRepository(private val playerDao: PlayerDao) {
     suspend fun getPlayersBySearch(name: String): List<Player> {
         return playerDao.getPlayersBySearch(name)
     }
-
 }

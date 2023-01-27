@@ -6,10 +6,6 @@ import com.fantasy.fantasyfootball.data.model.User
 
 @Dao
 interface UserDao {
-//    @Transaction
-//    @Query("SELECT * FROM user")
-//    fun getUsersWithPlaylists(): List<FantasyTeam>
-
     @Query("SELECT * FROM user")
     suspend fun getUsers(): List<User>
 
