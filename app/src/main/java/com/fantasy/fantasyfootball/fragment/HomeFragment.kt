@@ -4,21 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isGone
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.*
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
 import com.fantasy.fantasyfootball.viewModel.UserViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private val pickPlayerFragment = PickPlayerFragment.getInstance()
 
     //    private val userViewModel: UserViewModel by activityViewModels()
     private val userViewModel: UserViewModel by viewModels()
@@ -48,6 +43,12 @@ class HomeFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(action)
         }
 
+        setFragmentResultListener("from_pick_player") { _, result ->
+            val refresh = result.getBoolean("refresh")
+            if (refresh) {
+                pickPlayerFragment.refresh("")
+            }
+        }
     }
 
     private fun setFragment(fragment: Fragment) {

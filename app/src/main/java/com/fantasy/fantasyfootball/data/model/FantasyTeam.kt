@@ -12,8 +12,7 @@ data class FantasyTeam(
     var name: String? = null,
     var points: Int = 0,
     var remainingBudget: Float = 0f,
-    var lastUpdated: Date? = null,
-
+    var lastUpdated: String? = null,
     val userId: Int,
 
 //    @Embedded val user: User? = null,

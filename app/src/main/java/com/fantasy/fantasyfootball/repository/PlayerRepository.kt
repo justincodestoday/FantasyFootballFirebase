@@ -6,8 +6,16 @@ import com.fantasy.fantasyfootball.data.model.Player
 class PlayerRepository(private val playerDao: PlayerDao) {
 
     // Get all players
-    suspend fun getPlayers(player: Player): List<Player> {
-        return playerDao.getPlayers()
+    suspend fun getPlayers(player: String): List<Player> {
+        if(player == "") {
+            return playerDao.getPlayers()
+        }
+        return playerDao.getPlayersBySearch(player)
+    }
+
+    // Gets players by position
+    suspend fun getPlayersByPosition(player: Player): List<Player> {
+        return getPlayersByPosition(player)
     }
 
     // Get player by id
@@ -26,7 +34,7 @@ class PlayerRepository(private val playerDao: PlayerDao) {
     }
 
     // Get players by searching for name
-    suspend fun getPlayersBySearch(name: String): List<Player> {
-        return playerDao.getPlayersBySearch(name)
+    suspend fun getPlayersBySearch(firstname: String): List<Player> {
+        return playerDao.getPlayersBySearch(firstname)
     }
 }
