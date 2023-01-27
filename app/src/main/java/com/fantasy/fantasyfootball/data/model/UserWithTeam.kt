@@ -9,5 +9,5 @@ data class UserWithTeam(
         parentColumn = "userId",
         entityColumn = "userId"
     )
-    val team: FantasyTeam
+    val team: Team
 )
