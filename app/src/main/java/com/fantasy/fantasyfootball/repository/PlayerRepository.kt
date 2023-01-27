@@ -10,6 +10,11 @@ class PlayerRepository(private val playerDao: PlayerDao) {
         return playerDao.getPlayers()
     }
 
+    // Gets players by position
+    suspend fun getPlayersByPosition(player: Player): List<Player> {
+        return getPlayersByPosition(player)
+    }
+
     // Get player by id
     suspend fun getPlayerById(playerId: Int): Player? {
         return playerDao.getPlayerById(playerId)

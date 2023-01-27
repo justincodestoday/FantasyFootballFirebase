@@ -9,9 +9,9 @@ import kotlinx.coroutines.launch
 
 class PickTeamViewModel(private val repo: PlayerRepository): ViewModel() {
 
-    fun getPlayers(player: Player) {
+    fun getPlayersByPosition(player: Player) {
         viewModelScope.launch {
-            repo.getPlayers(player)
+            repo.getPlayersByPosition(player)
         }
     }
 
