@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.data.model
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,8 +10,4 @@ data class User(
     var name: String? = null,
     var username: String? = null,
     var password: String? = null,
-//    val teamName: String? = null,
-//    var points: Int = 0,
-//    var remainingBudget: Float = 0f,
-//    var lastUpdated: Date? = null,
 )

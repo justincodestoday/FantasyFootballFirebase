@@ -61,7 +61,9 @@
     <string name="register_successfully">Successfully registered</string>
 
     <!-- Errors -->
-    <string name="missing_name">Name is required</string>
+    <string name="missing_name">Name is required.</string>
+    <string name="fill_all_fields">Please fill all fields.</string>
+    <string name="nothing">Nothing</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
