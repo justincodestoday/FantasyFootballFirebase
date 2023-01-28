@@ -13,12 +13,14 @@ import com.fantasy.fantasyfootball.viewModel.PickTeamViewModel
 import android.R
 
 import android.widget.TextView
-
-
+import androidx.fragment.app.findFragment
+import androidx.fragment.app.setFragmentResultListener
+import com.fantasy.fantasyfootball.constant.Enums
 
 
 class PickTeamFragment : Fragment() {
     private lateinit var binding: FragmentPickTeamBinding
+    private val pickPlayerFragment = PickPlayerFragment.getInstance()
     private val viewModel: PickTeamViewModel by viewModels {
         PickTeamViewModel.Provider((requireContext().applicationContext as MainApplication).playerRepo)
     }
@@ -33,53 +35,70 @@ class PickTeamFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        setFragmentResultListener("from_pick_player") { _, result ->
+//            val refresh = result.getBoolean("refresh")
+//            if (refresh) {
+//                pickPlayerFragment.refresh("", "")
+//            }
+//        }
+
         binding.gk.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+            val area = Enums.Area.Goalkeeper
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.lb.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Defender
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.lcb.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Defender
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.rcb.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Defender
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.lm.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Midfielder
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.lcm.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Midfielder
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.rcm.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Midfielder
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.rm.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Midfielder
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.ls.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Striker
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.rs.setOnClickListener {
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment()
+             val area = Enums.Area.Striker
+            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
     }

@@ -30,6 +30,7 @@
         <action
             android:id="@+id/action_pickTeamFragment_to_pickPlayerFragment"
             app:destination="@id/pickPlayerFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/credentialsFragment"
@@ -48,5 +49,12 @@
     <fragment
         android:id="@+id/pickPlayerFragment"
         android:name="com.fantasy.fantasyfootball.fragment.PickPlayerFragment"
-        android:label="Pick Player" />
+        android:label="Pick Player" >
+    <argument app:argType="string"
+        android:name="area"
+        />
+        <action
+            android:id="@+id/action_pickPlayerFragment_to_pickTeamFragment"
+            app:destination="@id/pickTeamFragment" />
+    </fragment>
 </navigation>

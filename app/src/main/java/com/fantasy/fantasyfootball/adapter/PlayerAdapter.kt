@@ -20,6 +20,9 @@ class PlayerAdapter(var players: List<Player>, val onClick:(player: Player) -> U
             tvName.text = player.name
             tvTeam.text = player.area.toString()
             tvPrice.text = player.price.toString() + " m"
+            cvPlayerCard.setOnClickListener {
+                onClick(player)
+            }
         }
     }
 

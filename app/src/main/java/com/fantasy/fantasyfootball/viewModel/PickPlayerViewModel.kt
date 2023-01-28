@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
 import com.fantasy.fantasyfootball.repository.PlayerRepository
 import kotlinx.coroutines.launch
@@ -15,12 +14,34 @@ class PickPlayerViewModel(val repo: PlayerRepository): ViewModel() {
 
     init {
 //        mutableListOf(players)
-        getPlayers("")
+//        getPlayers("")
+//        getPlayersByPosition(Enums.Position.GK)
     }
 
-    fun getPlayers(player: String) {
+//    fun getPlayers(area: String, playername: String) {
+//        viewModelScope.launch {
+//            val res = repo.getPlayers(area, playername)
+//            players.value = res
+//        }
+//    }
+
+    fun getPlayersByArea(area: String) {
         viewModelScope.launch {
-            val res = repo.getPlayers(player)
+            val res = repo.getPlayersByArea(area)
+            players.value = res
+        }
+    }
+
+    fun getPlayersBySearch(area: String, playername: String) {
+        viewModelScope.launch {
+            val res = repo.getPlayersBySearch(area, playername)
+            players.value = res
+        }
+    }
+
+    fun sortPlayers(order:String,by:String){
+        viewModelScope.launch {
+            val res = repo.sortPlayer(order, by)
             players.value = res
         }
     }
