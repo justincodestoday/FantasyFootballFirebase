@@ -13,7 +13,6 @@ import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private val pickPlayerFragment = PickPlayerFragment.getInstance()
 
     //    private val userViewModel: UserViewModel by activityViewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
@@ -41,13 +40,6 @@ class HomeFragment : Fragment() {
         binding.profile.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
             NavHostFragment.findNavController(this).navigate(action)
-        }
-
-        setFragmentResultListener("from_pick_player") { _, result ->
-            val refresh = result.getBoolean("refresh")
-            if (refresh) {
-                pickPlayerFragment.refresh("")
-            }
         }
     }
 

@@ -3,15 +3,15 @@ package com.fantasy.fantasyfootball.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.data.model.Player
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.repository.PlayerRepository
 import kotlinx.coroutines.launch
 
 class PickTeamViewModel(private val repo: PlayerRepository): ViewModel() {
 
-    fun getPlayersByPosition(player: Player) {
+    fun getPlayersByArea(area: String) {
         viewModelScope.launch {
-            repo.getPlayersByPosition(player)
+            repo.getPlayersByArea(area)
         }
     }
 
