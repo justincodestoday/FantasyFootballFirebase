@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.PlayerAdapter
-import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 
@@ -55,7 +54,7 @@ class PickPlayerFragment : Fragment() {
             adapter.setPlayer(players)
         }
 
-        binding.svSearch.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        binding.search.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 p0?.let {
                     currentFilter = it

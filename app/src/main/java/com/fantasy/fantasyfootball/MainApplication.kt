@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.fantasy.fantasyfootball.data.FantasyDatabase
 import com.fantasy.fantasyfootball.repository.PlayerRepository
+import com.fantasy.fantasyfootball.repository.TeamRepository
 import com.fantasy.fantasyfootball.repository.UserRepository
 import com.fantasy.fantasyfootball.util.StorageService
 import com.google.gson.Gson
@@ -12,6 +13,7 @@ import com.google.gson.Gson
 class MainApplication : Application() {
     lateinit var userRepo: UserRepository
     lateinit var playerRepo: PlayerRepository
+    lateinit var teamDao: TeamRepository
     lateinit var storageService: StorageService
 
     override fun onCreate() {
@@ -25,6 +27,7 @@ class MainApplication : Application() {
             .build()
         userRepo = UserRepository(fantasyDatabase.userDao)
         playerRepo = PlayerRepository(fantasyDatabase.playerDao)
+        teamDao = TeamRepository(fantasyDatabase.teamDao)
 
         val name: String = this.packageName ?: throw NullPointerException("No package name found")
         storageService = StorageService.getInstance(
