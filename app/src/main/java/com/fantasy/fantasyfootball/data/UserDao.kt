@@ -1,7 +1,6 @@
 package com.fantasy.fantasyfootball.data
 
 import androidx.room.*
-import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
 
@@ -18,9 +17,6 @@ interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createUser(user: User): Long
-
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    suspend fun createTeam(team: Team)
 
     @Query("DELETE FROM user WHERE userId = :userId")
     suspend fun delete(userId: Int)
