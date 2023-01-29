@@ -18,7 +18,7 @@ data class Player(
     var color: Enums.ShirtColor? = null,
     var isSet: Boolean = false,
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    val image: ByteArray? = null
+    val image: ByteArray? = null,
 ) {
     val name: String
         get() = "$firstName $lastName"

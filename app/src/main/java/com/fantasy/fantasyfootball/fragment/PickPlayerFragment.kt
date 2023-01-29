@@ -73,7 +73,7 @@ class PickPlayerFragment : Fragment() {
             }
         })
 
-        binding.ivFilter.setOnClickListener {
+        binding.search.ivFilter.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.filter_dialog, null)
             val filterDialog = Dialog(requireContext(), R.style.Filter_AlertDialog)
             filterDialog.setContentView(dialogView)

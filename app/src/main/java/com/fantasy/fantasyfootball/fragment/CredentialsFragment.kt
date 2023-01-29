@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.fantasy.fantasyfootball.adapter.CredentialsAdapter
 import com.fantasy.fantasyfootball.databinding.FragmentCredentialsBinding
-
+import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
 
 class CredentialsFragment : Fragment() {
     private lateinit var binding: FragmentCredentialsBinding
@@ -19,8 +19,6 @@ class CredentialsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCredentialsBinding.inflate(inflater, container, false)
-//        val drawer = requireActivity().findViewById<View>(R.id.drawerLayout) as DrawerLayout
-//        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         return binding.root
     }
 
