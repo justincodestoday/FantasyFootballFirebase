@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
 import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -33,6 +36,11 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnLogin.setOnClickListener {
+            val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
     }
 
     private fun setFragment(fragment: Fragment) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -15,6 +16,7 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentCredentialsBinding
 import com.fantasy.fantasyfootball.databinding.FragmentRegisterBinding
 import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
@@ -22,7 +24,8 @@ class RegisterFragment : Fragment() {
     private lateinit var credBinding: FragmentCredentialsBinding
     private val viewModel: RegisterViewModel by viewModels {
         RegisterViewModel.Provider(
-            (requireContext().applicationContext as MainApplication).userRepo
+            (requireContext().applicationContext as MainApplication).userRepo,
+            (requireContext().applicationContext as MainApplication).teamRepo
         )
     }
 
@@ -31,6 +34,10 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
+//        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
+//        bottomNav.visibility = View.GONE
+//        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+//        toolbar.visibility = View.GONE
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         return binding.root
@@ -55,16 +62,16 @@ class RegisterFragment : Fragment() {
             }
             snackBar.show()
         }
-
-//        viewModel.navigate.asLiveData().observe(viewLifecycleOwner) {
-//            credBinding.viewPager.setCurrentItem(0, true)
-//        }
     }
 
     private fun enumToString(type: String?): String? {
         return when (type) {
-            Enums.FormErrors.MISSING_NAME.name -> context?.getString(R.string.fill_all_fields)
-            Enums.FormSuccess.REGISTER_SUCCESSFUL.name -> context?.getString(R.string.register_successfully)
+            Enums.FormErrors.MISSING_NAME.name -> context?.getString(R.string.missing_name)
+            Enums.FormErrors.MISSING_TEAM_NAME.name -> context?.getString(R.string.missing_team_name)
+            Enums.FormErrors.INVALID_USERNAME.name -> context?.getString(R.string.invalid_username)
+            Enums.FormErrors.INVALID_PASSWORD.name -> context?.getString(R.string.invalid_password)
+            Enums.FormErrors.PASSWORDS_NOT_MATCHING.name -> context?.getString(R.string.passwords_not_matching)
+            Enums.FormSuccess.REGISTER_SUCCESSFUL.name -> context?.getString(R.string.register_successful)
             else -> context?.getString(R.string.nothing)
         }
     }

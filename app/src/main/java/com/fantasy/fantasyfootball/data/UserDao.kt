@@ -1,8 +1,9 @@
 package com.fantasy.fantasyfootball.data
 
 import androidx.room.*
-import com.fantasy.fantasyfootball.data.model.Player
+import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
+import com.fantasy.fantasyfootball.data.model.UserWithTeam
 
 @Dao
 interface UserDao {
@@ -16,8 +17,15 @@ interface UserDao {
     suspend fun getUserByCredentials(username: String, password: String): User?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(user: User)
+    suspend fun createUser(user: User): Long
+
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun createTeam(team: Team)
 
     @Query("DELETE FROM user WHERE userId = :userId")
     suspend fun delete(userId: Int)
+
+    @Transaction
+    @Query("SELECT * FROM user")
+    suspend fun getUsersWithTeams(): List<UserWithTeam>
 }
