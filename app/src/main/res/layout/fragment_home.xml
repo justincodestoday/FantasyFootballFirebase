@@ -206,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/running_man"
                     android:paddingEnd="120dp"
-                    android:src="@drawable/shirt"
+                    android:src="@drawable/img"
                     tools:ignore="RtlSymmetry" />
 
                 <TextView

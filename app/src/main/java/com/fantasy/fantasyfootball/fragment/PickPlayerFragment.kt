@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.PlayerAdapter
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 
@@ -48,6 +49,7 @@ class PickPlayerFragment : Fragment() {
         setupAdapter()
 
         val args: PickPlayerFragmentArgs by navArgs()
+        var selectedArea = args.area
         viewModel.getPlayersByArea(args.area)
 
         viewModel.players.observe(viewLifecycleOwner) { players ->
@@ -72,7 +74,7 @@ class PickPlayerFragment : Fragment() {
             }
         })
 
-        binding.ivFilter.setOnClickListener {
+        binding.search.ivFilter.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.filter_dialog, null)
             val filterDialog = Dialog(requireContext(), R.style.Filter_AlertDialog)
             filterDialog.setContentView(dialogView)
@@ -87,7 +89,7 @@ class PickPlayerFragment : Fragment() {
                 val radioG2Button = filterDialog.findViewById<RadioButton>(radioG2Checked)
                 val radioG1ButtonText = radioG1Button.text
                 val radioG2ButtonText = radioG2Button.text
-                sortRefresh(radioG1ButtonText.toString(), radioG2ButtonText.toString())
+                sortRefresh(radioG1ButtonText.toString(), radioG2ButtonText.toString(), selectedArea)
                 filterDialog.hide()
             }
         }
@@ -111,8 +113,8 @@ class PickPlayerFragment : Fragment() {
         }
     }
 
-    fun sortRefresh(order: String, by: String) {
-        viewModel.sortPlayers(order, by)
+    fun sortRefresh(order: String, by: String, area: String) {
+        viewModel.sortPlayers(order, by, area)
     }
 
     companion object {

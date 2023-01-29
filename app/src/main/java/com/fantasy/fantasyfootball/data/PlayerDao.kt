@@ -27,6 +27,6 @@ interface PlayerDao {
     suspend fun updateStatusById(playerId: Int, isSet: Boolean)
 
     // making sure name works for first name + last name
-    @Query("SELECT * FROM player WHERE area = :area AND firstName LIKE '%' || :playerName || '%' OR lastName LIKE '%' || :playerName || '%'")
+    @Query("SELECT * FROM player WHERE area = :area AND (firstName LIKE '%' || :playerName || '%' OR lastName LIKE '%' || :playerName || '%')")
     suspend fun getPlayersBySearch(area: String, playerName: String): List<Player>
 }

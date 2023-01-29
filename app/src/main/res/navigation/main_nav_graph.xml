@@ -27,6 +27,7 @@
         android:name="com.fantasy.fantasyfootball.fragment.PickTeamFragment"
         android:label="Pick Team"
         tools:layout="@layout/fragment_pick_team">
+<!--        <argument android:name="position" app:argType="string" />-->
         <action
             android:id="@+id/action_pickTeamFragment_to_pickPlayerFragment"
             app:destination="@id/pickPlayerFragment" />
