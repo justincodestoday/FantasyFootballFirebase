@@ -44,7 +44,4 @@ class HomeFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(action)
         }
     }
-
-    fun showWelcomeMessage() {
-    }
 }
