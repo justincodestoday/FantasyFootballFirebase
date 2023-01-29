@@ -24,10 +24,13 @@ class PickTeamFragment : Fragment() {
     private val viewModel: PickTeamViewModel by viewModels {
         PickTeamViewModel.Provider((requireContext().applicationContext as MainApplication).playerRepo)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+//        val position = PickTeamFragmentArgs.fromBundle(requireArguments()).position
+//        setImageForPosition(position, binding)
         binding = FragmentPickTeamBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -44,62 +47,88 @@ class PickTeamFragment : Fragment() {
 
         binding.gk.setOnClickListener {
             val area = Enums.Area.Goalkeeper
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.lb.setOnClickListener {
-             val area = Enums.Area.Defender
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Defender
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.lcb.setOnClickListener {
-             val area = Enums.Area.Defender
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Defender
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.rcb.setOnClickListener {
-             val area = Enums.Area.Defender
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Defender
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.lm.setOnClickListener {
-             val area = Enums.Area.Midfielder
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Midfielder
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.lcm.setOnClickListener {
-             val area = Enums.Area.Midfielder
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Midfielder
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.rcm.setOnClickListener {
-             val area = Enums.Area.Midfielder
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Midfielder
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.rm.setOnClickListener {
-             val area = Enums.Area.Midfielder
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Midfielder
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.ls.setOnClickListener {
-             val area = Enums.Area.Striker
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Striker
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.rs.setOnClickListener {
-             val area = Enums.Area.Striker
-            val action = PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
+            val area = Enums.Area.Striker
+            val action =
+                PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
+        }
+    }
+
+    fun setImageForPosition(position: String, binding: FragmentPickTeamBinding) {
+        when (position) {
+            "GK" -> binding.gk.setImageResource(R.drawable.ic_delete)
+            "LB" -> binding.lb.setImageResource(R.drawable.ic_delete)
+            "LCB" -> binding.lcb.setImageResource(R.drawable.ic_delete)
+            "RCB" -> binding.rcb.setImageResource(R.drawable.ic_delete)
+            "RB" -> binding.rb.setImageResource(R.drawable.ic_delete)
+            "LM" -> binding.lm.setImageResource(R.drawable.ic_delete)
+            "LCM" -> binding.lcm.setImageResource(R.drawable.ic_delete)
+            "RCM" -> binding.rcm.setImageResource(R.drawable.ic_delete)
+            "RM" -> binding.rm.setImageResource(R.drawable.ic_delete)
+             "LS" -> binding.ls.setImageResource(R.drawable.ic_delete)
+             "RS" -> binding.rs.setImageResource(R.drawable.ic_delete)
         }
     }
 }

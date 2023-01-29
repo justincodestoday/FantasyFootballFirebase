@@ -49,6 +49,7 @@ class PickPlayerFragment : Fragment() {
         setupAdapter()
 
         val args: PickPlayerFragmentArgs by navArgs()
+        var selectedArea = args.area
         viewModel.getPlayersByArea(args.area)
 
         viewModel.players.observe(viewLifecycleOwner) { players ->
@@ -88,7 +89,7 @@ class PickPlayerFragment : Fragment() {
                 val radioG2Button = filterDialog.findViewById<RadioButton>(radioG2Checked)
                 val radioG1ButtonText = radioG1Button.text
                 val radioG2ButtonText = radioG2Button.text
-                sortRefresh(radioG1ButtonText.toString(), radioG2ButtonText.toString())
+                sortRefresh(radioG1ButtonText.toString(), radioG2ButtonText.toString(), selectedArea)
                 filterDialog.hide()
             }
         }
@@ -112,8 +113,8 @@ class PickPlayerFragment : Fragment() {
         }
     }
 
-    fun sortRefresh(order: String, by: String) {
-        viewModel.sortPlayers(order, by)
+    fun sortRefresh(order: String, by: String, area: String) {
+        viewModel.sortPlayers(order, by, area)
     }
 
     companion object {

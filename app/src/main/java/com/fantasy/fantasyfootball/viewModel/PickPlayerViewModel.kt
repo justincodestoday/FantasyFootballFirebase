@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -39,9 +40,9 @@ class PickPlayerViewModel(val repo: PlayerRepository): ViewModel() {
         }
     }
 
-    fun sortPlayers(order:String,by:String){
+    fun sortPlayers(order:String, by:String, area: String){
         viewModelScope.launch {
-            val res = repo.sortPlayer(order, by)
+            val res = repo.sortPlayer(order, by, area)
             players.value = res
         }
     }
