@@ -12,7 +12,7 @@
     <!-- Drawer -->
     <string name="drawer_name">Full Name</string>
     <string name="drawer_username">Username</string>
-    <string name="drawer_logged_out_message">Please log in to use this app.</string>
+    <string name="drawer_logged_out_message">Please log in to use this app</string>
     <string name="add_profile_picture">Add Profile Picture</string>
 
     <!-- Fragment -->
@@ -25,12 +25,13 @@
     <string name="login">Login</string>
     <string name="signin">Sign in</string>
     <string name="register">Register</string>
-    <string name="create_account">Create an account</string>
+    <string name="create_account">Create a Fantasy account</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="retype_password">Retype Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="full_name">Full Name</string>
+    <string name="team_name">Team Name</string>
     <string name="swipe_right_to_login">Swipe Right to Login</string>
     <string name="swipe_left_to_register">Swipe Left to Register</string>
     <string name="swipe_right">Swipe Right</string>
@@ -51,18 +52,23 @@
     <string name="player_price">Player Price</string>
 
     <!-- Alert -->
-    <string name="login_successful">LOGIN_SUCCESSFUL</string>
-    <string name="login_unsuccessful">LOGIN_UNSUCCESSFUL</string>
     <string name="dialog_button_positive">Confirm</string>
     <string name="dialog_button_negative">Cancel</string>
     <string name="dialog_button_neutral">OK</string>
 
     <!-- Success -->
-    <string name="register_successfully">Successfully registered</string>
+    <string name="register_successful">Successfully registered</string>
+    <string name="register_unsuccessful">Failed to register</string>
+    <string name="login_successful">Successfully logged in</string>
+    <string name="login_unsuccessful">Failed to login</string>
 
     <!-- Errors -->
-    <string name="missing_name">Name is required.</string>
-    <string name="fill_all_fields">Please fill all fields.</string>
+    <string name="empty_field">Please fill all the fields</string>
+    <string name="missing_name">Name is required</string>
+    <string name="missing_team_name">Team name is required</string>
+    <string name="invalid_username">Username must be at least 8 characters long</string>
+    <string name="invalid_password">Password must be at least 8 characters long</string>
+    <string name="passwords_not_matching">Please ensure that the passwords match</string>
     <string name="nothing">Nothing</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -72,9 +78,10 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+
+    <!-- strings -->
+    <string name="empty_string" />
 
     <!--    <string name="dialog_title_confirm">Confirm</string>-->
 </resources>

@@ -6,7 +6,7 @@ import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.Player
 import com.fantasy.fantasyfootball.data.model.User
 
-@Database(entities = [User::class, Team::class, Player::class], version = 2)
+@Database(entities = [User::class, Team::class, Player::class], version = 1)
 abstract class FantasyDatabase : RoomDatabase() {
     abstract val userDao: UserDao
     abstract val playerDao: PlayerDao

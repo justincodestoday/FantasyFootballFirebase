@@ -11,6 +11,7 @@ class Enums {
 
     enum class FormErrors {
         MISSING_NAME,
+        MISSING_TEAM_NAME,
         INVALID_USERNAME,
         INVALID_PASSWORD,
         PASSWORDS_NOT_MATCHING,

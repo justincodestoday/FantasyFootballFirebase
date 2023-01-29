@@ -13,7 +13,7 @@ import com.google.gson.Gson
 class MainApplication : Application() {
     lateinit var userRepo: UserRepository
     lateinit var playerRepo: PlayerRepository
-    lateinit var teamDao: TeamRepository
+    lateinit var teamRepo: TeamRepository
     lateinit var storageService: StorageService
 
     override fun onCreate() {
@@ -27,7 +27,7 @@ class MainApplication : Application() {
             .build()
         userRepo = UserRepository(fantasyDatabase.userDao)
         playerRepo = PlayerRepository(fantasyDatabase.playerDao)
-        teamDao = TeamRepository(fantasyDatabase.teamDao)
+        teamRepo = TeamRepository(fantasyDatabase.teamDao)
 
         val name: String = this.packageName ?: throw NullPointerException("No package name found")
         storageService = StorageService.getInstance(

@@ -7,7 +7,7 @@ data class UserWithTeam(
     @Embedded val user: User,
     @Relation(
         parentColumn = "userId",
-        entityColumn = "userId"
+        entityColumn = "ownerId"
     )
     val team: Team
 )

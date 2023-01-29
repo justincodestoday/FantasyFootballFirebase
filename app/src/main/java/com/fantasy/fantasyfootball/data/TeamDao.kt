@@ -12,7 +12,7 @@ interface TeamDao {
     suspend fun getTeamById(teamId: Int): Team?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(team: Team)
+    suspend fun createTeam(team: Team)
 
     @Query("DELETE FROM team WHERE teamId = :teamId")
     suspend fun delete(teamId: Int)
