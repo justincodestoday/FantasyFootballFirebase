@@ -74,14 +74,29 @@ class LoginFragment : Fragment() {
             snackBar.show()
         }
 
-        viewModel.userLiveData.observe(viewLifecycleOwner){
-            if(it != null){
+        viewModel.userLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
                 authService.authenticate(it)
                 val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
                 NavHostFragment.findNavController(this).navigate(action)
-                Toast.makeText(requireContext(), context?.getString(R.string.login_successful), Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(requireContext(), context?.getString(R.string.no_user), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    context?.getString(R.string.login_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val snackBar = Snackbar.make(
+                    binding.root,
+                    requireContext().getString(R.string.wrong_credentials),
+                    Snackbar.LENGTH_LONG
+                )
+                snackBar.setBackgroundTint(
+                    ContextCompat.getColor(requireContext(), R.color.red_500)
+                )
+                snackBar.setAction("Hide") {
+                    snackBar.dismiss()
+                }
+                snackBar.show()
             }
         }
     }
@@ -108,8 +123,6 @@ class LoginFragment : Fragment() {
 
     companion object {
         private var loginFragmentInstance: LoginFragment? = null
-
-//        val LOGIN_SUCCESSFUL = Enums.LoginStatus.LOGIN_SUCCESSFUL.name
 
         fun getInstance(): LoginFragment {
             if (loginFragmentInstance == null) {

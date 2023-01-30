@@ -18,4 +18,5 @@
     <color name="dark_green_200">#FF82C490</color>
     <color name="colorAccent">#FF4F89</color>
     <color name="yellow_500">#FFE3BF02</color>
+    <color name="yellow_900">#B59800</color>
 </resources>
