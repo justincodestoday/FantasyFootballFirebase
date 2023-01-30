@@ -23,9 +23,10 @@
 
     <!-- Login -->
     <string name="login">Login</string>
-    <string name="signin">Sign in</string>
+    <string name="sign_in">Sign in</string>
     <string name="register">Register</string>
     <string name="create_account">Create a Fantasy account</string>
+    <string name="sign_into_account">Sign into your Fantasy account</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -69,16 +70,13 @@
     <string name="invalid_username">Username must be at least 8 characters long</string>
     <string name="invalid_password">Password must be at least 8 characters long</string>
     <string name="passwords_not_matching">Please ensure that the passwords match</string>
+    <string name="no_user">User does not exist</string>
+    <string name="incorrect_password">Incorrect password</string>
+    <string name="wrong_credentials">Username and password do not match</string>
     <string name="nothing">Nothing</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <!-- Strings related to login -->
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="login_failed">"Login failed"</string>
 
     <!-- strings -->
     <string name="empty_string" />

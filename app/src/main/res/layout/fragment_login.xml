@@ -1,73 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.fantasy.fantasyfootball.constant.Enums.FormErrors" />
+
+        <variable
+            name="viewModel"
+            type="com.fantasy.fantasyfootball.viewModel.LoginViewModel" />
+
+        <variable
+            name="user"
+            type="com.fantasy.fantasyfootball.data.model.User" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragment.LoginFragment">
 
+        <LinearLayout
+            android:id="@+id/llLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/logo"
+                android:src="@drawable/img2" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/font1"
+                android:text="@string/logo_name"
+                android:textColor="@color/dark_purple_700"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/et_username"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="10dp"
+            android:layout_above="@id/ti_username"
+            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+            android:layout_marginBottom="20dp"
             android:fontFamily="@font/merriweather_regular"
-            android:text="@string/login"
-            android:textSize="50sp" />
+            android:text="@string/sign_into_account"
+            android:textSize="30sp" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/tv_subtitle"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_above="@id/et_email"-->
-        <!--            android:layout_marginStart="25dp"-->
-        <!--            android:layout_marginBottom="50dp"-->
-        <!--            android:fontFamily="@font/roboto_regular"-->
-        <!--            android:text="@string/tag"-->
-        <!--            android:textSize="17sp" />-->
-
-        <EditText
-            android:id="@+id/et_username"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ti_username"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_above="@id/et_password"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/custom_edit_text"
-            android:fontFamily="@font/roboto_regular"
-            android:hint="@string/username"
-            android:inputType="text"
-            android:padding="15dp"
-            android:textSize="15sp" />
+            android:layout_height="wrap_content"
+            android:layout_above="@id/ti_password"
+            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:errorEnabled="false"
+            app:helperText="@string/empty_string"
+            app:helperTextTextColor="@color/red_500"
+            app:hintEnabled="false">
 
-        <EditText
-            android:id="@+id/et_password"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/custom_edit_text"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/username"
+                android:inputType="text"
+                android:padding="15dp"
+                android:text="@={viewModel.username}"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ti_password"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/custom_edit_text"
-            android:fontFamily="@font/roboto_regular"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:textSize="15sp" />
+            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+            android:layout_marginBottom="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:errorEnabled="false"
+            app:helperText="@string/empty_string"
+            app:helperTextTextColor="@color/red_500"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/custom_edit_text"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:text="@={viewModel.password}"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_password"
+            android:layout_below="@id/ti_password"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/fragment_vertical_margin"
             android:layout_marginRight="20dp"
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
+            android:onClick="@{() -> viewModel.login()}"
             android:text="@string/login"
             android:textColor="@android:color/white" />
 
@@ -76,8 +134,8 @@
             android:layout_height="30dp"
             android:layout_above="@id/swipeLeft"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_arrow_forward"
-            android:contentDescription="@string/swipe_left" />
+            android:contentDescription="@string/swipe_left"
+            android:src="@drawable/ic_arrow_forward" />
 
         <TextView
             android:id="@+id/swipeLeft"

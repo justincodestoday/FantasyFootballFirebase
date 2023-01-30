@@ -6,10 +6,13 @@ class Enums {
     }
 
     enum class FormSuccess {
+        LOGIN_SUCCESSFUL,
         REGISTER_SUCCESSFUL
     }
 
     enum class FormErrors {
+        EMPTY_FIELD,
+        WRONG_CREDENTIALS,
         MISSING_NAME,
         MISSING_TEAM_NAME,
         INVALID_USERNAME,

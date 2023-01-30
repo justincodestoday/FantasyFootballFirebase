@@ -48,6 +48,13 @@ class RegisterFragment : Fragment() {
 
         viewModel.success.asLiveData().observe(viewLifecycleOwner) {
             val msg = enumToString(it)
+            binding.run {
+                etName.text?.clear()
+                etTeamName.text?.clear()
+                etUsername.text?.clear()
+                etPassword.text?.clear()
+                etPasswordConfirm.text?.clear()
+            }
             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
         }
 
