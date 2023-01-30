@@ -17,9 +17,11 @@
 
     <!-- Fragment -->
     <string name="home">Home</string>
-    <string name="leaderboard">Leaderboard</string>
     <string name="profile">Profile</string>
+    <string name="leaderboard">Leaderboard</string>
     <string name="dashboard">Dashboard</string>
+    <string name="team">Team</string>
+    <string name="fixtures">Fixtures</string>
 
     <!-- Login/Register -->
     <string name="login">Login</string>
