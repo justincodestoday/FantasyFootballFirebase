@@ -9,8 +9,7 @@
     <item
         android:id="@+id/pickTeamFragment"
         android:icon="@drawable/ic_shirt"
-        android:iconTint="@color/black"
-        android:title="Fantasy" />
+        android:title="@string/team" />
 
     <item
         android:id="@+id/leaderboardFragment"

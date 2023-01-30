@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -26,14 +28,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val authService = AuthService.getInstance(this)
-
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+
+        val authService = AuthService.getInstance(this)
+
         setSupportActionBar(binding.toolbar)
         drawerLayout = binding.drawerLayout
         navController = findNavController(R.id.navHostFragment)
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+//        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.leaderboardFragment,
+                R.id.pickTeamFragment
+            ),
+            drawerLayout
+        )
+        navController.addOnDestinationChangedListener { controller: NavController, destination: NavDestination, bundle: Bundle? ->
+            binding.bottomNav.isVisible =
+                appBarConfiguration.topLevelDestinations.contains(destination.id)
+            binding.toolbar.isVisible =
+                appBarConfiguration.topLevelDestinations.contains(destination.id)
+
+        }
+
         binding.navigationView.setupWithNavController(navController)
         binding.bottomNav.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -51,10 +70,6 @@ class MainActivity : AppCompatActivity() {
 
         //        val user = authService.getAuthenticatedUser()
         authenticate(authService.getAuthenticatedUser())
-
-
-//        binding.bottomNav.visibility = View.VISIBLE
-//        binding.toolbar.visibility = View.VISIBLE
 
 //        binding.navigationView.getHeaderView(0).set
     }

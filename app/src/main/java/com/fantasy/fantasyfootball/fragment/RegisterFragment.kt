@@ -6,22 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.databinding.FragmentCredentialsBinding
 import com.fantasy.fantasyfootball.databinding.FragmentRegisterBinding
 import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
-    private lateinit var credBinding: FragmentCredentialsBinding
     private val viewModel: RegisterViewModel by viewModels {
         RegisterViewModel.Provider(
             (requireContext().applicationContext as MainApplication).userRepo,
@@ -34,10 +30,6 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentRegisterBinding.inflate(layoutInflater)
-//        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
-//        bottomNav.visibility = View.GONE
-//        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-//        toolbar.visibility = View.GONE
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         return binding.root
