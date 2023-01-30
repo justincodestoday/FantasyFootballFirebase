@@ -1,9 +1,10 @@
 package com.fantasy.fantasyfootball
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -22,10 +23,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-//    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val authService = AuthService.getInstance(this)
 
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
@@ -37,11 +38,24 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        binding.btnLogoutDrawer.setOnClickListener {
+            authService.unauthenticate()
+            Toast.makeText(
+                this,
+                applicationContext.getString(R.string.logout_successful),
+                Toast.LENGTH_SHORT
+            ).show()
+
+            recreate()
+        }
+
+        //        val user = authService.getAuthenticatedUser()
+        authenticate(authService.getAuthenticatedUser())
+
+
 //        binding.bottomNav.visibility = View.VISIBLE
 //        binding.toolbar.visibility = View.VISIBLE
-        val authService = AuthService.getInstance(this)
-        val user = authService.getAuthenticatedUser()
-        authenticate(user)
+
 //        binding.navigationView.getHeaderView(0).set
     }
 

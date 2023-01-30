@@ -21,9 +21,10 @@
     <string name="profile">Profile</string>
     <string name="dashboard">Dashboard</string>
 
-    <!-- Login -->
+    <!-- Login/Register -->
     <string name="login">Login</string>
     <string name="sign_in">Sign in</string>
+    <string name="sign_out">Sign out</string>
     <string name="register">Register</string>
     <string name="create_account">Create a Fantasy account</string>
     <string name="sign_into_account">Sign into your Fantasy account</string>
@@ -62,6 +63,7 @@
     <string name="register_unsuccessful">Failed to register</string>
     <string name="login_successful">Successfully logged in</string>
     <string name="login_unsuccessful">Failed to login</string>
+    <string name="logout_successful">Successfully logged out</string>
 
     <!-- Errors -->
     <string name="empty_field">Please fill all the fields</string>
