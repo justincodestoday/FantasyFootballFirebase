@@ -145,6 +145,7 @@
                 android:weightSum="1">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvLeaderBoard"
                     android:layout_width="0dp"
                     android:layout_height="140dp"
                     android:layout_gravity="center"

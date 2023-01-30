@@ -1,26 +1,56 @@
 package com.fantasy.fantasyfootball.viewModel
 
-import android.util.Patterns
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.*
-import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.repository.UserRepository
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repo: UserRepository) : ViewModel() {
-    val user: MutableLiveData<User> = MutableLiveData()
+    val userLiveData: MutableLiveData<User> = MutableLiveData()
 
-    fun login(username: String, password: String) {
+    val username: MutableLiveData<String> = MutableLiveData()
+    val password: MutableLiveData<String> = MutableLiveData()
+
+    val success: MutableSharedFlow<String> = MutableSharedFlow()
+    val error: MutableSharedFlow<String> = MutableSharedFlow()
+
+    fun login() {
         viewModelScope.launch {
-            val res = repo.getUserByCredentials(username, password)
-            res?.let {
-                user.value = it
+            if (username.value?.trim { it <= ' ' }
+                    .isNullOrEmpty() || password.value?.trim { it <= ' ' }.isNullOrEmpty()
+            ) {
+                error.emit(Enums.FormErrors.EMPTY_FIELD.name)
+            } else {
+                validateUser(username.value!!, password.value!!)
             }
         }
     }
+
+    fun validateUser(_username: String, _password: String) {
+        viewModelScope.launch {
+            repo.isValidUser(User(username = _username, password = _password)).collect {
+                userLiveData.postValue(it)
+                if (it != null) {
+                    if (it.username != username.value) {
+                        error.emit(Enums.FormErrors.INVALID_USERNAME.name)
+                    } else if (it.password != password.value) {
+                        error.emit(Enums.FormErrors.INVALID_PASSWORD.name)
+                    }
+                }
+            }
+        }
+    }
+
+//    fun validateUser(username: String, password: String) {
+//        viewModelScope.launch {
+//            repo.isValidUser(User(username = username, password = password)).collect {
+//                userLiveData.postValue(it)
+//            }
+//        }
+//    }
 
 //    private val _loginForm = MutableLiveData<LoginFormState>()
 //    val loginFormState: LiveData<LoginFormState> = _loginForm

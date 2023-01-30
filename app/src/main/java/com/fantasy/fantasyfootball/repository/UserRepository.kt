@@ -1,8 +1,10 @@
 package com.fantasy.fantasyfootball.repository
 
+import androidx.annotation.WorkerThread
 import com.fantasy.fantasyfootball.data.UserDao
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
+import kotlinx.coroutines.flow.Flow
 
 class UserRepository(private val userDao: UserDao) {
     suspend fun getUsers(): List<User> {
@@ -13,8 +15,9 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.getUserById(userId)
     }
 
-    suspend fun getUserByCredentials(username: String, password: String): User? {
-        return userDao.getUserByCredentials(username, password)
+//    @WorkerThread
+    suspend fun isValidUser(user: User): Flow<User?> {
+        return userDao.isValidUser(user.username!!, user.password!!)
     }
 
     suspend fun createUser(user: User): Long {

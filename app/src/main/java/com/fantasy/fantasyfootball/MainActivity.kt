@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     private fun authenticate(user: User?) {
         if (user != null) {
             navController.navigate(R.id.homeFragment)
-
         } else {
             navController.navigate(R.id.credentialsFragment)
         }
