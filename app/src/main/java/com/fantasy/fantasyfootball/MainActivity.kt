@@ -1,6 +1,5 @@
 package com.fantasy.fantasyfootball
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -10,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.NavGraph
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -18,6 +18,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.util.AuthService
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
@@ -35,7 +36,11 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         drawerLayout = binding.drawerLayout
+
         navController = findNavController(R.id.navHostFragment)
+        val navInflater = navController.navInflater
+        val graph = navInflater.inflate(R.navigation.main_nav_graph)
+
 //        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -45,16 +50,17 @@ class MainActivity : AppCompatActivity() {
             ),
             drawerLayout
         )
+
+        binding.navigationView.setupWithNavController(navController)
+        binding.bottomNav.setupWithNavController(navController)
+
         navController.addOnDestinationChangedListener { controller: NavController, destination: NavDestination, bundle: Bundle? ->
             binding.bottomNav.isVisible =
                 appBarConfiguration.topLevelDestinations.contains(destination.id)
             binding.toolbar.isVisible =
                 appBarConfiguration.topLevelDestinations.contains(destination.id)
-
         }
 
-        binding.navigationView.setupWithNavController(navController)
-        binding.bottomNav.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.btnLogoutDrawer.setOnClickListener {
@@ -65,20 +71,21 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
 
-            recreate()
+            finish()
+            startActivity(intent)
         }
 
-        //        val user = authService.getAuthenticatedUser()
-        authenticate(authService.getAuthenticatedUser())
+        authenticate(authService.getAuthenticatedUser(), graph)
+        navController.setGraph(graph, savedInstanceState)
 
 //        binding.navigationView.getHeaderView(0).set
     }
 
-    private fun authenticate(user: User?) {
+    private fun authenticate(user: User?, graph: NavGraph) {
         if (user != null) {
-            navController.navigate(R.id.homeFragment)
+            graph.setStartDestination(R.id.homeFragment)
         } else {
-            navController.navigate(R.id.credentialsFragment)
+            graph.setStartDestination(R.id.credentialsFragment)
         }
     }
 
