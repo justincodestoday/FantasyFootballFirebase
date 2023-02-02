@@ -16,7 +16,7 @@ class UserRepository(private val userDao: UserDao) {
     }
 
 //    @WorkerThread
-    suspend fun isValidUser(user: User): Flow<User?> {
+    suspend fun isValidUser(user: User): User? {
         return userDao.isValidUser(user.username!!, user.password!!)
     }
 
