@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/teal_700"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+            <fragment
+                android:id="@+id/navHostFragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/main_nav_graph" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:backgroundTint="@color/black"
+                app:elevation="8dp"
+                app:itemIconTint="@color/bottom_nav_color"
+                app:itemTextAppearanceActive="@style/Style_TextView"
+                app:itemTextAppearanceInactive="@style/Style_TextView"
+                app:itemTextColor="@color/bottom_nav_color"
+                app:labelVisibilityMode="auto"
+                app:menu="@menu/bottom_nav_menu" />
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/drawer_header"
+            app:menu="@menu/drawer_menu">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLogoutDrawer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="8dp"
+                    android:background="@color/yellow_900"
+                    android:text="@string/sign_out"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+        </com.google.android.material.navigation.NavigationView>
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -67,12 +68,18 @@ class MainActivity : AppCompatActivity() {
             authService.unauthenticate()
             Toast.makeText(
                 this,
-                applicationContext.getString(R.string.logout_successful),
+                this.getString(R.string.logout_successful),
                 Toast.LENGTH_SHORT
             ).show()
 
-            finish()
-            startActivity(intent)
+
+            val intent = Intent(this, MainActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//            startActivity(intent)
+//            finish()
+           navController.popBackStack(R.id.main_nav_graph, true)
+            navController.navigate(R.id.credentialsFragment)
+            drawerLayout.close()
         }
 
         authenticate(authService.getAuthenticatedUser(), graph)

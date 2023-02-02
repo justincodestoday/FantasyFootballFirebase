@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -32,8 +33,8 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -63,7 +64,7 @@ class LoginFragment : Fragment() {
             snackBar.show()
         }
 
-        viewModel.userLiveData.observe(viewLifecycleOwner) {
+        viewModel.user.asLiveData().observe(viewLifecycleOwner) {
             if (it != null) {
                 authService.authenticate(it)
                 val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
@@ -73,6 +74,7 @@ class LoginFragment : Fragment() {
                     context?.getString(R.string.login_successful),
                     Toast.LENGTH_SHORT
                 ).show()
+                binding.loading.visibility = View.VISIBLE
             } else {
                 val snackBar = Snackbar.make(
                     binding.root,

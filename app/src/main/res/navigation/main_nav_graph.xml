@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
     app:startDestination="@id/homeFragment">
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.fantasy.fantasyfootball.fragment.HomeFragment"
@@ -27,7 +26,7 @@
         android:name="com.fantasy.fantasyfootball.fragment.PickTeamFragment"
         android:label="Pick Team"
         tools:layout="@layout/fragment_pick_team">
-<!--        <argument android:name="position" app:argType="string" />-->
+        <!--        <argument android:name="position" app:argType="string" />-->
         <action
             android:id="@+id/action_pickTeamFragment_to_pickPlayerFragment"
             app:destination="@id/pickPlayerFragment" />
@@ -40,7 +39,9 @@
         tools:layout="@layout/fragment_credentials">
         <action
             android:id="@+id/action_credentialsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/credentialsFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -50,10 +51,10 @@
     <fragment
         android:id="@+id/pickPlayerFragment"
         android:name="com.fantasy.fantasyfootball.fragment.PickPlayerFragment"
-        android:label="Pick Player" >
-    <argument app:argType="string"
-        android:name="area"
-        />
+        android:label="Pick Player">
+        <argument
+            android:name="area"
+            app:argType="string" />
         <action
             android:id="@+id/action_pickPlayerFragment_to_pickTeamFragment"
             app:destination="@id/pickTeamFragment" />
