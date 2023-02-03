@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment" />
     </fragment>
 
     <fragment
@@ -47,7 +50,11 @@
         android:id="@+id/profileFragment"
         android:name="com.fantasy.fantasyfootball.fragment.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_self"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pickPlayerFragment"
         android:name="com.fantasy.fantasyfootball.fragment.PickPlayerFragment"

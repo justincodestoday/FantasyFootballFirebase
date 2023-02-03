@@ -2,6 +2,7 @@ package com.fantasy.fantasyfootball.adapter
 
 import android.R
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fantasy.fantasyfootball.constant.Enums
@@ -37,21 +38,21 @@ class PlayerAdapter(var players: List<Player>, val onClick:(player: Player) -> U
         notifyDataSetChanged()
     }
 
-    fun setImageForPosition(position: String, binding: FragmentPickTeamBinding) {
-        when (position) {
-            "GK" -> binding.gk.setImageResource(R.drawable.ic_delete)
-            "LB" -> binding.lb.setImageResource(R.drawable.ic_delete)
-            "LCB" -> binding.lcb.setImageResource(R.drawable.ic_delete)
-            "RCB" -> binding.rcb.setImageResource(R.drawable.ic_delete)
-            "RB" -> binding.rb.setImageResource(R.drawable.ic_delete)
-            "LM" -> binding.lm.setImageResource(R.drawable.ic_delete)
-            "LCM" -> binding.lcm.setImageResource(R.drawable.ic_delete)
-            "RCM" -> binding.rcm.setImageResource(R.drawable.ic_delete)
-            "RM" -> binding.rm.setImageResource(R.drawable.ic_delete)
-            "LS" -> binding.ls.setImageResource(R.drawable.ic_delete)
-            "RS" -> binding.rs.setImageResource(R.drawable.ic_delete)
-        }
-    }
+//    fun setImageForPosition(position: String): View? {
+//        when (position) {
+//            "GK" -> setImageResource(R.drawable.ic_delete)
+//            "LB" -> binding.lb.setImageResource(R.drawable.ic_delete)
+//            "LCB" -> binding.lcb.setImageResource(R.drawable.ic_delete)
+//            "RCB" -> binding.rcb.setImageResource(R.drawable.ic_delete)
+//            "RB" -> binding.rb.setImageResource(R.drawable.ic_delete)
+//            "LM" -> binding.lm.setImageResource(R.drawable.ic_delete)
+//            "LCM" -> binding.lcm.setImageResource(R.drawable.ic_delete)
+//            "RCM" -> binding.rcm.setImageResource(R.drawable.ic_delete)
+//            "RM" -> binding.rm.setImageResource(R.drawable.ic_delete)
+//            "LS" -> binding.ls.setImageResource(R.drawable.ic_delete)
+//            "RS" -> binding.rs.setImageResource(R.drawable.ic_delete)
+//        }
+//    }
 
 
     class PlayerHolder(val binding: PlayerCardBinding) : RecyclerView.ViewHolder(binding.root)
