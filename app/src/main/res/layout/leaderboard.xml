@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <data />
-
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cvPlayerCard"
@@ -11,73 +9,57 @@
         android:layout_marginBottom="@dimen/xxs"
         android:clickable="true"
         android:focusable="true"
-        app:cardElevation="@dimen/xxxxs"
-        android:layout_marginHorizontal="10dp"
-        >
+        app:cardElevation="@dimen/xxxxs">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:orientation="horizontal"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="20dp"
-            >
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/tvRanking"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="0.1"
+                android:contentDescription="@string/player_card"
+                android:gravity="start|center"
+                android:text="@string/user_rank"
+                android:textColor="@color/black" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.7"
                 android:gravity="start|center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/player_name"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="20dp"
-                    />
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/user_username"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tvTeamName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/player_team"
-                    android:textColor="@color/black"
-                    />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-                <TextView
-                    android:id="@+id/tvRanking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="top"
-                    android:text="Ranking"
+                    android:text="@string/user_teamname"
                     android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvPoints"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="Points"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
-                    android:gravity="end|bottom"
-                    />
             </LinearLayout>
 
-
+            <TextView
+                android:id="@+id/tvPoints"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="start|center"
+                android:text="@string/user_points"
+                android:textColor="@color/black" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

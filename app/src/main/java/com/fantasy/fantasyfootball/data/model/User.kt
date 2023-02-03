@@ -11,7 +11,7 @@ data class User(
     val username: String? = null,
     val password: String? = null,
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
-    val image: ByteArray? = null
+    val image: ByteArray? = null,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

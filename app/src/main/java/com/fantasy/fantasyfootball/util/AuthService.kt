@@ -6,7 +6,7 @@ import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
 
-class AuthService private constructor(private val storageService: StorageService){
+class AuthService (private val storageService: StorageService){
     fun authenticate(user: User) {
         storageService.setUser("user", user)
     }

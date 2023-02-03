@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.LoginViewModel
@@ -66,6 +67,10 @@ class LoginFragment : Fragment() {
 
         viewModel.user.asLiveData().observe(viewLifecycleOwner) {
             if (it != null) {
+                binding.run {
+                    etUsername.text?.clear()
+                    etPassword.text?.clear()
+                }
                 authService.authenticate(it)
                 val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
                 NavHostFragment.findNavController(this).navigate(action)

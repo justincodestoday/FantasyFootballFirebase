@@ -1,12 +1,14 @@
 package com.fantasy.fantasyfootball.viewModel
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.repository.UserRepository
-import kotlinx.coroutines.Dispatchers
+import com.fantasy.fantasyfootball.util.AuthService
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repo: UserRepository) : ViewModel() {
@@ -18,31 +20,34 @@ class LoginViewModel(private val repo: UserRepository) : ViewModel() {
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
 
+//    var userLoggedOut: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    fun logout() {
+        viewModelScope.launch {
+            success.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
+        }
+    }
+
     fun login() {
-        Log.d("debug", "${username.value}")
         viewModelScope.launch {
             if (username.value?.trim { it <= ' ' }
                     .isNullOrEmpty() || password.value?.trim { it <= ' ' }.isNullOrEmpty()
             ) {
-                Log.d("debugging", "error")
                 error.emit(Enums.FormErrors.EMPTY_FIELD.name)
-    } else {
-        Log.d("debugging", "login")
-        validateUser(username.value!!, password.value!!)
+            } else {
+                val result = async { validateUser(username.value!!, password.value!!) }
+                result.await()
+            }
+        }
+
     }
-}
-}
 
-suspend fun validateUser(_username: String, _password: String) {
-
-    Log.d("debugging", "$_username and $_password")
-
-//        viewModelScope.launch(Dispatchers.IO) {
-    Log.d("debugging", "$_username and $_password")
-    val _user = repo.isValidUser(User(username = _username, password = _password))
-            user.emit(_user)
-
-//        }
+    fun validateUser(_username: String, _password: String) {
+        viewModelScope.launch {
+            repo.isValidUser(User(username = _username, password = _password)).collect {
+                user.emit(it)
+            }
+        }
     }
 
     class Provider(private val repo: UserRepository) : ViewModelProvider.Factory {

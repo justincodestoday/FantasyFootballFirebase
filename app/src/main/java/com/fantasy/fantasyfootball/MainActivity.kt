@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         val authService = AuthService.getInstance(this)
+        val user = authService.getAuthenticatedUser()
 
         setSupportActionBar(binding.toolbar)
         drawerLayout = binding.drawerLayout
@@ -64,26 +65,21 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        authenticate(user, graph)
+        navController.setGraph(graph, savedInstanceState)
+
         binding.btnLogoutDrawer.setOnClickListener {
             authService.unauthenticate()
             Toast.makeText(
                 this,
-                this.getString(R.string.logout_successful),
+                applicationContext.getString(R.string.logout_successful),
                 Toast.LENGTH_SHORT
             ).show()
 
-
-            val intent = Intent(this, MainActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//            startActivity(intent)
-//            finish()
-           navController.popBackStack(R.id.main_nav_graph, true)
+            navController.popBackStack(R.id.main_nav_graph, true)
             navController.navigate(R.id.credentialsFragment)
             drawerLayout.close()
         }
-
-        authenticate(authService.getAuthenticatedUser(), graph)
-        navController.setGraph(graph, savedInstanceState)
 
 //        binding.navigationView.getHeaderView(0).set
     }

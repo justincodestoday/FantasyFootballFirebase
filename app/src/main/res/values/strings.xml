@@ -49,6 +49,13 @@
     <string name="sign_me_out">Sign Me Out</string>
     <string name="running_man">Running Man</string>
 
+    <!-- User Card -->
+    <string name="user_card">Player Card</string>
+    <string name="user_username">Username</string>
+    <string name="user_teamname">Team Name</string>
+    <string name="user_points">Points</string>
+    <string name="user_rank">Rank</string>
+
     <!-- Player Card -->
     <string name="player_card">Player Card</string>
     <string name="player_name">Player Name</string>
