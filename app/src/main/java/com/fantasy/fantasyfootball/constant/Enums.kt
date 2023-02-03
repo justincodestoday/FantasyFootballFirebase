@@ -3,7 +3,8 @@ package com.fantasy.fantasyfootball.constant
 class Enums {
     enum class FormSuccess {
         LOGIN_SUCCESSFUL,
-        REGISTER_SUCCESSFUL
+        REGISTER_SUCCESSFUL,
+        LOGOUT_SUCCESSFUL
     }
 
     enum class FormErrors {

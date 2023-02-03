@@ -54,7 +54,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity()?.let {
+        requireActivity().let {
             authService = AuthService.getInstance(requireActivity().applicationContext)
             val user = authService.getAuthenticatedUser()
 
@@ -97,7 +97,7 @@ class ProfileFragment : Fragment() {
                 val editText2 = filterDialog.findViewById<EditText>(R.id.et_username)
                 val editText3 = filterDialog.findViewById<EditText>(R.id.et_team_name)
                 val user = authService.getAuthenticatedUser()
-                val team = viewModel.getTeamName(user?.userId!!)
+//                val team = viewModel.getTeamName(user?.userId!!)
 
                 user?.let {
                     editText1.setText(it.name)

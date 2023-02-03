@@ -51,7 +51,6 @@ class RegisterViewModel(
                 val team = Team(ownerId = id.toInt(), name = teamName.value?.trim())
                 teamRepo.createTeam(team)
                 success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
-//                navigate.emit(Unit)
             }
         }
     }

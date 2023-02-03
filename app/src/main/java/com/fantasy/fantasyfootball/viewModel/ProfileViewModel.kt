@@ -39,14 +39,14 @@ class ProfileViewModel(private val userRepo: UserRepository, private val teamRep
         }
     }
 
-    fun getUserWithTeamByUserId(id: Int) {
-        viewModelScope.launch {
-            val res = userRepo.getUserWithTeamByUserId(id)
-            res?.let {
-                user.value = it
-            }
-        }
-    }
+//    fun getUserWithTeamByUserId(id: Int) {
+//        viewModelScope.launch {
+//            val res = userRepo.getUserWithTeamByUserId(id)
+//            res?.let {
+//                user.value = it
+//            }
+//        }
+//    }
 
     class Provider(private val userRepo: UserRepository, private val teamRepo: TeamRepository): ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

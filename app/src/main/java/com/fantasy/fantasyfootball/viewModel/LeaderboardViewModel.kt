@@ -3,19 +3,25 @@ package com.fantasy.fantasyfootball.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.repository.PlayerRepository
-import com.fantasy.fantasyfootball.repository.TeamRepository
+import androidx.lifecycle.viewModelScope
+import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.fantasy.fantasyfootball.repository.UserRepository
+import kotlinx.coroutines.launch
 
-class LeaderboardViewModel(val repo: UserRepository, val repo2: TeamRepository): ViewModel() {
-    val users: MutableLiveData<List<User>> = MutableLiveData()
-    val teams: MutableLiveData<List<Team>> = MutableLiveData()
+class LeaderboardViewModel(val repo: UserRepository) : ViewModel() {
+    val users: MutableLiveData<List<UserWithTeam>> = MutableLiveData()
 
-    class Provider(val repo: UserRepository, val repo2: TeamRepository): ViewModelProvider.Factory{
+    fun getUsersWithTeams() {
+        viewModelScope.launch {
+            users.value = repo.getUsersWithTeams().sortedWith(compareBy() {
+                it.team.points
+            }).reversed()
+        }
+    }
+
+    class Provider(val repo: UserRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return LeaderboardViewModel(repo, repo2) as T
+            return LeaderboardViewModel(repo) as T
         }
     }
 }

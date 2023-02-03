@@ -19,7 +19,6 @@
             android:id="@+id/action_homeFragment_to_leaderboardFragment"
             app:destination="@id/leaderboardFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.fantasy.fantasyfootball.fragment.LeaderboardFragment"
@@ -33,7 +32,6 @@
         <action
             android:id="@+id/action_pickTeamFragment_to_pickPlayerFragment"
             app:destination="@id/pickPlayerFragment" />
-
     </fragment>
     <fragment
         android:id="@+id/credentialsFragment"

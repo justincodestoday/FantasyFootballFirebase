@@ -14,7 +14,7 @@ interface UserDao {
     suspend fun getUserById(userId: Int): User?
 
     @Query("SELECT * FROM user WHERE username = :username AND password = :password LIMIT 1")
-    suspend fun isValidUser(username: String, password: String): User?
+    fun isValidUser(username: String, password: String): Flow<User?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User): Long
@@ -28,5 +28,5 @@ interface UserDao {
 
     @Transaction
     @Query("SELECT * FROM user WHERE userId = :userId")
-    suspend fun getUserByTeamByUserId(userId: Int): UserWithTeam
+    suspend fun getUserWithTeamByUserId(userId: Int): UserWithTeam
 }

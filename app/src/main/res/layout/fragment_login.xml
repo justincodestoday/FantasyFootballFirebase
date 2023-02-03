@@ -10,10 +10,6 @@
         <variable
             name="viewModel"
             type="com.fantasy.fantasyfootball.viewModel.LoginViewModel" />
-
-        <variable
-            name="user"
-            type="com.fantasy.fantasyfootball.data.model.User" />
     </data>
 
     <RelativeLayout

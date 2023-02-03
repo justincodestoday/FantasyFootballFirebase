@@ -39,10 +39,6 @@ class PickPlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPickPlayerBinding.inflate(layoutInflater)
-        // val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav)
-//        bottomNav.visibility = View.VISIBLE
-//        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-//        toolbar.visibility = View.VISIBLE
         return binding.root
     }
 
