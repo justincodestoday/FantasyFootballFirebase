@@ -10,6 +10,10 @@ class TeamRepository(private val teamDao: TeamDao) {
         return teamDao.getTeamById(teamId)
     }
 
+    suspend fun getTeamByOwnerId(ownerId: Int): Team? {
+        return teamDao.getTeamByOwnerId(ownerId)
+    }
+
     suspend fun deleteTeam(teamId: Int) {
         teamDao.delete(teamId)
     }

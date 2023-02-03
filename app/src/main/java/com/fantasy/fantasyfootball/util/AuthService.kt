@@ -1,7 +1,9 @@
 package com.fantasy.fantasyfootball.util
 
 import android.content.Context
+import android.util.Log
 import com.fantasy.fantasyfootball.MainApplication
+import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
 
 class AuthService private constructor(private val storageService: StorageService){
@@ -19,7 +21,12 @@ class AuthService private constructor(private val storageService: StorageService
     }
 
     fun getAuthenticatedUser(): User? {
-        return storageService.getUser("user")
+        val user =  storageService.getUser("user")
+        return user
+    }
+
+    fun updateUser(user: User) {
+        storageService.updateUser("user", user)
     }
 
     companion object {

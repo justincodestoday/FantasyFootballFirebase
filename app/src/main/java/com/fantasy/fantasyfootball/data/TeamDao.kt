@@ -11,6 +11,9 @@ interface TeamDao {
     @Query("SELECT * FROM team WHERE teamId = :teamId")
     suspend fun getTeamById(teamId: Int): Team?
 
+    @Query("SELECT * FROM team WHERE ownerId = :ownerId")
+    suspend fun getTeamByOwnerId(ownerId: Int): Team?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createTeam(team: Team)
 

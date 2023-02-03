@@ -11,6 +11,8 @@ import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.databinding.FragmentPickTeamBinding
 import com.fantasy.fantasyfootball.viewModel.PickTeamViewModel
 import android.R
+import android.annotation.SuppressLint
+import android.util.Log
 
 import android.widget.TextView
 import androidx.fragment.app.findFragment
@@ -44,6 +46,15 @@ class PickTeamFragment : Fragment() {
 //                pickPlayerFragment.refresh("", "")
 //            }
 //        }
+        setFragmentResultListener("player_info") { a,b ->
+            val price = b.getFloat("price")
+            val position = b.getString("position")
+            if (position != null) {
+                setImageForPosition(position)
+            }
+            Log.d("debug", price.toString())
+        }
+
 
         binding.gk.setOnClickListener {
             val area = Enums.Area.Goalkeeper
@@ -95,7 +106,7 @@ class PickTeamFragment : Fragment() {
         }
 
         binding.rm.setOnClickListener {
-            val area = Enums.Area.Midfielder
+            val area = Enums.Position.RM
             val action =
                 PickTeamFragmentDirections.actionPickTeamFragmentToPickPlayerFragment(area.toString())
             NavHostFragment.findNavController(this).navigate(action)
@@ -116,7 +127,7 @@ class PickTeamFragment : Fragment() {
         }
     }
 
-    fun setImageForPosition(position: String, binding: FragmentPickTeamBinding) {
+    fun setImageForPosition(position: String) {
         when (position) {
             "GK" -> binding.gk.setImageResource(R.drawable.ic_delete)
             "LB" -> binding.lb.setImageResource(R.drawable.ic_delete)

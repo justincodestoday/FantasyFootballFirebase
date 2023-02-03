@@ -11,6 +11,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
@@ -20,6 +22,7 @@ import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.PlayerAdapter
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
+import com.fantasy.fantasyfootball.databinding.FragmentPickTeamBinding
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 
 
@@ -98,8 +101,12 @@ class PickPlayerFragment : Fragment() {
     fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {
-            val action = PickPlayerFragmentDirections.actionPickPlayerFragmentToPickTeamFragment()
-            NavHostFragment.findNavController(this).navigate(action)
+            NavHostFragment.findNavController(this).popBackStack()
+            val bundle = Bundle()
+            bundle.putFloat("price", it.price)
+            bundle.putString("position", it.position.toString())
+//            (requireContext() as PickTeamFragment).setImageForPosition(position = "GK")
+            setFragmentResult("player_info", bundle)
         }
         binding.rvPlayers.adapter = adapter
         binding.rvPlayers.layoutManager = layoutManager
