@@ -11,8 +11,8 @@ interface PlayerDao {
     @Query("SELECT * FROM player")
     suspend fun getPlayers(): List<Player>
 
-    @Query("SELECT * FROM player WHERE position = :position")
-    suspend fun getPlayersByArea(position: String): List<Player>
+    @Query("SELECT * FROM player WHERE area = :area")
+    suspend fun getPlayersByArea(area: String): List<Player>
 
     @Query("SELECT * FROM player WHERE playerId = :playerId")
     suspend fun getPlayerById(playerId: Int): Player?
@@ -27,6 +27,6 @@ interface PlayerDao {
     suspend fun updateStatusById(playerId: Int, isSet: Boolean)
 
     // making sure name works for first name + last name
-    @Query("SELECT * FROM player WHERE position = :position AND (firstName LIKE '%' || :playerName || '%' OR lastName LIKE '%' || :playerName || '%')")
-    suspend fun getPlayersBySearch(position: String, playerName: String): List<Player>
+    @Query("SELECT * FROM player WHERE area = :area AND (firstName LIKE '%' || :playerName || '%' OR lastName LIKE '%' || :playerName || '%')")
+    suspend fun getPlayersBySearch(area: String, playerName: String): List<Player>
 }

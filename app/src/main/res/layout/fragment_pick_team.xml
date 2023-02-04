@@ -58,6 +58,7 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tvBudget"
                         android:layout_width="80dp"
                         android:layout_height="25dp"
                         android:background="@drawable/custom_button_2"
@@ -79,6 +80,7 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tvRanking"
                         android:layout_width="80dp"
                         android:layout_height="25dp"
                         android:background="@drawable/custom_button_2"
