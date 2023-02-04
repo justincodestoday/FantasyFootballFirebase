@@ -28,5 +28,5 @@ interface UserDao {
 
     @Transaction
     @Query("SELECT * FROM user WHERE userId = :userId")
-    suspend fun getUserWithTeamByUserId(userId: Int): UserWithTeam
+    suspend fun getUserWithTeamByUserId(userId: Int): UserWithTeam?
 }

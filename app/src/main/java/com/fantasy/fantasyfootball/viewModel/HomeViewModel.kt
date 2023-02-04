@@ -18,6 +18,12 @@ class HomeViewModel(private val repo: UserRepository) : ViewModel() {
     val logout: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
 
+    val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    fun refreshPage(refresh: Boolean) {
+        refreshPage.value = refresh
+    }
+
     fun navigateToTeam() {
         viewModelScope.launch {
             teamManagement.emit(Unit)

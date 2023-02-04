@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Style_TextView">
         <item name="fontFamily">@font/font2</item>
         <item name="android:textSize">14sp</item>
@@ -8,37 +9,62 @@
     <style name="Filter_AlertDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="buttonBarPositiveButtonStyle">@style/Filter_AlertDialog.RadioGroup</item>
     </style>
+
     <style name="Filter_AlertDialog.RadioGroup" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="android:textColor">@color/white</item>
         <item name="android:backgroundTint">#2196F3</item>
     </style>
-<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-<!--        <item name="colorPrimary">@color/fantasyGreen</item>-->
-<!--        <item name="colorPrimaryDark">@color/fantasyGreenDark</item>-->
-<!--        <item name="colorAccent">@android:color/white</item>-->
-<!--    </style>-->
 
-<!--    <style name="AppTheme.SignIn" parent="AppTheme.NoActionBar">-->
-<!--        <item name="android:statusBarColor">@color/fantasyGreen</item>-->
-<!--    </style>-->
+    <style name="Confirm.AlertDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/Confirm.AlertDialog.Positive.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Cancel.AlertDialog.Negative.Button</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Base.AlertDialog.Title</item>
+    </style>
 
-<!--    <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">-->
-<!--        <item name="tabIndicatorColor">@color/fantasyGreenDark</item>-->
-<!--        <item name="tabBackground">@color/fantasyGreen</item>-->
-<!--        <item name="tabTextAppearance">@style/TabLayoutTheme.TextAppearance</item>-->
-<!--        <item name="tabSelectedTextColor">@android:color/white</item>-->
-<!--    </style>-->
+    <style name="Confirm.AlertDialog.Positive.Button" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="backgroundTint">@color/green_900</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
 
-<!--    <style name="TabLayoutTheme.TextAppearance" parent="TextAppearance.Design.Tab">-->
-<!--        <item name="android:textSize">12sp</item>-->
-<!--        <item name="android:textColor">@color/fantasyGreenDark</item>-->
-<!--        <item name="textAllCaps">true</item>-->
-<!--    </style>-->
+    <style name="Custom.AlertDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="materialAlertDialogTitleTextStyle">@style/Base.AlertDialog.Title</item>
+    </style>
 
-<!--    <style name="AppTheme.NoActionBar">-->
-<!--        <item name="windowActionBar">false</item>-->
-<!--        <item name="windowNoTitle">true</item>-->
-<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-<!--    </style>-->
+    <style name="Cancel.AlertDialog.Negative.Button" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/gray_900</item>
+    </style>
+
+    <style name="Base.AlertDialog.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+    <!--        <item name="colorPrimary">@color/fantasyGreen</item>-->
+    <!--        <item name="colorPrimaryDark">@color/fantasyGreenDark</item>-->
+    <!--        <item name="colorAccent">@android:color/white</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="AppTheme.SignIn" parent="AppTheme.NoActionBar">-->
+    <!--        <item name="android:statusBarColor">@color/fantasyGreen</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">-->
+    <!--        <item name="tabIndicatorColor">@color/fantasyGreenDark</item>-->
+    <!--        <item name="tabBackground">@color/fantasyGreen</item>-->
+    <!--        <item name="tabTextAppearance">@style/TabLayoutTheme.TextAppearance</item>-->
+    <!--        <item name="tabSelectedTextColor">@android:color/white</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="TabLayoutTheme.TextAppearance" parent="TextAppearance.Design.Tab">-->
+    <!--        <item name="android:textSize">12sp</item>-->
+    <!--        <item name="android:textColor">@color/fantasyGreenDark</item>-->
+    <!--        <item name="textAllCaps">true</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="AppTheme.NoActionBar">-->
+    <!--        <item name="windowActionBar">false</item>-->
+    <!--        <item name="windowNoTitle">true</item>-->
+    <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+    <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+    <!--    </style>-->
 </resources>

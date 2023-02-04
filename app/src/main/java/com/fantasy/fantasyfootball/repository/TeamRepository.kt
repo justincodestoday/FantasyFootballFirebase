@@ -19,10 +19,10 @@ class TeamRepository(private val teamDao: TeamDao) {
     }
 
     suspend fun createTeam(team: Team) {
-        teamDao.createTeam(team)
+        teamDao.insert(team)
     }
 
     suspend fun editTeam(teamId: Int, team: Team) {
-        teamDao.createTeam(team.copy(teamId = teamId))
+        teamDao.insert(team.copy(teamId = teamId))
     }
 }

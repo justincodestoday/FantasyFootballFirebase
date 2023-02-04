@@ -1,5 +1,5 @@
 <resources>
-    <!--    App and Database-->
+    <!-- App and Database -->
     <string name="app_name">Fantasy Football</string>
     <string name="database_name">fantasy_database</string>
     <string name="logo">Logo</string>
@@ -48,9 +48,18 @@
     <string name="pick_team">Pick Team</string>
     <string name="sign_me_out">Sign Me Out</string>
     <string name="running_man">Running Man</string>
+    
+    <!-- Edit Info   -->
+    <string name="edit_heading">Edit Profile</string>
+    <string name="edit_button">Edit</string>
+    <string name="edit_error">Error Text</string>
+    <string name="edit_full_name">Full Name</string>
+    <string name="edit_username">Username</string>
+    <string name="edit_password">Password</string>
+    <string name="edit_team_name">Team Name</string>
 
     <!-- User Card -->
-    <string name="user_card">Player Card</string>
+    <string name="user_card">User Card</string>
     <string name="user_username">Username</string>
     <string name="user_teamname">Team Name</string>
     <string name="user_points">Points</string>
@@ -66,6 +75,8 @@
     <string name="dialog_button_positive">Confirm</string>
     <string name="dialog_button_negative">Cancel</string>
     <string name="dialog_button_neutral">OK</string>
+    <string name="edit_title">Edit Profile</string>
+    <string name="edit_message">Are you sure you want to proceed with these changes?</string>
 
     <!-- Success -->
     <string name="register_successful">Successfully registered</string>
@@ -73,6 +84,7 @@
     <string name="login_successful">Successfully logged in</string>
     <string name="login_unsuccessful">Failed to login</string>
     <string name="logout_successful">Successfully logged out</string>
+    <string name="update_successful">Updated successfully</string>
 
     <!-- Errors -->
     <string name="empty_field">Please fill all the fields</string>
@@ -91,6 +103,4 @@
 
     <!-- strings -->
     <string name="empty_string" />
-
-    <!--    <string name="dialog_title_confirm">Confirm</string>-->
 </resources>

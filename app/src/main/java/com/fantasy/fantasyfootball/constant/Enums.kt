@@ -17,6 +17,11 @@ class Enums {
         PASSWORDS_NOT_MATCHING,
     }
 
+    enum class Result {
+        REFRESH,
+        EDIT_PROFILE_RESULT
+    }
+
     enum class ShirtColor {
         DARKBLUE, DARKRED, LIGHTBLUE, LIGHTRED, ORANGE, TRANSLUCENT, TURQOISE, WHITE, YELLOW, PURPLE
     }
