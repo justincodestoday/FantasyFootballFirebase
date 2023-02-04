@@ -15,8 +15,12 @@
     <color name="dark_purple_700">#FF4D0453</color>
     <color name="light_green_200">#80D6FDF6</color>
     <color name="light_green_500">#FF7FFABE</color>
+    <color name="light_green_900">#00FB81</color>
     <color name="dark_green_200">#FF82C490</color>
+    <color name="green_500">#37A63C</color>
+    <color name="green_900">#007005</color>
     <color name="colorAccent">#FF4F89</color>
     <color name="yellow_500">#FFE3BF02</color>
     <color name="yellow_900">#B59800</color>
+    <color name="gray_900">#787878</color>
 </resources>

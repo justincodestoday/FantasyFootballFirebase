@@ -1,58 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Profile"
-        android:layout_gravity="center_horizontal"
-        android:textSize="32sp"
-        android:fontFamily="@font/font2"
-        />
+<layout>
 
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:hint="Username:"
-        android:layout_gravity="center_horizontal"
-        android:paddingStart="10sp"
-        android:paddingVertical="5sp"
-        android:background="@drawable/custom_edit_text"
-        />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/m">
 
-    <EditText
-        android:id="@+id/et_username"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:hint="Name:"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20sp"
-        android:paddingStart="10sp"
-        android:paddingVertical="5sp"
-        android:background="@drawable/custom_edit_text"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/font2"
+            android:text="@string/edit_heading"
+            android:textSize="32sp" />
 
-    <EditText
-        android:id="@+id/et_team_name"
-        android:layout_width="300sp"
-        android:layout_height="wrap_content"
-        android:hint="Team Name:"
-        android:layout_marginTop="20sp"
-        android:layout_gravity="center_horizontal"
-        android:paddingStart="10sp"
-        android:paddingVertical="5sp"
-        android:background="@drawable/custom_edit_text"
-        />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_full_name" />
 
-    <Button
-        android:id="@+id/btn_edit_query"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit"/>
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text"
+            android:ems="10"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/edit_username" />
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_edit_text"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp" />
+
+        <TextView
+            android:id="@+id/tv_team_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/edit_team_name" />
+
+        <EditText
+            android:id="@+id/et_team_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp" />
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/edit_error"
+            android:textColor="@color/red_500"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/green_900"
+            android:text="@string/edit_button" />
+
+    </LinearLayout>
+</layout>

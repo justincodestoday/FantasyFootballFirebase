@@ -1,6 +1,5 @@
 package com.fantasy.fantasyfootball.viewModel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,40 +12,28 @@ import com.fantasy.fantasyfootball.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val userRepo: UserRepository, private val teamRepo: TeamRepository): ViewModel() {
+    val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
 
-    val team: MutableLiveData<Team> = MutableLiveData()
-    val user: MutableLiveData<UserWithTeam> = MutableLiveData()
-
-    fun createUser(user: User) {
+    fun editUser(userId: Int, user: User) {
         viewModelScope.launch {
-            userRepo.createUser(user)
+            userRepo.editUser(userId, user)
         }
     }
 
-    fun editUser(id: Int, user: User) {
+    fun editTeam(teamId: Int, team: Team) {
         viewModelScope.launch {
-            userRepo.editUser(id, user)
+            teamRepo.editTeam(teamId, team)
         }
     }
 
-     fun getTeamName(ownerId: Int) {
+    fun getUserWithTeam(userId: Int) {
         viewModelScope.launch {
-            val res = teamRepo.getTeamByOwnerId(ownerId)
+            val res = userRepo.getUserWithTeam(userId)
             res?.let {
-                team.value = it
+                userTeam.value = it
             }
-//            teamRepo.getTeamByOwnerId(ownerId)
         }
     }
-
-//    fun getUserWithTeamByUserId(id: Int) {
-//        viewModelScope.launch {
-//            val res = userRepo.getUserWithTeamByUserId(id)
-//            res?.let {
-//                user.value = it
-//            }
-//        }
-//    }
 
     class Provider(private val userRepo: UserRepository, private val teamRepo: TeamRepository): ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

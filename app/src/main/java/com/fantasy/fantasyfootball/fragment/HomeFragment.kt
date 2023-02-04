@@ -57,19 +57,17 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
         }
 
-//        binding.btnSignOut.setOnClickListener {
-////            viewModel.logout()
-//            authService.unauthenticate()
-////            Toast.makeText(
-////                requireContext(), context?.getString(R.string.logout_successful),
-////                Toast.LENGTH_SHORT
-////            ).show()
-//            NavHostFragment.findNavController(this).popBackStack(R.id.main_nav_graph, true)
-//            NavHostFragment.findNavController(this).navigate(R.id.credentialsFragment)
-//        }
+        setFragmentResults()
     }
 
-    private fun enumToString(type: String?): String? {
+    private fun setFragmentResults() {
+        setFragmentResultListener(Enums.Result.EDIT_PROFILE_RESULT.name) { _, result ->
+            val refresh = result.getBoolean(Enums.Result.REFRESH.name)
+            viewModel.refreshPage(refresh)
+        }
+    }
+
+        private fun enumToString(type: String?): String? {
         return when (type) {
             Enums.FormSuccess.LOGOUT_SUCCESSFUL.name -> context?.getString(R.string.logout_successful)
             else -> context?.getString(R.string.nothing)

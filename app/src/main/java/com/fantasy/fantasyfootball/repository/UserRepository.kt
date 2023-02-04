@@ -22,8 +22,8 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.insert(user)
     }
 
-    suspend fun editUser(id: Int, user: User) {
-        userDao.insert(user.copy(userId = id))
+    suspend fun editUser(id: Int, user: User): Long {
+        return userDao.insert(user.copy(userId = id))
     }
 
     suspend fun deleteUser(userId: Int) {

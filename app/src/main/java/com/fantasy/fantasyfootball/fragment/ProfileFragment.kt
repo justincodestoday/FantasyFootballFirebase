@@ -3,36 +3,42 @@ package com.fantasy.fantasyfootball.fragment
 import android.app.Dialog
 import android.content.ContentResolver
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.text.Editable
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
+import com.fantasy.fantasyfootball.databinding.EditProfileDialogBinding
 import com.fantasy.fantasyfootball.databinding.FragmentProfileBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.ProfileViewModel
-import java.util.Observer
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileFragment : Fragment() {
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
+    private lateinit var dialogBinding: EditProfileDialogBinding
     private lateinit var binding: FragmentProfileBinding
     private lateinit var authService: AuthService
     private var bytes: ByteArray? = null
@@ -46,7 +52,7 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -54,103 +60,146 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().let {
-            authService = AuthService.getInstance(requireActivity().applicationContext)
-            val user = authService.getAuthenticatedUser()
+        dialogBinding = EditProfileDialogBinding.inflate(layoutInflater)
+        val dialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
+//        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-            user?.let {
-                binding.tvName.text = it.name
-                binding.tvUsername.text = it.username
+        authService = AuthService.getInstance(requireActivity().applicationContext)
+        val user = authService.getAuthenticatedUser()
+        if (user != null) {
+            viewModel.getUserWithTeam(user.userId!!)
+        }
+        var name = ""
+        var username = ""
+        var password = ""
+//        var image = ByteArray(0)
+        var teamId = 0
+        var teamName = ""
+        var teamPoints = 0
+        var teamBudget = 0f
+        var lastUpdated = ""
+        viewModel.userTeam.observe(viewLifecycleOwner) {
+            binding.apply {
+                tvName.text = it.user.name
+                tvUsername.text = it.user.username
+                tvTeamName.text = it.team.name
+
+                name = it.user.name.toString()
+                username = it.user.username.toString()
+                password = it.user.password.toString()
+//                image = it.user.image!!
+                teamId = it.team.teamId!!
+                teamName = it.team.name.toString()
+                teamPoints = it.team.points
+                teamBudget = it.team.remainingBudget
+                lastUpdated = it.team.lastUpdated.toString()
             }
+        }
 
-            if (user != null) {
-                viewModel.getTeamName(user.userId!!)
-            }
+        binding.apply {
+            btnEdit.setOnClickListener {
+                dialog.setContentView(dialogBinding.root)
+                dialogBinding.etName.setText(name)
+                dialogBinding.etUsername.setText(username)
+                dialogBinding.etTeamName.setText(teamName)
+                dialogBinding.btnEdit.setOnClickListener {
+                    val _name = dialogBinding.etName.text.toString().trim()
+                    val _username = dialogBinding.etUsername.text.toString().trim()
+                    val _teamName = dialogBinding.etTeamName.text.toString().trim()
 
-            viewModel.team.observe(viewLifecycleOwner) {
-                binding.tvTeamName.text = it.name
-            }
+                    val timeZone = TimeZone.getTimeZone("GMT+8")
+                    val calendar = Calendar.getInstance()
+                    val dateFormat: DateFormat =
+                        SimpleDateFormat("LLLL d yyyy, HH:mm a (z)", Locale.ENGLISH)
+                    dateFormat.timeZone = timeZone
+                    val date = dateFormat.format(calendar.time)
 
-            filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-                it?.let { uri ->
-                    binding.tvImageName.text = requireContext().contentResolver.getFileName(uri)
-
-                    val inputStream = requireContext().contentResolver.openInputStream(uri)
-                    bytes = inputStream?.readBytes()
-                    Log.d("debugging", bytes.toString())
-                    inputStream?.close()
-                }
-            }
-
-            binding.tvChooseImage.setOnClickListener {
-                filePickerLauncher.launch("image/*")
-                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
-                binding.image.setImageBitmap(bitmap)
-            }
-
-            binding.edit.setOnClickListener {
-                val dialogView = layoutInflater.inflate(R.layout.edit_profile_dialog, null)
-                val filterDialog = Dialog(requireContext())
-                filterDialog.setContentView(dialogView)
-                filterDialog.setCancelable(true)
-                val editText1 = filterDialog.findViewById<EditText>(R.id.et_name)
-                val editText2 = filterDialog.findViewById<EditText>(R.id.et_username)
-                val editText3 = filterDialog.findViewById<EditText>(R.id.et_team_name)
-                val user = authService.getAuthenticatedUser()
-//                val team = viewModel.getTeamName(user?.userId!!)
-
-                user?.let {
-                    editText1.setText(it.name)
-                    editText2.setText(it.username)
-//                    editText3.setText(it.)
-                    filterDialog.show()
-                    filterDialog.findViewById<Button>(R.id.btn_edit_query).setOnClickListener {
-
-//                    val etText1 = Editable.Factory.getInstance().newEditable(editText1.text.toString())
-//                    val etText2 = Editable.Factory.getInstance().newEditable(editText2.text.toString())
-//                    val etText3 = Editable.Factory.getInstance().newEditable(editText3.text.toString())
-                        profileRefresh(
-                            Editable.Factory.getInstance().newEditable(editText1.text.toString()),
-                            Editable.Factory.getInstance().newEditable(editText2.text.toString())
+                    if (validate(_name, _username, _teamName)) {
+                        val bundle = Bundle()
+                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+                        viewModel.editUser(
+                            user?.userId!!,
+                            User(user.userId, _name, _username, password)
                         )
-                        filterDialog.hide()
+                        val team = Team(
+                            name = _teamName,
+                            points = teamPoints,
+                            remainingBudget = teamBudget,
+                            lastUpdated = date,
+                            ownerId = user.userId
+                        )
+                        viewModel.editTeam(teamId, team)
+                        Toast.makeText(
+                            requireContext(),
+                            context?.getString(R.string.update_successful),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        dialog.dismiss()
+                    } else {
+                        dialogBinding.tvError.text = context?.getString(R.string.empty_field)
+                        dialogBinding.tvError.visibility = View.VISIBLE
                     }
                 }
-            }
-
-            binding.btnSave.setOnClickListener {
-                if (user != null) {
-                    viewModel.editUser(user.userId!!, User( image = bytes))
+                dialog.setCancelable(true)
+                dialog.setOnCancelListener {
+                    dialogBinding.tvError.text = context?.getString(R.string.empty_field)
+                    dialogBinding.tvError.visibility = View.GONE
                 }
+                dialog.setOnDismissListener {
+                    viewModel.getUserWithTeam(user?.userId!!)
+                }
+                dialog.show()
             }
+        }
+
+        filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            it?.let { uri ->
+                binding.tvImageName.text = requireContext().contentResolver.getFileName(uri)
+
+                val inputStream = requireContext().contentResolver.openInputStream(uri)
+                bytes = inputStream?.readBytes()
+                Log.d("debugging", bytes.toString())
+                inputStream?.close()
+            }
+        }
+
+        binding.tvChooseImage.setOnClickListener {
+            filePickerLauncher.launch("image/*")
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
+            binding.image.setImageBitmap(bitmap)
         }
     }
 
-    fun profileRefresh(name: Editable, username: Editable) {
-        val bundle = Bundle()
-        bundle.putBoolean("refresh", true)
-        setFragmentResult("edit_profile", bundle)
-        val action = ProfileFragmentDirections.actionProfileFragmentSelf()
-        NavHostFragment.findNavController(this).navigate(action)
-        val user = authService.getAuthenticatedUser()
-        user?.let {
-            viewModel.editUser(
-                it.userId!!,
-                User(
-                    name = name.toString(),
-                    username = username.toString(),
-                    password = it.password,
-                    image = it.image
-                )
-            )
-//            authService.updateUser(User(
-//                name = name.toString(),
-//                username = username.toString(),
-//                password = it.password,
-//                image = it.image
-//            ))
+    private fun validate(vararg list: String): Boolean {
+        for (field in list) {
+            if (field.isEmpty()) {
+                return false
+            }
         }
+        return true
     }
+
+//    fun profileRefresh(name: Editable, username: Editable) {
+//        val bundle = Bundle()
+//        bundle.putBoolean("refresh", true)
+//        setFragmentResult("edit_profile", bundle)
+//        val action = ProfileFragmentDirections.actionProfileFragmentSelf()
+//        NavHostFragment.findNavController(this).navigate(action)
+//        val user = authService.getAuthenticatedUser()
+//        user?.let {
+//            viewModel.editUser(
+//                it.userId!!,
+//                User(
+//                    name = name.toString(),
+//                    username = username.toString(),
+//                    password = it.password,
+//                    image = it.image
+//                )
+//            )
+//        }
+//    }
 
     private fun ContentResolver.getFileName(fileUri: Uri): String {
         val cursor = this.query(fileUri, null, null, null, null)
