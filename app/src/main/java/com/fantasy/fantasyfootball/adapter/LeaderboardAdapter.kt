@@ -1,6 +1,7 @@
 package com.fantasy.fantasyfootball.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
@@ -20,9 +21,14 @@ class LeaderboardAdapter(var users: List<UserWithTeam>) :
         val user = users[position]
         holder.binding.run {
             tvUsername.text = user.user.username
-            tvTeamName.text = "[${user.team.name}]"
+            tvTeamName.text = "@${user.team.name}"
             tvPoints.text = user.team.points.toString() + " pts"
-            tvRanking.text = "#" + (position + 1).toString()
+            tvRanking.text = (position + 1).toString()
+            if (position == 0) {
+                trophy.visibility = View.VISIBLE
+            } else {
+                trophy.visibility = View.GONE
+            }
         }
     }
 

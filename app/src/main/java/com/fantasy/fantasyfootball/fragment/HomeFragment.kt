@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +15,15 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.HomeViewModel
+import com.fantasy.fantasyfootball.viewModel.LeaderboardViewModel
+import com.fantasy.fantasyfootball.viewModel.ProfileViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels {
         HomeViewModel.Provider(
-            (requireContext().applicationContext as MainApplication).userRepo
+            (requireContext().applicationContext as MainApplication).userRepo,
+            (requireContext().applicationContext as MainApplication).teamRepo
         )
     }
 
@@ -38,6 +42,15 @@ class HomeFragment : Fragment() {
 
         val authService = AuthService.getInstance(requireContext())
         val user = authService.getAuthenticatedUser()
+        if (user != null) {
+            viewModel.getUserWithTeam(user.userId!!)
+        }
+
+        viewModel.userTeam.observe(viewLifecycleOwner) {
+            binding.apply {
+                binding.points.text = it.team.points.toString() + " Points"
+            }
+        }
 
         viewModel.teamManagement.asLiveData().observe(viewLifecycleOwner) {
             val action = HomeFragmentDirections.actionHomeFragmentToPickTeamFragment()

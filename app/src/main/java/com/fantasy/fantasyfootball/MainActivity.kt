@@ -2,9 +2,13 @@ package com.fantasy.fantasyfootball
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -30,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
@@ -38,6 +43,10 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         drawerLayout = binding.drawerLayout
+        val drawerHeader = layoutInflater.inflate(R.layout.drawer_header, null)
+        drawerHeader.setOnClickListener {
+            drawerLayout.closeDrawers()
+        }
 
         navController = findNavController(R.id.navHostFragment)
         val navInflater = navController.navInflater
@@ -67,6 +76,12 @@ class MainActivity : AppCompatActivity() {
 
         authenticate(user, graph)
         navController.setGraph(graph, savedInstanceState)
+
+        val headerView = binding.navigationView.getHeaderView(0)
+        val closeImageView = headerView.findViewById<ImageView>(R.id.ivClose)
+        closeImageView.setOnClickListener {
+            drawerLayout.closeDrawers()
+        }
 
         binding.btnLogoutDrawer.setOnClickListener {
             authService.unauthenticate()

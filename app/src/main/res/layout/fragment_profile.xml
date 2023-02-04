@@ -1,5 +1,6 @@
 
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -7,42 +8,60 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:context=".fragment.ProfileFragment">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Profile"
+            android:fontFamily="@font/font2"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="32sp"
+            android:layout_marginTop="20dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ImageView.Circle"
+            app:srcCompat="@drawable/vector__3_" />
 
         <ImageView
-            android:id="@+id/image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/tvChooseImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_circle"
+            android:padding="8dp"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+            app:layout_constraintEnd_toEndOf="@id/profile_picture"
+            app:tint="@color/white" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
-            <TextView
-                android:id="@+id/tvChooseImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="4dp"
-                android:paddingVertical="2dp"
-                android:background="@color/purple_700"
-                android:text="Choose File"/>
 
-            <TextView
-                android:id="@+id/tvImageName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:text=""/>
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:text="Name"
-            android:layout_height="wrap_content"/>
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/font2"
+            android:layout_height="25dp"/>
 
         <TextView
             android:id="@+id/tvUsername"
@@ -50,26 +69,40 @@
             android:text="UserName"
             android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/tvTeamName"
-            android:layout_width="wrap_content"
-            android:text="TeamName"
-            android:layout_height="wrap_content"/>
+<!--        <TextView-->
+<!--            android:id="@+id/tvTeamName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:text="TeamName"-->
+<!--            android:layout_height="wrap_content"/>-->
 
         <Button
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit Profile"
+            android:text="Change Account Info"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:drawableRight="@drawable/ic_right_arrow"
+            android:drawableTint="@color/white"
             />
 
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/btnEditPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"/>
+            android:text="Change Password"
+            android:textAllCaps="false"
+            android:drawableRight="@drawable/ic_right_arrow"
+            android:drawableTint="@color/white"
+            />
+
+<!--        <Button-->
+<!--            android:id="@+id/btnSave"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Save"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="16dp"/>-->
 
     </LinearLayout>
 </layout>

@@ -20,18 +20,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
+import com.fantasy.fantasyfootball.databinding.EditPasswordDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditProfileDialogBinding
 import com.fantasy.fantasyfootball.databinding.FragmentProfileBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.ProfileViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,6 +42,7 @@ import java.util.*
 class ProfileFragment : Fragment() {
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private lateinit var dialogBinding: EditProfileDialogBinding
+    private lateinit var dialogBinding2: EditPasswordDialogBinding
     private lateinit var binding: FragmentProfileBinding
     private lateinit var authService: AuthService
     private var bytes: ByteArray? = null
@@ -61,6 +65,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dialogBinding = EditProfileDialogBinding.inflate(layoutInflater)
+        dialogBinding2 = EditPasswordDialogBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
 //        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -82,7 +87,7 @@ class ProfileFragment : Fragment() {
             binding.apply {
                 tvName.text = it.user.name
                 tvUsername.text = it.user.username
-                tvTeamName.text = it.team.name
+//                tvTeamName.text = it.team.name
 
                 name = it.user.name.toString()
                 username = it.user.username.toString()
@@ -156,7 +161,6 @@ class ProfileFragment : Fragment() {
 
         filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             it?.let { uri ->
-                binding.tvImageName.text = requireContext().contentResolver.getFileName(uri)
 
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
                 bytes = inputStream?.readBytes()
@@ -166,9 +170,12 @@ class ProfileFragment : Fragment() {
         }
 
         binding.tvChooseImage.setOnClickListener {
-            filePickerLauncher.launch("image/*")
-            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
-            binding.image.setImageBitmap(bitmap)
+            filePickerLauncher.launch("*/*")
+            if (bytes != null) {
+                val bitmap = BitmapFactory.decodeByteArray(
+                    bytes, 0, bytes!!.size)
+                binding.profilePicture.setImageBitmap(bitmap)
+            }
         }
     }
 

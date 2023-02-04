@@ -1,6 +1,5 @@
 package com.fantasy.fantasyfootball.fragment
 
-
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,7 +23,6 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
 import com.fantasy.fantasyfootball.databinding.FragmentPickTeamBinding
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
-
 
 class PickPlayerFragment : Fragment() {
     private lateinit var adapter: PlayerAdapter
