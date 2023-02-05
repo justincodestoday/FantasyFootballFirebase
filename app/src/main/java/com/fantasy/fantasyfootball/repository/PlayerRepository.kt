@@ -1,6 +1,6 @@
 package com.fantasy.fantasyfootball.repository
 
-import android.util.Log
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.PlayerDao
 import com.fantasy.fantasyfootball.data.model.Player
 
@@ -40,21 +40,22 @@ class PlayerRepository(private val playerDao: PlayerDao) {
     }
 
     // Get players by searching for name
-    suspend fun getPlayersBySearch(area: String, playername: String): List<Player> {
-        return playerDao.getPlayersBySearch(area, playername)
+    suspend fun getPlayersBySearch(area: String, playerName: String): List<Player> {
+        return playerDao.getPlayersBySearch(area, playerName)
     }
 
     // Sort players
-    suspend fun sortPlayer(order:String, by:String, area: String): List<Player> {
+    suspend fun sortPlayer(order: String, by: String, area: String): List<Player> {
         var res = playerDao.getPlayersByArea(area)
-        if(order == "Ascending" && by == "Name") {
+        if (order == Enums.SortOrder.Ascending.name && by == Enums.SortBy.Name.name) {
             return res.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.firstName })
-        }else if(order == "Descending" && by == "Name") {
-            return res.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.firstName }).reversed()
-        }else if(order == "Ascending" && by == "Price") {
-            return res.sortedWith(compareBy(){it.price})
-        } else if(order == "Descending" && by == "Price") {
-            return res.sortedWith(compareBy(){it.price}).reversed()
+        } else if (order == Enums.SortOrder.Descending.name && by == Enums.SortBy.Name.name) {
+            return res.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.firstName })
+                .reversed()
+        } else if (order == Enums.SortOrder.Ascending.name && by == Enums.SortBy.Price.name) {
+            return res.sortedWith(compareBy { it.price })
+        } else if (order == Enums.SortOrder.Descending.name && by == Enums.SortBy.Name.name) {
+            return res.sortedWith(compareBy { it.price }).reversed()
         }
         return res
     }

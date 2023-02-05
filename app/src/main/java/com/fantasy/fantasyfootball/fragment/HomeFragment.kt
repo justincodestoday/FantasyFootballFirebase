@@ -1,6 +1,5 @@
 package com.fantasy.fantasyfootball.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +14,6 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.HomeViewModel
-import com.fantasy.fantasyfootball.viewModel.LeaderboardViewModel
-import com.fantasy.fantasyfootball.viewModel.ProfileViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -53,7 +50,7 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.teamManagement.asLiveData().observe(viewLifecycleOwner) {
-            val action = HomeFragmentDirections.actionHomeFragmentToPickTeamFragment()
+            val action = HomeFragmentDirections.actionHomeFragmentToTeamManagementFragment()
             NavHostFragment.findNavController(this).navigate(action)
         }
 
@@ -78,9 +75,14 @@ class HomeFragment : Fragment() {
             val refresh = result.getBoolean(Enums.Result.REFRESH.name)
             viewModel.refreshPage(refresh)
         }
+
+        setFragmentResultListener(Enums.Result.EDIT_IMAGE_RESULT.name) { _, result ->
+            val refresh = result.getBoolean(Enums.Result.REFRESH.name)
+            viewModel.refreshPage(refresh)
+        }
     }
 
-        private fun enumToString(type: String?): String? {
+    private fun enumToString(type: String?): String? {
         return when (type) {
             Enums.FormSuccess.LOGOUT_SUCCESSFUL.name -> context?.getString(R.string.logout_successful)
             else -> context?.getString(R.string.nothing)

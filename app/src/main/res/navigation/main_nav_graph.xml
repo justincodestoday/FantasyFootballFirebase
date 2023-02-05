@@ -10,8 +10,8 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_pickTeamFragment"
-            app:destination="@id/pickTeamFragment" />
+            android:id="@+id/action_homeFragment_to_teamManagementFragment"
+            app:destination="@id/teamManagementFragment" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -24,13 +24,13 @@
         android:name="com.fantasy.fantasyfootball.fragment.LeaderboardFragment"
         android:label="Leaderboard" />
     <fragment
-        android:id="@+id/pickTeamFragment"
-        android:name="com.fantasy.fantasyfootball.fragment.PickTeamFragment"
-        android:label="Pick Team"
-        tools:layout="@layout/fragment_pick_team">
+        android:id="@+id/teamManagementFragment"
+        android:name="com.fantasy.fantasyfootball.fragment.TeamManagementFragment"
+        android:label="Team Management"
+        tools:layout="@layout/fragment_team_management">
         <!--        <argument android:name="position" app:argType="string" />-->
         <action
-            android:id="@+id/action_pickTeamFragment_to_pickPlayerFragment"
+            android:id="@+id/action_teamManagementFragment_to_pickPlayerFragment"
             app:destination="@id/pickPlayerFragment" />
     </fragment>
     <fragment
@@ -57,7 +57,7 @@
             android:name="area"
             app:argType="string" />
         <action
-            android:id="@+id/action_pickPlayerFragment_to_pickTeamFragment"
-            app:destination="@id/pickTeamFragment" />
+            android:id="@+id/action_pickPlayerFragment_to_teamManagementFragment"
+            app:destination="@id/teamManagementFragment" />
     </fragment>
 </navigation>

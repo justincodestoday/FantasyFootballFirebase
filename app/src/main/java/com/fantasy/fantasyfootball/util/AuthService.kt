@@ -25,10 +25,6 @@ class AuthService (private val storageService: StorageService){
         return user
     }
 
-    fun updateUser(user: User) {
-        storageService.updateUser("user", user)
-    }
-
     companion object {
         private var authService: AuthService? = null
 

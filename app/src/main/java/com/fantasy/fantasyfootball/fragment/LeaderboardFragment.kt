@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fantasy.fantasyfootball.MainApplication
-import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.LeaderboardAdapter
 import com.fantasy.fantasyfootball.databinding.FragmentLeaderboardBinding
 import com.fantasy.fantasyfootball.viewModel.LeaderboardViewModel
@@ -40,7 +39,7 @@ class LeaderboardFragment : Fragment() {
         }
     }
 
-    fun setupAdapter() {
+    private fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = LeaderboardAdapter(emptyList())
         binding.rvLeaderboard.adapter = adapter

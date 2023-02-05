@@ -6,8 +6,18 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="ImageView.Circle" parent="">
-        <item name="cornerSize">50%</item>
+    <style name="Text.Base" parent="">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Profile.Text.Full.Name" parent="Text.Base">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Profile.Text.Username" parent="Text.Base">
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="Filter_AlertDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
@@ -42,33 +52,36 @@
     <style name="Base.AlertDialog.Title" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textStyle">bold</item>
     </style>
-    <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-    <!--        <item name="colorPrimary">@color/fantasyGreen</item>-->
-    <!--        <item name="colorPrimaryDark">@color/fantasyGreenDark</item>-->
-    <!--        <item name="colorAccent">@android:color/white</item>-->
-    <!--    </style>-->
 
-    <!--    <style name="AppTheme.SignIn" parent="AppTheme.NoActionBar">-->
-    <!--        <item name="android:statusBarColor">@color/fantasyGreen</item>-->
-    <!--    </style>-->
+    <style name="Circular">
+        <item name="cornerSize">50%</item>
+    </style>
 
-    <!--    <style name="TabLayoutTheme" parent="Widget.Design.TabLayout">-->
-    <!--        <item name="tabIndicatorColor">@color/fantasyGreenDark</item>-->
-    <!--        <item name="tabBackground">@color/fantasyGreen</item>-->
-    <!--        <item name="tabTextAppearance">@style/TabLayoutTheme.TextAppearance</item>-->
-    <!--        <item name="tabSelectedTextColor">@android:color/white</item>-->
-    <!--    </style>-->
+    <style name="RoundedSquare">
+        <item name="cornerSize">10%</item>
+    </style>
 
-    <!--    <style name="TabLayoutTheme.TextAppearance" parent="TextAppearance.Design.Tab">-->
-    <!--        <item name="android:textSize">12sp</item>-->
-    <!--        <item name="android:textColor">@color/fantasyGreenDark</item>-->
-    <!--        <item name="textAllCaps">true</item>-->
-    <!--    </style>-->
+    <style name="CornerCut">
+        <item name="cornerSize">15dp</item>
+        <item name="cornerFamily">cut</item>
+    </style>
 
-    <!--    <style name="AppTheme.NoActionBar">-->
-    <!--        <item name="windowActionBar">false</item>-->
-    <!--        <item name="windowNoTitle">true</item>-->
-    <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-    <!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-    <!--    </style>-->
+    <style name="DiamondCut">
+        <item name="cornerSize">75dp</item>
+        <item name="cornerFamily">cut</item>
+    </style>
+
+    <style name="SpecificCornerCut">
+        <item name="cornerSizeTopRight">75dp</item>
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerSizeBottomLeft">75dp</item>
+        <item name="cornerFamilyBottomLeft">cut</item>
+    </style>
+
+    <style name="SpecificCornerRounded">
+        <item name="cornerSizeTopRight">75dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerSizeBottomLeft">75dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+    </style>
 </resources>

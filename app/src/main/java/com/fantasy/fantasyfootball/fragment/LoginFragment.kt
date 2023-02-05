@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -14,7 +13,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.LoginViewModel
@@ -72,14 +70,28 @@ class LoginFragment : Fragment() {
                     etPassword.text?.clear()
                 }
                 authService.authenticate(it)
-                val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
-                NavHostFragment.findNavController(this).navigate(action)
-                Toast.makeText(
-                    requireContext(),
-                    context?.getString(R.string.login_successful),
-                    Toast.LENGTH_SHORT
-                ).show()
-                binding.loading.visibility = View.VISIBLE
+                if (authService.isAuthenticated()) {
+                    val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
+                    NavHostFragment.findNavController(this).navigate(action)
+                    Toast.makeText(
+                        requireContext(),
+                        context?.getString(R.string.login_successful),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    val snackBar = Snackbar.make(
+                        binding.root,
+                        requireContext().getString(R.string.login_unsuccessful),
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.setBackgroundTint(
+                        ContextCompat.getColor(requireContext(), R.color.red_500)
+                    )
+                    snackBar.setAction("Hide") {
+                        snackBar.dismiss()
+                    }
+                    snackBar.show()
+                }
             } else {
                 val snackBar = Snackbar.make(
                     binding.root,

@@ -120,15 +120,8 @@
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
             android:onClick="@{() -> viewModel.login()}"
-            android:text="@string/login"
+            android:text="@string/sign_in"
             android:textColor="@android:color/white" />
-
-        <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_login"
-            android:visibility="gone" />
 
         <ImageView
             android:layout_width="30dp"
@@ -146,7 +139,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/fragment_vertical_margin"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/swipe_left_to_register"
+            android:text="@string/swipe_left_to_signup"
             android:textSize="15sp" />
 
     </RelativeLayout>

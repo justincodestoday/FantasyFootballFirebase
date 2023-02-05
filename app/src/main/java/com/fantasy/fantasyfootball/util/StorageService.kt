@@ -44,11 +44,6 @@ class StorageService private constructor(
         editor.apply()
     }
 
-    fun updateUser(key: String, user: User) {
-        val jsonString = gson.toJson(user)
-        sharedPref.edit().putString(key, jsonString).apply()
-    }
-
     companion object {
         private var storageService: StorageService? = null
 
