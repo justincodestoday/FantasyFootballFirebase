@@ -19,7 +19,7 @@ data class Team(
     @PrimaryKey(autoGenerate = true) val teamId: Int? = null,
     var name: String? = null,
     var points: Int = 0,
-    var remainingBudget: Float = 100.0f,
+    var budget: Float = 100.0f,
     var lastUpdated: String? = null,
     val ownerId: Int,
 

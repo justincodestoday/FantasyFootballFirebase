@@ -1,13 +1,9 @@
 package com.fantasy.fantasyfootball.adapter
 
-import android.R
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
-import com.fantasy.fantasyfootball.databinding.FragmentPickTeamBinding
 import com.fantasy.fantasyfootball.databinding.PlayerCardBinding
 
 class PlayerAdapter(var players: List<Player>, val onClick:(player: Player) -> Unit):

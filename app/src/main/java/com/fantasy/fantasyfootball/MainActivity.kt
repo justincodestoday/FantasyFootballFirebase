@@ -1,14 +1,9 @@
 package com.fantasy.fantasyfootball
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
@@ -24,16 +19,13 @@ import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.util.AuthService
 
-
 class MainActivity : AppCompatActivity() {
-    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
@@ -57,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.homeFragment,
                 R.id.leaderboardFragment,
-                R.id.pickTeamFragment
+                R.id.teamManagementFragment
             ),
             drawerLayout
         )
@@ -85,15 +77,17 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnLogoutDrawer.setOnClickListener {
             authService.unauthenticate()
-            Toast.makeText(
-                this,
-                applicationContext.getString(R.string.logout_successful),
-                Toast.LENGTH_SHORT
-            ).show()
+            if (!authService.isAuthenticated()) {
+                Toast.makeText(
+                    this,
+                    applicationContext.getString(R.string.logout_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
 
-            navController.popBackStack(R.id.main_nav_graph, true)
-            navController.navigate(R.id.credentialsFragment)
-            drawerLayout.close()
+                navController.popBackStack(R.id.main_nav_graph, true)
+                navController.navigate(R.id.credentialsFragment)
+                drawerLayout.close()
+            }
         }
 
 //        binding.navigationView.getHeaderView(0).set

@@ -1,32 +1,22 @@
 package com.fantasy.fantasyfootball.viewModel
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.repository.UserRepository
-import com.fantasy.fantasyfootball.util.AuthService
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repo: UserRepository) : ViewModel() {
     val user: MutableSharedFlow<User?> = MutableSharedFlow()
 
-    val username: MutableLiveData<String> = MutableLiveData()
-    val password: MutableLiveData<String> = MutableLiveData()
+    val username: MutableLiveData<String?> = MutableLiveData()
+    val password: MutableLiveData<String?> = MutableLiveData()
 
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
-
-//    var userLoggedOut: MutableLiveData<Boolean> = MutableLiveData(false)
-
-    fun logout() {
-        viewModelScope.launch {
-            success.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
-        }
-    }
 
     fun login() {
         viewModelScope.launch {
@@ -35,8 +25,12 @@ class LoginViewModel(private val repo: UserRepository) : ViewModel() {
             ) {
                 error.emit(Enums.FormErrors.EMPTY_FIELD.name)
             } else {
+                Log.d("debugging", "value ${username.value} ${password.value}")
                 val result = async { validateUser(username.value!!, password.value!!) }
                 result.await()
+                username.value = null
+                password.value = null
+                Log.d("debugging", "null ${username.value} ${password.value}")
             }
         }
 

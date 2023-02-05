@@ -13,9 +13,9 @@ data class Player(
     var lastName: String,
     var team: String,
     var price: Float = 0f,
-    var area: Enums.Area? = null,
-    var position: Enums.Position? = null,
-    var color: Enums.ShirtColor? = null,
+    var area: Enums.Area,
+    var position: Enums.Position,
+    var color: Enums.ShirtColor,
     var isSet: Boolean = false,
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     val image: ByteArray? = null,

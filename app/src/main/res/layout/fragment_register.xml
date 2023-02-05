@@ -205,7 +205,7 @@
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
             android:onClick="@{() -> viewModel.register()}"
-            android:text="@string/register"
+            android:text="@string/sign_up"
             android:textColor="@android:color/white" />
 
         <ImageView
@@ -225,7 +225,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/fragment_vertical_margin"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/swipe_right_to_login"
+            android:text="@string/swipe_right_to_signin"
             android:textSize="15sp" />
 
     </RelativeLayout>

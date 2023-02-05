@@ -27,6 +27,7 @@
     <string name="login">Login</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_out">Sign out</string>
+    <string name="sign_up">Sign up</string>
     <string name="register">Register</string>
     <string name="create_account">Create a Fantasy account</string>
     <string name="sign_into_account">Sign into your Fantasy account</string>
@@ -37,7 +38,9 @@
     <string name="full_name">Full Name</string>
     <string name="team_name">Team Name</string>
     <string name="swipe_right_to_login">Swipe Right to Login</string>
+    <string name="swipe_right_to_signin">Swipe Right to Sign In</string>
     <string name="swipe_left_to_register">Swipe Left to Register</string>
+    <string name="swipe_left_to_signup">Swipe Left to Sign Up</string>
     <string name="swipe_right">Swipe Right</string>
     <string name="swipe_left">Swipe Left</string>
 
@@ -50,13 +53,27 @@
     <string name="running_man">Running Man</string>
     
     <!-- Edit Info   -->
-    <string name="edit_heading">Edit Profile</string>
-    <string name="edit_button">Edit</string>
+    <string name="edit_button">Save</string>
     <string name="edit_error">Error Text</string>
     <string name="edit_full_name">Full Name</string>
     <string name="edit_username">Username</string>
     <string name="edit_password">Password</string>
     <string name="edit_team_name">Team Name</string>
+    <string name="my_profile">My Profile</string>
+    <string name="choose_image">Choose image</string>
+    <string name="update_account_info">Update Account Info</string>
+    <string name="change_password">Change Password</string>
+    <string name="edit_image">Edit Image</string>
+    <string name="sign_out_account">Sign out of your account</string>
+
+    <!-- Sort -->
+    <string name="sort_order">Sort Order</string>
+    <string name="sort_by">Sort By</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_descending">Descending</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_price">Price</string>
+    <string name="sort_done">Done</string>
 
     <!-- User Card -->
     <string name="user_card">User Card</string>
@@ -85,9 +102,11 @@
     <string name="login_unsuccessful">Failed to login</string>
     <string name="logout_successful">Successfully logged out</string>
     <string name="update_successful">Updated successfully</string>
+    <string name="update_image_successful">Updated profile image successfully</string>
 
     <!-- Errors -->
     <string name="empty_field">Please fill all the fields</string>
+    <string name="empty_single_field">Please fill the field</string>
     <string name="missing_name">Name is required</string>
     <string name="missing_team_name">Team name is required</string>
     <string name="invalid_username">Username must be at least 8 characters long</string>
@@ -103,4 +122,5 @@
 
     <!-- strings -->
     <string name="empty_string" />
+    <string name="empty_spacing"> </string>
 </resources>

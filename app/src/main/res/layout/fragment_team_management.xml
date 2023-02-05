@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/football"
         android:orientation="vertical"
-        tools:context=".fragment.PickTeamFragment">
+        tools:context=".fragment.TeamManagementFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

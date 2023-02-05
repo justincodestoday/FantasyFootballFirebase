@@ -24,7 +24,7 @@ class MainApplication : Application() {
             FantasyDatabase::class.java,
             FantasyDatabase.DATABASE_NAME
         ).fallbackToDestructiveMigration()
-            .addMigrations(FantasyDatabase.MIGRATION_2_3)
+//            .addMigrations(FantasyDatabase.MIGRATION_1_2)
             .build()
         userRepo = UserRepository(fantasyDatabase.userDao)
         playerRepo = PlayerRepository(fantasyDatabase.playerDao)

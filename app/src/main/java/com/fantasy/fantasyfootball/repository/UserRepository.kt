@@ -6,13 +6,13 @@ import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import kotlinx.coroutines.flow.Flow
 
 class UserRepository(private val userDao: UserDao) {
-    suspend fun getUsers(): List<User> {
-        return userDao.getUsers()
-    }
-
-    suspend fun getUserById(userId: Int): User? {
-        return userDao.getUserById(userId)
-    }
+//    suspend fun getUsers(): List<User> {
+//        return userDao.getUsers()
+//    }
+//
+//    suspend fun getUserById(userId: Int): User? {
+//        return userDao.getUserById(userId)
+//    }
 
     fun isValidUser(user: User): Flow<User?> {
         return userDao.isValidUser(user.username!!, user.password!!)

@@ -11,7 +11,6 @@ import android.widget.RadioGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
@@ -19,9 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.PlayerAdapter
-import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
-import com.fantasy.fantasyfootball.databinding.FragmentPickTeamBinding
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 
 class PickPlayerFragment : Fragment() {
@@ -92,7 +89,7 @@ class PickPlayerFragment : Fragment() {
         }
     }
 
-    fun setupAdapter() {
+    private fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {
             NavHostFragment.findNavController(this).popBackStack()
@@ -106,15 +103,15 @@ class PickPlayerFragment : Fragment() {
         binding.rvPlayers.layoutManager = layoutManager
     }
 
-    fun refresh(area: String, playername: String) {
-        if(playername.isNotEmpty()) {
-            viewModel.getPlayersBySearch(area, playername)
+    private fun refresh(area: String, playerName: String) {
+        if(playerName.isNotEmpty()) {
+            viewModel.getPlayersBySearch(area, playerName)
         } else {
             viewModel.getPlayersByArea(area)
         }
     }
 
-    fun sortRefresh(order: String, by: String, area: String) {
+    private fun sortRefresh(order: String, by: String, area: String) {
         viewModel.sortPlayers(order, by, area)
     }
 

@@ -15,11 +15,23 @@ class Enums {
         INVALID_USERNAME,
         INVALID_PASSWORD,
         PASSWORDS_NOT_MATCHING,
+        LOGIN_UNSUCCESSFUL
     }
 
     enum class Result {
         REFRESH,
-        EDIT_PROFILE_RESULT
+        EDIT_PROFILE_RESULT,
+        EDIT_IMAGE_RESULT
+    }
+
+    enum class SortOrder {
+        Ascending,
+        Descending
+    }
+
+    enum class SortBy {
+        Name,
+        Price
     }
 
     enum class ShirtColor {
