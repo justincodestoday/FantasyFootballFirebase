@@ -90,6 +90,10 @@ class ProfileFragment : Fragment() {
         viewModel.userTeam.observe(viewLifecycleOwner) {
             binding.apply {
                 tvName.text = it.user.name
+                tvUsername.text = it.user.username
+                if (it.user.image != null) {
+                    val bitmap =
+                        BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image!!.size)
                 tvUsername.text = "@${it.user.username}"
                 if (it.user.image != null) {
                     val bitmap = BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image.size)

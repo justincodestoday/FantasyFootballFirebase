@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.fantasy.fantasyfootball.data.FantasyDatabase
+import com.fantasy.fantasyfootball.repository.MatchRepository
 import com.fantasy.fantasyfootball.repository.PlayerRepository
 import com.fantasy.fantasyfootball.repository.TeamRepository
 import com.fantasy.fantasyfootball.repository.UserRepository
@@ -14,6 +15,7 @@ class MainApplication : Application() {
     lateinit var userRepo: UserRepository
     lateinit var playerRepo: PlayerRepository
     lateinit var teamRepo: TeamRepository
+    lateinit var matchRepo: MatchRepository
     lateinit var storageService: StorageService
 
     override fun onCreate() {
@@ -29,6 +31,7 @@ class MainApplication : Application() {
         userRepo = UserRepository(fantasyDatabase.userDao)
         playerRepo = PlayerRepository(fantasyDatabase.playerDao)
         teamRepo = TeamRepository(fantasyDatabase.teamDao)
+        matchRepo = MatchRepository(fantasyDatabase.matchDao)
 
         val name: String = this.packageName ?: throw NullPointerException("No package name found")
         storageService = StorageService.getInstance(

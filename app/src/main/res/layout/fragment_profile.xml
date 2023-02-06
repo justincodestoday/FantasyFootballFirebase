@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:background="@drawable/img3"
         tools:context=".fragment.ProfileFragment">
 
         <androidx.constraintlayout.widget.Guideline
@@ -96,6 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:fontFamily="@font/font1"
                 android:text="@string/edit_username" />
         </LinearLayout>
 
@@ -118,7 +120,8 @@
                 android:drawablePadding="25dp"
                 android:gravity="center_vertical"
                 android:text="@string/update_account_info"
-                app:drawableTint="@color/green_900" />
+                android:textColor="@color/white"
+                app:drawableTint="@color/white" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
@@ -131,8 +134,10 @@
                 android:drawableEnd="@drawable/ic_arrow_forward"
                 android:drawablePadding="25dp"
                 android:gravity="center_vertical"
+                android:elevation="4dp"
                 android:text="@string/change_password"
-                app:drawableTint="@color/green_900" />
+                android:textColor="@color/white"
+                app:drawableTint="@color/white" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton

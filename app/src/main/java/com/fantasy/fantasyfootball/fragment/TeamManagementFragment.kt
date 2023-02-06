@@ -11,6 +11,7 @@ import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
 import android.util.Log
+import android.widget.ImageView
 import androidx.fragment.app.setFragmentResultListener
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
@@ -35,6 +36,8 @@ class TeamManagementFragment : Fragment() {
         binding = FragmentTeamManagementBinding.inflate(layoutInflater)
         return binding.root
     }
+    private var currentPosition: String? = null
+    private var currentImageView: ImageView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,6 +72,36 @@ class TeamManagementFragment : Fragment() {
             viewModel.getTeamWithPlayersByTeamId(it.team.teamId!!)
 
             binding.apply {
+                binding.tvTeamName.text = it.team.name
+                binding.tvBudget.text = "£" + it.team.budget.toString() + "m"
+                binding.gk.setImageResource(R.drawable.tshirt3)
+            }
+        }
+
+//        setFragmentResultListener("from_pick_player") { _, result ->
+//            val refresh = result.getBoolean("refresh")
+//            if (refresh) {
+//                pickPlayerFragment.refresh("", "")
+//            }
+//        }
+        setFragmentResultListener("player_info") { a, b ->
+            val price = b.getFloat("price")
+            val position = b.getString("position")
+            if (position != null) {
+                when (position) {
+                    "GK" -> currentImageView = binding.gk
+                    "LB" -> currentImageView = binding.lb
+                    "LCB" -> currentImageView = binding.lcb
+                    "RCB" -> currentImageView = binding.rcb
+                    "RB" -> currentImageView = binding.rb
+                    "LM" -> currentImageView = binding.lm
+                    "LCM" -> currentImageView = binding.lcm
+                    "RCM" -> currentImageView = binding.rcm
+                    "RM" -> currentImageView = binding.rm
+                    "LS" -> currentImageView = binding.ls
+                    "RS" -> currentImageView = binding.rs
+                }
+                setImageForPosition(position, currentImageView!!)
                 tvPoints.text = it.team.points.toString()
                 tvTeamName.text = it.team.name
                 tvBudget.text = "£" + it.team.budget.toString() + "m"
@@ -93,6 +126,7 @@ class TeamManagementFragment : Fragment() {
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
                     area.toString(), position.toString()
                 )
+            NavHostFragment.findNavController(this).navigate(action)
             NavHostFragment.findNavController(this).navigate(action)
         }
 
@@ -187,6 +221,20 @@ class TeamManagementFragment : Fragment() {
         }
     }
 
+    fun setImageForPosition(position: String, imageView: ImageView) {
+        currentPosition = position
+        when (position) {
+            "GK" -> imageView.setImageResource(R.drawable.tshirt2)
+            "LB" -> imageView.setImageResource(R.drawable.tshirt3)
+            "LCB" -> imageView.setImageResource(R.drawable.tshirt2)
+            "RCB" -> imageView.setImageResource(R.drawable.tshirt3)
+            "RB" -> imageView.setImageResource(R.drawable.tshirt3)
+            "LM" -> imageView.setImageResource(R.drawable.tshirt3)
+            "LCM" -> imageView.setImageResource(R.drawable.tshirt3)
+            "RCM" -> imageView.setImageResource(R.drawable.tshirt3)
+            "RM" -> imageView.setImageResource(R.drawable.tshirt3)
+            "LS" -> imageView.setImageResource(R.drawable.tshirt3)
+            "RS" -> imageView.setImageResource(R.drawable.tshirt3)
     private fun setImageForPosition(position: String, color: Int) {
         when (position) {
             "GK" -> binding.gk.setImageResource(color)

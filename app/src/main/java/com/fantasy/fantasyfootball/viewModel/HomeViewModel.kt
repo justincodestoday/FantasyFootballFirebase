@@ -15,12 +15,19 @@ class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: 
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
     val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
     val logout: MutableSharedFlow<String> = MutableSharedFlow()
 
     val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun refreshPage(refresh: Boolean) {
         refreshPage.value = refresh
+    }
+
+    fun navigateToLeaderboard() {
+        viewModelScope.launch {
+            leaderboard.emit(Unit)
+        }
     }
 
     fun navigateToTeam() {

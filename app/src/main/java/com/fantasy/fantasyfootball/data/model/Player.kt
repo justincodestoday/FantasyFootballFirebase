@@ -9,6 +9,7 @@ data class Player(
     @PrimaryKey(autoGenerate = true) val playerId: Int? = null,
     var firstName: String,
     var lastName: String,
+    var team: Enums.Team,
     var team: String,
     var teamConst: Enums.Team,
     var price: Float = 0f,
