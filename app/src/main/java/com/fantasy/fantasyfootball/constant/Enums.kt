@@ -15,13 +15,18 @@ class Enums {
         INVALID_USERNAME,
         INVALID_PASSWORD,
         PASSWORDS_NOT_MATCHING,
+        USER_EXISTS,
         LOGIN_UNSUCCESSFUL
     }
 
     enum class Result {
         REFRESH,
+        POSITION_BUTTON,
+        PLAYER_ID,
+        PLAYER_PRICE,
         EDIT_PROFILE_RESULT,
-        EDIT_IMAGE_RESULT
+        EDIT_IMAGE_RESULT,
+        ADD_PLAYER_RESULT,
     }
 
     enum class SortOrder {
@@ -34,8 +39,12 @@ class Enums {
         Price
     }
 
+    enum class Team {
+        ParisSG, ManCity, RealMadrid, BorussiaDort, Barcelona, BayernMunich, Arsenal, Leipzig, Chelsea, Newcastle, LeicesterCity, ManUnited, Liverpool, InterMilan, ACMilan, Juventus
+    }
+
     enum class ShirtColor {
-        DARKBLUE, DARKRED, LIGHTBLUE, LIGHTRED, ORANGE, TRANSLUCENT, TURQOISE, WHITE, YELLOW, PURPLE
+        DARKBLUE, DARKRED, LIGHTBLUE, LIGHTRED, ORANGE, TRANSLUCENT, TURQOISE, WHITE, YELLOW, PURPLE, BLACK
     }
 
     enum class Position {

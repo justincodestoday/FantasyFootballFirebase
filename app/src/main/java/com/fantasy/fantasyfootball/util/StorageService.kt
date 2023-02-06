@@ -1,8 +1,6 @@
 package com.fantasy.fantasyfootball.util
 
 import android.content.SharedPreferences
-import android.util.Log
-import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
 import com.google.gson.Gson
 

@@ -70,6 +70,7 @@ class RegisterFragment : Fragment() {
             Enums.FormErrors.INVALID_USERNAME.name -> context?.getString(R.string.invalid_username)
             Enums.FormErrors.INVALID_PASSWORD.name -> context?.getString(R.string.invalid_password)
             Enums.FormErrors.PASSWORDS_NOT_MATCHING.name -> context?.getString(R.string.passwords_not_matching)
+            Enums.FormErrors.USER_EXISTS.name -> context?.getString(R.string.user_already_exists)
             Enums.FormSuccess.REGISTER_SUCCESSFUL.name -> context?.getString(R.string.register_successful)
             else -> context?.getString(R.string.nothing)
         }
