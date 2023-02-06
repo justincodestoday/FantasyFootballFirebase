@@ -5,28 +5,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.SearchView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.PlayerAdapter
+import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
+import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
+import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 
 class PickPlayerFragment : Fragment() {
     private lateinit var adapter: PlayerAdapter
     private lateinit var binding: FragmentPickPlayerBinding
+    private lateinit var authService: AuthService
     var currentFilter = ""
     private val viewModel: PickPlayerViewModel by viewModels {
-        PickPlayerViewModel.Provider((requireContext().applicationContext as MainApplication).playerRepo)
+        PickPlayerViewModel.Provider(
+            (requireContext().applicationContext as MainApplication).playerRepo,
+            (requireContext().applicationContext as MainApplication).teamRepo,
+            (requireContext().applicationContext as MainApplication).userRepo
+        )
     }
 
     override fun onCreateView(
@@ -40,10 +47,20 @@ class PickPlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupAdapter()
+        authService = AuthService.getInstance(requireActivity().applicationContext)
+        val user = authService.getAuthenticatedUser()
 
         val args: PickPlayerFragmentArgs by navArgs()
-        var selectedArea = args.area
+        val selectedArea = args.area
+        val selectedPosition = args.position
+
+        if (user != null) {
+            viewModel.getUserWithTeam(user.userId!!)
+            viewModel.userTeam.observe(viewLifecycleOwner) {
+                setupAdapter(it.team.teamId!!, selectedPosition)
+            }
+        }
+
         viewModel.getPlayersByArea(args.area)
 
         viewModel.players.observe(viewLifecycleOwner) { players ->
@@ -83,28 +100,44 @@ class PickPlayerFragment : Fragment() {
                 val radioG2Button = filterDialog.findViewById<RadioButton>(radioG2Checked)
                 val radioG1ButtonText = radioG1Button.text
                 val radioG2ButtonText = radioG2Button.text
-                sortRefresh(radioG1ButtonText.toString(), radioG2ButtonText.toString(), selectedArea)
+                sortRefresh(
+                    radioG1ButtonText.toString(),
+                    radioG2ButtonText.toString(),
+                    selectedArea
+                )
                 filterDialog.hide()
             }
         }
     }
 
-    private fun setupAdapter() {
+    private fun setupAdapter(teamId: Int, selectedPosition: String) {
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {
+            NavHostFragment.findNavController(this).previousBackStackEntry?.savedStateHandle?.set("key", selectedPosition)
             NavHostFragment.findNavController(this).popBackStack()
             val bundle = Bundle()
-            bundle.putFloat("price", it.price)
-            bundle.putString("position", it.position.toString())
+            if (it.playerId != null) {
+                bundle.putFloat(Enums.Result.PLAYER_PRICE.name, it.price)
+                bundle.putInt(Enums.Result.PLAYER_ID.name, it.playerId)
+                bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                bundle.putString(Enums.Result.POSITION_BUTTON.name, selectedPosition)
+                setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
+                viewModel.addPlayer(TeamsPlayersCrossRef(teamId, it.playerId))
+                Toast.makeText(
+                    requireContext(),
+                    context?.getString(R.string.added_player_successful),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            }
 //            (requireContext() as PickTeamFragment).setImageForPosition(position = "GK")
-            setFragmentResult("player_info", bundle)
         }
         binding.rvPlayers.adapter = adapter
         binding.rvPlayers.layoutManager = layoutManager
     }
 
     private fun refresh(area: String, playerName: String) {
-        if(playerName.isNotEmpty()) {
+        if (playerName.isNotEmpty()) {
             viewModel.getPlayersBySearch(area, playerName)
         } else {
             viewModel.getPlayersByArea(area)
@@ -113,15 +146,5 @@ class PickPlayerFragment : Fragment() {
 
     private fun sortRefresh(order: String, by: String, area: String) {
         viewModel.sortPlayers(order, by, area)
-    }
-
-    companion object {
-        private var pickPlayerFragmentInstance: PickPlayerFragment? = null
-        fun getInstance(): PickPlayerFragment {
-            if (pickPlayerFragmentInstance == null) {
-                pickPlayerFragmentInstance = PickPlayerFragment()
-            }
-            return pickPlayerFragmentInstance!!
-        }
     }
 }

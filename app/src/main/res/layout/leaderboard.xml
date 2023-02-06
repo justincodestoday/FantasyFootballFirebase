@@ -15,34 +15,32 @@
             android:id="@+id/trophy"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:src="@drawable/trophy"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            />
+            android:src="@drawable/trophy" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:orientation="horizontal"
+            android:padding="16dp"
             android:weightSum="1">
 
             <TextView
                 android:id="@+id/tvRanking"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="4dp"
-                android:layout_weight="0.1"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
                 android:contentDescription="@string/player_card"
+                android:fontFamily="@font/font2"
                 android:gravity="start|center"
                 android:text="@string/user_rank"
-                android:fontFamily="@font/font2"
                 android:textColor="@color/black" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.8"
+                android:layout_weight="0.6"
                 android:gravity="start|center"
                 android:orientation="horizontal">
 
@@ -51,16 +49,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
-                    android:text="@string/user_username"
                     android:fontFamily="@font/font2"
+                    android:text="@string/user_username"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tvTeamName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/user_teamname"
                     android:fontFamily="@font/font2"
+                    android:text="@string/user_teamname"
                     android:textColor="#AEADAD" />
             </LinearLayout>
 
@@ -68,11 +66,11 @@
                 android:id="@+id/tvPoints"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:gravity="start|center"
                 android:layout_marginEnd="10dp"
-                android:text="@string/user_points"
+                android:layout_weight="0.2"
                 android:fontFamily="@font/font2"
+                android:gravity="start|center"
+                android:text="@string/user_points"
                 android:textColor="@color/black" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

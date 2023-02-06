@@ -6,50 +6,94 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.data.model.Player
+import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
+import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.fantasy.fantasyfootball.repository.PlayerRepository
+import com.fantasy.fantasyfootball.repository.TeamRepository
+import com.fantasy.fantasyfootball.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class PickPlayerViewModel(val repo: PlayerRepository): ViewModel() {
+class PickPlayerViewModel(
+    private val playerRepo: PlayerRepository,
+    private val teamRepo: TeamRepository,
+    private val userRepo: UserRepository
+) : ViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
-//    val playerName = players.value?.name
 
-    init {
-//        mutableListOf(players)
-//        getPlayers("")
-//        getPlayersByPosition(Enums.Position.GK)
-    }
+    val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
+
+    val teamsPlayersCrossRef: MutableLiveData<TeamsPlayersCrossRef> = MutableLiveData()
+
+//    init {
+////        mutableListOf(players)
+////        getPlayers("")
+////        getPlayersByPosition(Enums.Position.GK)
+//    }
 
 //    fun getPlayers(area: String, playername: String) {
 //        viewModelScope.launch {
-//            val res = repo.getPlayers(area, playername)
+//            val res = playerRepo.getPlayers(area, playername)
 //            players.value = res
 //        }
 //    }
 
+    fun updateBudget(teamId: Int, budget: Float, cost: Float) {
+        viewModelScope.launch {
+            val team = teamRepo.getTeamById(teamId)
+            val currentValue = team!!.budget.minus(cost)
+            val updatedValue = currentValue - 10 // subtract the desired value
+//            yourDao.updateValue(updatedValue) // upd
+//            teamRepo.updateBudget()
+        }
+    }
+
+    fun getUserWithTeam(userId: Int) {
+        viewModelScope.launch {
+            val res = userRepo.getUserWithTeam(userId)
+            res?.let {
+                userTeam.value = it
+            }
+        }
+    }
+
+    fun addPlayer(teamsPlayersCrossRef: TeamsPlayersCrossRef) {
+        viewModelScope.launch {
+//            val _teamId = team?.teamId
+//            val player = playerRepo.getPlayerById(playerId)
+
+
+            teamRepo.addPlayers(teamsPlayersCrossRef)
+        }
+    }
+
     fun getPlayersByArea(area: String) {
         viewModelScope.launch {
-            val res = repo.getPlayersByArea(area)
+            val res = playerRepo.getPlayersByArea(area)
             players.value = res
         }
     }
 
     fun getPlayersBySearch(area: String, playername: String) {
         viewModelScope.launch {
-            val res = repo.getPlayersBySearch(area, playername)
+            val res = playerRepo.getPlayersBySearch(area, playername)
             players.value = res
         }
     }
 
-    fun sortPlayers(order:String, by:String, area: String){
+    fun sortPlayers(order: String, by: String, area: String) {
         viewModelScope.launch {
-            val res = repo.sortPlayer(order, by, area)
+            val res = playerRepo.sortPlayer(order, by, area)
             players.value = res
         }
     }
 
-    class Provider(val repo: PlayerRepository): ViewModelProvider.Factory{
+    class Provider(
+        private val playerRepo: PlayerRepository,
+        private val teamRepo: TeamRepository,
+        private val userRepo: UserRepository
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PickPlayerViewModel(repo) as T
+            return PickPlayerViewModel(playerRepo, teamRepo, userRepo) as T
         }
     }
 }

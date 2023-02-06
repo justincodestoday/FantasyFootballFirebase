@@ -25,7 +25,7 @@ class PlayerRepository(private val playerDao: PlayerDao) {
     }
 
     // Insert a new player
-    suspend fun insert(player: Player) {
+    suspend fun createPlayer(player: Player) {
         playerDao.insert(player)
     }
 
@@ -34,10 +34,10 @@ class PlayerRepository(private val playerDao: PlayerDao) {
         playerDao.delete(playerId)
     }
 
-    // Set/Unset a player
-    suspend fun changePlayerStatus(id: Int, isSet: Boolean) {
-        playerDao.updateStatusById(id, isSet)
-    }
+//    // Set/Unset a player
+//    suspend fun changePlayerStatus(id: Int, isSet: Boolean) {
+//        playerDao.updateStatusById(id, isSet)
+//    }
 
     // Get players by searching for name
     suspend fun getPlayersBySearch(area: String, playerName: String): List<Player> {

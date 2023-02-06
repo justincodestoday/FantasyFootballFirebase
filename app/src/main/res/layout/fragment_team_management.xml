@@ -21,7 +21,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/font1"
-                android:text=""
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -39,6 +38,7 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="80dp"
+                        android:id="@+id/tvPoints"
                         android:layout_height="25dp"
                         android:background="@drawable/custom_button_2" />
 
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
-                        android:text="" />
+                        android:text="@string/team_points" />
                 </LinearLayout>
 
 
@@ -63,7 +63,6 @@
                         android:layout_height="25dp"
                         android:background="@drawable/custom_button_2"
                         android:fontFamily="@font/font2"
-                        android:text="£100m"
                         android:textAllCaps="false" />
 
                     <TextView
@@ -71,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
-                        android:text="Budget" />
+                        android:text="@string/team_budget" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -83,16 +82,14 @@
                         android:id="@+id/tvRanking"
                         android:layout_width="80dp"
                         android:layout_height="25dp"
-                        android:background="@drawable/custom_button_2"
-                        android:text="#3"
-                        />
+                        android:background="@drawable/custom_button_2" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
-                        android:text="Rank" />
+                        android:text="@string/team_rank" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -150,6 +147,10 @@
                     />
             </LinearLayout>
 
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/transparent"
+                android:src="@drawable/shirt2" />
 
             <ImageButton
                 android:id="@+id/lcm"
@@ -164,8 +165,8 @@
                 android:id="@+id/rcm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="20dp"
                 android:background="@color/transparent"
                 android:src="@drawable/shirt2" />
 
@@ -173,7 +174,7 @@
                 android:id="@+id/rm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
                 android:background="@color/transparent"
                 android:src="@drawable/shirt2" />
         </LinearLayout>
@@ -189,8 +190,8 @@
                 android:id="@+id/lb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="20dp"
                 android:background="@color/transparent"
                 android:src="@drawable/shirt2" />
 
@@ -198,8 +199,8 @@
                 android:id="@+id/lcb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="20dp"
                 android:background="@color/transparent"
                 android:src="@drawable/shirt2" />
 
@@ -207,8 +208,8 @@
                 android:id="@+id/rcb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="20dp"
                 android:background="@color/transparent"
                 android:src="@drawable/shirt2" />
 
@@ -216,7 +217,7 @@
                 android:id="@+id/rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
                 android:background="@color/transparent"
                 android:src="@drawable/shirt2" />
         </LinearLayout>

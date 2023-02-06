@@ -1,6 +1,5 @@
 package com.fantasy.fantasyfootball.viewModel
 
-import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.*
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Team
@@ -41,16 +40,21 @@ class RegisterViewModel(
             } else if (passwordConfirm.value?.trim { it <= ' ' } != password.value?.trim { it <= ' ' }) {
                 error.emit(Enums.FormErrors.PASSWORDS_NOT_MATCHING.name)
             } else {
-                val user =
-                    User(
-                        name = name.value,
-                        username = username.value,
-                        password = password.value
-                    )
-                val id = userRepo.createUser(user)
-                val team = Team(ownerId = id.toInt(), name = teamName.value?.trim())
-                teamRepo.createTeam(team)
-                success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
+                val existingUser = userRepo.getUserByUsername(username.value!!)
+                if (existingUser == null) {
+                    val user =
+                        User(
+                            name = name.value,
+                            username = username.value,
+                            password = password.value
+                        )
+                    val id = userRepo.createUser(user)
+                    val team = Team(ownerId = id.toInt(), name = teamName.value?.trim())
+                    teamRepo.createTeam(team)
+                    success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
+                } else {
+                    error.emit(Enums.FormErrors.USER_EXISTS.name)
+                }
             }
         }
     }

@@ -31,7 +31,6 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class ProfileFragment : Fragment() {
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     private lateinit var binding: FragmentProfileBinding
@@ -39,8 +38,6 @@ class ProfileFragment : Fragment() {
     private lateinit var accountDialogBinding: EditProfileDialogBinding
     private lateinit var passwordDialogBinding: EditPasswordDialogBinding
     private lateinit var authService: AuthService
-
-    //    private var bytes: ByteArray? = null
     private val viewModel: ProfileViewModel by viewModels {
         ProfileViewModel.Provider(
             (requireContext().applicationContext as MainApplication).userRepo,
@@ -97,6 +94,9 @@ class ProfileFragment : Fragment() {
                 if (it.user.image != null) {
                     val bitmap =
                         BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image!!.size)
+                tvUsername.text = "@${it.user.username}"
+                if (it.user.image != null) {
+                    val bitmap = BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image.size)
                     profilePicture.setImageBitmap(bitmap)
                     imageDialogBinding.ivImage.setImageBitmap(bitmap)
                 }
@@ -111,22 +111,6 @@ class ProfileFragment : Fragment() {
                 teamBudget = it.team.budget
             }
         }
-
-//        filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-//            it?.let { uri ->
-////                binding.tvImageName.text = requireContext().contentResolver.getFileName(uri)
-//
-//                val inputStream = requireContext().contentResolver.openInputStream(uri)
-////                val bytes: ByteArray = inputStream?.readBytes()!!
-//                bytes = inputStream?.readBytes()
-//
-////                val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
-////                binding.profilePicture.setImageBitmap(bitmap)
-//                image = bytes
-//                Log.d("debugging", bytes.toString())
-//                inputStream?.close()
-//            }
-//        }
 
         binding.apply {
             var bytes: ByteArray? = null
@@ -146,7 +130,7 @@ class ProfileFragment : Fragment() {
             imageDialogBinding.tvChooseImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
             }
-            ivEditImage.setOnClickListener {
+                profilePicture.setOnClickListener {
                 imageDialog.setContentView(imageDialogBinding.root)
                 imageDialogBinding.btnSaveImage.setOnClickListener {
                     val imageName = imageDialogBinding.tvImageName.text.toString()

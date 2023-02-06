@@ -51,7 +51,12 @@
     <string name="pick_team">Pick Team</string>
     <string name="sign_me_out">Sign Me Out</string>
     <string name="running_man">Running Man</string>
-    
+
+    <!-- Team Management -->
+    <string name="team_points">Points</string>
+    <string name="team_budget">Budget</string>
+    <string name="team_rank">Rank</string>
+
     <!-- Edit Info   -->
     <string name="edit_button">Save</string>
     <string name="edit_error">Error Text</string>
@@ -92,7 +97,6 @@
     <string name="dialog_button_positive">Confirm</string>
     <string name="dialog_button_negative">Cancel</string>
     <string name="dialog_button_neutral">OK</string>
-    <string name="edit_title">Edit Profile</string>
     <string name="edit_message">Are you sure you want to proceed with these changes?</string>
 
     <!-- Success -->
@@ -103,6 +107,7 @@
     <string name="logout_successful">Successfully logged out</string>
     <string name="update_successful">Updated successfully</string>
     <string name="update_image_successful">Updated profile image successfully</string>
+    <string name="added_player_successful">Added player to the team successfully</string>
 
     <!-- Errors -->
     <string name="empty_field">Please fill all the fields</string>
@@ -115,6 +120,7 @@
     <string name="no_user">User does not exist</string>
     <string name="incorrect_password">Incorrect password</string>
     <string name="wrong_credentials">Username and password do not match</string>
+    <string name="user_already_exists">User already exists</string>
     <string name="nothing">Nothing</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.fantasy.fantasyfootball.repository.TeamRepository
 import com.fantasy.fantasyfootball.repository.UserRepository
@@ -14,13 +13,10 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: TeamRepository) : ViewModel() {
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
-//    val user: MutableSharedFlow<User?> = MutableSharedFlow()
-
     val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
     val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
     val logout: MutableSharedFlow<String> = MutableSharedFlow()
-    val error: MutableSharedFlow<String> = MutableSharedFlow()
 
     val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
 
