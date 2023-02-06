@@ -10,20 +10,25 @@ import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.fantasy.fantasyfootball.repository.PlayerRepository
 import com.fantasy.fantasyfootball.repository.TeamRepository
+import com.fantasy.fantasyfootball.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class PickPlayerViewModel(private val playerRepo: PlayerRepository, private val teamRepo: TeamRepository): ViewModel() {
+class PickPlayerViewModel(
+    private val playerRepo: PlayerRepository,
+    private val teamRepo: TeamRepository,
+    private val userRepo: UserRepository
+) : ViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
 
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
 
     val teamsPlayersCrossRef: MutableLiveData<TeamsPlayersCrossRef> = MutableLiveData()
 
-    init {
-//        mutableListOf(players)
-//        getPlayers("")
-//        getPlayersByPosition(Enums.Position.GK)
-    }
+//    init {
+////        mutableListOf(players)
+////        getPlayers("")
+////        getPlayersByPosition(Enums.Position.GK)
+//    }
 
 //    fun getPlayers(area: String, playername: String) {
 //        viewModelScope.launch {
@@ -42,7 +47,16 @@ class PickPlayerViewModel(private val playerRepo: PlayerRepository, private val 
         }
     }
 
-    fun addPlayer(teamId: Int, teamsPlayersCrossRef: TeamsPlayersCrossRef) {
+    fun getUserWithTeam(userId: Int) {
+        viewModelScope.launch {
+            val res = userRepo.getUserWithTeam(userId)
+            res?.let {
+                userTeam.value = it
+            }
+        }
+    }
+
+    fun addPlayer(teamsPlayersCrossRef: TeamsPlayersCrossRef) {
         viewModelScope.launch {
 //            val _teamId = team?.teamId
 //            val player = playerRepo.getPlayerById(playerId)
@@ -66,16 +80,20 @@ class PickPlayerViewModel(private val playerRepo: PlayerRepository, private val 
         }
     }
 
-    fun sortPlayers(order:String, by:String, area: String){
+    fun sortPlayers(order: String, by: String, area: String) {
         viewModelScope.launch {
             val res = playerRepo.sortPlayer(order, by, area)
             players.value = res
         }
     }
 
-    class Provider(private val playerRepo: PlayerRepository, private val teamRepo: TeamRepository): ViewModelProvider.Factory{
+    class Provider(
+        private val playerRepo: PlayerRepository,
+        private val teamRepo: TeamRepository,
+        private val userRepo: UserRepository
+    ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PickPlayerViewModel(playerRepo, teamRepo) as T
+            return PickPlayerViewModel(playerRepo, teamRepo, userRepo) as T
         }
     }
 }
