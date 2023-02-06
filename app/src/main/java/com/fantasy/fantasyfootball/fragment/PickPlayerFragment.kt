@@ -31,7 +31,8 @@ class PickPlayerFragment : Fragment() {
     private val viewModel: PickPlayerViewModel by viewModels {
         PickPlayerViewModel.Provider(
             (requireContext().applicationContext as MainApplication).playerRepo,
-            (requireContext().applicationContext as MainApplication).teamRepo
+            (requireContext().applicationContext as MainApplication).teamRepo,
+            (requireContext().applicationContext as MainApplication).userRepo
         )
     }
 
@@ -54,7 +55,10 @@ class PickPlayerFragment : Fragment() {
         val selectedPosition = args.position
 
         if (user != null) {
-            setupAdapter(user, selectedPosition)
+            viewModel.getUserWithTeam(user.userId!!)
+            viewModel.userTeam.observe(viewLifecycleOwner) {
+                setupAdapter(it.team.teamId!!, selectedPosition)
+            }
         }
 
         viewModel.getPlayersByArea(args.area)
@@ -106,7 +110,7 @@ class PickPlayerFragment : Fragment() {
         }
     }
 
-    private fun setupAdapter(user: User, selectedPosition: String) {
+    private fun setupAdapter(teamId: Int, selectedPosition: String) {
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {
             NavHostFragment.findNavController(this).previousBackStackEntry?.savedStateHandle?.set("key", selectedPosition)
@@ -118,7 +122,7 @@ class PickPlayerFragment : Fragment() {
                 bundle.putBoolean(Enums.Result.REFRESH.name, true)
                 bundle.putString(Enums.Result.POSITION_BUTTON.name, selectedPosition)
                 setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
-//                viewModel.addPlayer(TeamsPlayersCrossRef(user.userId!!, it.playerId))
+                viewModel.addPlayer(TeamsPlayersCrossRef(teamId, it.playerId))
                 Toast.makeText(
                     requireContext(),
                     context?.getString(R.string.added_player_successful),
