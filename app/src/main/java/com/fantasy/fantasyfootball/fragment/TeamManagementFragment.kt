@@ -87,25 +87,8 @@ class TeamManagementFragment : Fragment() {
         setFragmentResultListener("player_info") { a, b ->
             val price = b.getFloat("price")
             val position = b.getString("position")
-            if (position != null) {
-                when (position) {
-                    "GK" -> currentImageView = binding.gk
-                    "LB" -> currentImageView = binding.lb
-                    "LCB" -> currentImageView = binding.lcb
-                    "RCB" -> currentImageView = binding.rcb
-                    "RB" -> currentImageView = binding.rb
-                    "LM" -> currentImageView = binding.lm
-                    "LCM" -> currentImageView = binding.lcm
-                    "RCM" -> currentImageView = binding.rcm
-                    "RM" -> currentImageView = binding.rm
-                    "LS" -> currentImageView = binding.ls
-                    "RS" -> currentImageView = binding.rs
-                }
-                setImageForPosition(position, currentImageView!!)
-                tvPoints.text = it.team.points.toString()
-                tvTeamName.text = it.team.name
-                tvBudget.text = "£" + it.team.budget.toString() + "m"
-            }
+//            if (position != null) {
+//            }
         }
 
         viewModel.teamWithPlayers.observe(viewLifecycleOwner) {
@@ -153,6 +136,16 @@ class TeamManagementFragment : Fragment() {
         binding.rcb.setOnClickListener {
             val area = Enums.Area.Defender
             val position = Enums.Position.RCB
+            val action =
+                TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
+                    area.toString(), position.toString()
+                )
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+
+        binding.rb.setOnClickListener {
+            val area = Enums.Area.Defender
+            val position = Enums.Position.RB
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
                     area.toString(), position.toString()
@@ -221,20 +214,6 @@ class TeamManagementFragment : Fragment() {
         }
     }
 
-    fun setImageForPosition(position: String, imageView: ImageView) {
-        currentPosition = position
-        when (position) {
-            "GK" -> imageView.setImageResource(R.drawable.tshirt2)
-            "LB" -> imageView.setImageResource(R.drawable.tshirt3)
-            "LCB" -> imageView.setImageResource(R.drawable.tshirt2)
-            "RCB" -> imageView.setImageResource(R.drawable.tshirt3)
-            "RB" -> imageView.setImageResource(R.drawable.tshirt3)
-            "LM" -> imageView.setImageResource(R.drawable.tshirt3)
-            "LCM" -> imageView.setImageResource(R.drawable.tshirt3)
-            "RCM" -> imageView.setImageResource(R.drawable.tshirt3)
-            "RM" -> imageView.setImageResource(R.drawable.tshirt3)
-            "LS" -> imageView.setImageResource(R.drawable.tshirt3)
-            "RS" -> imageView.setImageResource(R.drawable.tshirt3)
     private fun setImageForPosition(position: String, color: Int) {
         when (position) {
             "GK" -> binding.gk.setImageResource(color)

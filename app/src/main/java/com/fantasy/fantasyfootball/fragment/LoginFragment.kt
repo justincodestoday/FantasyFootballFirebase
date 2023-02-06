@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
@@ -17,6 +18,7 @@ import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
@@ -41,6 +43,12 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val authService = AuthService.getInstance(requireContext())
+
+        binding.btnLogin.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.login()
+            }
+        }
 
         viewModel.success.asLiveData().observe(viewLifecycleOwner) {
             val msg = enumToString(it)

@@ -119,7 +119,6 @@
             android:layout_marginTop="@dimen/fragment_vertical_margin"
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
-            android:onClick="@{() -> viewModel.login()}"
             android:text="@string/sign_in"
             android:textColor="@android:color/white" />
 

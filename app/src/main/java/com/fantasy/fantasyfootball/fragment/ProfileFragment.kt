@@ -93,10 +93,7 @@ class ProfileFragment : Fragment() {
                 tvUsername.text = it.user.username
                 if (it.user.image != null) {
                     val bitmap =
-                        BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image!!.size)
-                tvUsername.text = "@${it.user.username}"
-                if (it.user.image != null) {
-                    val bitmap = BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image.size)
+                        BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image.size)
                     profilePicture.setImageBitmap(bitmap)
                     imageDialogBinding.ivImage.setImageBitmap(bitmap)
                 }
@@ -119,7 +116,8 @@ class ProfileFragment : Fragment() {
                     it?.let { uri ->
                         imageDialogBinding.tvImageName.text =
                             requireContext().contentResolver.getFileName(uri)
-                        imageDialogBinding.tvImageName.movementMethod = ScrollingMovementMethod()
+                        imageDialogBinding.tvImageName.movementMethod =
+                            ScrollingMovementMethod()
                         val inputStream = requireContext().contentResolver.openInputStream(uri)
                         bytes = inputStream?.readBytes()!!
                         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
@@ -130,7 +128,7 @@ class ProfileFragment : Fragment() {
             imageDialogBinding.tvChooseImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
             }
-                profilePicture.setOnClickListener {
+            profilePicture.setOnClickListener {
                 imageDialog.setContentView(imageDialogBinding.root)
                 imageDialogBinding.btnSaveImage.setOnClickListener {
                     val imageName = imageDialogBinding.tvImageName.text.toString()
@@ -209,7 +207,8 @@ class ProfileFragment : Fragment() {
                             .show()
                         accountDialog.dismiss()
                     } else {
-                        accountDialogBinding.tvError.text = context?.getString(R.string.empty_field)
+                        accountDialogBinding.tvError.text =
+                            context?.getString(R.string.empty_field)
                         accountDialogBinding.tvError.visibility = View.VISIBLE
                     }
                 }

@@ -1,12 +1,10 @@
 package com.fantasy.fantasyfootball.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.data.model.Player
-import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.fantasy.fantasyfootball.repository.PlayerRepository
 import com.fantasy.fantasyfootball.repository.TeamRepository
@@ -21,8 +19,6 @@ class PickPlayerViewModel(
     val players: MutableLiveData<List<Player>> = MutableLiveData()
 
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
-
-    val teamsPlayersCrossRef: MutableLiveData<TeamsPlayersCrossRef> = MutableLiveData()
 
 //    init {
 ////        mutableListOf(players)
@@ -53,16 +49,6 @@ class PickPlayerViewModel(
             res?.let {
                 userTeam.value = it
             }
-        }
-    }
-
-    fun addPlayer(teamsPlayersCrossRef: TeamsPlayersCrossRef) {
-        viewModelScope.launch {
-//            val _teamId = team?.teamId
-//            val player = playerRepo.getPlayerById(playerId)
-
-
-            teamRepo.addPlayers(teamsPlayersCrossRef)
         }
     }
 

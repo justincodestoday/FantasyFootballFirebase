@@ -8,22 +8,6 @@ class StorageService private constructor(
     private val sharedPref: SharedPreferences,
     private val gson: Gson
 ) {
-//    fun setString(key: String, value: String) {
-//        val editor = sharedPref.edit()
-//        editor.putString(key, value)
-//        editor.apply()
-//    }
-//
-//    fun getString(key: String): String {
-//        return sharedPref.getString(key, null) ?: ""
-//    }
-//
-//    fun removeString(key: String) {
-//        val editor = sharedPref.edit()
-//        editor.remove(key)
-//        editor.apply()
-//    }
-
     fun setUser(key: String, user: User) {
         val editor = sharedPref.edit()
         val jsonString = gson.toJson(user)

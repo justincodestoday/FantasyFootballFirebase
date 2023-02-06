@@ -7,12 +7,6 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.fantasy.fantasyfootball.data.model.*
 
 @Database(entities = [User::class, Team::class, Player::class, Matches::class], version = 1)
-import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.model.Player
-import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
-import com.fantasy.fantasyfootball.data.model.User
-
-@Database(entities = [User::class, Team::class, Player::class, TeamsPlayersCrossRef::class], version = 1)
 abstract class FantasyDatabase : RoomDatabase() {
     abstract val userDao: UserDao
     abstract val playerDao: PlayerDao

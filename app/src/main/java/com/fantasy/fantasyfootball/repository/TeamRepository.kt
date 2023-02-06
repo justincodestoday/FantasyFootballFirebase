@@ -2,7 +2,6 @@ package com.fantasy.fantasyfootball.repository
 
 import com.fantasy.fantasyfootball.data.TeamDao
 import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
 import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
 
 class TeamRepository(private val teamDao: TeamDao) {
@@ -20,10 +19,6 @@ class TeamRepository(private val teamDao: TeamDao) {
 
     suspend fun editTeam(teamId: Int, team: Team) {
         teamDao.insert(team.copy(teamId = teamId))
-    }
-
-    suspend fun addPlayers(teamsPlayersCrossRef: TeamsPlayersCrossRef) {
-        teamDao.insertTeamsPlayersCrossRef(teamsPlayersCrossRef)
     }
 
     suspend fun updateBudget(teamId: Int, budget: Float) {
