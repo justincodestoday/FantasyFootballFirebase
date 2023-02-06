@@ -21,20 +21,18 @@ class LoginViewModel(private val repo: UserRepository) : ViewModel() {
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
 
-    fun login() {
-        viewModelScope.launch {
-            if (username.value?.trim { it <= ' ' }
-                    .isNullOrEmpty() || password.value?.trim { it <= ' ' }.isNullOrEmpty()
-            ) {
-                error.emit(Enums.FormErrors.EMPTY_FIELD.name)
+    suspend fun login() {
+        if (username.value?.trim { it <= ' ' }
+                .isNullOrEmpty() || password.value?.trim { it <= ' ' }.isNullOrEmpty()
+        ) {
+            error.emit(Enums.FormErrors.EMPTY_FIELD.name)
+        } else {
+            val existingUser = repo.getUserCredentials(username.value!!, password.value!!)
+            if (existingUser != null) {
+                userFlow.emit(existingUser)
+                success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
             } else {
-                val existingUser = repo.getUserCredentials(username.value!!, password.value!!)
-                if (existingUser != null) {
-                    userFlow.emit(existingUser)
-                    success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
-                } else {
-                    error.emit(Enums.FormErrors.WRONG_CREDENTIALS.name)
-                }
+                error.emit(Enums.FormErrors.WRONG_CREDENTIALS.name)
             }
         }
     }

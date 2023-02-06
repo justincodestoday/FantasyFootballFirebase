@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
-import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
 import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.fantasy.fantasyfootball.repository.PlayerRepository
@@ -21,13 +20,7 @@ class TeamManagementViewModel(
     private val userRepo: UserRepository
 ) : ViewModel() {
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
-
-//    val teamsPlayers: MutableLiveData<TeamsPlayersCrossRef> = MutableLiveData()
-
-//    val teamsWithPlayers: MutableLiveData<List<TeamsWithPlayers>> = MutableLiveData()
-
     val teamWithPlayers: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
-
     val player: MutableLiveData<Player> = MutableLiveData()
 
     val players = listOf(
@@ -38,7 +31,7 @@ class TeamManagementViewModel(
             teamConst = Enums.Team.ParisSG,
             price = 45.0f,
             area = Enums.Area.Striker,
-            color = Enums.ShirtColor.DARKBLUE
+            color = Enums.ShirtColor.DARKBLUE,
         ),
         Player(
             firstName = "Erling",
@@ -267,20 +260,6 @@ class TeamManagementViewModel(
         ),
     )
 
-    val teamsAndPlayers = listOf(
-        TeamsPlayersCrossRef(1, 1),
-        TeamsPlayersCrossRef(1, 2),
-        TeamsPlayersCrossRef(1, 3),
-        TeamsPlayersCrossRef(1, 4),
-        TeamsPlayersCrossRef(1, 5),
-        TeamsPlayersCrossRef(1, 6),
-        TeamsPlayersCrossRef(1, 7),
-        TeamsPlayersCrossRef(1, 8),
-        TeamsPlayersCrossRef(1, 9),
-        TeamsPlayersCrossRef(1, 10),
-        TeamsPlayersCrossRef(1, 11),
-    )
-
 //    init {
 //        viewModelScope.launch {
 //            players.forEach {
@@ -316,15 +295,6 @@ class TeamManagementViewModel(
             }
         }
     }
-
-//    fun getTeamsWithPlayers() {
-//        viewModelScope.launch {
-//            val res = teamRepo.getTeamsWithPlayers()
-//            res.let {
-//                teamsWithPlayers.value = it
-//            }
-//        }
-//    }
 
     fun getUserWithTeam(userId: Int) {
         viewModelScope.launch {

@@ -2,7 +2,6 @@ package com.fantasy.fantasyfootball.data
 
 import androidx.room.*
 import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
 import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
 
 @Dao
@@ -15,9 +14,6 @@ interface TeamDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(team: Team)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTeamsPlayersCrossRef(teamsPlayersCrossRef: TeamsPlayersCrossRef)
 
     @Query("UPDATE team SET budget = :budget WHERE teamId = :teamId")
     suspend fun updateBudget(teamId: Int, budget: Float)

@@ -1,25 +1,23 @@
 package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.*
 import androidx.lifecycle.asLiveData
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.HomeViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var headerBinding: DrawerHeaderBinding
     private val viewModel: HomeViewModel by viewModels {
         HomeViewModel.Provider(
             (requireContext().applicationContext as MainApplication).userRepo,
@@ -43,10 +41,6 @@ class HomeFragment : Fragment() {
         val authService = AuthService.getInstance(requireContext())
         val user = authService.getAuthenticatedUser()
         if (user != null) {
-            Log.d(
-                "debugging",
-                "info ${user.userId} ${user.image} ${user.name} ${user.username} ${user.password}"
-            )
             viewModel.getUserWithTeam(user.userId!!)
         }
 
@@ -56,10 +50,10 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.teamManagement.asLiveData().observe(viewLifecycleOwner) {
-            val action = HomeFragmentDirections.actionHomeFragmentToTeamManagementFragment()
-            NavHostFragment.findNavController(this).navigate(action)
-        }
+//        viewModel.teamManagement.asLiveData().observe(viewLifecycleOwner) {
+//            val action = HomeFragmentDirections.actionHomeFragmentToTeamManagementFragment()
+//            NavHostFragment.findNavController(this).navigate(action)
+//        }
 
         viewModel.profile.asLiveData().observe(viewLifecycleOwner) {
             val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()

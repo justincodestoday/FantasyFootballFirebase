@@ -9,7 +9,6 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +16,6 @@ import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.PlayerAdapter
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.TeamsPlayersCrossRef
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
@@ -54,10 +51,11 @@ class PickPlayerFragment : Fragment() {
         val selectedArea = args.area
         val selectedPosition = args.position
 
+        setupAdapter(selectedPosition)
+
         if (user != null) {
             viewModel.getUserWithTeam(user.userId!!)
             viewModel.userTeam.observe(viewLifecycleOwner) {
-                setupAdapter(it.team.teamId!!, selectedPosition)
             }
         }
 
@@ -110,7 +108,7 @@ class PickPlayerFragment : Fragment() {
         }
     }
 
-    private fun setupAdapter(teamId: Int, selectedPosition: String) {
+    private fun setupAdapter(selectedPosition: String) {
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {
             NavHostFragment.findNavController(this).previousBackStackEntry?.savedStateHandle?.set("key", selectedPosition)
@@ -122,7 +120,7 @@ class PickPlayerFragment : Fragment() {
                 bundle.putBoolean(Enums.Result.REFRESH.name, true)
                 bundle.putString(Enums.Result.POSITION_BUTTON.name, selectedPosition)
                 setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
-                viewModel.addPlayer(TeamsPlayersCrossRef(teamId, it.playerId))
+//                viewModel.addPlayer(TeamsPlayersCrossRef(teamId, it.playerId))
                 Toast.makeText(
                     requireContext(),
                     context?.getString(R.string.added_player_successful),

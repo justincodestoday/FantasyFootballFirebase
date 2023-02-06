@@ -1,9 +1,7 @@
 package com.fantasy.fantasyfootball.util
 
 import android.content.Context
-import android.util.Log
 import com.fantasy.fantasyfootball.MainApplication
-import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
 
 class AuthService (private val storageService: StorageService){

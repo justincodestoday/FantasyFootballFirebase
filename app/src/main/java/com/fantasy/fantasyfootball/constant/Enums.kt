@@ -34,22 +34,14 @@ class Enums {
         Descending
     }
 
-    enum class Team {
-        ManCity,
-        Arsenal,
-        Chelsea,
-        Liverpool,
-        ManUnited,
-        Tottenham
-    }
-
     enum class SortBy {
         Name,
         Price
     }
 
     enum class Team {
-        ParisSG, ManCity, RealMadrid, BorussiaDort, Barcelona, BayernMunich, Arsenal, Leipzig, Chelsea, Newcastle, LeicesterCity, ManUnited, Liverpool, InterMilan, ACMilan, Juventus
+        ParisSG, ManCity, RealMadrid, BorussiaDort, Barcelona, BayernMunich, Arsenal, Leipzig, Chelsea, Newcastle,
+        LeicesterCity, ManUnited, Liverpool, InterMilan, ACMilan, Juventus
     }
 
     enum class ShirtColor {

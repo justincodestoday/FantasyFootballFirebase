@@ -22,16 +22,4 @@ data class Team(
     var budget: Float = 100.0f,
     var lastUpdated: String? = null,
     val ownerId: Int,
-
-//    var gk: FantasyPlayer? = null,
-//    var lb: FantasyPlayer? = null,
-//    var lcb: FantasyPlayer? = null,
-//    var rcb: FantasyPlayer? = null,
-//    var rb: FantasyPlayer? = null,
-//    var lm: FantasyPlayer? = null,
-//    var lcm: FantasyPlayer? = null,
-//    var rcm: FantasyPlayer? = null,
-//    var rm: FantasyPlayer? = null,
-//    var ls: FantasyPlayer? = null,
-//    var rs: FantasyPlayer? = null
 )
