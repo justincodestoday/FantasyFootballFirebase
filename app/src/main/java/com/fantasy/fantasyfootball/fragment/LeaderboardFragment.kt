@@ -19,7 +19,6 @@ class LeaderboardFragment : Fragment() {
         LeaderboardViewModel.Provider((requireContext().applicationContext as MainApplication).userRepo)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

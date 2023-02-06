@@ -63,50 +63,60 @@ class LoginFragment : Fragment() {
             snackBar.show()
         }
 
-        viewModel.user.asLiveData().observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.run {
-                    etUsername.text?.clear()
-                    etPassword.text?.clear()
-                }
-                authService.authenticate(it)
-                if (authService.isAuthenticated()) {
-                    val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
-                    NavHostFragment.findNavController(this).navigate(action)
-                    Toast.makeText(
-                        requireContext(),
-                        context?.getString(R.string.login_successful),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    val snackBar = Snackbar.make(
-                        binding.root,
-                        requireContext().getString(R.string.login_unsuccessful),
-                        Snackbar.LENGTH_LONG
-                    )
-                    snackBar.setBackgroundTint(
-                        ContextCompat.getColor(requireContext(), R.color.red_500)
-                    )
-                    snackBar.setAction("Hide") {
-                        snackBar.dismiss()
-                    }
-                    snackBar.show()
-                }
-            } else {
-                val snackBar = Snackbar.make(
-                    binding.root,
-                    requireContext().getString(R.string.wrong_credentials),
-                    Snackbar.LENGTH_LONG
-                )
-                snackBar.setBackgroundTint(
-                    ContextCompat.getColor(requireContext(), R.color.red_500)
-                )
-                snackBar.setAction("Hide") {
-                    snackBar.dismiss()
-                }
-                snackBar.show()
+        viewModel.userFlow.asLiveData().observe(viewLifecycleOwner) {
+            binding.run {
+                etUsername.text?.clear()
+                etPassword.text?.clear()
             }
+            authService.authenticate(it)
+            val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
+            NavHostFragment.findNavController(this).navigate(action)
         }
+
+//        viewModel.user.asLiveData().observe(viewLifecycleOwner) {
+//            if (it != null) {
+//                binding.run {
+//                    etUsername.text?.clear()
+//                    etPassword.text?.clear()
+//                }
+//                authService.authenticate(it)
+//                if (authService.isAuthenticated()) {
+//                    val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
+//                    NavHostFragment.findNavController(this).navigate(action)
+//                    Toast.makeText(
+//                        requireContext(),
+//                        context?.getString(R.string.login_successful),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                } else {
+//                    val snackBar = Snackbar.make(
+//                        binding.root,
+//                        requireContext().getString(R.string.login_unsuccessful),
+//                        Snackbar.LENGTH_LONG
+//                    )
+//                    snackBar.setBackgroundTint(
+//                        ContextCompat.getColor(requireContext(), R.color.red_500)
+//                    )
+//                    snackBar.setAction("Hide") {
+//                        snackBar.dismiss()
+//                    }
+//                    snackBar.show()
+//                }
+//            } else {
+//                val snackBar = Snackbar.make(
+//                    binding.root,
+//                    requireContext().getString(R.string.wrong_credentials),
+//                    Snackbar.LENGTH_LONG
+//                )
+//                snackBar.setBackgroundTint(
+//                    ContextCompat.getColor(requireContext(), R.color.red_500)
+//                )
+//                snackBar.setAction("Hide") {
+//                    snackBar.dismiss()
+//                }
+//                snackBar.show()
+//            }
+//        }
     }
 
 //    private fun setFragment(fragment: Fragment) {

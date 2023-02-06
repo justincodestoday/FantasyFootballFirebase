@@ -50,7 +50,6 @@ class PlayerAdapter(var players: List<Player>, val onClick:(player: Player) -> U
 //        }
 //    }
 
-
     class PlayerHolder(val binding: PlayerCardBinding) : RecyclerView.ViewHolder(binding.root)
 }
 

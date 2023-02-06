@@ -1,7 +1,6 @@
 package com.fantasy.fantasyfootball
 
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -17,6 +16,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
+import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.util.AuthService
 
 class MainActivity : AppCompatActivity() {
@@ -26,9 +26,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+
+        val headerView = binding.navigationView.getHeaderView(0)
+        val headerBinding = DrawerHeaderBinding.bind(headerView)
 
         val authService = AuthService.getInstance(this)
         val user = authService.getAuthenticatedUser()
@@ -37,6 +39,9 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = binding.drawerLayout
         val drawerHeader = layoutInflater.inflate(R.layout.drawer_header, null)
         drawerHeader.setOnClickListener {
+            drawerLayout.closeDrawers()
+        }
+        headerBinding.ivClose.setOnClickListener {
             drawerLayout.closeDrawers()
         }
 
@@ -69,10 +74,9 @@ class MainActivity : AppCompatActivity() {
         authenticate(user, graph)
         navController.setGraph(graph, savedInstanceState)
 
-        val headerView = binding.navigationView.getHeaderView(0)
-        val closeImageView = headerView.findViewById<ImageView>(R.id.ivClose)
-        closeImageView.setOnClickListener {
-            drawerLayout.closeDrawers()
+        if (user != null) {
+            headerBinding.tvFullName.text = user.name
+            headerBinding.tvUsername.text = user.username
         }
 
         binding.btnLogoutDrawer.setOnClickListener {
@@ -89,8 +93,6 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.close()
             }
         }
-
-//        binding.navigationView.getHeaderView(0).set
     }
 
     private fun authenticate(user: User?, graph: NavGraph) {
