@@ -11,7 +11,7 @@ data class Player(
     val playerId: Int? = null,
     var firstName: String,
     var lastName: String,
-    var team: String,
+    var team: Enums.Team,
     var price: Float = 0f,
     var area: Enums.Area,
     var position: Enums.Position,

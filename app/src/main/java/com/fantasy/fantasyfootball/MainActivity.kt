@@ -1,12 +1,23 @@
 package com.fantasy.fantasyfootball
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.AbsoluteSizeSpan
+import android.util.Log
+import android.util.TypedValue
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
@@ -18,6 +29,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.util.AuthService
+import com.fantasy.fantasyfootball.viewModel.ProfileViewModel
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -33,12 +47,48 @@ class MainActivity : AppCompatActivity() {
         val authService = AuthService.getInstance(this)
         val user = authService.getAuthenticatedUser()
 
-        setSupportActionBar(binding.toolbar)
-        drawerLayout = binding.drawerLayout
-        val drawerHeader = layoutInflater.inflate(R.layout.drawer_header, null)
-        drawerHeader.setOnClickListener {
+        val name = user?.name
+        val username = user?.username
+//        val image = user?.image
+        val headerView = binding.navigationView.getHeaderView(0)
+        val closeImageView = headerView.findViewById<ImageView>(R.id.ivClose)
+        closeImageView.setOnClickListener {
             drawerLayout.closeDrawers()
         }
+
+        val menuView = binding.navigationView.menu
+        val menuProfile = menuView.findItem(R.id.profileFragment)
+        val s = SpannableString(menuProfile.title)
+        s.setSpan(AbsoluteSizeSpan(55), 0, s.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        menuProfile.title = s
+
+//        val drawerImage = headerView.findViewById<ShapeableImageView>(R.id.drawerImage)
+//        if (image != null) {
+//            Log.d("qwe", "user.image is not null")
+//            val bitmap =
+//                BitmapFactory.decodeByteArray(image, 0, image.size)
+//            drawerImage.setImageBitmap(bitmap)
+//        } else {
+//            drawerImage.setImageResource(R.drawable.vector__3_)
+//            Log.d("qwe", "user.image is null")
+//        }
+
+        val drawerName = headerView.findViewById<TextView>(R.id.tvFullName)
+        val drawerUsername = headerView.findViewById<TextView>(R.id.tvUsername)
+        drawerName.text = name
+        drawerUsername.text = username
+
+
+//        viewModel.userTeam.observe(this) {
+//            binding.apply {
+//                val headerName = headerView.findViewById<TextView>(R.id.tvFullName)
+//                headerName.text = it.user.name
+//            }
+//        }
+
+
+        setSupportActionBar(binding.toolbar)
+        drawerLayout = binding.drawerLayout
 
         navController = findNavController(R.id.navHostFragment)
         val navInflater = navController.navInflater
@@ -69,12 +119,6 @@ class MainActivity : AppCompatActivity() {
         authenticate(user, graph)
         navController.setGraph(graph, savedInstanceState)
 
-        val headerView = binding.navigationView.getHeaderView(0)
-        val closeImageView = headerView.findViewById<ImageView>(R.id.ivClose)
-        closeImageView.setOnClickListener {
-            drawerLayout.closeDrawers()
-        }
-
         binding.btnLogoutDrawer.setOnClickListener {
             authService.unauthenticate()
             if (!authService.isAuthenticated()) {
@@ -89,8 +133,6 @@ class MainActivity : AppCompatActivity() {
                 drawerLayout.close()
             }
         }
-
-//        binding.navigationView.getHeaderView(0).set
     }
 
     private fun authenticate(user: User?, graph: NavGraph) {

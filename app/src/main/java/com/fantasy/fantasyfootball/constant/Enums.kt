@@ -29,6 +29,15 @@ class Enums {
         Descending
     }
 
+    enum class Team {
+        ManCity,
+        Arsenal,
+        Chelsea,
+        Liverpool,
+        ManUnited,
+        Tottenham
+    }
+
     enum class SortBy {
         Name,
         Price

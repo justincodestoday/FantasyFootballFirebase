@@ -18,6 +18,7 @@ class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: 
 
     val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
     val logout: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
 
@@ -25,6 +26,12 @@ class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: 
 
     fun refreshPage(refresh: Boolean) {
         refreshPage.value = refresh
+    }
+
+    fun navigateToLeaderboard() {
+        viewModelScope.launch {
+            leaderboard.emit(Unit)
+        }
     }
 
     fun navigateToTeam() {

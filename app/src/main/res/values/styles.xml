@@ -11,6 +11,10 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="CustomDrawerItemTextAppearance">
+        <item name="android:textSize">32sp</item>
+    </style>
+
     <style name="Profile.Text.Full.Name" parent="Text.Base">
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>

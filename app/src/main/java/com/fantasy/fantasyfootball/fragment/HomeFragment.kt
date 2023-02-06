@@ -59,6 +59,17 @@ class HomeFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(action)
         }
 
+        viewModel.leaderboard.asLiveData().observe(viewLifecycleOwner) {
+            val action = HomeFragmentDirections.actionHomeFragmentToLeaderboardFragment()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+
+        binding.cvMatch.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToMatchFragment()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+
+
         viewModel.logout.asLiveData().observe(viewLifecycleOwner) {
             authService.unauthenticate()
             NavHostFragment.findNavController(this).popBackStack(R.id.main_nav_graph, true)

@@ -10,9 +10,10 @@ import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
-import android.R
 import android.util.Log
+import android.widget.ImageView
 import androidx.fragment.app.setFragmentResultListener
+import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.util.AuthService
 
@@ -35,6 +36,8 @@ class TeamManagementFragment : Fragment() {
         binding = FragmentTeamManagementBinding.inflate(layoutInflater)
         return binding.root
     }
+    private var currentPosition: String? = null
+    private var currentImageView: ImageView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,6 +52,7 @@ class TeamManagementFragment : Fragment() {
             binding.apply {
                 binding.tvTeamName.text = it.team.name
                 binding.tvBudget.text = "£" + it.team.budget.toString() + "m"
+                binding.gk.setImageResource(R.drawable.tshirt3)
             }
         }
 
@@ -62,7 +66,20 @@ class TeamManagementFragment : Fragment() {
             val price = b.getFloat("price")
             val position = b.getString("position")
             if (position != null) {
-                setImageForPosition(position)
+                when (position) {
+                    "GK" -> currentImageView = binding.gk
+                    "LB" -> currentImageView = binding.lb
+                    "LCB" -> currentImageView = binding.lcb
+                    "RCB" -> currentImageView = binding.rcb
+                    "RB" -> currentImageView = binding.rb
+                    "LM" -> currentImageView = binding.lm
+                    "LCM" -> currentImageView = binding.lcm
+                    "RCM" -> currentImageView = binding.rcm
+                    "RM" -> currentImageView = binding.rm
+                    "LS" -> currentImageView = binding.ls
+                    "RS" -> currentImageView = binding.rs
+                }
+                setImageForPosition(position, currentImageView!!)
             }
             Log.d("debug", price.toString())
         }
@@ -72,6 +89,7 @@ class TeamManagementFragment : Fragment() {
             val area = Enums.Area.Goalkeeper
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(area.toString())
+            NavHostFragment.findNavController(this).navigate(action)
             NavHostFragment.findNavController(this).navigate(action)
         }
 
@@ -139,19 +157,20 @@ class TeamManagementFragment : Fragment() {
         }
     }
 
-    fun setImageForPosition(position: String) {
+    fun setImageForPosition(position: String, imageView: ImageView) {
+        currentPosition = position
         when (position) {
-            "GK" -> binding.gk.setImageResource(R.drawable.ic_delete)
-            "LB" -> binding.lb.setImageResource(R.drawable.ic_delete)
-            "LCB" -> binding.lcb.setImageResource(R.drawable.ic_delete)
-            "RCB" -> binding.rcb.setImageResource(R.drawable.ic_delete)
-            "RB" -> binding.rb.setImageResource(R.drawable.ic_delete)
-            "LM" -> binding.lm.setImageResource(R.drawable.ic_delete)
-            "LCM" -> binding.lcm.setImageResource(R.drawable.ic_delete)
-            "RCM" -> binding.rcm.setImageResource(R.drawable.ic_delete)
-            "RM" -> binding.rm.setImageResource(R.drawable.ic_delete)
-            "LS" -> binding.ls.setImageResource(R.drawable.ic_delete)
-            "RS" -> binding.rs.setImageResource(R.drawable.ic_delete)
+            "GK" -> imageView.setImageResource(R.drawable.tshirt2)
+            "LB" -> imageView.setImageResource(R.drawable.tshirt3)
+            "LCB" -> imageView.setImageResource(R.drawable.tshirt2)
+            "RCB" -> imageView.setImageResource(R.drawable.tshirt3)
+            "RB" -> imageView.setImageResource(R.drawable.tshirt3)
+            "LM" -> imageView.setImageResource(R.drawable.tshirt3)
+            "LCM" -> imageView.setImageResource(R.drawable.tshirt3)
+            "RCM" -> imageView.setImageResource(R.drawable.tshirt3)
+            "RM" -> imageView.setImageResource(R.drawable.tshirt3)
+            "LS" -> imageView.setImageResource(R.drawable.tshirt3)
+            "RS" -> imageView.setImageResource(R.drawable.tshirt3)
         }
     }
 }

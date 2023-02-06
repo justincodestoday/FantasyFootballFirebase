@@ -94,9 +94,12 @@ class ProfileFragment : Fragment() {
             binding.apply {
                 tvName.text = it.user.name
                 tvUsername.text = it.user.username
-                val bitmap = BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image!!.size)
-                profilePicture.setImageBitmap(bitmap)
-                imageDialogBinding.ivImage.setImageBitmap(bitmap)
+                if (it.user.image != null) {
+                    val bitmap =
+                        BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image!!.size)
+                    profilePicture.setImageBitmap(bitmap)
+                    imageDialogBinding.ivImage.setImageBitmap(bitmap)
+                }
 
                 name = it.user.name.toString()
                 username = it.user.username.toString()

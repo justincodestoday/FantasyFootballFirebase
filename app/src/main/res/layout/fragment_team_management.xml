@@ -129,14 +129,27 @@
             android:layout_marginTop="70dp"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/lm"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                android:orientation="vertical"
+                >
+                <ImageButton
+                    android:id="@+id/lm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="De Bruyne"
+                    android:background="@drawable/player_name"
+                    />
+            </LinearLayout>
+
 
             <ImageButton
                 android:id="@+id/lcm"
