@@ -9,5 +9,5 @@ data class TeamsWithPlayers(
         parentColumn = "teamId",
         entityColumn = "teamOwnerId"
     )
-    val players: List<Player>
+    val players: List<FantasyPlayer>
 )

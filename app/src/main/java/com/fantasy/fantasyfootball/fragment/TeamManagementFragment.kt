@@ -36,18 +36,19 @@ class TeamManagementFragment : Fragment() {
         binding = FragmentTeamManagementBinding.inflate(layoutInflater)
         return binding.root
     }
+
     private var currentPosition: String? = null
     private var currentImageView: ImageView? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var _position = ""
-        NavHostFragment.findNavController(this).currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
-            "key"
-        )?.observe(viewLifecycleOwner) {
-            _position = it
-        }
+//        var _position = ""
+//        NavHostFragment.findNavController(this).currentBackStackEntry?.savedStateHandle?.getLiveData<String>(
+//            "key"
+//        )?.observe(viewLifecycleOwner) {
+//            _position = it
+//        }
 
         val authService = AuthService.getInstance(requireContext())
         val user = authService.getAuthenticatedUser()
@@ -55,61 +56,37 @@ class TeamManagementFragment : Fragment() {
         if (user != null) {
             viewModel.getUserWithTeam(user.userId!!)
         }
-
-//        setFragmentResultListener(Enums.Result.ADD_PLAYER_RESULT.name) { _, result ->
-//            val price = result.getFloat(Enums.Result.PLAYER_PRICE.name)
-//            val playerId = result.getInt(Enums.Result.PLAYER_ID.name)
-//            _playerId = playerId
-//
-////            val position = result.getString(Enums.Result.POSITION_BUTTON.name)
-////            if (position != null) {
-////                setImageForPosition(position)
-////            }
-//            Log.d("debug", price.toString())
-//        }
-
         viewModel.userTeam.observe(viewLifecycleOwner) {
             viewModel.getTeamWithPlayersByTeamId(it.team.teamId!!)
 
             binding.apply {
+//                if (it.team.)
+
                 binding.tvTeamName.text = it.team.name
+                binding.tvPoints.text = it.team.points.toString()
                 binding.tvBudget.text = "£" + it.team.budget.toString() + "m"
-                binding.gk.setImageResource(R.drawable.tshirt3)
+//                binding.gk.setImageResource(R.drawable.tshirt3)
             }
         }
 
-//        setFragmentResultListener("from_pick_player") { _, result ->
-//            val refresh = result.getBoolean("refresh")
-//            if (refresh) {
-//                pickPlayerFragment.refresh("", "")
+//        viewModel.teamWithPlayers.observe(viewLifecycleOwner) {
+//            it.players.forEach { player ->
+////                binding.tvPoints.text = player.name
+//
+//                if (player.area == Enums.Area.Goalkeeper) {
+//                    val color = setShirtColor(Enums.ShirtColor.DARKRED)
+//                    setImageForPosition("GK", color)
+//                }
 //            }
 //        }
-        setFragmentResultListener("player_info") { a, b ->
-            val price = b.getFloat("price")
-            val position = b.getString("position")
-//            if (position != null) {
-//            }
-        }
-
-        viewModel.teamWithPlayers.observe(viewLifecycleOwner) {
-            it.players.forEach { player ->
-//                binding.tvPoints.text = player.name
-
-                if (player.area == Enums.Area.Goalkeeper) {
-                    val color = setShirtColor(Enums.ShirtColor.DARKRED)
-                    setImageForPosition("GK", color)
-                }
-            }
-        }
 
         binding.gk.setOnClickListener {
             val area = Enums.Area.Goalkeeper
             val position = Enums.Position.GK
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
-            NavHostFragment.findNavController(this).navigate(action)
             NavHostFragment.findNavController(this).navigate(action)
         }
 
@@ -118,7 +95,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.LB
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -128,7 +105,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.LCB
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -138,7 +115,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.RCB
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -148,7 +125,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.RB
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -158,7 +135,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.LM
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -168,7 +145,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.LCM
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -178,7 +155,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.RCM
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -188,7 +165,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.RM
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -198,7 +175,7 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.LS
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
         }
@@ -208,9 +185,16 @@ class TeamManagementFragment : Fragment() {
             val position = Enums.Position.RS
             val action =
                 TeamManagementFragmentDirections.actionTeamManagementFragmentToPickPlayerFragment(
-                    area.toString(), position.toString()
+                    area.toString(), position.name
                 )
             NavHostFragment.findNavController(this).navigate(action)
+        }
+
+        setFragmentResultListener(Enums.Result.ADD_PLAYER_RESULT.name) { _, result ->
+            val refresh = result.getBoolean(Enums.Result.REFRESH.name)
+            if (refresh && user != null) {
+                viewModel.getUserWithTeam(user.userId!!)
+            }
         }
     }
 

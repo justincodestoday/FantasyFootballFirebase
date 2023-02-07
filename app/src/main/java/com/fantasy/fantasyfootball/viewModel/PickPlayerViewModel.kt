@@ -4,50 +4,45 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.data.model.Player
-import com.fantasy.fantasyfootball.data.model.UserWithTeam
+import com.fantasy.fantasyfootball.data.model.*
 import com.fantasy.fantasyfootball.repository.PlayerRepository
 import com.fantasy.fantasyfootball.repository.TeamRepository
-import com.fantasy.fantasyfootball.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class PickPlayerViewModel(
     private val playerRepo: PlayerRepository,
-    private val teamRepo: TeamRepository,
-    private val userRepo: UserRepository
+    private val teamRepo: TeamRepository
 ) : ViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
+    val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
+    val team: MutableLiveData<Team> = MutableLiveData()
 
-    val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
-
-//    init {
-////        mutableListOf(players)
-////        getPlayers("")
-////        getPlayersByPosition(Enums.Position.GK)
-//    }
-
-//    fun getPlayers(area: String, playername: String) {
+//    fun createTeamId(team: Team): Team {
 //        viewModelScope.launch {
-//            val res = playerRepo.getPlayers(area, playername)
-//            players.value = res
+//            teamRepo.createTeamId(team)
 //        }
+//        return team
 //    }
 
-    fun updateBudget(teamId: Int, budget: Float, cost: Float) {
+    fun createPlayer(fantasyPlayer: FantasyPlayer) {
         viewModelScope.launch {
-            val team = teamRepo.getTeamById(teamId)
-            val currentValue = team!!.budget.minus(cost)
-            val updatedValue = currentValue - 10 // subtract the desired value
-//            yourDao.updateValue(updatedValue) // upd
-//            teamRepo.updateBudget()
+            teamRepo.createPlayer(fantasyPlayer)
         }
     }
 
-    fun getUserWithTeam(userId: Int) {
+    fun updateBudget(teamId: Int, budget: Float) {
         viewModelScope.launch {
-            val res = userRepo.getUserWithTeam(userId)
+            teamRepo.updateBudget(teamId, budget)
+        }
+    }
+
+    fun getTeamWithPlayers(userId: Int) {
+        viewModelScope.launch {
+            val team = teamRepo.getTeamByOwnerId(userId)
+            val teamId = team?.teamId
+            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
             res?.let {
-                userTeam.value = it
+                teamPlayer.value = it
             }
         }
     }
@@ -75,11 +70,10 @@ class PickPlayerViewModel(
 
     class Provider(
         private val playerRepo: PlayerRepository,
-        private val teamRepo: TeamRepository,
-        private val userRepo: UserRepository
+        private val teamRepo: TeamRepository
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PickPlayerViewModel(playerRepo, teamRepo, userRepo) as T
+            return PickPlayerViewModel(playerRepo, teamRepo) as T
         }
     }
 }

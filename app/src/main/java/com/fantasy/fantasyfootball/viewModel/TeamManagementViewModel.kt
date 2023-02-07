@@ -265,9 +265,6 @@ class TeamManagementViewModel(
 //            players.forEach {
 //                playerRepo.createPlayer(it)
 //            }
-////            teamsAndPlayers.forEach {
-////                teamRepo.addPlayers(it)
-////            }
 //        }
 //    }
 

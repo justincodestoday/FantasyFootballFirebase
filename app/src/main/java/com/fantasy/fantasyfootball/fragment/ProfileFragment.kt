@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
@@ -140,6 +141,7 @@ class ProfileFragment : Fragment() {
                             user?.userId!!,
                             User(user.userId, name, username, password, bytes)
                         )
+                        authService.updateUser(User(user.userId, name, username, password, bytes))
                         val team = Team(
                             name = teamName,
                             points = teamPoints,
@@ -269,6 +271,17 @@ class ProfileFragment : Fragment() {
                 }
                 passwordDialog.show()
             }
+        }
+
+        binding.btnSignOut.setOnClickListener {
+            authService.unauthenticate()
+            NavHostFragment.findNavController(this).popBackStack(R.id.main_nav_graph, true)
+            NavHostFragment.findNavController(this).navigate(R.id.credentialsFragment)
+            Toast.makeText(
+                requireContext(),
+                context?.getString(R.string.logout_successful),
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
