@@ -65,12 +65,12 @@ class RegisterFragment : Fragment() {
 
     private fun enumToString(type: String?): String? {
         return when (type) {
-            Enums.FormErrors.MISSING_NAME.name -> context?.getString(R.string.missing_name)
-            Enums.FormErrors.MISSING_TEAM_NAME.name -> context?.getString(R.string.missing_team_name)
-            Enums.FormErrors.INVALID_USERNAME.name -> context?.getString(R.string.invalid_username)
-            Enums.FormErrors.INVALID_PASSWORD.name -> context?.getString(R.string.invalid_password)
-            Enums.FormErrors.PASSWORDS_NOT_MATCHING.name -> context?.getString(R.string.passwords_not_matching)
-            Enums.FormErrors.USER_EXISTS.name -> context?.getString(R.string.user_already_exists)
+            Enums.FormError.MISSING_NAME.name -> context?.getString(R.string.missing_name)
+            Enums.FormError.MISSING_TEAM_NAME.name -> context?.getString(R.string.missing_team_name)
+            Enums.FormError.INVALID_USERNAME.name -> context?.getString(R.string.invalid_username)
+            Enums.FormError.INVALID_PASSWORD.name -> context?.getString(R.string.invalid_password)
+            Enums.FormError.PASSWORDS_NOT_MATCHING.name -> context?.getString(R.string.passwords_not_matching)
+            Enums.FormError.USER_EXISTS.name -> context?.getString(R.string.user_already_exists)
             Enums.FormSuccess.REGISTER_SUCCESSFUL.name -> context?.getString(R.string.register_successful)
             else -> context?.getString(R.string.nothing)
         }

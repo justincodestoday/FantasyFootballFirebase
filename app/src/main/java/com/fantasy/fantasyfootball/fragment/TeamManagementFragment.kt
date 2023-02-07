@@ -10,7 +10,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
-import android.util.Log
 import android.widget.ImageView
 import androidx.fragment.app.setFragmentResultListener
 import com.fantasy.fantasyfootball.R
@@ -55,17 +54,20 @@ class TeamManagementFragment : Fragment() {
 
         if (user != null) {
             viewModel.getUserWithTeam(user.userId!!)
+            viewModel.getTeamWithPlayers(user.userId)
         }
         viewModel.userTeam.observe(viewLifecycleOwner) {
-            viewModel.getTeamWithPlayersByTeamId(it.team.teamId!!)
-
             binding.apply {
-//                if (it.team.)
-
                 binding.tvTeamName.text = it.team.name
                 binding.tvPoints.text = it.team.points.toString()
                 binding.tvBudget.text = "£" + it.team.budget.toString() + "m"
-//                binding.gk.setImageResource(R.drawable.tshirt3)
+            }
+        }
+
+        viewModel.teamPlayer.observe(viewLifecycleOwner) {
+            it.players.forEach { player ->
+                val color = setShirtColor(player.color)
+                setImageForPosition(player.position, color)
             }
         }
 
@@ -201,22 +203,23 @@ class TeamManagementFragment : Fragment() {
     private fun setImageForPosition(position: String, color: Int) {
         when (position) {
             "GK" -> binding.gk.setImageResource(color)
-            "LB" -> binding.lb.setImageResource(R.drawable.yellow_shirt)
-            "LCB" -> binding.lcb.setImageResource(R.drawable.yellow_shirt)
-            "RCB" -> binding.rcb.setImageResource(R.drawable.yellow_shirt)
-            "RB" -> binding.rb.setImageResource(R.drawable.yellow_shirt)
-            "LM" -> binding.lm.setImageResource(R.drawable.yellow_shirt)
-            "LCM" -> binding.lcm.setImageResource(R.drawable.yellow_shirt)
-            "RCM" -> binding.rcm.setImageResource(R.drawable.yellow_shirt)
-            "RM" -> binding.rm.setImageResource(R.drawable.yellow_shirt)
-            "LS" -> binding.ls.setImageResource(R.drawable.yellow_shirt)
-            "RS" -> binding.rs.setImageResource(R.drawable.yellow_shirt)
+            "LB" -> binding.lb.setImageResource(color)
+            "LCB" -> binding.lcb.setImageResource(color)
+            "RCB" -> binding.rcb.setImageResource(color)
+            "RB" -> binding.rb.setImageResource(color)
+            "LM" -> binding.lm.setImageResource(color)
+            "LCM" -> binding.lcm.setImageResource(color)
+            "RCM" -> binding.rcm.setImageResource(color)
+            "RM" -> binding.rm.setImageResource(color)
+            "LS" -> binding.ls.setImageResource(color)
+            "RS" -> binding.rs.setImageResource(color)
         }
     }
 
     private fun setShirtColor(color: Enums.ShirtColor): Int {
         return when (color) {
-            Enums.ShirtColor.DARKRED -> R.drawable.red_shirt
+            Enums.ShirtColor.LIGHTRED -> R.drawable.shirt_light_red
+            Enums.ShirtColor.YELLOW -> R.drawable.shirt_yellow
             else -> R.drawable.shirt2
         }
     }
