@@ -43,8 +43,20 @@
         <item name="materialAlertDialogTitleTextStyle">@style/Base.AlertDialog.Title</item>
     </style>
 
+    <style name="Delete.AlertDialog" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/Delete.AlertDialog.Positive.Button</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Cancel.AlertDialog.Negative.Button</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/Base.AlertDialog.Title</item>
+    </style>
+
     <style name="Confirm.AlertDialog.Positive.Button" parent="ShapeAppearanceOverlay.Material3.Button">
         <item name="backgroundTint">@color/green_900</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <style name="Delete.AlertDialog.Positive.Button" parent="ShapeAppearanceOverlay.Material3.Button">
+        <item name="backgroundTint">@color/red_500</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginEnd">8dp</item>
     </style>

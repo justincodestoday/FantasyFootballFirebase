@@ -100,6 +100,9 @@
     <string name="dialog_button_negative">Cancel</string>
     <string name="dialog_button_neutral">OK</string>
     <string name="edit_message">Are you sure you want to proceed with these changes?</string>
+    <string name="dialog_remove_title">Remove Player</string>
+    <string name="dialog_remove_message">Do you want to remove this player?</string>
+    <string name="dialog_button_remove">Remove</string>
 
     <!-- Success -->
     <string name="register_successful">Successfully registered</string>
@@ -110,6 +113,7 @@
     <string name="update_successful">Updated successfully</string>
     <string name="update_image_successful">Updated profile image successfully</string>
     <string name="added_player_successful">Added player to the team successfully</string>
+    <string name="removed_player_successful">Removed player from the team successfully</string>
 
     <!-- Errors -->
     <string name="empty_field">Please fill all the fields</string>

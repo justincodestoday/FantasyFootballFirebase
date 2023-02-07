@@ -39,24 +39,27 @@ class PickPlayerViewModel(
         }
     }
 
-    fun getPlayersByArea(area: String) {
+    fun getPlayersByArea(area: String, existingPlayer: List<String>) {
         viewModelScope.launch {
             val res = playerRepo.getPlayersByArea(area)
-            players.value = res
+            val filtered = res.filterNot { player -> existingPlayer.any { it == player.lastName } }
+            players.value = filtered
         }
     }
 
-    fun getPlayersBySearch(area: String, playername: String) {
+    fun getPlayersBySearch(area: String, playerName: String, existingPlayer: List<String>) {
         viewModelScope.launch {
-            val res = playerRepo.getPlayersBySearch(area, playername)
-            players.value = res
+            val res = playerRepo.getPlayersBySearch(area, playerName)
+            val filtered = res.filterNot { player -> existingPlayer.any { it == player.lastName } }
+            players.value = filtered
         }
     }
 
-    fun sortPlayers(order: String, by: String, area: String) {
+    fun sortPlayers(order: String, by: String, area: String, existingPlayer: List<String>) {
         viewModelScope.launch {
             val res = playerRepo.sortPlayer(order, by, area)
-            players.value = res
+            val filtered = res.filterNot { player -> existingPlayer.any { it == player.lastName } }
+            players.value = filtered
         }
     }
 

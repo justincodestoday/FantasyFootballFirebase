@@ -27,6 +27,10 @@ class TeamRepository(private val teamDao: TeamDao) {
         teamDao.insert(team.copy(teamId = teamId))
     }
 
+    suspend fun deletePlayer(fanPlayerId: Int) {
+        teamDao.deleteFantasyPlayer(fanPlayerId)
+    }
+
     suspend fun updateBudget(teamId: Int, budget: Float) {
         teamDao.updateBudget(teamId, budget)
     }
