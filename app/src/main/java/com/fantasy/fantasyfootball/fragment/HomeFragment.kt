@@ -50,10 +50,10 @@ class HomeFragment : Fragment() {
             }
         }
 
-//        viewModel.teamManagement.asLiveData().observe(viewLifecycleOwner) {
-//            val action = HomeFragmentDirections.actionHomeFragmentToTeamManagementFragment()
-//            NavHostFragment.findNavController(this).navigate(action)
-//        }
+        viewModel.teamManagement.asLiveData().observe(viewLifecycleOwner) {
+            val action = HomeFragmentDirections.actionHomeFragmentToTeamManagementFragment()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
 
         viewModel.profile.asLiveData().observe(viewLifecycleOwner) {
             val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()

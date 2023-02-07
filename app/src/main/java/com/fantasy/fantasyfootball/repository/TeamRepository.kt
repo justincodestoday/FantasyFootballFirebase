@@ -23,6 +23,7 @@ class TeamRepository(private val teamDao: TeamDao) {
         teamDao.insertFantasyPlayer(fantasyPlayer)
     }
 
+
     suspend fun editTeam(teamId: Int, team: Team) {
         teamDao.insert(team.copy(teamId = teamId))
     }

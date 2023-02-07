@@ -37,8 +37,8 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:layout_width="80dp"
                         android:id="@+id/tvPoints"
+                        android:layout_width="80dp"
                         android:layout_height="25dp"
                         android:background="@drawable/custom_button_2" />
 
@@ -98,26 +98,63 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="80dp"
             android:layout_marginBottom="0dp"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/ls"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/rs"
+                <ImageButton
+                    android:id="@+id/ls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
+
+                <TextView
+                    android:id="@+id/leftStriker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:fontFamily="@font/font2"
+                    android:textStyle="bold"
+                    android:text="ST" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/rs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
+
+                <TextView
+                    android:id="@+id/rightStriker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="25dp"
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:fontFamily="@font/font2"
+                    android:text="ST" />
+            </LinearLayout>
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -129,49 +166,91 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <ImageButton
                     android:id="@+id/lm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginHorizontal="10dp"
                     android:background="@color/transparent"
                     android:src="@drawable/shirt2" />
+
                 <TextView
+                    android:id="@+id/leftMidfielder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="De Bruyne"
-                    android:background="@drawable/player_name"
-                    />
+                    android:layout_gravity="center_horizontal"
+                    android:text="LM" />
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/lcm"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/rcm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                <ImageButton
+                    android:id="@+id/lcm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
 
-            <ImageButton
-                android:id="@+id/rm"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/leftCenterMid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="LCM" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/rcm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
+
+                <TextView
+                    android:id="@+id/rightCenterMid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="RCM" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/rm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
+
+                <TextView
+                    android:id="@+id/rightMidfielder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="RM" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -181,40 +260,93 @@
             android:layout_marginTop="80dp"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/lb"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/lcb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                <ImageButton
+                    android:id="@+id/lb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
 
-            <ImageButton
-                android:id="@+id/rcb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                <TextView
+                    android:id="@+id/leftBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="LB" />
 
-            <ImageButton
-                android:id="@+id/rb"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:background="@color/transparent"
-                android:src="@drawable/shirt2" />
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/lcb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
+
+                <TextView
+                    android:id="@+id/leftCenterBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="CB" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/rcb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
+
+                <TextView
+                    android:id="@+id/rightCenterBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="CB" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/rb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/shirt2" />
+
+                <TextView
+                    android:id="@+id/rightBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="RB" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -231,6 +363,13 @@
                 android:layout_gravity="bottom"
                 android:background="@color/transparent"
                 android:src="@drawable/shirt2" />
+
+            <TextView
+                android:id="@+id/goalKeeper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="GK" />
         </LinearLayout>
     </LinearLayout>
 </layout>

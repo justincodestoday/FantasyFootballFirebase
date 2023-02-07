@@ -16,6 +16,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.dialog.ConfirmDialogs
 import com.fantasy.fantasyfootball.util.AuthService
 
@@ -60,6 +61,17 @@ class TeamManagementFragment : Fragment() {
 
         var teamId: Int
         var teamBudget: Float
+        var leftStriker: FantasyPlayer? = null
+        var rightStriker: FantasyPlayer? = null
+        var leftMid: FantasyPlayer? = null
+        var leftCM: FantasyPlayer? = null
+        var rightCM: FantasyPlayer? = null
+        var rightMid: FantasyPlayer? = null
+        var leftBack: FantasyPlayer? = null
+        var leftCB: FantasyPlayer? = null
+        var rightCB: FantasyPlayer? = null
+        var rightBack: FantasyPlayer? = null
+        var goalKeeper: FantasyPlayer? = null
         val dialogInstance = ConfirmDialogs()
         viewModel.teamPlayer.observe(viewLifecycleOwner) {
             teamId = it.team.teamId!!
@@ -69,6 +81,40 @@ class TeamManagementFragment : Fragment() {
                 listOfPositions.add(player.position)
                 val color = setShirtColor(player.color)
                 setImageForPosition(player.position, color)
+                if (player.position == Enums.Position.LS.name) {
+                    leftStriker = player
+                    binding.leftStriker.text = player.lastName
+                } else if (player.position == Enums.Position.RS.name) {
+                    rightStriker = player
+                    binding.rightStriker.text = player.lastName
+                } else if (player.position == Enums.Position.LM.name) {
+                    leftMid = player
+                    binding.leftMidfielder.text = player.lastName
+                } else if (player.position == Enums.Position.LCM.name) {
+                    leftCM = player
+                    binding.leftCenterMid.text = player.lastName
+                } else if (player.position == Enums.Position.RCM.name) {
+                    rightCM = player
+                    binding.rightCenterMid.text = player.lastName
+                } else if (player.position == Enums.Position.RM.name) {
+                    rightMid = player
+                    binding.leftBack.text = player.lastName
+                } else if (player.position == Enums.Position.LB.name) {
+                    leftBack = player
+                    binding.leftCenterBack.text = player.lastName
+                } else if (player.position == Enums.Position.LCB.name) {
+                    leftCB = player
+                    binding.leftCenterBack.text = player.lastName
+                } else if (player.position == Enums.Position.RCB.name) {
+                    leftCB = player
+                    binding.rightCenterBack.text = player.lastName
+                } else if (player.position == Enums.Position.RB.name) {
+                    leftCB = player
+                    binding.rightBack.text = player.lastName
+                } else if (player.position == Enums.Position.GK.name) {
+                    goalKeeper = player
+                    binding.goalKeeper.text = player.lastName
+                }
             }
 
             binding.gk.setOnClickListener { _ ->
