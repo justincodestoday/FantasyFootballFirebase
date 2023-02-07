@@ -53,13 +53,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.user.observe(this) {
-            Log.d("debug", "observe")
             if (it != null) {
                 headerBinding.tvFullName.text = it.name
                 headerBinding.tvUsername.text = it.name
-                val bitmap =
-                    it.image?.let { image -> BitmapFactory.decodeByteArray(image, 0, image.size) }
-                headerBinding.ivImage.setImageBitmap(bitmap)
+                if (it.image != null) {
+                    val bitmap = BitmapFactory.decodeByteArray(it.image, 0, it.image.size)
+//                        it.image.let { image -> BitmapFactory.decodeByteArray(image, 0, image.size) }
+                    headerBinding.ivImage.setImageBitmap(bitmap)
+                }
             }
         }
 

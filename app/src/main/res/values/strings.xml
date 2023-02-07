@@ -82,6 +82,7 @@
 
     <!-- User Card -->
     <string name="user_card">User Card</string>
+    <string name="user_user">User</string>
     <string name="user_username">Username</string>
     <string name="user_teamname">Team Name</string>
     <string name="user_points">Points</string>
@@ -91,6 +92,7 @@
     <string name="player_card">Player Card</string>
     <string name="player_name">Player Name</string>
     <string name="player_team">Player Team</string>
+    <string name="player_position">Player Position</string>
     <string name="player_price">Player Price</string>
 
     <!-- Alert -->

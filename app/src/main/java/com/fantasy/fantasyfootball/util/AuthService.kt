@@ -9,6 +9,10 @@ class AuthService (private val storageService: StorageService){
         storageService.setUser("user", user)
     }
 
+    fun updateUser(user: User) {
+        storageService.setUser("user", user)
+    }
+
     fun unauthenticate() {
         storageService.removeUser("user")
     }

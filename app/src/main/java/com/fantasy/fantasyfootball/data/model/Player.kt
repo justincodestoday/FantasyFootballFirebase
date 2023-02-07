@@ -6,8 +6,9 @@ import com.fantasy.fantasyfootball.constant.Enums
 
 @Entity
 data class Player(
-    @PrimaryKey(autoGenerate = true) val playerId: Int? = null,
-    val teamOwnerId: Int? = null,
+    @PrimaryKey(autoGenerate = true)
+    val playerId: Int? = null,
+//    val teamOwnerId: Int? = null,
     var firstName: String,
     var lastName: String,
     var team: String,

@@ -6,7 +6,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.fantasy.fantasyfootball.data.model.*
 
-@Database(entities = [User::class, Team::class, Player::class, Matches::class], version = 1)
+@Database(entities = [User::class, Team::class, Player::class, Matches::class, FantasyPlayer::class], version = 1)
 abstract class FantasyDatabase : RoomDatabase() {
     abstract val userDao: UserDao
     abstract val playerDao: PlayerDao

@@ -16,7 +16,8 @@ import java.util.*
     )]
 )
 data class Team(
-    @PrimaryKey(autoGenerate = true) val teamId: Int? = null,
+    @PrimaryKey(autoGenerate = true)
+    val teamId: Int? = null,
     var name: String? = null,
     var points: Int = 0,
     var budget: Float = 100.0f,
