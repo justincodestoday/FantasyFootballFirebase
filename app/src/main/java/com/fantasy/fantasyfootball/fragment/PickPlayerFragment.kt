@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
@@ -21,6 +22,7 @@ import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class PickPlayerFragment : Fragment() {
     private lateinit var adapter: PlayerAdapter
@@ -53,7 +55,6 @@ class PickPlayerFragment : Fragment() {
         val selectedPosition = args.position
 
         if (user != null) {
-            Log.d("debug", "$user")
             viewModel.getTeamWithPlayers(user.userId!!)
         }
 
@@ -62,48 +63,62 @@ class PickPlayerFragment : Fragment() {
         viewModel.teamPlayer.observe(viewLifecycleOwner) {
             teamId = it.team.teamId!!
             teamBudget = it.team.budget
-            Log.d("debug", "$teamId, $teamBudget")
         }
 
-        val layoutManager = LinearLayoutManager(requireContext())
-        adapter = PlayerAdapter(emptyList()) {
-//            NavHostFragment.findNavController(this).previousBackStackEntry?.savedStateHandle?.set(
-//                "key",
-//                selectedPosition
-//            )
-//            NavHostFragment.findNavController(this).popBackStack()
-            if (it.playerId != null) {
-                Log.d("debug", "$teamBudget, $teamId, $it")
-                val updatedValue = teamBudget - it.price
-                viewModel.updateBudget(teamId, updatedValue)
-//                val team = viewModel.createTeamId(team)
-                viewModel.createPlayer(
-                    FantasyPlayer(
-                        teamOwnerId = teamId,
-                        firstName = it.firstName,
-                        lastName = it.lastName,
-                        team = it.team,
-                        teamConst = it.teamConst,
-                        price = it.price,
-                        color = it.color,
-                        position = selectedPosition,
-                        isSet = true
-                    )
-                )
-                val bundle = Bundle()
-                bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
-                NavHostFragment.findNavController(this).popBackStack()
-                Toast.makeText(
-                    requireContext(),
-                    context?.getString(R.string.added_player_successful),
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            }
-        }
-        binding.rvPlayers.adapter = adapter
-        binding.rvPlayers.layoutManager = layoutManager
+        setupAdapter(teamId, teamBudget, selectedPosition)
+
+//        val layoutManager = LinearLayoutManager(requireContext())
+//        adapter = PlayerAdapter(emptyList()) {
+////            NavHostFragment.findNavController(this).previousBackStackEntry?.savedStateHandle?.set(
+////                "key",
+////                selectedPosition
+////            )
+////            NavHostFragment.findNavController(this).popBackStack()
+//            if (it.playerId != null) {
+//                if (teamBudget < it.price) {
+//                    val snackBar = Snackbar.make(
+//                        binding.root,
+//                        "${context?.getString(R.string.insufficient_funds)}",
+//                        Snackbar.LENGTH_LONG
+//                    )
+//                    snackBar.setBackgroundTint(
+//                        ContextCompat.getColor(requireContext(), R.color.red_500)
+//                    )
+//                    snackBar.setAction("Hide") {
+//                        snackBar.dismiss()
+//                    }
+//                    snackBar.show()
+//                } else {
+//                    val updatedValue = teamBudget - it.price
+//                    viewModel.updateBudget(teamId, updatedValue)
+//                    viewModel.addPlayer(
+//                        FantasyPlayer(
+//                            teamOwnerId = teamId,
+//                            firstName = it.firstName,
+//                            lastName = it.lastName,
+//                            team = it.team,
+//                            teamConst = it.teamConst,
+//                            price = it.price,
+//                            color = it.color,
+//                            position = selectedPosition,
+//                            isSet = true
+//                        )
+//                    )
+//                    val bundle = Bundle()
+//                    bundle.putBoolean(Enums.Result.REFRESH.name, true)
+//                    setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
+//                    NavHostFragment.findNavController(this).popBackStack()
+//                    Toast.makeText(
+//                        requireContext(),
+//                        context?.getString(R.string.added_player_successful),
+//                        Toast.LENGTH_SHORT
+//                    )
+//                        .show()
+//                }
+//            }
+//        }
+//        binding.rvPlayers.adapter = adapter
+//        binding.rvPlayers.layoutManager = layoutManager
 
         viewModel.getPlayersByArea(args.area)
 
@@ -154,51 +169,56 @@ class PickPlayerFragment : Fragment() {
         }
     }
 
-//    private fun setupAdapter(teamId: Int, budget: Float, selectedPosition: String) {
-//        val layoutManager = LinearLayoutManager(requireContext())
-//        adapter = PlayerAdapter(emptyList()) {
-////            NavHostFragment.findNavController(this).previousBackStackEntry?.savedStateHandle?.set(
-////                "key",
-////                selectedPosition
-////            )
-////            NavHostFragment.findNavController(this).popBackStack()
-//            if (it.playerId != null) {
-//                Log.d("debug", "$budget, $teamId, $it")
-//                val updatedValue = budget - it.price
-//                viewModel.updateBudget(teamId, updatedValue)
-////                val team = viewModel.createTeamId(team)
-//                viewModel.createPlayer(
-//                    FantasyPlayer(
-//                        teamOwnerId = teamId,
-//                        firstName = it.firstName,
-//                        lastName = it.lastName,
-//                        team = it.team,
-//                        teamConst = it.teamConst,
-//                        price = it.price,
-//                        color = it.color,
-//                        position = selectedPosition,
-//                        isSet = true
-//                    )
-//                )
-//                val bundle = Bundle()
-//                bundle.putBoolean(Enums.Result.REFRESH.name, true)
-////                bundle.putFloat(Enums.Result.PLAYER_PRICE.name, it.price)
-////                bundle.putInt(Enums.Result.PLAYER_ID.name, it.playerId)
-////                bundle.putString(Enums.Result.POSITION_BUTTON.name, selectedPosition)
-//                setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
-//                NavHostFragment.findNavController(this).popBackStack()
-//                Toast.makeText(
-//                    requireContext(),
-//                    context?.getString(R.string.added_player_successful),
-//                    Toast.LENGTH_SHORT
-//                )
-//                    .show()
-//            }
-////            (requireContext() as PickTeamFragment).setImageForPosition(position = "GK")
-//        }
-//        binding.rvPlayers.adapter = adapter
-//        binding.rvPlayers.layoutManager = layoutManager
-//    }
+    private fun setupAdapter(_teamId: Int, _budget: Float, selectedPosition: String) {
+        val layoutManager = LinearLayoutManager(requireContext())
+        adapter = PlayerAdapter(emptyList()) {
+            if (it.playerId != null) {
+                if (_budget < it.price) {
+                    val snackBar = Snackbar.make(
+                        binding.root,
+                        "${context?.getString(R.string.insufficient_funds)}",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackBar.setBackgroundTint(
+                        ContextCompat.getColor(requireContext(), R.color.red_500)
+                    )
+                    snackBar.setAction("Hide") {
+                        snackBar.dismiss()
+                    }
+                    snackBar.show()
+                } else {
+                    Log.d("debug", "$_budget, $_teamId, $it")
+                    val updatedValue = _budget - it.price
+                    viewModel.updateBudget(_teamId, updatedValue)
+                    viewModel.addPlayer(
+                        FantasyPlayer(
+                            teamOwnerId = _teamId,
+                            firstName = it.firstName,
+                            lastName = it.lastName,
+                            team = it.team,
+                            teamConst = it.teamConst,
+                            price = it.price,
+                            color = it.color,
+                            position = selectedPosition,
+                            isSet = true
+                        )
+                    )
+                    val bundle = Bundle()
+                    bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                    setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
+                    NavHostFragment.findNavController(this).popBackStack()
+                    Toast.makeText(
+                        requireContext(),
+                        context?.getString(R.string.added_player_successful),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
+            }
+        }
+        binding.rvPlayers.adapter = adapter
+        binding.rvPlayers.layoutManager = layoutManager
+    }
 
     private fun refresh(area: String, playerName: String) {
         if (playerName.isNotEmpty()) {

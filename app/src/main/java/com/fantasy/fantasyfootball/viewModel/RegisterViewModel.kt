@@ -28,17 +28,17 @@ class RegisterViewModel(
     fun register() {
         viewModelScope.launch {
             if (name.value?.trim { it <= ' ' }.isNullOrEmpty()) {
-                error.emit(Enums.FormErrors.MISSING_NAME.name)
+                error.emit(Enums.FormError.MISSING_NAME.name)
             } else if (teamName.value?.trim { it <= ' ' }.isNullOrEmpty()) {
-                error.emit(Enums.FormErrors.MISSING_TEAM_NAME.name)
+                error.emit(Enums.FormError.MISSING_TEAM_NAME.name)
             } else if (username.value?.trim { it <= ' ' }
                     .isNullOrEmpty() || username.value?.trim { it <= ' ' }!!.length < 8) {
-                error.emit(Enums.FormErrors.INVALID_USERNAME.name)
+                error.emit(Enums.FormError.INVALID_USERNAME.name)
             } else if (password.value?.trim { it <= ' ' }
                     .isNullOrEmpty() || password.value?.trim { it <= ' ' }!!.length < 8) {
-                error.emit(Enums.FormErrors.INVALID_PASSWORD.name)
+                error.emit(Enums.FormError.INVALID_PASSWORD.name)
             } else if (passwordConfirm.value?.trim { it <= ' ' } != password.value?.trim { it <= ' ' }) {
-                error.emit(Enums.FormErrors.PASSWORDS_NOT_MATCHING.name)
+                error.emit(Enums.FormError.PASSWORDS_NOT_MATCHING.name)
             } else {
                 val existingUser = userRepo.getUserByUsername(username.value!!)
                 if (existingUser == null) {
@@ -53,7 +53,7 @@ class RegisterViewModel(
                     teamRepo.createTeam(team)
                     success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
                 } else {
-                    error.emit(Enums.FormErrors.USER_EXISTS.name)
+                    error.emit(Enums.FormError.USER_EXISTS.name)
                 }
             }
         }

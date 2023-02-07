@@ -19,10 +19,6 @@ class TeamRepository(private val teamDao: TeamDao) {
         return teamDao.insert(team)
     }
 
-    suspend fun createTeamId(team: Team): Int {
-        return teamDao.updateTeam(team)
-    }
-
     suspend fun createPlayer(fantasyPlayer: FantasyPlayer) {
         teamDao.insertFantasyPlayer(fantasyPlayer)
     }

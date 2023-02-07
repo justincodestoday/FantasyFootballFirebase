@@ -80,68 +80,14 @@ class LoginFragment : Fragment() {
             val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
             NavHostFragment.findNavController(this).navigate(action)
         }
-
-//        viewModel.user.asLiveData().observe(viewLifecycleOwner) {
-//            if (it != null) {
-//                binding.run {
-//                    etUsername.text?.clear()
-//                    etPassword.text?.clear()
-//                }
-//                authService.authenticate(it)
-//                if (authService.isAuthenticated()) {
-//                    val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
-//                    NavHostFragment.findNavController(this).navigate(action)
-//                    Toast.makeText(
-//                        requireContext(),
-//                        context?.getString(R.string.login_successful),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                } else {
-//                    val snackBar = Snackbar.make(
-//                        binding.root,
-//                        requireContext().getString(R.string.login_unsuccessful),
-//                        Snackbar.LENGTH_LONG
-//                    )
-//                    snackBar.setBackgroundTint(
-//                        ContextCompat.getColor(requireContext(), R.color.red_500)
-//                    )
-//                    snackBar.setAction("Hide") {
-//                        snackBar.dismiss()
-//                    }
-//                    snackBar.show()
-//                }
-//            } else {
-//                val snackBar = Snackbar.make(
-//                    binding.root,
-//                    requireContext().getString(R.string.wrong_credentials),
-//                    Snackbar.LENGTH_LONG
-//                )
-//                snackBar.setBackgroundTint(
-//                    ContextCompat.getColor(requireContext(), R.color.red_500)
-//                )
-//                snackBar.setAction("Hide") {
-//                    snackBar.dismiss()
-//                }
-//                snackBar.show()
-//            }
-//        }
     }
-
-//    private fun setFragment(fragment: Fragment) {
-//        requireActivity().supportFragmentManager.beginTransaction().apply {
-//            replace(R.id.navHostFragment, fragment)
-//            commit()
-//        }
-//        savedStateHandle = findNavController().previousBackStackEntry!!.savedStateHandle
-//        savedStateHandle.set(LOGIN_SUCCESSFUL, false)
-//    }
 
     private fun enumToString(type: String?): String? {
         return when (type) {
-            Enums.FormErrors.EMPTY_FIELD.name -> context?.getString(R.string.empty_field)
-            Enums.FormErrors.INVALID_USERNAME.name -> context?.getString(R.string.no_user)
-            Enums.FormErrors.INVALID_PASSWORD.name -> context?.getString(R.string.incorrect_password)
-            Enums.FormErrors.WRONG_CREDENTIALS.name -> context?.getString(R.string.wrong_credentials)
+            Enums.FormError.EMPTY_FIELD.name -> context?.getString(R.string.empty_field)
+            Enums.FormError.INVALID_USERNAME.name -> context?.getString(R.string.no_user)
+            Enums.FormError.INVALID_PASSWORD.name -> context?.getString(R.string.incorrect_password)
+            Enums.FormError.WRONG_CREDENTIALS.name -> context?.getString(R.string.wrong_credentials)
             Enums.FormSuccess.LOGIN_SUCCESSFUL.name -> context?.getString(R.string.login_successful)
             else -> context?.getString(R.string.nothing)
         }

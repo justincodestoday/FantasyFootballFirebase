@@ -7,7 +7,7 @@ class Enums {
         LOGOUT_SUCCESSFUL
     }
 
-    enum class FormErrors {
+    enum class FormError {
         EMPTY_FIELD,
         WRONG_CREDENTIALS,
         MISSING_NAME,
@@ -27,6 +27,10 @@ class Enums {
         EDIT_PROFILE_RESULT,
         EDIT_IMAGE_RESULT,
         ADD_PLAYER_RESULT,
+    }
+
+    enum class Error {
+        INSUFFICIENT_FUNDS
     }
 
     enum class SortOrder {

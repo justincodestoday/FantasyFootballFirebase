@@ -16,9 +16,6 @@ interface TeamDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(team: Team): Long
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateTeam(team: Team): Int
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFantasyPlayer(fantasyPlayer: FantasyPlayer)
 

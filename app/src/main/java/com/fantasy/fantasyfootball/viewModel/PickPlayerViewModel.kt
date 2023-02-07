@@ -15,16 +15,8 @@ class PickPlayerViewModel(
 ) : ViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
     val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
-    val team: MutableLiveData<Team> = MutableLiveData()
 
-//    fun createTeamId(team: Team): Team {
-//        viewModelScope.launch {
-//            teamRepo.createTeamId(team)
-//        }
-//        return team
-//    }
-
-    fun createPlayer(fantasyPlayer: FantasyPlayer) {
+    fun addPlayer(fantasyPlayer: FantasyPlayer) {
         viewModelScope.launch {
             teamRepo.createPlayer(fantasyPlayer)
         }

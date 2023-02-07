@@ -20,7 +20,7 @@ class TeamManagementViewModel(
     private val userRepo: UserRepository
 ) : ViewModel() {
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
-    val teamWithPlayers: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
+    val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
     val player: MutableLiveData<Player> = MutableLiveData()
 
     val players = listOf(
@@ -283,12 +283,13 @@ class TeamManagementViewModel(
 //        }
 //    }
 
-    fun getTeamWithPlayersByTeamId(teamId:Int) {
+    fun getTeamWithPlayers(userId: Int) {
         viewModelScope.launch {
-            val res = teamRepo.getTeamWithPlayersByTeamId(teamId)
-            res.let {
-                teamWithPlayers.value = it
-                Log.d("debug", "${it.players}")
+            val team = teamRepo.getTeamByOwnerId(userId)
+            val teamId = team?.teamId
+            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
+            res?.let {
+                teamPlayer.value = it
             }
         }
     }
