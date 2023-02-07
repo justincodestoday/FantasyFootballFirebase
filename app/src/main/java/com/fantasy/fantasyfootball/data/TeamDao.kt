@@ -25,6 +25,9 @@ interface TeamDao {
     @Query("DELETE FROM team WHERE teamId = :teamId")
     suspend fun delete(teamId: Int)
 
+    @Query("DELETE FROM FantasyPlayer WHERE fanPlayerId = :fanPlayerId")
+    suspend fun deleteFantasyPlayer(fanPlayerId: Int)
+
     @Transaction
     @Query("SELECT * FROM team")
     suspend fun getTeamsWithPlayers(): List<TeamsWithPlayers>

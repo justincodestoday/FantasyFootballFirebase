@@ -2,7 +2,6 @@ package com.fantasy.fantasyfootball.fragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,117 +62,94 @@ class PickPlayerFragment : Fragment() {
         viewModel.teamPlayer.observe(viewLifecycleOwner) {
             teamId = it.team.teamId!!
             teamBudget = it.team.budget
-        }
+            val listOfLastNames = mutableListOf<String>()
+            it.players.forEach { player ->
+                listOfLastNames.add(player.lastName)
+            }
 
-        setupAdapter(teamId, teamBudget, selectedPosition)
+            viewModel.getPlayersByArea(args.area, listOfLastNames)
 
-//        val layoutManager = LinearLayoutManager(requireContext())
-//        adapter = PlayerAdapter(emptyList()) {
-////            NavHostFragment.findNavController(this).previousBackStackEntry?.savedStateHandle?.set(
-////                "key",
-////                selectedPosition
-////            )
-////            NavHostFragment.findNavController(this).popBackStack()
-//            if (it.playerId != null) {
-//                if (teamBudget < it.price) {
-//                    val snackBar = Snackbar.make(
-//                        binding.root,
-//                        "${context?.getString(R.string.insufficient_funds)}",
-//                        Snackbar.LENGTH_LONG
-//                    )
-//                    snackBar.setBackgroundTint(
-//                        ContextCompat.getColor(requireContext(), R.color.red_500)
-//                    )
-//                    snackBar.setAction("Hide") {
-//                        snackBar.dismiss()
-//                    }
-//                    snackBar.show()
-//                } else {
-//                    val updatedValue = teamBudget - it.price
-//                    viewModel.updateBudget(teamId, updatedValue)
-//                    viewModel.addPlayer(
-//                        FantasyPlayer(
-//                            teamOwnerId = teamId,
-//                            firstName = it.firstName,
-//                            lastName = it.lastName,
-//                            team = it.team,
-//                            teamConst = it.teamConst,
-//                            price = it.price,
-//                            color = it.color,
-//                            position = selectedPosition,
-//                            isSet = true
-//                        )
-//                    )
-//                    val bundle = Bundle()
-//                    bundle.putBoolean(Enums.Result.REFRESH.name, true)
-//                    setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
-//                    NavHostFragment.findNavController(this).popBackStack()
-//                    Toast.makeText(
-//                        requireContext(),
-//                        context?.getString(R.string.added_player_successful),
-//                        Toast.LENGTH_SHORT
-//                    )
-//                        .show()
-//                }
-//            }
-//        }
-//        binding.rvPlayers.adapter = adapter
-//        binding.rvPlayers.layoutManager = layoutManager
+            viewModel.players.observe(viewLifecycleOwner) { players ->
+                adapter.setPlayer(players)
+            }
 
-        viewModel.getPlayersByArea(args.area)
-
-        viewModel.players.observe(viewLifecycleOwner) { players ->
-            adapter.setPlayer(players)
-        }
-
-        binding.search.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String?): Boolean {
-                p0?.let {
-                    currentFilter = it
-                    refresh(args.area, it)
+            binding.search.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    p0?.let {
+                        currentFilter = it
+                        refresh(args.area, it, listOfLastNames)
+                    }
+                    return false
                 }
-                return false
-            }
 
-            override fun onQueryTextChange(p0: String?): Boolean {
-                p0?.let {
-                    currentFilter = it
-                    refresh(args.area, it)
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    p0?.let {
+                        currentFilter = it
+                        refresh(args.area, it, listOfLastNames)
+                    }
+                    return false
                 }
-                return false
-            }
-        })
+            })
 
-        binding.search.ivFilter.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.filter_dialog, null)
-            val filterDialog = Dialog(requireContext(), R.style.Filter_AlertDialog)
-            filterDialog.setContentView(dialogView)
-            filterDialog.setCancelable(true)
-            filterDialog.show()
-            filterDialog.findViewById<Button>(R.id.btn_filter_done).setOnClickListener {
-                val radioG1 = filterDialog.findViewById<RadioGroup>(R.id.radioGroup_order)
-                val radioG2 = filterDialog.findViewById<RadioGroup>(R.id.radioGroup_by)
-                val radioG1Checked = radioG1.checkedRadioButtonId
-                val radioG2Checked = radioG2.checkedRadioButtonId
-                val radioG1Button = filterDialog.findViewById<RadioButton>(radioG1Checked)
-                val radioG2Button = filterDialog.findViewById<RadioButton>(radioG2Checked)
-                val radioG1ButtonText = radioG1Button.text
-                val radioG2ButtonText = radioG2Button.text
-                sortRefresh(
-                    radioG1ButtonText.toString(),
-                    radioG2ButtonText.toString(),
-                    selectedArea
-                )
-                filterDialog.hide()
+            binding.search.ivFilter.setOnClickListener {
+                val dialogView = layoutInflater.inflate(R.layout.filter_dialog, null)
+                val filterDialog = Dialog(requireContext(), R.style.Filter_AlertDialog)
+                filterDialog.setContentView(dialogView)
+                filterDialog.setCancelable(true)
+                filterDialog.show()
+                filterDialog.findViewById<Button>(R.id.btn_filter_done).setOnClickListener {
+                    val radioG1 = filterDialog.findViewById<RadioGroup>(R.id.radioGroup_order)
+                    val radioG2 = filterDialog.findViewById<RadioGroup>(R.id.radioGroup_by)
+                    val radioG1Checked = radioG1.checkedRadioButtonId
+                    val radioG2Checked = radioG2.checkedRadioButtonId
+                    val radioG1Button = filterDialog.findViewById<RadioButton>(radioG1Checked)
+                    val radioG2Button = filterDialog.findViewById<RadioButton>(radioG2Checked)
+                    val radioG1ButtonText = radioG1Button.text
+                    val radioG2ButtonText = radioG2Button.text
+                    sortRefresh(
+                        radioG1ButtonText.toString(),
+                        radioG2ButtonText.toString(),
+                        selectedArea,
+                        listOfLastNames
+                    )
+                    filterDialog.hide()
+                }
             }
         }
-    }
 
-    private fun setupAdapter(_teamId: Int, _budget: Float, selectedPosition: String) {
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {
             if (it.playerId != null) {
-                if (_budget < it.price) {
+                // 0: if f1 is numerically equal to f2.
+                // Negative value: if f1 is numerically less than f2.
+                // Positive value: if f1 is numerically greater than f2.
+                if (teamBudget.compareTo(it.price) == 0) {
+                    val updatedValue = teamBudget - it.price
+                    viewModel.updateBudget(teamId, updatedValue)
+                    viewModel.addPlayer(
+                        FantasyPlayer(
+                            teamOwnerId = teamId,
+                            firstName = it.firstName,
+                            lastName = it.lastName,
+                            team = it.team,
+                            teamConst = it.teamConst,
+                            price = it.price,
+                            color = it.color,
+                            position = selectedPosition,
+                            isSet = true
+                        )
+                    )
+                    val bundle = Bundle()
+                    bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                    setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
+                    NavHostFragment.findNavController(this).popBackStack()
+                    Toast.makeText(
+                        requireContext(),
+                        context?.getString(R.string.added_player_successful),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                } else if (teamBudget.compareTo(it.price) < 0) {
                     val snackBar = Snackbar.make(
                         binding.root,
                         "${context?.getString(R.string.insufficient_funds)}",
@@ -187,12 +163,11 @@ class PickPlayerFragment : Fragment() {
                     }
                     snackBar.show()
                 } else {
-                    Log.d("debug", "$_budget, $_teamId, $it")
-                    val updatedValue = _budget - it.price
-                    viewModel.updateBudget(_teamId, updatedValue)
+                    val updatedValue = teamBudget - it.price
+                    viewModel.updateBudget(teamId, updatedValue)
                     viewModel.addPlayer(
                         FantasyPlayer(
-                            teamOwnerId = _teamId,
+                            teamOwnerId = teamId,
                             firstName = it.firstName,
                             lastName = it.lastName,
                             team = it.team,
@@ -220,15 +195,15 @@ class PickPlayerFragment : Fragment() {
         binding.rvPlayers.layoutManager = layoutManager
     }
 
-    private fun refresh(area: String, playerName: String) {
+    private fun refresh(area: String, playerName: String, existingPlayer: List<String>) {
         if (playerName.isNotEmpty()) {
-            viewModel.getPlayersBySearch(area, playerName)
+            viewModel.getPlayersBySearch(area, playerName, existingPlayer)
         } else {
-            viewModel.getPlayersByArea(area)
+            viewModel.getPlayersByArea(area, existingPlayer)
         }
     }
 
-    private fun sortRefresh(order: String, by: String, area: String) {
-        viewModel.sortPlayers(order, by, area)
+    private fun sortRefresh(order: String, by: String, area: String, existingPlayer: List<String>) {
+        viewModel.sortPlayers(order, by, area, existingPlayer)
     }
 }

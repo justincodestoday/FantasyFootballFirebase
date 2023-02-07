@@ -1,6 +1,5 @@
 package com.fantasy.fantasyfootball.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -268,20 +267,17 @@ class TeamManagementViewModel(
 //        }
 //    }
 
-    fun getPlayersByArea(area: String) {
+    fun removePlayer(fanPlayerId: Int) {
         viewModelScope.launch {
-            playerRepo.getPlayersByArea(area)
+            teamRepo.deletePlayer(fanPlayerId)
         }
     }
 
-//    fun getPlayerById(playerId: Int) {
-//        viewModelScope.launch {
-//            val res = playerRepo.getPlayerById(playerId)
-//            res?.let {
-//                player.value = it
-//            }
-//        }
-//    }
+    fun updateBudget(teamId: Int, budget: Float) {
+        viewModelScope.launch {
+            teamRepo.updateBudget(teamId, budget)
+        }
+    }
 
     fun getTeamWithPlayers(userId: Int) {
         viewModelScope.launch {

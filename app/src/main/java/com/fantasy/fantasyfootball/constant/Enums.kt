@@ -27,10 +27,7 @@ class Enums {
         EDIT_PROFILE_RESULT,
         EDIT_IMAGE_RESULT,
         ADD_PLAYER_RESULT,
-    }
-
-    enum class Error {
-        INSUFFICIENT_FUNDS
+        REMOVE_PLAYER_RESULT
     }
 
     enum class SortOrder {
@@ -49,7 +46,7 @@ class Enums {
     }
 
     enum class ShirtColor {
-        DARKBLUE, DARKRED, LIGHTBLUE, LIGHTRED, ORANGE, TRANSLUCENT, TURQOISE, WHITE, YELLOW, PURPLE, BLACK
+        DARKBLUE, DARKRED, LIGHTBLUE, LIGHTRED, ORANGE, TURQUOISE, WHITE, YELLOW, PURPLE, BLACK
     }
 
     enum class Position {
