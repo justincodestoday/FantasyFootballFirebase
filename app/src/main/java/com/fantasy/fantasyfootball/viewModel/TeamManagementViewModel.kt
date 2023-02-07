@@ -69,8 +69,8 @@ class TeamManagementViewModel(
             color = Enums.ShirtColor.LIGHTBLUE
         ),
         Player(
-            firstName = "Pedri",
-            lastName = "",
+            firstName = "",
+            lastName = "Pedri",
             team = "FC Barcelona",
             teamConst = Enums.Team.Barcelona,
             price = 25.0f,
@@ -186,8 +186,8 @@ class TeamManagementViewModel(
             color = Enums.ShirtColor.DARKRED
         ),
         Player(
-            firstName = "Fabinho",
-            lastName = "",
+            firstName = "",
+            lastName = "Fabinho",
             team = "Liverpool FC",
             teamConst = Enums.Team.Liverpool,
             price = 14.0f,
@@ -240,8 +240,8 @@ class TeamManagementViewModel(
             color = Enums.ShirtColor.DARKBLUE
         ),
         Player(
-            firstName = "Bremer",
-            lastName = "",
+            firstName = "",
+            lastName = "Bremer",
             team = "Juventus FC",
             teamConst = Enums.Team.Juventus,
             price = 10.0f,
@@ -259,13 +259,13 @@ class TeamManagementViewModel(
         ),
     )
 
-//    init {
-//        viewModelScope.launch {
-//            players.forEach {
-//                playerRepo.createPlayer(it)
-//            }
-//        }
-//    }
+    init {
+        viewModelScope.launch {
+            players.forEach {
+                playerRepo.createPlayer(it)
+            }
+        }
+    }
 
     fun removePlayer(fanPlayerId: Int) {
         viewModelScope.launch {
