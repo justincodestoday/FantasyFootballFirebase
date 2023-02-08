@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    tools:context=".fragment.MatchFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Matches"
-        android:layout_gravity="center_horizontal"
-        android:fontFamily="@font/font2"
-        android:textSize="32sp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMatches"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="@dimen/m" />
+        android:layout_height="match_parent"
+        android:background="@color/off_white"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:context=".fragment.MatchFragment">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/font2"
+            android:text="Matches"
+            android:textSize="32sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMatches"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingVertical="@dimen/m" />
+
+    </LinearLayout>
 </layout>

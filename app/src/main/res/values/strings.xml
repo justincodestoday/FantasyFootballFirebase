@@ -119,8 +119,9 @@
     <string name="logout_successful">Successfully logged out</string>
     <string name="update_successful">Updated successfully</string>
     <string name="update_image_successful">Updated profile image successfully</string>
-    <string name="added_player_successful">Added player to the team successfully</string>
-    <string name="removed_player_successful">Removed player from the team successfully</string>
+    <string name="added_player_successful">Added %1$s to the team successfully</string>
+    <string name="removed_player_successful">Removed %1$s from the team successfully</string>
+    <string name="collected_points">Collected %1$d points</string>
 
     <!-- Errors -->
     <string name="empty_field">Please fill all the fields</string>

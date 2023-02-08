@@ -22,7 +22,8 @@ class Enums {
         REFRESH,
         EDIT_PROFILE_RESULT,
         ADD_PLAYER_RESULT,
-        REMOVE_PLAYER_RESULT
+        REMOVE_PLAYER_RESULT,
+        COLLECTED_POINTS
     }
 
     enum class SortOrder {

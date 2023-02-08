@@ -1,14 +1,14 @@
 package com.fantasy.fantasyfootball.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.fantasy.fantasyfootball.R
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
 import com.fantasy.fantasyfootball.databinding.MatchCardBinding
 
-class MatchAdapter(var matches: List<Matches>):
+class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> Unit) :
     RecyclerView.Adapter<MatchAdapter.MatchHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchHolder {
@@ -24,36 +24,39 @@ class MatchAdapter(var matches: List<Matches>):
             tvHomeScore.text = match.homeScore.toString()
             tvAwayScore.text = match.awayScore.toString()
             tvDate.text = match.date
+
             when (match.homeTeam.name) {
-                "Arsenal" -> {
-                    arsenalHome.isVisible = true
+                Enums.Team.Liverpool.name -> {
+                    home.setImageResource(R.drawable.liverpool)
                 }
-                "Chelsea" -> {
-                    chelseaHome.isVisible = true
+                Enums.Team.ManUnited.name -> {
+                    home.setImageResource(R.drawable.manutd)
                 }
-                "Liverpool" -> {
-                    liverpoolHome.isVisible = true
+                Enums.Team.Arsenal.name -> {
+                    home.setImageResource(R.drawable.arsenal)
                 }
-                "ManUnited" -> {
-                    manutdHome.isVisible = true
+                Enums.Team.Chelsea.name -> {
+                    home.setImageResource(R.drawable.chelsea)
                 }
             }
 
             when (match.awayTeam.name) {
-                "Arsenal" -> {
-                    arsenalAway.isVisible = true
+                Enums.Team.Liverpool.name -> {
+                    away.setImageResource(R.drawable.liverpool)
                 }
-                "Chelsea" -> {
-                    chelseaAway.isVisible = true
+                Enums.Team.ManUnited.name -> {
+                    away.setImageResource(R.drawable.manutd)
                 }
-                "Liverpool" -> {
-                    liverpoolAway.isVisible = true
+                Enums.Team.Arsenal.name -> {
+                    away.setImageResource(R.drawable.arsenal)
                 }
-                "ManUnited" -> {
-                    manutdAway.isVisible = true
+                Enums.Team.Chelsea.name -> {
+                    away.setImageResource(R.drawable.chelsea)
                 }
             }
+
             cvMatchCard.setOnClickListener {
+                onClick(match)
             }
         }
     }

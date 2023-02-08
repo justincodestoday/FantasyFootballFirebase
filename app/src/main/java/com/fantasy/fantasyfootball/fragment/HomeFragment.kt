@@ -110,6 +110,11 @@ class HomeFragment : Fragment() {
             val refresh = result.getBoolean(Enums.Result.REFRESH.name)
             viewModel.refreshPage(refresh)
         }
+
+        setFragmentResultListener(Enums.Result.COLLECTED_POINTS.name) { _, result ->
+            val refresh = result.getBoolean(Enums.Result.REFRESH.name)
+            viewModel.refreshPage(refresh)
+        }
     }
 
     private fun enumToString(type: String?): String? {

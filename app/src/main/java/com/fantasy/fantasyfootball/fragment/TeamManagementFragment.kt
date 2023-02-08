@@ -97,7 +97,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -142,7 +145,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -187,7 +193,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -232,7 +241,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -277,7 +289,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -322,7 +337,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -367,7 +385,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -412,7 +433,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -457,7 +481,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -502,7 +529,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -547,7 +577,10 @@ class TeamManagementFragment : Fragment() {
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -564,14 +597,6 @@ class TeamManagementFragment : Fragment() {
         }
 
         setFragmentResultListener(Enums.Result.ADD_PLAYER_RESULT.name) { _, result ->
-            val refresh = result.getBoolean(Enums.Result.REFRESH.name)
-            if (refresh && user != null) {
-                viewModel.getUserWithTeam(user.userId!!)
-                viewModel.getTeamWithPlayers(user.userId)
-            }
-        }
-
-        setFragmentResultListener(Enums.Result.REMOVE_PLAYER_RESULT.name) { _, result ->
             val refresh = result.getBoolean(Enums.Result.REFRESH.name)
             if (refresh && user != null) {
                 viewModel.getUserWithTeam(user.userId!!)

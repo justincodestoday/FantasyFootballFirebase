@@ -2,6 +2,7 @@ package com.fantasy.fantasyfootball.fragment
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -145,7 +146,8 @@ class PickPlayerFragment : Fragment() {
                     NavHostFragment.findNavController(this).popBackStack()
                     Toast.makeText(
                         requireContext(),
-                        context?.getString(R.string.added_player_successful),
+                        context?.getString(R.string.added_player_successful)
+                            ?.let { context -> String.format(context, it.lastName) },
                         Toast.LENGTH_SHORT
                     )
                         .show()
@@ -184,7 +186,8 @@ class PickPlayerFragment : Fragment() {
                     NavHostFragment.findNavController(this).popBackStack()
                     Toast.makeText(
                         requireContext(),
-                        context?.getString(R.string.added_player_successful),
+                        context?.getString(R.string.added_player_successful)
+                            ?.let { context -> String.format(context, it.lastName) },
                         Toast.LENGTH_SHORT
                     )
                         .show()
