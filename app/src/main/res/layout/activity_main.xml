@@ -38,8 +38,8 @@
                 app:backgroundTint="@color/black"
                 app:elevation="8dp"
                 app:itemIconTint="@color/bottom_nav_color"
-                app:itemTextAppearanceActive="@style/Style_TextView"
-                app:itemTextAppearanceInactive="@style/Style_TextView"
+                app:itemTextAppearanceActive="@style/Text.Font2"
+                app:itemTextAppearanceInactive="@style/Text.Font2"
                 app:itemTextColor="@color/bottom_nav_color"
                 app:labelVisibilityMode="auto"
                 app:menu="@menu/bottom_nav_menu" />

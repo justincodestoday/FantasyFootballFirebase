@@ -11,8 +11,10 @@ import com.fantasy.fantasyfootball.repository.UserRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: TeamRepository) : ViewModel() {
+class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: TeamRepository) :
+    ViewModel() {
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
+    val fixtures: MutableSharedFlow<Unit> = MutableSharedFlow()
     val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
     val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
@@ -22,6 +24,12 @@ class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: 
 
     fun refreshPage(refresh: Boolean) {
         refreshPage.value = refresh
+    }
+
+    fun navigateToMatches() {
+        viewModelScope.launch {
+            fixtures.emit(Unit)
+        }
     }
 
     fun navigateToLeaderboard() {
@@ -57,7 +65,8 @@ class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: 
         }
     }
 
-    class Provider(private val userRepo: UserRepository, private val teamRepo: TeamRepository) : ViewModelProvider.Factory {
+    class Provider(private val userRepo: UserRepository, private val teamRepo: TeamRepository) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return HomeViewModel(userRepo, teamRepo) as T
         }

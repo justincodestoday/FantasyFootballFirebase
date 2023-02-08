@@ -259,13 +259,13 @@ class TeamManagementViewModel(
         ),
     )
 
-    init {
-        viewModelScope.launch {
-            players.forEach {
-                playerRepo.createPlayer(it)
-            }
-        }
-    }
+//    init {
+//        viewModelScope.launch {
+//            players.forEach {
+//                playerRepo.createPlayer(it)
+//            }
+//        }
+//    }
 
     fun removePlayer(fanPlayerId: Int) {
         viewModelScope.launch {

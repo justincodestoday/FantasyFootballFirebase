@@ -81,40 +81,41 @@ class TeamManagementFragment : Fragment() {
                 listOfPositions.add(player.position)
                 val color = setShirtColor(player.color)
                 setImageForPosition(player.position, color)
-                if (player.position == Enums.Position.LS.name) {
-                    leftStriker = player
-                    binding.leftStriker.text = player.lastName
-                } else if (player.position == Enums.Position.RS.name) {
-                    rightStriker = player
-                    binding.rightStriker.text = player.lastName
-                } else if (player.position == Enums.Position.LM.name) {
-                    leftMid = player
-                    binding.leftMidfielder.text = player.lastName
-                } else if (player.position == Enums.Position.LCM.name) {
-                    leftCM = player
-                    binding.leftCenterMid.text = player.lastName
-                } else if (player.position == Enums.Position.RCM.name) {
-                    rightCM = player
-                    binding.rightCenterMid.text = player.lastName
-                } else if (player.position == Enums.Position.RM.name) {
-                    rightMid = player
-                    binding.leftBack.text = player.lastName
-                } else if (player.position == Enums.Position.LB.name) {
-                    leftBack = player
-                    binding.leftCenterBack.text = player.lastName
-                } else if (player.position == Enums.Position.LCB.name) {
-                    leftCB = player
-                    binding.leftCenterBack.text = player.lastName
-                } else if (player.position == Enums.Position.RCB.name) {
-                    leftCB = player
-                    binding.rightCenterBack.text = player.lastName
-                } else if (player.position == Enums.Position.RB.name) {
-                    leftCB = player
-                    binding.rightBack.text = player.lastName
-                } else if (player.position == Enums.Position.GK.name) {
-                    goalKeeper = player
-                    binding.goalKeeper.text = player.lastName
-                }
+                setPlayerName(player.position, player.lastName)
+//                if (player.position == Enums.Position.LS.name) {
+//                    leftStriker = player
+//                    binding.leftStriker.text = player.lastName
+//                } else if (player.position == Enums.Position.RS.name) {
+//                    rightStriker = player
+//                    binding.rightStriker.text = player.lastName
+//                } else if (player.position == Enums.Position.LM.name) {
+//                    leftMid = player
+//                    binding.leftMidfielder.text = player.lastName
+//                } else if (player.position == Enums.Position.LCM.name) {
+//                    leftCM = player
+//                    binding.leftCenterMid.text = player.lastName
+//                } else if (player.position == Enums.Position.RCM.name) {
+//                    rightCM = player
+//                    binding.rightCenterMid.text = player.lastName
+//                } else if (player.position == Enums.Position.RM.name) {
+//                    rightMid = player
+//                    binding.leftBack.text = player.lastName
+//                } else if (player.position == Enums.Position.LB.name) {
+//                    leftBack = player
+//                    binding.leftCenterBack.text = player.lastName
+//                } else if (player.position == Enums.Position.LCB.name) {
+//                    leftCB = player
+//                    binding.leftCenterBack.text = player.lastName
+//                } else if (player.position == Enums.Position.RCB.name) {
+//                    leftCB = player
+//                    binding.rightCenterBack.text = player.lastName
+//                } else if (player.position == Enums.Position.RB.name) {
+//                    leftCB = player
+//                    binding.rightBack.text = player.lastName
+//                } else if (player.position == Enums.Position.GK.name) {
+////                    goalKeeper = player
+//                    binding.goalKeeper.text = player.lastName
+//                }
             }
 
             binding.gk.setOnClickListener { _ ->
@@ -127,7 +128,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -170,7 +174,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -213,7 +220,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -256,7 +266,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -299,7 +312,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -342,7 +358,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -385,7 +404,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -428,7 +450,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -471,7 +496,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -514,7 +542,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -557,7 +588,10 @@ class TeamManagementFragment : Fragment() {
                         dialogInstance.showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
-                            context.getString(R.string.dialog_remove_message)
+                            String.format(
+                                context.getString(R.string.dialog_remove_message),
+                                player.lastName
+                            )
                         ) { _, _ ->
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
@@ -625,6 +659,22 @@ class TeamManagementFragment : Fragment() {
             Enums.ShirtColor.WHITE -> R.drawable.shirt_white
             Enums.ShirtColor.BLACK -> R.drawable.shirt_black
             else -> R.drawable.shirt2
+        }
+    }
+
+    private fun setPlayerName(position: String, lastName: String) {
+        when (position) {
+            Enums.Position.GK.name -> binding.goalKeeper.text = lastName
+            Enums.Position.LB.name -> binding.leftBack.text = lastName
+            Enums.Position.LCB.name -> binding.leftCenterBack.text = lastName
+            Enums.Position.RCB.name -> binding.rightCenterBack.text = lastName
+            Enums.Position.RB.name -> binding.rightBack.text = lastName
+            Enums.Position.LM.name -> binding.leftMidfielder.text = lastName
+            Enums.Position.LCM.name -> binding.leftCenterMid.text = lastName
+            Enums.Position.RCM.name -> binding.rightCenterMid.text = lastName
+            Enums.Position.RM.name -> binding.rightMidfielder.text = lastName
+            Enums.Position.LS.name -> binding.leftStriker.text = lastName
+            Enums.Position.RS.name -> binding.rightStriker.text = lastName
         }
     }
 }
