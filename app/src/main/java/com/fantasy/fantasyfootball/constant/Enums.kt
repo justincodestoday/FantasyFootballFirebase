@@ -41,7 +41,7 @@ class Enums {
     }
 
     enum class ShirtColor {
-        DARKBLUE, DARKRED, LIGHTBLUE, LIGHTRED, ORANGE, TURQUOISE, WHITE, YELLOW, PURPLE, BLACK
+        DARKBLUE, DARKRED, LIGHTBLUE, LIGHTRED, ORANGE, GREEN, TURQUOISE, WHITE, YELLOW, PURPLE, BLACK
     }
 
     enum class Position {
