@@ -23,7 +23,6 @@ class TeamRepository(private val teamDao: TeamDao) {
         teamDao.insertFantasyPlayer(fantasyPlayer)
     }
 
-
     suspend fun editTeam(teamId: Int, team: Team) {
         teamDao.insert(team.copy(teamId = teamId))
     }
@@ -34,6 +33,10 @@ class TeamRepository(private val teamDao: TeamDao) {
 
     suspend fun updateBudget(teamId: Int, budget: Float) {
         teamDao.updateBudget(teamId, budget)
+    }
+
+    suspend fun updatePoints(teamId: Int, points: Int) {
+        teamDao.updatePoints(teamId, points)
     }
 
     suspend fun getTeamsWithPlayers(): List<TeamsWithPlayers> {

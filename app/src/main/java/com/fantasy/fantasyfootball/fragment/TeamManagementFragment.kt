@@ -1,24 +1,21 @@
 package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import android.widget.Toast
+import androidx.fragment.app.*
 import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.MainApplication
-import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
-import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
+import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 import com.fantasy.fantasyfootball.dialog.ConfirmDialogs
 import com.fantasy.fantasyfootball.util.AuthService
+import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
 
 class TeamManagementFragment : Fragment() {
     private lateinit var binding: FragmentTeamManagementBinding
@@ -38,9 +35,6 @@ class TeamManagementFragment : Fragment() {
         return binding.root
     }
 
-    private var currentPosition: String? = null
-    private var currentImageView: ImageView? = null
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -59,19 +53,8 @@ class TeamManagementFragment : Fragment() {
             }
         }
 
-        var teamId: Int
-        var teamBudget: Float
-        var leftStriker: FantasyPlayer? = null
-        var rightStriker: FantasyPlayer? = null
-        var leftMid: FantasyPlayer? = null
-        var leftCM: FantasyPlayer? = null
-        var rightCM: FantasyPlayer? = null
-        var rightMid: FantasyPlayer? = null
-        var leftBack: FantasyPlayer? = null
-        var leftCB: FantasyPlayer? = null
-        var rightCB: FantasyPlayer? = null
-        var rightBack: FantasyPlayer? = null
-        var goalKeeper: FantasyPlayer? = null
+        var teamId: Int = 0
+        var teamBudget: Float = 0.0f
         val dialogInstance = ConfirmDialogs()
         viewModel.teamPlayer.observe(viewLifecycleOwner) {
             teamId = it.team.teamId!!
@@ -82,40 +65,6 @@ class TeamManagementFragment : Fragment() {
                 val color = setShirtColor(player.color)
                 setImageForPosition(player.position, color)
                 setPlayerName(player.position, player.lastName)
-//                if (player.position == Enums.Position.LS.name) {
-//                    leftStriker = player
-//                    binding.leftStriker.text = player.lastName
-//                } else if (player.position == Enums.Position.RS.name) {
-//                    rightStriker = player
-//                    binding.rightStriker.text = player.lastName
-//                } else if (player.position == Enums.Position.LM.name) {
-//                    leftMid = player
-//                    binding.leftMidfielder.text = player.lastName
-//                } else if (player.position == Enums.Position.LCM.name) {
-//                    leftCM = player
-//                    binding.leftCenterMid.text = player.lastName
-//                } else if (player.position == Enums.Position.RCM.name) {
-//                    rightCM = player
-//                    binding.rightCenterMid.text = player.lastName
-//                } else if (player.position == Enums.Position.RM.name) {
-//                    rightMid = player
-//                    binding.leftBack.text = player.lastName
-//                } else if (player.position == Enums.Position.LB.name) {
-//                    leftBack = player
-//                    binding.leftCenterBack.text = player.lastName
-//                } else if (player.position == Enums.Position.LCB.name) {
-//                    leftCB = player
-//                    binding.leftCenterBack.text = player.lastName
-//                } else if (player.position == Enums.Position.RCB.name) {
-//                    leftCB = player
-//                    binding.rightCenterBack.text = player.lastName
-//                } else if (player.position == Enums.Position.RB.name) {
-//                    leftCB = player
-//                    binding.rightBack.text = player.lastName
-//                } else if (player.position == Enums.Position.GK.name) {
-////                    goalKeeper = player
-//                    binding.goalKeeper.text = player.lastName
-//                }
             }
 
             binding.gk.setOnClickListener { _ ->
@@ -133,6 +82,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -140,16 +92,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -179,6 +130,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -186,16 +140,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -225,6 +178,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -232,16 +188,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -271,6 +226,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -278,16 +236,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -317,6 +274,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -324,16 +284,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -363,6 +322,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -370,16 +332,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -409,6 +370,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -416,16 +380,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -455,6 +418,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -462,16 +428,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -501,6 +466,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -508,16 +476,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -547,6 +514,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -554,16 +524,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -593,6 +562,9 @@ class TeamManagementFragment : Fragment() {
                                 player.lastName
                             )
                         ) { _, _ ->
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
                             viewModel.updateBudget(teamId, updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
@@ -600,16 +572,15 @@ class TeamManagementFragment : Fragment() {
                                     fanPlayerId
                                 )
                             }
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
-                            viewModel.getUserWithTeam(user?.userId!!)
-                            viewModel.getTeamWithPlayers(user.userId)
+                            NavHostFragment.findNavController(this).popBackStack()
                             NavHostFragment.findNavController(this)
                                 .navigate(R.id.teamManagementFragment)
                             Toast.makeText(
                                 requireContext(),
-                                context.getString(R.string.removed_player_successful),
+                                String.format(
+                                    context.getString(R.string.removed_player_successful),
+                                    player.lastName
+                                ),
                                 Toast.LENGTH_SHORT
                             )
                                 .show()
@@ -629,6 +600,7 @@ class TeamManagementFragment : Fragment() {
             val refresh = result.getBoolean(Enums.Result.REFRESH.name)
             if (refresh && user != null) {
                 viewModel.getUserWithTeam(user.userId!!)
+                viewModel.getTeamWithPlayers(user.userId)
             }
         }
     }

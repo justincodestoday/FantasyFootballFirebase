@@ -22,6 +22,9 @@ interface TeamDao {
     @Query("UPDATE team SET budget = :budget WHERE teamId = :teamId")
     suspend fun updateBudget(teamId: Int, budget: Float)
 
+    @Query("UPDATE team SET points = :points WHERE teamId = :teamId")
+    suspend fun updatePoints(teamId: Int, points: Int)
+
     @Query("DELETE FROM team WHERE teamId = :teamId")
     suspend fun delete(teamId: Int)
 
