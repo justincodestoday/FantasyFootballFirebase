@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-<!--        <item-->
-<!--            android:id="@+id/homeFragment"-->
-<!--            android:title="@string/home" />-->
-
         <item
             android:id="@+id/profileFragment"
             android:icon="@drawable/ic_person"
-            android:title="Profile                     >" />
+            android:title="@string/profile" />
+<!--            android:title="Profile                     >" />-->
 
-<!--        <item-->
-<!--            android:id="@+id/leaderboardFragment"-->
-<!--            android:title="@string/leaderboard" />-->
+        <item
+            android:id="@+id/matchFragment"
+            android:icon="@drawable/ic_soccer"
+            android:title="@string/fixtures" />
     </group>
 </menu>

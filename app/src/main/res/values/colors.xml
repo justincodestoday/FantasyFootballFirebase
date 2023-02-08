@@ -14,7 +14,7 @@
     <color name="red_700">#FF7E0000</color>
     <color name="dark_purple_700">#FF4D0453</color>
     <color name="light_green_200">#80D6FDF6</color>
-    <color name="light_green_500">#FF7FFABE</color>
+    <color name="light_green_500">#B3FFDA</color>
     <color name="light_green_900">#FF00FB81</color>
     <color name="dark_green_200">#FF82C490</color>
     <color name="green_500">#FF37A63C</color>
@@ -24,4 +24,5 @@
     <color name="yellow_900">#FFB59800</color>
     <color name="gray_500">#FFAEADAD</color>
     <color name="gray_900">#FF787878</color>
+    <color name="orange_500">#FFF3A42F</color>
 </resources>

@@ -21,19 +21,25 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/font1"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="60dp"
                 android:elevation="10dp"
-                android:orientation="horizontal">
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -43,18 +49,19 @@
                         android:background="@drawable/custom_button_2" />
 
                     <TextView
+                        style="@style/Text.Base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
-                        android:text="@string/team_points" />
+                        android:text="@string/team_points"
+                        android:textAllCaps="true" />
                 </LinearLayout>
 
-
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -66,31 +73,32 @@
                         android:textAllCaps="false" />
 
                     <TextView
+                        style="@style/Text.Base"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="2dp"
-                        android:text="@string/team_budget" />
+                        android:text="@string/team_budget"
+                        android:textAllCaps="true" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:orientation="vertical">-->
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/tvRanking"
-                        android:layout_width="80dp"
-                        android:layout_height="25dp"
-                        android:background="@drawable/custom_button_2" />
+                <!--                    <androidx.appcompat.widget.AppCompatButton-->
+                <!--                        android:id="@+id/tvRanking"-->
+                <!--                        android:layout_width="80dp"-->
+                <!--                        android:layout_height="25dp"-->
+                <!--                        android:background="@drawable/custom_button_2" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2dp"
-                        android:text="@string/team_rank" />
-                </LinearLayout>
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center_horizontal"-->
+                <!--                        android:layout_marginTop="2dp"-->
+                <!--                        android:text="@string/team_rank" />-->
+                <!--                </LinearLayout>-->
             </LinearLayout>
         </LinearLayout>
 
@@ -117,15 +125,13 @@
 
                 <TextView
                     android:id="@+id/leftStriker"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:ellipsize="end"
                     android:maxLength="10"
-                    android:maxLines="1"
-                    android:fontFamily="@font/font2"
-                    android:textStyle="bold"
-                    android:text="ST" />
+                    android:maxLines="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -143,18 +149,16 @@
 
                 <TextView
                     android:id="@+id/rightStriker"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginStart="25dp"
                     android:ellipsize="end"
                     android:maxLength="10"
-                    android:maxLines="1"
-                    android:fontFamily="@font/font2"
-                    android:text="ST" />
+                    android:maxLines="1" />
             </LinearLayout>
         </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -178,10 +182,13 @@
 
                 <TextView
                     android:id="@+id/leftMidfielder"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="LM" />
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -199,10 +206,13 @@
 
                 <TextView
                     android:id="@+id/leftCenterMid"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="LCM" />
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1" />
 
             </LinearLayout>
 
@@ -222,13 +232,14 @@
 
                 <TextView
                     android:id="@+id/rightCenterMid"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="RCM" />
-
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -245,11 +256,13 @@
 
                 <TextView
                     android:id="@+id/rightMidfielder"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="RM" />
-
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1" />
             </LinearLayout>
         </LinearLayout>
 
@@ -275,10 +288,13 @@
 
                 <TextView
                     android:id="@+id/leftBack"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="LB" />
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1" />
 
             </LinearLayout>
 
@@ -297,12 +313,14 @@
 
                 <TextView
                     android:id="@+id/leftCenterBack"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="CB" />
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1" />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -319,11 +337,13 @@
 
                 <TextView
                     android:id="@+id/rightCenterBack"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="CB" />
-
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1" />
             </LinearLayout>
 
             <LinearLayout
@@ -341,10 +361,13 @@
 
                 <TextView
                     android:id="@+id/rightBack"
+                    style="@style/Player.Text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="RB" />
+                    android:ellipsize="end"
+                    android:maxLength="10"
+                    android:maxLines="1" />
 
             </LinearLayout>
         </LinearLayout>
@@ -353,23 +376,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:orientation="vertical">
 
             <ImageButton
                 android:id="@+id/gk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_gravity="bottom|center"
                 android:background="@color/transparent"
                 android:src="@drawable/shirt2" />
 
             <TextView
                 android:id="@+id/goalKeeper"
+                style="@style/Player.Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="GK" />
+                android:ellipsize="end"
+                android:maxLength="10"
+                android:maxLines="1" />
         </LinearLayout>
     </LinearLayout>
 </layout>

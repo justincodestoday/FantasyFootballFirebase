@@ -15,17 +15,12 @@ class Enums {
         INVALID_USERNAME,
         INVALID_PASSWORD,
         PASSWORDS_NOT_MATCHING,
-        USER_EXISTS,
-        LOGIN_UNSUCCESSFUL
+        USER_EXISTS
     }
 
     enum class Result {
         REFRESH,
-        POSITION_BUTTON,
-        PLAYER_ID,
-        PLAYER_PRICE,
         EDIT_PROFILE_RESULT,
-        EDIT_IMAGE_RESULT,
         ADD_PLAYER_RESULT,
         REMOVE_PLAYER_RESULT
     }
