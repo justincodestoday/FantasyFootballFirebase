@@ -98,6 +98,10 @@
     <string name="player_position">Player Position</string>
     <string name="player_price">Player Price</string>
 
+    <!--  Positions  -->
+    <string name="ls">LS</string>
+    <string name="rs">RS</string>
+
     <!-- Alert -->
     <string name="dialog_button_positive">Confirm</string>
     <string name="dialog_button_negative">Cancel</string>

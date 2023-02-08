@@ -257,6 +257,69 @@ class TeamManagementViewModel(
             area = Enums.Area.Defender,
             color = Enums.ShirtColor.DARKBLUE
         ),
+        Player(
+            firstName = "Raheem",
+            lastName = "Sterling",
+            team = "Chelsea FC",
+            teamConst = Enums.Team.Chelsea,
+            price = 17.5f,
+            area = Enums.Area.Striker,
+            color = Enums.ShirtColor.DARKBLUE
+        ),
+        Player(
+            firstName = "Gabriel",
+            lastName = "Martinelli",
+            team = "Arsenal",
+            teamConst = Enums.Team.Arsenal,
+            price = 15.0f,
+            area = Enums.Area.Striker,
+            color = Enums.ShirtColor.LIGHTRED
+        ),
+        Player(
+            firstName = "Giovanni",
+            lastName = "Reyna",
+            team = "Borussia Dortmund",
+            teamConst = Enums.Team.BorussiaDort,
+            price = 9.0f,
+            area = Enums.Area.Midfielder,
+            color = Enums.ShirtColor.YELLOW
+        ),
+        Player(
+            firstName = "Hakan",
+            lastName = "Calhanoglu",
+            team = "Inter Milan",
+            teamConst = Enums.Team.InterMilan,
+            price = 9.0f,
+            area = Enums.Area.Midfielder,
+            color = Enums.ShirtColor.DARKBLUE
+        ),
+        Player(
+            firstName = "Nathan",
+            lastName = "Aké",
+            team = "Manchester City",
+            teamConst = Enums.Team.ManCity,
+            price = 7.5f,
+            area = Enums.Area.Defender,
+            color = Enums.ShirtColor.LIGHTBLUE
+        ),
+        Player(
+            firstName = "Harry",
+            lastName = "Maguire",
+            team = "Manchester United",
+            teamConst = Enums.Team.ManUnited,
+            price = 7.5f,
+            area = Enums.Area.Defender,
+            color = Enums.ShirtColor.DARKRED
+        ),
+        Player(
+            firstName = "Yann",
+            lastName = "Sommer",
+            team = "Bayern Munich",
+            teamConst = Enums.Team.BayernMunich,
+            price = 1.5f,
+            area = Enums.Area.Goalkeeper,
+            color = Enums.ShirtColor.LIGHTRED
+        )
     )
 
 //    init {
