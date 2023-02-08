@@ -658,6 +658,7 @@ class TeamManagementFragment : Fragment() {
             Enums.ShirtColor.YELLOW -> R.drawable.shirt_yellow
             Enums.ShirtColor.WHITE -> R.drawable.shirt_white
             Enums.ShirtColor.BLACK -> R.drawable.shirt_black
+            Enums.ShirtColor.PURPLE -> R.drawable.shirt_pink
             else -> R.drawable.shirt2
         }
     }

@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.user.observe(this) {
             if (it != null) {
                 headerBinding.tvFullName.text = it.name
-                headerBinding.tvUsername.text = it.name
+                headerBinding.tvUsername.text = "@"+ it.username
                 if (it.image != null) {
                     val bitmap = BitmapFactory.decodeByteArray(it.image, 0, it.image.size)
                     headerBinding.ivImage.setImageBitmap(bitmap)
@@ -69,9 +69,13 @@ class MainActivity : AppCompatActivity() {
 
         val menuView = binding.navigationView.menu
         val menuProfile = menuView.findItem(R.id.profileFragment)
+        val menuFixture = menuView.findItem(R.id.matchFragment)
         val s = SpannableString(menuProfile.title)
+        val ss = SpannableString(menuFixture.title)
         s.setSpan(AbsoluteSizeSpan(55), 0, s.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         menuProfile.title = s
+        ss.setSpan(AbsoluteSizeSpan(55), 0, ss.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        menuFixture.title = ss
 
         setSupportActionBar(binding.toolbar)
         drawerLayout = binding.drawerLayout
