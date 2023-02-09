@@ -4,7 +4,7 @@ import android.content.Context
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.data.model.User
 
-class AuthService (private val storageService: StorageService){
+class AuthService(private val storageService: StorageService) {
     fun authenticate(user: User) {
         storageService.setUser("user", user)
     }
@@ -23,7 +23,7 @@ class AuthService (private val storageService: StorageService){
     }
 
     fun getAuthenticatedUser(): User? {
-        val user =  storageService.getUser("user")
+        val user = storageService.getUser("user")
         return user
     }
 

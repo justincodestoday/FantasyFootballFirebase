@@ -11,8 +11,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 class LoginViewModel(private val repo: UserRepository) : ViewModel() {
     val user: MutableSharedFlow<User?> = MutableSharedFlow()
 
-    val userFlow: MutableSharedFlow<User> = MutableSharedFlow()
-
     val username: MutableLiveData<String?> = MutableLiveData()
     val password: MutableLiveData<String?> = MutableLiveData()
 
@@ -27,7 +25,7 @@ class LoginViewModel(private val repo: UserRepository) : ViewModel() {
         } else {
             val existingUser = repo.getUserCredentials(username.value!!, password.value!!)
             if (existingUser != null) {
-                userFlow.emit(existingUser)
+                user.emit(existingUser)
                 success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
             } else {
                 error.emit(Enums.FormError.WRONG_CREDENTIALS.name)

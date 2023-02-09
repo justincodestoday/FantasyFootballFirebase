@@ -204,7 +204,6 @@
             android:layout_marginTop="@dimen/fragment_vertical_margin"
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
-            android:onClick="@{() -> viewModel.register()}"
             android:text="@string/sign_up"
             android:textColor="@android:color/white" />
 

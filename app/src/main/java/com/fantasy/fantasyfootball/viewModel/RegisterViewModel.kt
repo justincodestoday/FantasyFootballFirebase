@@ -25,36 +25,34 @@ class RegisterViewModel(
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
 
-    fun register() {
-        viewModelScope.launch {
-            if (name.value?.trim { it <= ' ' }.isNullOrEmpty()) {
-                error.emit(Enums.FormError.MISSING_NAME.name)
-            } else if (teamName.value?.trim { it <= ' ' }.isNullOrEmpty()) {
-                error.emit(Enums.FormError.MISSING_TEAM_NAME.name)
-            } else if (username.value?.trim { it <= ' ' }
-                    .isNullOrEmpty() || username.value?.trim { it <= ' ' }!!.length < 8) {
-                error.emit(Enums.FormError.INVALID_USERNAME.name)
-            } else if (password.value?.trim { it <= ' ' }
-                    .isNullOrEmpty() || password.value?.trim { it <= ' ' }!!.length < 8) {
-                error.emit(Enums.FormError.INVALID_PASSWORD.name)
-            } else if (passwordConfirm.value?.trim { it <= ' ' } != password.value?.trim { it <= ' ' }) {
-                error.emit(Enums.FormError.PASSWORDS_NOT_MATCHING.name)
+    suspend fun register() {
+        if (name.value?.trim { it <= ' ' }.isNullOrEmpty()) {
+            error.emit(Enums.FormError.MISSING_NAME.name)
+        } else if (teamName.value?.trim { it <= ' ' }.isNullOrEmpty()) {
+            error.emit(Enums.FormError.MISSING_TEAM_NAME.name)
+        } else if (username.value?.trim { it <= ' ' }
+                .isNullOrEmpty() || username.value?.trim { it <= ' ' }!!.length < 8) {
+            error.emit(Enums.FormError.INVALID_USERNAME.name)
+        } else if (password.value?.trim { it <= ' ' }
+                .isNullOrEmpty() || password.value?.trim { it <= ' ' }!!.length < 8) {
+            error.emit(Enums.FormError.INVALID_PASSWORD.name)
+        } else if (passwordConfirm.value?.trim { it <= ' ' } != password.value?.trim { it <= ' ' }) {
+            error.emit(Enums.FormError.PASSWORDS_NOT_MATCHING.name)
+        } else {
+            val existingUser = userRepo.getUserByUsername(username.value!!)
+            if (existingUser == null) {
+                val user =
+                    User(
+                        name = name.value,
+                        username = username.value,
+                        password = password.value
+                    )
+                val id = userRepo.createUser(user)
+                val team = Team(ownerId = id.toInt(), name = teamName.value?.trim())
+                teamRepo.createTeam(team)
+                success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
             } else {
-                val existingUser = userRepo.getUserByUsername(username.value!!)
-                if (existingUser == null) {
-                    val user =
-                        User(
-                            name = name.value,
-                            username = username.value,
-                            password = password.value
-                        )
-                    val id = userRepo.createUser(user)
-                    val team = Team(ownerId = id.toInt(), name = teamName.value?.trim())
-                    teamRepo.createTeam(team)
-                    success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
-                } else {
-                    error.emit(Enums.FormError.USER_EXISTS.name)
-                }
+                error.emit(Enums.FormError.USER_EXISTS.name)
             }
         }
     }

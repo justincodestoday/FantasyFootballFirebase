@@ -66,12 +66,13 @@ class LoginFragment : Fragment() {
             snackBar.show()
         }
 
-        viewModel.userFlow.asLiveData().observe(viewLifecycleOwner) {
+        viewModel.user.asLiveData().observe(viewLifecycleOwner) {
             binding.run {
                 etUsername.text?.clear()
                 etPassword.text?.clear()
             }
-            authService.authenticate(it)
+            authService.authenticate(it!!)
+            (activity as MainActivity).identify(it)
             val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
             NavHostFragment.findNavController(this).navigate(action)
         }
