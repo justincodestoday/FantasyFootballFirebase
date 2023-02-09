@@ -6,6 +6,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,20 +18,20 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.*
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var binding: ActivityMainBinding
     private lateinit var headerView: View
     private lateinit var headerBinding: DrawerHeaderBinding
     private val viewModel: MainViewModel by viewModels {
@@ -39,8 +40,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+//        val binding =
+//            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
         headerView = binding.navigationView.getHeaderView(0)
         headerBinding = DrawerHeaderBinding.bind(headerView)
@@ -55,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.user.observe(this) {
             if (it != null) {
                 headerBinding.tvFullName.text = it.name
-                headerBinding.tvUsername.text = "@"+ it.username
+                headerBinding.tvUsername.text = "@" + it.username
                 if (it.image != null) {
                     val bitmap = BitmapFactory.decodeByteArray(it.image, 0, it.image.size)
                     headerBinding.ivImage.setImageBitmap(bitmap)
@@ -130,6 +133,27 @@ class MainActivity : AppCompatActivity() {
             graph.setStartDestination(R.id.homeFragment)
         } else {
             graph.setStartDestination(R.id.credentialsFragment)
+        }
+    }
+
+    fun navigate(destination: String) {
+        when (destination) {
+            Enums.Fragment.Team.name -> {
+                val item = binding.bottomNav.menu.findItem(R.id.teamManagementFragment)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+            Enums.Fragment.Leaderboard.name -> {
+                val item = binding.bottomNav.menu.findItem(R.id.leaderboardFragment)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+            Enums.Fragment.Profile.name -> {
+                val item = binding.navigationView.menu.findItem(R.id.profileFragment)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+            Enums.Fragment.Match.name -> {
+                val item = binding.navigationView.menu.findItem(R.id.matchFragment)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
         }
     }
 
