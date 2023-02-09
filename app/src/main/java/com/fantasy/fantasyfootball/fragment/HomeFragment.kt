@@ -8,11 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.*
 import androidx.lifecycle.asLiveData
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.fantasy.fantasyfootball.MainActivity
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
@@ -20,8 +16,6 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.HomeViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -55,7 +49,6 @@ class HomeFragment : Fragment() {
             binding.apply {
                 points.text = it.team.points.toString() + " Points"
                 tvProfile.text = it.user.username
-//                tvTeam.text = it.team.name
                 if (it.user.image != null) {
                     val bitmap =
                         BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image.size)
@@ -65,23 +58,19 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.teamManagement.asLiveData().observe(viewLifecycleOwner) {
-            val action = HomeFragmentDirections.actionHomeFragmentToTeamManagementFragment()
-            NavHostFragment.findNavController(this).navigate(action)
+            (activity as MainActivity).navigate(Enums.Fragment.Team.name)
         }
 
         viewModel.profile.asLiveData().observe(viewLifecycleOwner) {
-            val action = HomeFragmentDirections.actionHomeFragmentToProfileFragment()
-            NavHostFragment.findNavController(this).navigate(action)
+            (activity as MainActivity).navigate(Enums.Fragment.Profile.name)
         }
 
         viewModel.leaderboard.asLiveData().observe(viewLifecycleOwner) {
-            val action = HomeFragmentDirections.actionHomeFragmentToLeaderboardFragment()
-            NavHostFragment.findNavController(this).navigate(action)
+            (activity as MainActivity).navigate(Enums.Fragment.Leaderboard.name)
         }
 
         viewModel.fixtures.asLiveData().observe(viewLifecycleOwner) {
-            val action = HomeFragmentDirections.actionHomeFragmentToMatchFragment()
-            NavHostFragment.findNavController(this).navigate(action)
+            (activity as MainActivity).navigate(Enums.Fragment.Match.name)
         }
 
         viewModel.logout.asLiveData().observe(viewLifecycleOwner) {

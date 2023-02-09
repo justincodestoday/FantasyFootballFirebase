@@ -5,7 +5,6 @@
             android:id="@+id/profileFragment"
             android:icon="@drawable/ic_person"
             android:title="@string/profile" />
-<!--            android:title="Profile                     >" />-->
 
         <item
             android:id="@+id/matchFragment"

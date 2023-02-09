@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import com.fantasy.fantasyfootball.MainActivity
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
@@ -44,12 +45,6 @@ class LoginFragment : Fragment() {
 
         val authService = AuthService.getInstance(requireContext())
 
-        binding.btnLogin.setOnClickListener {
-            lifecycleScope.launch {
-                viewModel.login()
-            }
-        }
-
         viewModel.success.asLiveData().observe(viewLifecycleOwner) {
             val msg = enumToString(it)
             binding.run {
@@ -79,6 +74,12 @@ class LoginFragment : Fragment() {
             authService.authenticate(it)
             val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
             NavHostFragment.findNavController(this).navigate(action)
+        }
+
+        binding.btnLogin.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.login()
+            }
         }
     }
 

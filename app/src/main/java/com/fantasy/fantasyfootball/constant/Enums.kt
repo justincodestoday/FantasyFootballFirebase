@@ -26,6 +26,10 @@ class Enums {
         COLLECTED_POINTS
     }
 
+    enum class Fragment {
+        Team, Leaderboard, Profile, Match
+    }
+
     enum class SortOrder {
         Ascending,
         Descending
