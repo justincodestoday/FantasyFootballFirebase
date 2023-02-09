@@ -9,12 +9,14 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentRegisterBinding
 import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
@@ -60,6 +62,12 @@ class RegisterFragment : Fragment() {
                 snackBar.dismiss()
             }
             snackBar.show()
+        }
+
+        binding.btnRegister.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.register()
+            }
         }
     }
 

@@ -23,6 +23,7 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
+import com.fantasy.fantasyfootball.fragment.LoginFragment
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //        val binding =
@@ -59,7 +61,9 @@ class MainActivity : AppCompatActivity() {
             if (it != null) {
                 headerBinding.tvFullName.text = it.name
                 headerBinding.tvUsername.text = "@" + it.username
-                if (it.image != null) {
+                if (it.image == null) {
+                    headerBinding.ivImage.setImageResource(R.drawable.vector__3_)
+                } else {
                     val bitmap = BitmapFactory.decodeByteArray(it.image, 0, it.image.size)
                     headerBinding.ivImage.setImageBitmap(bitmap)
                 }
@@ -134,6 +138,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             graph.setStartDestination(R.id.credentialsFragment)
         }
+    }
+
+    fun identify(user: User?) {
+        viewModel.getUserById(user?.userId!!)
     }
 
     fun navigate(destination: String) {

@@ -19,6 +19,7 @@ import com.fantasy.fantasyfootball.viewModel.HomeViewModel
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var authService: AuthService
     private val viewModel: HomeViewModel by viewModels {
         HomeViewModel.Provider(
             (requireContext().applicationContext as MainApplication).userRepo,
@@ -39,7 +40,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val authService = AuthService.getInstance(requireContext())
+//        authService = AuthService.getInstance(requireActivity().applicationContext)
+        authService = AuthService.getInstance(requireContext())
         val user = authService.getAuthenticatedUser()
         if (user != null) {
             viewModel.getUserWithTeam(user.userId!!)
