@@ -49,7 +49,7 @@ class PlayerRepository(private val playerDao: PlayerDao) {
                 .reversed()
         } else if (order == Enums.SortOrder.Ascending.name && by == Enums.SortBy.Price.name) {
             return res.sortedWith(compareBy { it.price })
-        } else if (order == Enums.SortOrder.Descending.name && by == Enums.SortBy.Name.name) {
+        } else if (order == Enums.SortOrder.Descending.name && by == Enums.SortBy.Price.name) {
             return res.sortedWith(compareBy { it.price }).reversed()
         }
         return res
