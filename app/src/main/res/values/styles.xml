@@ -19,7 +19,6 @@
         <item name="fontFamily">@font/font2</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textStyle">bold</item>
-        <item name="textAllCaps">true</item>
     </style>
 
     <style name="CustomDrawerItemTextAppearance">
