@@ -17,13 +17,13 @@ class MatchViewModel(private val matchRepo: MatchRepository, private val teamRep
     val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
 
     val game = listOf(
-//        Matches(
-//            homeTeam = Enums.Team.Liverpool,
-//            awayTeam = Enums.Team.ManUnited,
-//            homeScore = 2,
-//            awayScore = 1,
-//            date = "8/2/2023"
-//        ),
+        Matches(
+            homeTeam = Enums.Team.Liverpool,
+            awayTeam = Enums.Team.ManUnited,
+            homeScore = 2,
+            awayScore = 1,
+            date = "8/2/2023"
+        ),
         Matches(
             homeTeam = Enums.Team.Arsenal,
             awayTeam = Enums.Team.Chelsea,
