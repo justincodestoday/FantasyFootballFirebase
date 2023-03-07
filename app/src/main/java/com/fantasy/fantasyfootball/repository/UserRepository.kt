@@ -1,40 +1,27 @@
 package com.fantasy.fantasyfootball.repository
 
-import com.fantasy.fantasyfootball.data.UserDao
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
-class UserRepository(private val userDao: UserDao) {
-    fun getUserById(userId: Int): Flow<User?> {
-        return userDao.getUserById(userId)
-    }
+interface UserRepository {
+    suspend fun getUserById(userId: Int): Flow<User?>
 
-    suspend fun getUserByUsername(username: String): User? {
-        return userDao.getUserByUsername(username)
-    }
+    suspend fun getUserByUsername(username: String): User?
 
-    suspend fun getUserCredentials(username: String, password:String): User? {
-        return userDao.getUserCredentials(username, password)
-    }
+    suspend fun getUserCredentials(username: String, password: String): User?
 
-    suspend fun createUser(user: User): Long {
-        return userDao.insert(user)
-    }
+    suspend fun createUser(user: User): Long
 
-    suspend fun editUser(id: Int, user: User): Long {
-        return userDao.insert(user.copy(userId = id))
-    }
+    suspend fun editUser(id: Int, user: User): Long
 
-    suspend fun deleteUser(userId: Int) {
-        userDao.delete(userId)
-    }
+    suspend fun getUsersWithTeams(): List<UserWithTeam>
 
-    suspend fun getUsersWithTeams(): List<UserWithTeam> {
-        return userDao.getUsersWithTeams()
-    }
+    suspend fun getUserWithTeam(userId: Int): UserWithTeam?
 
-    suspend fun getUserWithTeam(userId: Int): UserWithTeam? {
-        return userDao.getUserWithTeamByUserId(userId)
-    }
+    suspend fun register(user: User): FirebaseUser?
+
+    suspend fun login(email: String, password: String): Boolean
 }

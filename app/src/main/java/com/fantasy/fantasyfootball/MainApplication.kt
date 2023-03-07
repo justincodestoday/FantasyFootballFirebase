@@ -7,12 +7,14 @@ import com.fantasy.fantasyfootball.data.FantasyDatabase
 import com.fantasy.fantasyfootball.repository.MatchRepository
 import com.fantasy.fantasyfootball.repository.PlayerRepository
 import com.fantasy.fantasyfootball.repository.TeamRepository
-import com.fantasy.fantasyfootball.repository.UserRepository
+import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
 import com.fantasy.fantasyfootball.util.StorageService
 import com.google.gson.Gson
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MainApplication : Application() {
-    lateinit var userRepo: UserRepository
+    lateinit var userRepo: UserRepositoryImpl
     lateinit var playerRepo: PlayerRepository
     lateinit var teamRepo: TeamRepository
     lateinit var matchRepo: MatchRepository
@@ -28,7 +30,7 @@ class MainApplication : Application() {
         ).fallbackToDestructiveMigration()
             .addMigrations(FantasyDatabase.MIGRATION_1_2)
             .build()
-        userRepo = UserRepository(fantasyDatabase.userDao)
+        userRepo = UserRepositoryImpl(fantasyDatabase.userDao)
         playerRepo = PlayerRepository(fantasyDatabase.playerDao)
         teamRepo = TeamRepository(fantasyDatabase.teamDao)
         matchRepo = MatchRepository(fantasyDatabase.matchDao)

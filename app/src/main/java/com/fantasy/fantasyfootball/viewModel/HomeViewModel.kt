@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.fantasy.fantasyfootball.repository.TeamRepository
-import com.fantasy.fantasyfootball.repository.UserRepository
+import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: TeamRepository) :
+class HomeViewModel(private val userRepo: UserRepositoryImpl, private val teamRepo: TeamRepository) :
     ViewModel() {
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
     val fixtures: MutableSharedFlow<Unit> = MutableSharedFlow()
@@ -65,7 +65,7 @@ class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: 
         }
     }
 
-    class Provider(private val userRepo: UserRepository, private val teamRepo: TeamRepository) :
+    class Provider(private val userRepo: UserRepositoryImpl, private val teamRepo: TeamRepository) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return HomeViewModel(userRepo, teamRepo) as T

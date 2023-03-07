@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.repository.UserRepository
+import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
 import kotlinx.coroutines.launch
 
-class MainViewModel(private val userRepo: UserRepository) : ViewModel() {
+class MainViewModel(private val userRepo: UserRepositoryImpl) : ViewModel() {
     val user: MutableLiveData<User> = MutableLiveData()
 
     fun getUserById(userId: Int) {
@@ -21,7 +21,13 @@ class MainViewModel(private val userRepo: UserRepository) : ViewModel() {
         }
     }
 
-    class Provider(private val userRepo: UserRepository) : ViewModelProvider.Factory {
+//    fun getUserByEmail: {
+//        viewModelScope.launch {
+//
+//        }
+//    }
+
+    class Provider(private val userRepo: UserRepositoryImpl) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MainViewModel(userRepo) as T
         }

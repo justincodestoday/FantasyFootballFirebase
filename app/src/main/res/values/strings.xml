@@ -136,6 +136,7 @@
     <string name="wrong_credentials">Username and password do not match</string>
     <string name="user_already_exists">User already exists</string>
     <string name="insufficient_funds">Insufficient funds</string>
+    <string name="unrecognised_error">Unrecognised error</string>
     <string name="nothing">Nothing</string>
 
     <!-- TODO: Remove or change this placeholder text -->
