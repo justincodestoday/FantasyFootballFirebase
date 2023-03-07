@@ -18,7 +18,7 @@ import javax.inject.Singleton
 object AppDependency {
 //    @Provides
 //    @Singleton
-//    fun getUserRepository(userDao: UserDao): UserRepository {
+//    fun getUserRepository(userDao: UserDao): UserRepositoryImpl {
 //        return UserRepositoryImpl(userDao)
 //    }
 
@@ -36,7 +36,7 @@ object AppDependency {
 
     @Provides
     @Singleton
-    fun getUserRepository(auth: FirebaseAuth, db: FirebaseFirestore): UserRepository {
+    fun getUserRepository(auth: FirebaseAuth, db: FirebaseFirestore): FireStoreUserRepository {
         return FireStoreUserRepository(auth, db.collection("users"))
     }
 }

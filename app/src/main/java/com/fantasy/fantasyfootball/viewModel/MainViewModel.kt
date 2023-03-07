@@ -1,35 +1,58 @@
 package com.fantasy.fantasyfootball.viewModel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(private val userRepo: UserRepositoryImpl) : ViewModel() {
-    val user: MutableLiveData<User> = MutableLiveData()
+@HiltViewModel
+class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
+    BaseViewModel() {
+//    fun getUserById(userId: Int) {
+//        viewModelScope.launch {
+//            userRepo.getUserById(userId).collect {
+//                if (it != null) {
+//                    user.value = it
+//                }
+//            }
+//        }
+//    }
 
-    fun getUserById(userId: Int) {
+    fun getCurrentUser() {
         viewModelScope.launch {
-            userRepo.getUserById(userId).collect {
-                if (it != null) {
-                    user.value = it
-                }
+            try {
+                val res = safeApiCall { userRepo.getCurrentUser() }
+                user.value = res
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
             }
         }
     }
 
-//    fun getUserByEmail: {
-//        viewModelScope.launch {
-//
-//        }
-//    }
+    fun isLoggedIn(): Boolean? {
+        viewModelScope.launch {
+            try {
+                val res = safeApiCall { userRepo.isAuthenticated() }
+                res.let {
+                    loggedIn.value = res
+                }
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
+        }
+        return loggedIn.value
+    }
 
-    class Provider(private val userRepo: UserRepositoryImpl) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MainViewModel(userRepo) as T
+    fun logout() {
+        viewModelScope.launch {
+            try {
+                safeApiCall { userRepo.deAuthenticate() }
+                success.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 }

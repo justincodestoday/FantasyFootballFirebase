@@ -1,6 +1,5 @@
 package com.fantasy.fantasyfootball
 
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -19,12 +18,14 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.fragment.LoginFragment
 import com.fantasy.fantasyfootball.util.AuthService
+import com.fantasy.fantasyfootball.util.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,9 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var headerView: View
     private lateinit var headerBinding: DrawerHeaderBinding
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModel.Provider((this.applicationContext as MainApplication).userRepo)
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,22 +51,27 @@ class MainActivity : AppCompatActivity() {
         headerView = binding.navigationView.getHeaderView(0)
         headerBinding = DrawerHeaderBinding.bind(headerView)
 
-        val authService = AuthService.getInstance(this)
-        val user = authService.getAuthenticatedUser()
+//        val authService = AuthService.getInstance(this)
+//        val user = authService.getAuthenticatedUser()
+//
+//        if (user?.userId != null) {
+//            viewModel.getUserById(user.userId)
+//        }
 
-        if (user?.userId != null) {
-            viewModel.getUserById(user.userId)
-        }
+        viewModel.getCurrentUser()
+        val loggedIn = viewModel.isLoggedIn()
 
         viewModel.user.observe(this) {
             if (it != null) {
                 headerBinding.tvFullName.text = it.name
                 headerBinding.tvUsername.text = "@" + it.username
-                if (it.image == null) {
-                    headerBinding.ivImage.setImageResource(R.drawable.vector__3_)
-                } else {
-                    val bitmap = BitmapFactory.decodeByteArray(it.image, 0, it.image.size)
-                    headerBinding.ivImage.setImageBitmap(bitmap)
+                it.image?.let {fileName ->
+                    ImageStorageService.getImageUri(fileName) { uri ->
+                        Glide.with(this.applicationContext)
+                            .load(uri)
+                            .placeholder(R.drawable.vector__3_)
+                            .into(headerBinding.ivImage)
+                    }
                 }
             }
         }
@@ -115,12 +119,30 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        authenticate(user, graph)
+//        authenticate(user, graph)
+        if (loggedIn == true) {
+            authenticate(loggedIn, graph)
+        }
         navController.setGraph(graph, savedInstanceState)
 
+        viewModel.success
+
         binding.btnLogoutDrawer.setOnClickListener {
-            authService.unauthenticate()
-            if (!authService.isAuthenticated()) {
+//            authService.unauthenticate()
+//            if (!authService.isAuthenticated()) {
+//                Toast.makeText(
+//                    this,
+//                    applicationContext.getString(R.string.logout_successful),
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//
+//                navController.popBackStack(R.id.main_nav_graph, true)
+//                navController.navigate(R.id.credentialsFragment)
+//                drawerLayout.close()
+//            }
+
+            viewModel.logout()
+            if (loggedIn != true) {
                 Toast.makeText(
                     this,
                     applicationContext.getString(R.string.logout_successful),
@@ -134,16 +156,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun authenticate(user: User?, graph: NavGraph) {
-        if (user != null) {
+//    private fun authenticate(user: User?, graph: NavGraph) {
+//        if (user != null) {
+//            graph.setStartDestination(R.id.homeFragment)
+//        } else {
+//            graph.setStartDestination(R.id.credentialsFragment)
+//        }
+//    }
+//
+//    fun identify(user: User?) {
+//        viewModel.getUserById(user?.userId!!)
+//    }
+
+    private fun authenticate(authenticated: Boolean, graph: NavGraph) {
+        if (authenticated) {
             graph.setStartDestination(R.id.homeFragment)
         } else {
             graph.setStartDestination(R.id.credentialsFragment)
         }
     }
 
-    fun identify(user: User?) {
-        viewModel.getUserById(user?.userId!!)
+    fun identify() {
+        viewModel.getCurrentUser()
     }
 
     fun navigate(destination: String) {

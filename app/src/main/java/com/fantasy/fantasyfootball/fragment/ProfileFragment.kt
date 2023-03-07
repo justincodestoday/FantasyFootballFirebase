@@ -54,236 +54,236 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        authService = AuthService.getInstance(requireActivity().applicationContext)
-        val user = authService.getAuthenticatedUser()
-        if (user != null) {
-            viewModel.getUserWithTeam(user.userId!!)
-        }
-
-        imageDialogBinding = EditImageDialogBinding.inflate(layoutInflater)
-        val imageDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
-
-        accountDialogBinding = EditProfileDialogBinding.inflate(layoutInflater)
-        val accountDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
-
-        passwordDialogBinding = EditPasswordDialogBinding.inflate(layoutInflater)
-        val passwordDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
-
-        var name = ""
-        var username = ""
-        var password = ""
-        var image: ByteArray? = null
-        var teamId = 0
-        var teamName = ""
-        var teamPoints = 0
-        var teamBudget = 0f
-
-        val timeZone = TimeZone.getTimeZone("GMT+8")
-        val calendar = Calendar.getInstance()
-        val dateFormat: DateFormat =
-            SimpleDateFormat("LLLL d yyyy, HH:mm a (z)", Locale.ENGLISH)
-        dateFormat.timeZone = timeZone
-        val date = dateFormat.format(calendar.time)
-
-        viewModel.userTeam.observe(viewLifecycleOwner) {
-            binding.apply {
-                tvName.text = it.user.name
-                tvUsername.text = it.user.username
-                if (it.user.image != null) {
-                    val bitmap =
-                        BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image.size)
-                    profilePicture.setImageBitmap(bitmap)
-                    imageDialogBinding.ivImage.setImageBitmap(bitmap)
-                }
-
-                name = it.user.name.toString()
-                username = it.user.username.toString()
-                password = it.user.password.toString()
-                image = it.user.image
-                teamId = it.team.teamId!!
-                teamName = it.team.name.toString()
-                teamPoints = it.team.points
-                teamBudget = it.team.budget
-            }
-        }
-
-        binding.apply {
-            var bytes: ByteArray? = null
-            filePickerLauncher =
-                registerForActivityResult(ActivityResultContracts.GetContent()) {
-                    it?.let { uri ->
-                        imageDialogBinding.tvImageName.text =
-                            requireContext().contentResolver.getFileName(uri)
-                        imageDialogBinding.tvImageName.movementMethod =
-                            ScrollingMovementMethod()
-                        val inputStream = requireContext().contentResolver.openInputStream(uri)
-                        bytes = inputStream?.readBytes()!!
-                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
-                        imageDialogBinding.ivImage.setImageBitmap(bitmap)
-                        inputStream.close()
-                    }
-                }
-            imageDialogBinding.tvChooseImage.setOnClickListener {
-                filePickerLauncher.launch("image/*")
-            }
-            profilePicture.setOnClickListener {
-                imageDialog.setContentView(imageDialogBinding.root)
-                imageDialogBinding.btnSaveImage.setOnClickListener {
-                    val imageName = imageDialogBinding.tvImageName.text.toString()
-                    if (validate(imageName)) {
-                        val bundle = Bundle()
-                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
-                        viewModel.editUser(
-                            user?.userId!!,
-                            User(user.userId, name, username, password, bytes)
-                        )
-                        authService.updateUser(User(user.userId, name, username, password, bytes))
-                        val team = Team(
-                            name = teamName,
-                            points = teamPoints,
-                            budget = teamBudget,
-                            lastUpdated = date,
-                            ownerId = user.userId
-                        )
-                        viewModel.editTeam(teamId, team)
-                        Toast.makeText(
-                            requireContext(),
-                            context?.getString(R.string.update_successful),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        imageDialog.dismiss()
-                    } else {
-                        imageDialogBinding.tvError.text =
-                            context?.getString(R.string.empty_single_field)
-                        imageDialogBinding.tvError.visibility = View.VISIBLE
-                    }
-                }
-                imageDialog.setCancelable(true)
-                imageDialog.setOnCancelListener {
-                    imageDialogBinding.tvError.text =
-                        context?.getString(R.string.empty_single_field)
-                    imageDialogBinding.tvError.visibility = View.GONE
-                }
-                imageDialog.setOnDismissListener {
-                    viewModel.getUserWithTeam(user?.userId!!)
-                }
-                imageDialog.show()
-            }
-
-            btnUpdateInfo.setOnClickListener {
-                accountDialog.setContentView(accountDialogBinding.root)
-                accountDialogBinding.etName.setText(name)
-                accountDialogBinding.etUsername.setText(username)
-                accountDialogBinding.etTeamName.setText(teamName)
-                accountDialogBinding.btnSaveAccount.setOnClickListener {
-                    val _name = accountDialogBinding.etName.text.toString().trim()
-                    val _username = accountDialogBinding.etUsername.text.toString().trim()
-                    val _teamName = accountDialogBinding.etTeamName.text.toString().trim()
-
-                    if (validate(_name, _username, _teamName)) {
-                        val bundle = Bundle()
-                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
-                        viewModel.editUser(
-                            user?.userId!!,
-                            User(user.userId, _name, _username, password, image)
-                        )
-                        val team = Team(
-                            name = _teamName,
-                            points = teamPoints,
-                            budget = teamBudget,
-                            lastUpdated = date,
-                            ownerId = user.userId
-                        )
-                        viewModel.editTeam(teamId, team)
-                        Toast.makeText(
-                            requireContext(),
-                            context?.getString(R.string.update_successful),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        accountDialog.dismiss()
-                    } else {
-                        accountDialogBinding.tvError.text =
-                            context?.getString(R.string.empty_field)
-                        accountDialogBinding.tvError.visibility = View.VISIBLE
-                    }
-                }
-                accountDialog.setCancelable(true)
-                accountDialog.setOnCancelListener {
-                    accountDialogBinding.tvError.text = context?.getString(R.string.empty_field)
-                    accountDialogBinding.tvError.visibility = View.GONE
-                }
-                accountDialog.setOnDismissListener {
-                    viewModel.getUserWithTeam(user?.userId!!)
-                }
-                accountDialog.show()
-            }
-
-            btnChangePassword.setOnClickListener {
-                passwordDialog.setContentView(passwordDialogBinding.root)
-                passwordDialogBinding.etPassword.setText(password)
-                passwordDialogBinding.btnSavePassword.setOnClickListener {
-                    val _password = passwordDialogBinding.etPassword.text.toString().trim()
-
-                    if (validate(_password)) {
-                        val bundle = Bundle()
-                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
-                        viewModel.editUser(
-                            user?.userId!!,
-                            User(user.userId, name, username, _password, image)
-                        )
-                        val team = Team(
-                            name = teamName,
-                            points = teamPoints,
-                            budget = teamBudget,
-                            lastUpdated = date,
-                            ownerId = user.userId
-                        )
-                        viewModel.editTeam(teamId, team)
-                        Toast.makeText(
-                            requireContext(),
-                            context?.getString(R.string.update_successful),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        passwordDialog.dismiss()
-                    } else {
-                        passwordDialogBinding.tvError.text =
-                            context?.getString(R.string.empty_single_field)
-                        passwordDialogBinding.tvError.visibility = View.VISIBLE
-                    }
-                }
-                passwordDialog.setCancelable(true)
-                passwordDialog.setOnCancelListener {
-                    passwordDialogBinding.tvError.text =
-                        context?.getString(R.string.empty_single_field)
-                    passwordDialogBinding.tvError.visibility = View.GONE
-                }
-                passwordDialog.setOnDismissListener {
-                    viewModel.getUserWithTeam(user?.userId!!)
-                }
-                passwordDialog.show()
-            }
-        }
-
-        binding.btnSignOut.setOnClickListener {
-            authService.unauthenticate()
-            NavHostFragment.findNavController(this).popBackStack(R.id.main_nav_graph, true)
-            NavHostFragment.findNavController(this).navigate(R.id.credentialsFragment)
-            Toast.makeText(
-                requireContext(),
-                context?.getString(R.string.logout_successful),
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        authService = AuthService.getInstance(requireActivity().applicationContext)
+//        val user = authService.getAuthenticatedUser()
+//        if (user != null) {
+//            viewModel.getUserWithTeam(user.userId!!)
+//        }
+//
+//        imageDialogBinding = EditImageDialogBinding.inflate(layoutInflater)
+//        val imageDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
+//
+//        accountDialogBinding = EditProfileDialogBinding.inflate(layoutInflater)
+//        val accountDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
+//
+//        passwordDialogBinding = EditPasswordDialogBinding.inflate(layoutInflater)
+//        val passwordDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
+//
+//        var name = ""
+//        var username = ""
+//        var password = ""
+//        var image: ByteArray? = null
+//        var teamId = 0
+//        var teamName = ""
+//        var teamPoints = 0
+//        var teamBudget = 0f
+//
+//        val timeZone = TimeZone.getTimeZone("GMT+8")
+//        val calendar = Calendar.getInstance()
+//        val dateFormat: DateFormat =
+//            SimpleDateFormat("LLLL d yyyy, HH:mm a (z)", Locale.ENGLISH)
+//        dateFormat.timeZone = timeZone
+//        val date = dateFormat.format(calendar.time)
+//
+//        viewModel.userTeam.observe(viewLifecycleOwner) {
+//            binding.apply {
+//                tvName.text = it.user.name
+//                tvUsername.text = it.user.username
+//                if (it.user.image != null) {
+//                    val bitmap =
+//                        BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image.size)
+//                    profilePicture.setImageBitmap(bitmap)
+//                    imageDialogBinding.ivImage.setImageBitmap(bitmap)
+//                }
+//
+//                name = it.user.name.toString()
+//                username = it.user.username.toString()
+//                password = it.user.password.toString()
+//                image = it.user.image
+//                teamId = it.team.teamId!!
+//                teamName = it.team.name.toString()
+//                teamPoints = it.team.points
+//                teamBudget = it.team.budget
+//            }
+//        }
+//
+//        binding.apply {
+//            var bytes: ByteArray? = null
+//            filePickerLauncher =
+//                registerForActivityResult(ActivityResultContracts.GetContent()) {
+//                    it?.let { uri ->
+//                        imageDialogBinding.tvImageName.text =
+//                            requireContext().contentResolver.getFileName(uri)
+//                        imageDialogBinding.tvImageName.movementMethod =
+//                            ScrollingMovementMethod()
+//                        val inputStream = requireContext().contentResolver.openInputStream(uri)
+//                        bytes = inputStream?.readBytes()!!
+//                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
+//                        imageDialogBinding.ivImage.setImageBitmap(bitmap)
+//                        inputStream.close()
+//                    }
+//                }
+//            imageDialogBinding.tvChooseImage.setOnClickListener {
+//                filePickerLauncher.launch("image/*")
+//            }
+//            profilePicture.setOnClickListener {
+//                imageDialog.setContentView(imageDialogBinding.root)
+//                imageDialogBinding.btnSaveImage.setOnClickListener {
+//                    val imageName = imageDialogBinding.tvImageName.text.toString()
+//                    if (validate(imageName)) {
+//                        val bundle = Bundle()
+//                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
+//                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+//                        viewModel.editUser(
+//                            user?.userId!!,
+//                            User(user.userId, name, username, password, bytes)
+//                        )
+//                        authService.updateUser(User(user.userId, name, username, password, bytes))
+//                        val team = Team(
+//                            name = teamName,
+//                            points = teamPoints,
+//                            budget = teamBudget,
+//                            lastUpdated = date,
+//                            ownerId = user.userId
+//                        )
+//                        viewModel.editTeam(teamId, team)
+//                        Toast.makeText(
+//                            requireContext(),
+//                            context?.getString(R.string.update_successful),
+//                            Toast.LENGTH_SHORT
+//                        )
+//                            .show()
+//                        imageDialog.dismiss()
+//                    } else {
+//                        imageDialogBinding.tvError.text =
+//                            context?.getString(R.string.empty_single_field)
+//                        imageDialogBinding.tvError.visibility = View.VISIBLE
+//                    }
+//                }
+//                imageDialog.setCancelable(true)
+//                imageDialog.setOnCancelListener {
+//                    imageDialogBinding.tvError.text =
+//                        context?.getString(R.string.empty_single_field)
+//                    imageDialogBinding.tvError.visibility = View.GONE
+//                }
+//                imageDialog.setOnDismissListener {
+//                    viewModel.getUserWithTeam(user?.userId!!)
+//                }
+//                imageDialog.show()
+//            }
+//
+//            btnUpdateInfo.setOnClickListener {
+//                accountDialog.setContentView(accountDialogBinding.root)
+//                accountDialogBinding.etName.setText(name)
+//                accountDialogBinding.etUsername.setText(username)
+//                accountDialogBinding.etTeamName.setText(teamName)
+//                accountDialogBinding.btnSaveAccount.setOnClickListener {
+//                    val _name = accountDialogBinding.etName.text.toString().trim()
+//                    val _username = accountDialogBinding.etUsername.text.toString().trim()
+//                    val _teamName = accountDialogBinding.etTeamName.text.toString().trim()
+//
+//                    if (validate(_name, _username, _teamName)) {
+//                        val bundle = Bundle()
+//                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
+//                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+//                        viewModel.editUser(
+//                            user?.userId!!,
+//                            User(user.userId, _name, _username, password, image)
+//                        )
+//                        val team = Team(
+//                            name = _teamName,
+//                            points = teamPoints,
+//                            budget = teamBudget,
+//                            lastUpdated = date,
+//                            ownerId = user.userId
+//                        )
+//                        viewModel.editTeam(teamId, team)
+//                        Toast.makeText(
+//                            requireContext(),
+//                            context?.getString(R.string.update_successful),
+//                            Toast.LENGTH_SHORT
+//                        )
+//                            .show()
+//                        accountDialog.dismiss()
+//                    } else {
+//                        accountDialogBinding.tvError.text =
+//                            context?.getString(R.string.empty_field)
+//                        accountDialogBinding.tvError.visibility = View.VISIBLE
+//                    }
+//                }
+//                accountDialog.setCancelable(true)
+//                accountDialog.setOnCancelListener {
+//                    accountDialogBinding.tvError.text = context?.getString(R.string.empty_field)
+//                    accountDialogBinding.tvError.visibility = View.GONE
+//                }
+//                accountDialog.setOnDismissListener {
+//                    viewModel.getUserWithTeam(user?.userId!!)
+//                }
+//                accountDialog.show()
+//            }
+//
+//            btnChangePassword.setOnClickListener {
+//                passwordDialog.setContentView(passwordDialogBinding.root)
+//                passwordDialogBinding.etPassword.setText(password)
+//                passwordDialogBinding.btnSavePassword.setOnClickListener {
+//                    val _password = passwordDialogBinding.etPassword.text.toString().trim()
+//
+//                    if (validate(_password)) {
+//                        val bundle = Bundle()
+//                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
+//                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+//                        viewModel.editUser(
+//                            user?.userId!!,
+//                            User(user.userId, name, username, _password, image)
+//                        )
+//                        val team = Team(
+//                            name = teamName,
+//                            points = teamPoints,
+//                            budget = teamBudget,
+//                            lastUpdated = date,
+//                            ownerId = user.userId
+//                        )
+//                        viewModel.editTeam(teamId, team)
+//                        Toast.makeText(
+//                            requireContext(),
+//                            context?.getString(R.string.update_successful),
+//                            Toast.LENGTH_SHORT
+//                        )
+//                            .show()
+//                        passwordDialog.dismiss()
+//                    } else {
+//                        passwordDialogBinding.tvError.text =
+//                            context?.getString(R.string.empty_single_field)
+//                        passwordDialogBinding.tvError.visibility = View.VISIBLE
+//                    }
+//                }
+//                passwordDialog.setCancelable(true)
+//                passwordDialog.setOnCancelListener {
+//                    passwordDialogBinding.tvError.text =
+//                        context?.getString(R.string.empty_single_field)
+//                    passwordDialogBinding.tvError.visibility = View.GONE
+//                }
+//                passwordDialog.setOnDismissListener {
+//                    viewModel.getUserWithTeam(user?.userId!!)
+//                }
+//                passwordDialog.show()
+//            }
+//        }
+//
+//        binding.btnSignOut.setOnClickListener {
+//            authService.unauthenticate()
+//            NavHostFragment.findNavController(this).popBackStack(R.id.main_nav_graph, true)
+//            NavHostFragment.findNavController(this).navigate(R.id.credentialsFragment)
+//            Toast.makeText(
+//                requireContext(),
+//                context?.getString(R.string.logout_successful),
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
 
     private fun validate(vararg list: String): Boolean {
         for (field in list) {

@@ -55,15 +55,15 @@ class FireStoreUserRepository(private val auth: FirebaseAuth, private val ref: C
         return res.user?.uid != null
     }
 
-//    fun isAuthenticated(): Boolean {
-//        auth.currentUser ?: return false
-//        return true
-//    }
-//
-//    fun deAuthenticate() {
-//        auth.signOut()
-//    }
-//
+    fun isAuthenticated(): Boolean {
+        auth.currentUser ?: return false
+        return true
+    }
+
+    fun deAuthenticate() {
+        auth.signOut()
+    }
+
     suspend fun getCurrentUser(): User? {
         return auth.currentUser?.email?.let {
             ref.document(it).get().await().toObject(User::class.java)
