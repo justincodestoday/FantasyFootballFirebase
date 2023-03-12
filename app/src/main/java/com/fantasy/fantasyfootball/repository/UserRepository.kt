@@ -2,10 +2,8 @@ package com.fantasy.fantasyfootball.repository
 
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
-
 
 interface UserRepository {
     suspend fun getUserById(userId: Int): Flow<User?>

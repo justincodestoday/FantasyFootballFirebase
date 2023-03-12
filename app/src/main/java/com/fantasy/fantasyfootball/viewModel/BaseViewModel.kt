@@ -27,7 +27,6 @@ abstract class BaseViewModel : ViewModel() {
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
 
-
     open fun onViewCreated() {}
 
     suspend fun <T> safeApiCall(apiCall: suspend () -> T): T? {

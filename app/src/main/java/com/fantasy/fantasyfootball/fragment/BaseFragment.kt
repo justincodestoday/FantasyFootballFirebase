@@ -20,14 +20,13 @@ import com.fantasy.fantasyfootball.viewModel.BaseViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
-
 abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     lateinit var navController: NavController
     lateinit var imageGallery: ActivityResultLauncher<String>
-    abstract val viewModel: BaseViewModel
-    var binding: T? = null
     var fileUri: Uri? = null
+    var binding: T? = null
 
+    abstract val viewModel: BaseViewModel
     abstract fun getLayoutResource(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +47,9 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = NavHostFragment.findNavController(this)
-        
         imageGallery = registerForActivityResult(ActivityResultContracts.GetContent()) {
             fileUri = it
         }
-        
         onBindView(view, savedInstanceState)
         onBindData(view)
     }
@@ -61,7 +58,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         binding = DataBindingUtil.bind(view)
         lifecycleScope.launch {
             viewModel.error.collect {
-
                 val snackbar = Snackbar.make(view, it, Snackbar.LENGTH_SHORT)
                 snackbar.setBackgroundTint(
                     ContextCompat.getColor(requireContext(), R.color.red_500)

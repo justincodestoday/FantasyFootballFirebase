@@ -18,7 +18,6 @@ class MainApplication : Application() {
     lateinit var playerRepo: PlayerRepositoryImpl
     lateinit var teamRepo: TeamRepositoryImpl
     lateinit var matchRepo: MatchRepositoryImpl
-
     lateinit var storageService: StorageService
 
     override fun onCreate() {

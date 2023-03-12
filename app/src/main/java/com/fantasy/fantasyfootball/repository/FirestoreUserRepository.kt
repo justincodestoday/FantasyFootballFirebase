@@ -1,16 +1,18 @@
 package com.fantasy.fantasyfootball.repository
 
-import android.util.Log
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 
-class FireStoreUserRepository(private val auth: FirebaseAuth, private val ref: CollectionReference): UserRepository {
+class FireStoreUserRepository(
+    private val auth: FirebaseAuth,
+    private val ref: CollectionReference
+) :
+    UserRepository {
     override suspend fun getUserById(userId: Int): Flow<User?> {
         TODO("Not yet implemented")
     }
