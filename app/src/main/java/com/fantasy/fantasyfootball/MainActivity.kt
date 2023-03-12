@@ -5,14 +5,11 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
-import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -23,10 +20,11 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
-import com.fantasy.fantasyfootball.fragment.LoginFragment
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -35,9 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var headerView: View
     private lateinit var headerBinding: DrawerHeaderBinding
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModel.Provider((this.applicationContext as MainApplication).userRepo)
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,11 +47,14 @@ class MainActivity : AppCompatActivity() {
         headerBinding = DrawerHeaderBinding.bind(headerView)
 
         val authService = AuthService.getInstance(this)
-        val user = authService.getAuthenticatedUser()
+//        val user = authService.getAuthenticatedUser()
 
-        if (user?.userId != null) {
-            viewModel.getUserById(user.userId)
-        }
+//        if (user?.userId != null) {
+//            viewModel.getCurrentUser()
+//        }
+
+        viewModel.getCurrentUser()
+        val loggedIn = viewModel.isLoggedIn()
 
         viewModel.user.observe(this) {
             if (it != null) {
@@ -113,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        authenticate(user, graph)
+        authenticate(loggedIn, graph)
         navController.setGraph(graph, savedInstanceState)
 
         binding.btnLogoutDrawer.setOnClickListener {
@@ -132,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun authenticate(user: User?, graph: NavGraph) {
+    private fun authenticate(user: Boolean?, graph: NavGraph) {
         if (user != null) {
             graph.setStartDestination(R.id.homeFragment)
         } else {
@@ -140,8 +139,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun identify(user: User?) {
-        viewModel.getUserById(user?.userId!!)
+    fun identify() {
+        viewModel.getCurrentUser()
     }
 
     fun navigate(destination: String) {

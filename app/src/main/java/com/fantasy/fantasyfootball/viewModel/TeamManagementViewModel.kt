@@ -8,15 +8,15 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
 import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
-import com.fantasy.fantasyfootball.repository.PlayerRepository
-import com.fantasy.fantasyfootball.repository.TeamRepository
-import com.fantasy.fantasyfootball.repository.UserRepository
+import com.fantasy.fantasyfootball.repository.PlayerRepositoryImpl
+import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
+import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
 import kotlinx.coroutines.launch
 
 class TeamManagementViewModel(
-    private val playerRepo: PlayerRepository,
-    private val teamRepo: TeamRepository,
-    private val userRepo: UserRepository
+    private val playerRepo: PlayerRepositoryImpl,
+    private val teamRepo: TeamRepositoryImpl,
+    private val userRepo: UserRepositoryImpl
 ) : ViewModel() {
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
     val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
@@ -381,9 +381,9 @@ class TeamManagementViewModel(
     }
 
     class Provider(
-        private val playerRepo: PlayerRepository,
-        private val teamRepo: TeamRepository,
-        private val userRepo: UserRepository
+        private val playerRepo: PlayerRepositoryImpl,
+        private val teamRepo: TeamRepositoryImpl,
+        private val userRepo: UserRepositoryImpl
     ) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

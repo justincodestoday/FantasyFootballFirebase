@@ -6,12 +6,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
-import com.fantasy.fantasyfootball.repository.TeamRepository
-import com.fantasy.fantasyfootball.repository.UserRepository
+import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
+import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: TeamRepository) :
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
     ViewModel() {
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
     val fixtures: MutableSharedFlow<Unit> = MutableSharedFlow()
@@ -19,7 +24,6 @@ class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: 
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
     val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
     val logout: MutableSharedFlow<String> = MutableSharedFlow()
-
     val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun refreshPage(refresh: Boolean) {
@@ -65,10 +69,10 @@ class HomeViewModel(private val userRepo: UserRepository, private val teamRepo: 
         }
     }
 
-    class Provider(private val userRepo: UserRepository, private val teamRepo: TeamRepository) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return HomeViewModel(userRepo, teamRepo) as T
-        }
-    }
+//    class Provider(private val userRepo: UserRepositoryImpl, private val teamRepo: TeamRepositoryImpl) :
+//        ViewModelProvider.Factory {
+//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//            return HomeViewModel(userRepo, teamRepo) as T
+//        }
+//    }
 }

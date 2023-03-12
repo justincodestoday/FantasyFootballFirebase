@@ -16,33 +16,26 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentRegisterBinding
 import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-class RegisterFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterBinding
-    private val viewModel: RegisterViewModel by viewModels {
-        RegisterViewModel.Provider(
-            (requireContext().applicationContext as MainApplication).userRepo,
-            (requireContext().applicationContext as MainApplication).teamRepo
-        )
-    }
+@AndroidEntryPoint
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRegisterBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-        return binding.root
-    }
+    override val viewModel: RegisterViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun getLayoutResource() = R.layout.fragment_register
+
+    override fun onBindView(view: View, savedInstanceState: Bundle?) {
+        super.onBindView(view, savedInstanceState)
+
+        binding?.viewModel = viewModel
+        binding?.lifecycleOwner = viewLifecycleOwner
+
 
         viewModel.success.asLiveData().observe(viewLifecycleOwner) {
             val msg = enumToString(it)
-            binding.run {
+            binding?.run {
                 etName.text?.clear()
                 etTeamName.text?.clear()
                 etUsername.text?.clear()
@@ -54,7 +47,7 @@ class RegisterFragment : Fragment() {
 
         viewModel.error.asLiveData().observe(viewLifecycleOwner) {
             val msg = enumToString(it)
-            val snackBar = Snackbar.make(binding.root, "$msg", Snackbar.LENGTH_LONG)
+            val snackBar = Snackbar.make(binding!!.root, "$msg", Snackbar.LENGTH_LONG)
             snackBar.setBackgroundTint(
                 ContextCompat.getColor(requireContext(), R.color.red_500)
             )
@@ -64,7 +57,7 @@ class RegisterFragment : Fragment() {
             snackBar.show()
         }
 
-        binding.btnRegister.setOnClickListener {
+        binding?.btnRegister?.setOnClickListener {
             lifecycleScope.launch {
                 viewModel.register()
             }

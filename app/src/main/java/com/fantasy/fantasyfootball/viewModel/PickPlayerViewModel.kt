@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.data.model.*
-import com.fantasy.fantasyfootball.repository.PlayerRepository
-import com.fantasy.fantasyfootball.repository.TeamRepository
+import com.fantasy.fantasyfootball.repository.PlayerRepositoryImpl
+import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
 import kotlinx.coroutines.launch
 
 class PickPlayerViewModel(
-    private val playerRepo: PlayerRepository,
-    private val teamRepo: TeamRepository
+    private val playerRepo: PlayerRepositoryImpl,
+    private val teamRepo: TeamRepositoryImpl
 ) : ViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
     val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
@@ -64,8 +64,8 @@ class PickPlayerViewModel(
     }
 
     class Provider(
-        private val playerRepo: PlayerRepository,
-        private val teamRepo: TeamRepository
+        private val playerRepo: PlayerRepositoryImpl,
+        private val teamRepo: TeamRepositoryImpl
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return PickPlayerViewModel(playerRepo, teamRepo) as T

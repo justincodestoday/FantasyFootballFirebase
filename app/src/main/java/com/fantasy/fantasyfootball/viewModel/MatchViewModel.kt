@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
 import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
-import com.fantasy.fantasyfootball.repository.MatchRepository
-import com.fantasy.fantasyfootball.repository.TeamRepository
+import com.fantasy.fantasyfootball.repository.MatchRepositoryImpl
+import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
 import kotlinx.coroutines.launch
 
-class MatchViewModel(private val matchRepo: MatchRepository, private val teamRepo: TeamRepository) :
+class MatchViewModel(private val matchRepo: MatchRepositoryImpl, private val teamRepo: TeamRepositoryImpl) :
     ViewModel() {
     val matches: MutableLiveData<List<Matches>> = MutableLiveData()
     val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
@@ -64,7 +64,7 @@ class MatchViewModel(private val matchRepo: MatchRepository, private val teamRep
         }
     }
 
-    class Provider(private val matchRepo: MatchRepository, private val teamRepo: TeamRepository) :
+    class Provider(private val matchRepo: MatchRepositoryImpl, private val teamRepo: TeamRepositoryImpl) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MatchViewModel(matchRepo, teamRepo) as T

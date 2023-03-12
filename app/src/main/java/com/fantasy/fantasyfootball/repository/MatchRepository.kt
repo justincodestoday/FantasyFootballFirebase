@@ -1,19 +1,13 @@
 package com.fantasy.fantasyfootball.repository
 
-import com.fantasy.fantasyfootball.data.MatchDao
 import com.fantasy.fantasyfootball.data.model.Matches
 
-class MatchRepository(private val matchDao: MatchDao) {
+interface MatchRepository {
 
-    suspend fun getMatches(): List<Matches> {
-        return matchDao.getMatches()
-    }
+    suspend fun getMatches(): List<Matches>
 
-    suspend fun insert(match: Matches) {
-        matchDao.insert(match)
-    }
+    suspend fun insert(match: Matches)
 
-    suspend fun delete(matchId: Int) {
-        matchDao.delete(matchId)
-    }
+    suspend fun delete(matchId: Int)
+
 }

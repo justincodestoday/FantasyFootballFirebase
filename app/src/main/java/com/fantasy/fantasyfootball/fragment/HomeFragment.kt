@@ -16,29 +16,20 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+
     private lateinit var authService: AuthService
-    private val viewModel: HomeViewModel by viewModels {
-        HomeViewModel.Provider(
-            (requireContext().applicationContext as MainApplication).userRepo,
-            (requireContext().applicationContext as MainApplication).teamRepo
-        )
-    }
+    override val viewModel: HomeViewModel by viewModels()
+    override fun getLayoutResource(): Int = R.layout.fragment_home
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
-        return binding.root
-    }
+    override fun onBindView(view: View, savedInstanceState: Bundle?) {
+        super.onBindView(view, savedInstanceState)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding?.viewModel = viewModel
+        binding?.lifecycleOwner = viewLifecycleOwner
 
 //        authService = AuthService.getInstance(requireActivity().applicationContext)
         authService = AuthService.getInstance(requireContext())
@@ -48,7 +39,7 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.userTeam.observe(viewLifecycleOwner) {
-            binding.apply {
+            binding?.apply {
                 points.text = it.team.points.toString() + " Points"
                 tvProfile.text = it.user.username
                 if (it.user.image != null) {
@@ -108,7 +99,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun enumToString(type: String?): String? {
+    override fun enumToString(type: String?): String? {
         return when (type) {
             Enums.FormSuccess.LOGOUT_SUCCESSFUL.name -> context?.getString(R.string.logout_successful)
             else -> context?.getString(R.string.nothing)
