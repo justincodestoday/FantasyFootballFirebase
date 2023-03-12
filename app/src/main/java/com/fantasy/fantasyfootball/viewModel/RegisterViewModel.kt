@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-
 class RegisterViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) : BaseViewModel() {
     val team: MutableLiveData<Team> = MutableLiveData()
     val teamName: MutableLiveData<String> = MutableLiveData()

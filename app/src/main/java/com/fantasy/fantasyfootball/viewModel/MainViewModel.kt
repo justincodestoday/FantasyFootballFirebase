@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-
 class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
     BaseViewModel() {
 //    fun getUserById(userId: Int) {
@@ -55,7 +54,6 @@ class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
                 error.emit(e.message.toString())
             }
         }
-        return loggedIn.value
     }
 
 //    class Provider(private val userRepo: UserRepositoryImpl) : ViewModelProvider.Factory {
