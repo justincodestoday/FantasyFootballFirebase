@@ -1,49 +1,28 @@
 package com.fantasy.fantasyfootball.repository
 
-import com.fantasy.fantasyfootball.data.TeamDao
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
-import com.fantasy.fantasyfootball.data.model.User
 
-class TeamRepository(private val teamDao: TeamDao) {
-    suspend fun getTeamById(teamId: Int): Team? {
-        return teamDao.getTeamById(teamId)
-    }
+interface TeamRepository {
+    suspend fun getTeamById(teamId: Int): Team?
 
-    suspend fun getTeamByOwnerId(ownerId: Int): Team? {
-        return teamDao.getTeamByOwnerId(ownerId)
-    }
+    suspend fun getTeamByOwnerId(ownerId: Int): Team?
 
-    suspend fun createTeam(team: Team): Long {
-        return teamDao.insert(team)
-    }
+    suspend fun createTeam(team: Team): Long
 
-    suspend fun createPlayer(fantasyPlayer: FantasyPlayer) {
-        teamDao.insertFantasyPlayer(fantasyPlayer)
-    }
+    suspend fun createPlayer(fantasyPlayer: FantasyPlayer)
 
-    suspend fun editTeam(teamId: Int, team: Team) {
-        teamDao.insert(team.copy(teamId = teamId))
-    }
+    suspend fun editTeam(teamId: Int, team: Team)
 
-    suspend fun deletePlayer(fanPlayerId: Int) {
-        teamDao.deleteFantasyPlayer(fanPlayerId)
-    }
+    suspend fun deletePlayer(fanPlayerId: Int)
 
-    suspend fun updateBudget(teamId: Int, budget: Float) {
-        teamDao.updateBudget(teamId, budget)
-    }
+    suspend fun updateBudget(teamId: Int, budget: Float)
 
-    suspend fun updatePoints(teamId: Int, points: Int) {
-        teamDao.updatePoints(teamId, points)
-    }
+    suspend fun updatePoints(teamId: Int, points: Int)
 
-    suspend fun getTeamsWithPlayers(): List<TeamsWithPlayers> {
-        return teamDao.getTeamsWithPlayers()
-    }
+    suspend fun getTeamsWithPlayers(): List<TeamsWithPlayers>
 
-    suspend fun getTeamWithPlayersByTeamId(teamId: Int): TeamsWithPlayers {
-        return teamDao.getTeamWithPlayersByTeamId(teamId)
-    }
+    suspend fun getTeamWithPlayersByTeamId(teamId: Int): TeamsWithPlayers
+
 }

@@ -4,14 +4,11 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
-import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -23,7 +20,6 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
-import com.fantasy.fantasyfootball.fragment.LoginFragment
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.util.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
@@ -50,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         headerView = binding.navigationView.getHeaderView(0)
         headerBinding = DrawerHeaderBinding.bind(headerView)
+
 
 //        val authService = AuthService.getInstance(this)
 //        val user = authService.getAuthenticatedUser()
@@ -123,6 +120,7 @@ class MainActivity : AppCompatActivity() {
         if (loggedIn == true) {
             authenticate(loggedIn, graph)
         }
+        
         navController.setGraph(graph, savedInstanceState)
 
         viewModel.success

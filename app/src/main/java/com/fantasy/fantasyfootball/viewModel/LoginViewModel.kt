@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.viewModel
 
+
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
@@ -15,6 +16,7 @@ class LoginViewModel @Inject constructor(private val repo: FireStoreUserReposito
         ) {
             error.emit(Enums.FormError.EMPTY_FIELD.name)
         } else {
+
 //            val existingUser = repo.login(username.value!!, password.value!!)
 //            if (existingUser) {
 //                user.emit(User(username = username.value, password = password.value))

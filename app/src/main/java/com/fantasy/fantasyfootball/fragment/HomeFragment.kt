@@ -28,6 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
+
         binding?.viewModel = viewModel
         binding?.lifecycleOwner = viewLifecycleOwner
 

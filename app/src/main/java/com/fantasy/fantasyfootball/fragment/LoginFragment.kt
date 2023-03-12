@@ -1,6 +1,7 @@
 package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +16,13 @@ import com.fantasy.fantasyfootball.MainActivity
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import com.fantasy.fantasyfootball.util.AuthService
 import com.fantasy.fantasyfootball.viewModel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -72,6 +75,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 etUsername.text?.clear()
                 etPassword.text?.clear()
             }
+
             (activity as MainActivity).identify()
             val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
             NavHostFragment.findNavController(this).navigate(action)

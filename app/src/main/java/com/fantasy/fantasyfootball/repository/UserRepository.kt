@@ -6,6 +6,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
+
 interface UserRepository {
     suspend fun getUserById(userId: Int): Flow<User?>
 

@@ -3,6 +3,9 @@ package com.fantasy.fantasyfootball.util
 import android.content.Context
 import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.data.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.tasks.await
 
 class AuthService(private val storageService: StorageService) {
     fun authenticate(user: User) {

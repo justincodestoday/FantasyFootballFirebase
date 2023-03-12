@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
+
 class RegisterViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) : BaseViewModel() {
     val team: MutableLiveData<Team> = MutableLiveData()
     val teamName: MutableLiveData<String> = MutableLiveData()
@@ -28,6 +29,7 @@ class RegisterViewModel @Inject constructor(private val userRepo: FireStoreUserR
         } else if (passwordConfirm.value?.trim { it <= ' ' } != password.value?.trim { it <= ' ' }) {
             error.emit(Enums.FormError.PASSWORDS_NOT_MATCHING.name)
         } else {
+
 //            val existingUser = userRepo.getUserByUsername(username.value!!)
 //            if (existingUser == null) {
 //                val user =

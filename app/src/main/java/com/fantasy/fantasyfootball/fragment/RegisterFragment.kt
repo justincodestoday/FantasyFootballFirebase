@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
+
     override val viewModel: RegisterViewModel by viewModels()
     override fun getLayoutResource(): Int = R.layout.fragment_register
 
