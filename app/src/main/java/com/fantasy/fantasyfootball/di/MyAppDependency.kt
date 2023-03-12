@@ -42,7 +42,7 @@ object MyAppDependency {
 
     @Provides
     @Singleton
-    fun getFireStoreTeamRepository(db: FirebaseFirestore): TeamRepository {
+    fun getFireStoreTeamRepository(db: FirebaseFirestore): FireStoreTeamRepository {
         return FireStoreTeamRepository(db.collection("teams"))
     }
 

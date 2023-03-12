@@ -12,10 +12,12 @@ class Enums {
         WRONG_CREDENTIALS,
         MISSING_NAME,
         MISSING_TEAM_NAME,
+        INVALID_EMAIL,
         INVALID_USERNAME,
         INVALID_PASSWORD,
         PASSWORDS_NOT_MATCHING,
-        USER_EXISTS
+        USER_EXISTS,
+        TEAM_NAME_EXISTS
     }
 
     enum class Result {

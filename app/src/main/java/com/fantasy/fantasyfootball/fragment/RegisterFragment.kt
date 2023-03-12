@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentRegisterBinding
 import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
@@ -30,8 +31,9 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
             val msg = enumToString(it)
             binding?.run {
                 etName.text?.clear()
-                etTeamName.text?.clear()
-                etUsername.text?.clear()
+//                etTeamName.text?.clear()
+//                etUsername.text?.clear()
+                etEmail.text?.clear()
                 etPassword.text?.clear()
                 etPasswordConfirm.text?.clear()
             }

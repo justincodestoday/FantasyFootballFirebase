@@ -1,11 +1,16 @@
 package com.fantasy.fantasyfootball.repository
 
+import android.content.ContentValues.TAG
+import android.util.Log
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
 import com.google.firebase.firestore.CollectionReference
+import kotlinx.coroutines.tasks.await
+import javax.security.auth.callback.Callback
 
-class FireStoreTeamRepository(private val ref: CollectionReference): TeamRepository {
+class FireStoreTeamRepository(private val ref: CollectionReference) : TeamRepository {
     override suspend fun getTeamById(teamId: Int): Team? {
         TODO("Not yet implemented")
     }
@@ -46,4 +51,26 @@ class FireStoreTeamRepository(private val ref: CollectionReference): TeamReposit
         TODO("Not yet implemented")
     }
 
+    override suspend fun registerTeam(
+        team: Team,
+        teamName: String,
+        callback: (message: String) -> Unit
+    ) {
+        ref.whereEqualTo("name", teamName).get().addOnSuccessListener { querySnapshot ->
+            if (querySnapshot.isEmpty) {
+                ref.add(team).addOnSuccessListener {
+                    Log.d(TAG, "New team created with ID: ${it.id}")
+                    callback("No duplicates")
+                }.addOnFailureListener {
+                    Log.e(TAG, "Error creating new team", it)
+                    callback("Error creating new team")
+                }
+            } else {
+                Log.d(TAG, "Team with name '$teamName' already exists")
+                callback(Enums.FormError.TEAM_NAME_EXISTS.name)
+            }
+        }.addOnFailureListener {
+            Log.e(TAG, "Error querying for team document", it)
+        }
+    }
 }

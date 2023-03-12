@@ -49,7 +49,7 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/ti_username"
+            android:layout_above="@id/ti_email"
             android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/merriweather_regular"
@@ -57,7 +57,7 @@
             android:textSize="30sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_username"
+            android:id="@+id/ti_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/ti_password"
@@ -71,15 +71,15 @@
             app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_username"
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/custom_edit_text"
                 android:fontFamily="@font/roboto_regular"
-                android:hint="@string/username"
+                android:hint="@string/email"
                 android:inputType="text"
                 android:padding="15dp"
-                android:text="@={viewModel.username}"
+                android:text="@={viewModel.email}"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.user.observe(this) {
             if (it != null) {
                 headerBinding.tvFullName.text = it.name
-                headerBinding.tvUsername.text = "@" + it.username
+                headerBinding.tvEmail.text = "@" + it.email
                 it.image?.let {fileName ->
                     ImageStorageService.getImageUri(fileName) { uri ->
                         Glide.with(this.applicationContext)

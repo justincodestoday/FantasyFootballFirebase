@@ -32,7 +32,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         viewModel.success.asLiveData().observe(viewLifecycleOwner) {
             val msg = enumToString(it)
             binding?.run {
-                etUsername.text?.clear()
+                etEmail.text?.clear()
                 etPassword.text?.clear()
             }
             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
@@ -63,7 +63,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
         viewModel.login.asLiveData().observe(viewLifecycleOwner) {
             binding?.run {
-                etUsername.text?.clear()
+                etEmail.text?.clear()
                 etPassword.text?.clear()
             }
 

@@ -42,10 +42,10 @@ class FireStoreUserRepository(
     }
 
     override suspend fun register(user: User): FirebaseUser? {
-        val res = auth.createUserWithEmailAndPassword(user.username!!, user.password!!).await()
+        val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
 
         if (res.user != null) {
-            ref.document(user.username).set(user).await()
+            ref.add(user).await()
         }
 
         return res.user
