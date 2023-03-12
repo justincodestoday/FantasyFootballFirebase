@@ -18,6 +18,7 @@ class MainApplication : Application() {
     lateinit var playerRepo: PlayerRepositoryImpl
     lateinit var teamRepo: TeamRepositoryImpl
     lateinit var matchRepo: MatchRepositoryImpl
+
     lateinit var storageService: StorageService
 
     override fun onCreate() {
@@ -34,6 +35,7 @@ class MainApplication : Application() {
         playerRepo = PlayerRepositoryImpl(fantasyDatabase.playerDao)
         teamRepo = TeamRepositoryImpl(fantasyDatabase.teamDao)
         matchRepo = MatchRepositoryImpl(fantasyDatabase.matchDao)
+
 
         val name: String = this.packageName ?: throw NullPointerException("No package name found")
         storageService = StorageService.getInstance(

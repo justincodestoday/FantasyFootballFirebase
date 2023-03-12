@@ -9,6 +9,7 @@ import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
+
 import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,62 +18,85 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
-    ViewModel() {
-    val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
-    val fixtures: MutableSharedFlow<Unit> = MutableSharedFlow()
-    val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
-    val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
-    val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
-    val logout: MutableSharedFlow<String> = MutableSharedFlow()
-    val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
-
+    BaseViewModel() {
     fun refreshPage(refresh: Boolean) {
         refreshPage.value = refresh
     }
 
     fun navigateToMatches() {
         viewModelScope.launch {
-            fixtures.emit(Unit)
+            try {
+                fixtures.emit(Unit)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 
     fun navigateToLeaderboard() {
         viewModelScope.launch {
-            leaderboard.emit(Unit)
+            try {
+                leaderboard.emit(Unit)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 
     fun navigateToTeam() {
         viewModelScope.launch {
-            teamManagement.emit(Unit)
+            try {
+                teamManagement.emit(Unit)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 
     fun navigateToProfile() {
         viewModelScope.launch {
-            profile.emit(Unit)
+            try {
+                profile.emit(Unit)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 
-    fun getUserWithTeam(userId: Int) {
+//    fun getUserWithTeam(userId: Int) {
+//        viewModelScope.launch {
+//            val res = userRepo.getUserWithTeam(userId)
+//            res?.let {
+//                userTeam.value = it
+//            }
+//        }
+//    }
+
+    fun getCurrentUser() {
         viewModelScope.launch {
-            val res = userRepo.getUserWithTeam(userId)
-            res?.let {
-                userTeam.value = it
+            try {
+                val res = safeApiCall { userRepo.getCurrentUser() }
+                user.value = res
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
             }
         }
     }
 
     fun logout() {
         viewModelScope.launch {
-            logout.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
+            try {
+                safeApiCall { userRepo.deAuthenticate() }
+                success.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 
-//    class Provider(private val userRepo: UserRepositoryImpl, private val teamRepo: TeamRepositoryImpl) :
-//        ViewModelProvider.Factory {
-//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//            return HomeViewModel(userRepo, teamRepo) as T
+//    fun logout() {
+//        viewModelScope.launch {
+//            logout.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
 //        }
 //    }
 }

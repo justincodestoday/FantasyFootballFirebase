@@ -12,6 +12,7 @@ import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val userRepo: UserRepositoryImpl, private val teamRepo: TeamRepositoryImpl): ViewModel() {
+
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
 
     fun editUser(userId: Int, user: User) {
@@ -34,6 +35,7 @@ class ProfileViewModel(private val userRepo: UserRepositoryImpl, private val tea
             }
         }
     }
+
 
     class Provider(private val userRepo: UserRepositoryImpl, private val teamRepo: TeamRepositoryImpl): ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
