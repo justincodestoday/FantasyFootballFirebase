@@ -1,7 +1,7 @@
 package com.fantasy.fantasyfootball.data.model
 
 data class Account(
-    val user: User? = null,
-    val team: Team? = null,
+    val email: String? = null,
+    val teamName: String? = null,
     val players: List<Player>? = null
 )

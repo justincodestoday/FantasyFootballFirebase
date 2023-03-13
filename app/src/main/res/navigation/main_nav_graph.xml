@@ -22,7 +22,8 @@
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="com.fantasy.fantasyfootball.fragment.LeaderboardFragment"
-        android:label="Leaderboard" />
+        android:label="Leaderboard"
+        tools:layout="@layout/fragment_leaderboard" />
     <fragment
         android:id="@+id/teamManagementFragment"
         android:name="com.fantasy.fantasyfootball.fragment.TeamManagementFragment"
@@ -42,6 +43,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/credentialsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_credentialsFragment_to_optionalFragment"
+            app:destination="@id/optionalFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -51,7 +55,8 @@
     <fragment
         android:id="@+id/pickPlayerFragment"
         android:name="com.fantasy.fantasyfootball.fragment.PickPlayerFragment"
-        android:label="Pick Player">
+        android:label="Pick Player"
+        tools:layout="@layout/fragment_pick_player">
         <argument
             android:name="area"
             app:argType="string" />
@@ -62,5 +67,15 @@
     <fragment
         android:id="@+id/matchFragment"
         android:name="com.fantasy.fantasyfootball.fragment.MatchFragment"
-        android:label="MatchFragment" />
+        android:label="MatchFragment"
+        tools:layout="@layout/fragment_match" />
+    <fragment
+        android:id="@+id/optionalFragment"
+        android:name="com.fantasy.fantasyfootball.fragment.OptionalFragment"
+        android:label="OptionalFragment"
+        tools:layout="@layout/fragment_optional">
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 </navigation>

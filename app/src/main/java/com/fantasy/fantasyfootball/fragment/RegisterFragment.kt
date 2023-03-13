@@ -59,11 +59,19 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         }
     }
 
+
+    // after register, the app thinks it is logged in after closing app
     override fun onBindData(view: View) {
         super.onBindData(view)
 
         lifecycleScope.launch {
-            viewModel.success.collect {
+            viewModel.register.collect {
+                val action =
+                    CredentialsFragmentDirections.actionCredentialsFragmentToOptionalFragment(
+                        binding?.etEmail?.text.toString()
+                    )
+                navController.navigate(action)
+
                 binding?.run {
                     etName.text?.clear()
                     etEmail.text?.clear()

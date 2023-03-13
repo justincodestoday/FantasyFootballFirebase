@@ -6,8 +6,6 @@ import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 
@@ -67,6 +65,12 @@ class FireStoreUserRepository(
 
     fun getUid(): String? {
         return auth.uid
+    }
+
+    suspend fun fetchUser(user: User): FirebaseUser? {
+        val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
+
+        return res.user
     }
 
     fun isAuthenticated(): Boolean {

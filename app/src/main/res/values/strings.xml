@@ -34,7 +34,7 @@
     <string name="register">Register</string>
     <string name="create_account">Create a Fantasy account</string>
     <string name="sign_into_account">Sign into your Fantasy account</string>
-    <string name="optional_info">You can either complete this step, or skip it for now</string>
+    <string name="optional_info">Pick your team name and upload your profile image</string>
     <string name="save">Save</string>
     <string name="skip">Skip</string>
     <string name="email">Email</string>
@@ -132,6 +132,8 @@
     <string name="empty_single_field">Please fill the field</string>
     <string name="missing_name">Name is required</string>
     <string name="missing_team_name">Team name is required</string>
+    <string name="missing_email">Email is required</string>
+    <string name="missing_password">Password is required</string>
     <string name="invalid_email">Invalid email format</string>
     <string name="invalid_username">Username must be at least 8 characters long</string>
     <string name="invalid_password">Password must be at least 8 characters long</string>
@@ -142,6 +144,7 @@
     <string name="user_already_exists">User already exists</string>
     <string name="team_name_already_exists">Team name already exists</string>
     <string name="insufficient_funds">Insufficient funds</string>
+    <string name="failure">Failure</string>
     <string name="unrecognised_error">Unrecognised error</string>
     <string name="nothing">Nothing</string>
 

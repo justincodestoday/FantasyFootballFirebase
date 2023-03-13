@@ -68,7 +68,7 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:errorEnabled="false"
-            app:helperText="@string/empty_string"
+            app:helperText='@{viewModel.formErrors.contains(FormError.MISSING_NAME) ? "Name is required" : ""}'
             app:helperTextTextColor="@color/red_500"
             app:hintEnabled="false">
 
@@ -85,60 +85,60 @@
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/ti_teamName"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_above="@+id/ti_username"-->
-<!--            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            app:boxStrokeWidth="0dp"-->
-<!--            app:boxStrokeWidthFocused="0dp"-->
-<!--            app:errorEnabled="false"-->
-<!--            app:helperText="@string/empty_string"-->
-<!--            app:helperTextTextColor="@color/red_500"-->
-<!--            app:hintEnabled="false">-->
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/ti_teamName"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_above="@+id/ti_username"-->
+        <!--            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            app:boxStrokeWidth="0dp"-->
+        <!--            app:boxStrokeWidthFocused="0dp"-->
+        <!--            app:errorEnabled="false"-->
+        <!--            app:helperText="@string/empty_string"-->
+        <!--            app:helperTextTextColor="@color/red_500"-->
+        <!--            app:hintEnabled="false">-->
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/et_team_name"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:background="@drawable/custom_edit_text"-->
-<!--                android:fontFamily="@font/roboto_regular"-->
-<!--                android:hint="@string/team_name"-->
-<!--                android:inputType="textPersonName"-->
-<!--                android:padding="15dp"-->
-<!--                android:text="@={viewModel.teamName}"-->
-<!--                android:textSize="15sp" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/et_team_name"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="50dp"-->
+        <!--                android:background="@drawable/custom_edit_text"-->
+        <!--                android:fontFamily="@font/roboto_regular"-->
+        <!--                android:hint="@string/team_name"-->
+        <!--                android:inputType="textPersonName"-->
+        <!--                android:padding="15dp"-->
+        <!--                android:text="@={viewModel.teamName}"-->
+        <!--                android:textSize="15sp" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/ti_username"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_above="@+id/ti_email"-->
-<!--            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            app:boxStrokeWidth="0dp"-->
-<!--            app:boxStrokeWidthFocused="0dp"-->
-<!--            app:errorEnabled="false"-->
-<!--            app:helperText="@string/empty_string"-->
-<!--            app:helperTextTextColor="@color/red_500"-->
-<!--            app:hintEnabled="false">-->
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:id="@+id/ti_username"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_above="@+id/ti_email"-->
+        <!--            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            app:boxStrokeWidth="0dp"-->
+        <!--            app:boxStrokeWidthFocused="0dp"-->
+        <!--            app:errorEnabled="false"-->
+        <!--            app:helperText="@string/empty_string"-->
+        <!--            app:helperTextTextColor="@color/red_500"-->
+        <!--            app:hintEnabled="false">-->
 
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/et_username"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:background="@drawable/custom_edit_text"-->
-<!--                android:fontFamily="@font/roboto_regular"-->
-<!--                android:hint="@string/username"-->
-<!--                android:inputType="text"-->
-<!--                android:maxLength="16"-->
-<!--                android:padding="15dp"-->
-<!--                android:text="@={viewModel.username}"-->
-<!--                android:textSize="15sp" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/et_username"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="50dp"-->
+        <!--                android:background="@drawable/custom_edit_text"-->
+        <!--                android:fontFamily="@font/roboto_regular"-->
+        <!--                android:hint="@string/username"-->
+        <!--                android:inputType="text"-->
+        <!--                android:maxLength="16"-->
+        <!--                android:padding="15dp"-->
+        <!--                android:text="@={viewModel.username}"-->
+        <!--                android:textSize="15sp" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_email"
@@ -150,7 +150,7 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:errorEnabled="false"
-            app:helperText="@string/empty_string"
+            app:helperText='@{viewModel.formErrors.contains(FormError.INVALID_EMAIL) ? "Invalid email format" : ""}'
             app:helperTextTextColor="@color/red_500"
             app:hintEnabled="false">
 
@@ -161,7 +161,7 @@
                 android:background="@drawable/custom_edit_text"
                 android:fontFamily="@font/roboto_regular"
                 android:hint="@string/email"
-                android:inputType="text"
+                android:inputType="textEmailAddress"
                 android:padding="15dp"
                 android:text="@={viewModel.email}"
                 android:textSize="15sp" />
@@ -177,7 +177,7 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:errorEnabled="false"
-            app:helperText="@string/empty_string"
+            app:helperText='@{viewModel.formErrors.contains(FormError.INVALID_PASSWORD) ? "Password must be at least 8 characters long" : ""}'
             app:helperTextTextColor="@color/red_500"
             app:hintEnabled="false"
             app:passwordToggleEnabled="true">
@@ -204,7 +204,7 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:errorEnabled="false"
-            app:helperText="@string/empty_string"
+            app:helperText='@{viewModel.formErrors.contains(FormError.PASSWORDS_NOT_MATCHING) ? "Please ensure that the passwords match" : ""}'
             app:helperTextTextColor="@color/red_500"
             app:hintEnabled="false"
             app:passwordToggleEnabled="true">
