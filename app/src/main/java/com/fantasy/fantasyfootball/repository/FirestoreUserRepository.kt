@@ -3,14 +3,19 @@ package com.fantasy.fantasyfootball.repository
 import android.util.Log
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 
-class FireStoreUserRepository(private val auth: FirebaseAuth, private val ref: CollectionReference): UserRepository {
+class FireStoreUserRepository(
+    private val auth: FirebaseAuth,
+    private val ref: CollectionReference
+) :
+    UserRepository {
     override suspend fun getUserById(userId: Int): Flow<User?> {
         TODO("Not yet implemented")
     }
@@ -45,10 +50,10 @@ class FireStoreUserRepository(private val auth: FirebaseAuth, private val ref: C
     }
 
     override suspend fun register(user: User): FirebaseUser? {
-        val res = auth.createUserWithEmailAndPassword(user.username!!, user.password!!).await()
+        val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
 
         if (res.user != null) {
-            ref.document(user.username).set(user).await()
+            ref.document(user.email).set(user).await()
         }
 
         return res.user
@@ -60,13 +65,21 @@ class FireStoreUserRepository(private val auth: FirebaseAuth, private val ref: C
         return res.user?.uid != null
     }
 
+    fun getUid(): String? {
+        return auth.uid
+    }
+
     fun isAuthenticated(): Boolean {
-        auth.currentUser ?: return false
+        val user = auth.currentUser
+        if (user == null) {
+            return false
+        }
         return true
     }
 
     fun deAuthenticate() {
         auth.signOut()
+        Log.d("debugging", "logged out")
     }
 
     suspend fun getCurrentUser(): User? {

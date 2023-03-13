@@ -13,6 +13,7 @@
     <!-- Drawer -->
     <string name="drawer_name">Full Name</string>
     <string name="drawer_username">Username</string>
+    <string name="drawer_email">Email</string>
     <string name="drawer_logged_out_message">Please log in to use this app</string>
     <string name="add_profile_picture">Add Profile Picture</string>
 
@@ -33,6 +34,9 @@
     <string name="register">Register</string>
     <string name="create_account">Create a Fantasy account</string>
     <string name="sign_into_account">Sign into your Fantasy account</string>
+    <string name="optional_info">You can either complete this step, or skip it for now</string>
+    <string name="save">Save</string>
+    <string name="skip">Skip</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -128,6 +132,7 @@
     <string name="empty_single_field">Please fill the field</string>
     <string name="missing_name">Name is required</string>
     <string name="missing_team_name">Team name is required</string>
+    <string name="invalid_email">Invalid email format</string>
     <string name="invalid_username">Username must be at least 8 characters long</string>
     <string name="invalid_password">Password must be at least 8 characters long</string>
     <string name="passwords_not_matching">Please ensure that the passwords match</string>
@@ -135,6 +140,7 @@
     <string name="incorrect_password">Incorrect password</string>
     <string name="wrong_credentials">Username and password do not match</string>
     <string name="user_already_exists">User already exists</string>
+    <string name="team_name_already_exists">Team name already exists</string>
     <string name="insufficient_funds">Insufficient funds</string>
     <string name="unrecognised_error">Unrecognised error</string>
     <string name="nothing">Nothing</string>
@@ -144,5 +150,5 @@
 
     <!-- strings -->
     <string name="empty_string" />
-    <string name="empty_spacing"> </string>
+    <string name="empty_spacing" />
 </resources>

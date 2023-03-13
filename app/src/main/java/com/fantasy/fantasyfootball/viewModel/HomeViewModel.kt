@@ -1,15 +1,23 @@
 package com.fantasy.fantasyfootball.viewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
     BaseViewModel() {
+    val fixtures: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
+
     fun refreshPage(refresh: Boolean) {
         refreshPage.value = refresh
     }

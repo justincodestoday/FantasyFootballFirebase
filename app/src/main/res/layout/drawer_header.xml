@@ -37,13 +37,13 @@
             android:textSize="@dimen/extra_large_text_size" />
 
         <TextView
-            android:id="@+id/tvUsername"
+            android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/m"
             android:fontFamily="@font/font1"
             android:layout_gravity="center"
-            android:text="@string/drawer_username"
+            android:text="@string/drawer_email"
             android:textSize="@dimen/medium_text_size" />
 
         <View

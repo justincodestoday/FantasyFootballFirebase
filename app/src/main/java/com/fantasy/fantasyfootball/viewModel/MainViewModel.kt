@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.viewModel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
@@ -10,6 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
     BaseViewModel() {
+    val loggedIn: MutableLiveData<Boolean?> = MutableLiveData()
+
 //    fun getUserById(userId: Int) {
 //        viewModelScope.launch {
 //            userRepo.getUserById(userId).collect {
@@ -31,7 +34,7 @@ class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
         }
     }
 
-    fun isLoggedIn(): Boolean? {
+    fun isLoggedIn() {
         viewModelScope.launch {
             try {
                 val res = safeApiCall { userRepo.isAuthenticated() }
@@ -42,7 +45,6 @@ class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
                 error.emit(e.message.toString())
             }
         }
-        return loggedIn.value
     }
 
     fun logout() {

@@ -30,17 +30,15 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun getLayoutResource(): Int = R.layout.fragment_profile
-    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
+    override val viewModel: ProfileViewModel by viewModels()
 
-    //    private lateinit var binding: FragmentProfileBinding
     private lateinit var imageDialogBinding: EditImageDialogBinding
     private lateinit var accountDialogBinding: EditProfileDialogBinding
     private lateinit var passwordDialogBinding: EditPasswordDialogBinding
     private lateinit var authService: AuthService
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
-
-    //    override var fileUri: Uri? = null
-    override val viewModel: ProfileViewModel by viewModels()
+    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
+    var fileUri: Uri? = null
 
     var name = ""
     var username = ""
@@ -170,6 +168,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 }
                 imageDialog.setOnDismissListener {
 //                    viewModel.getUserWithTeam(user?.userId!!)
+
                 }
                 imageDialog.show()
             }

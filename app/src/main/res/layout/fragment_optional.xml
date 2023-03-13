@@ -49,42 +49,15 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/ti_email"
+            android:layout_above="@id/ti_teamName"
             android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/merriweather_regular"
-            android:text="@string/sign_into_account"
-            android:textSize="30sp" />
+            android:text="@string/optional_info"
+            android:textSize="20sp" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/ti_password"
-            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
-            android:layout_marginBottom="10dp"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:errorEnabled="false"
-            app:helperText="@string/empty_string"
-            app:helperTextTextColor="@color/red_500"
-            app:hintEnabled="false">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_email"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/custom_edit_text"
-                android:fontFamily="@font/roboto_regular"
-                android:hint="@string/email"
-                android:inputType="text"
-                android:padding="15dp"
-                android:text="@={viewModel.email}"
-                android:textSize="15sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ti_password"
+            android:id="@+id/ti_teamName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -94,52 +67,43 @@
             app:errorEnabled="false"
             app:helperText="@string/empty_string"
             app:helperTextTextColor="@color/red_500"
-            app:hintEnabled="false"
-            app:passwordToggleEnabled="true">
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_password"
+                android:id="@+id/et_teamName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/custom_edit_text"
                 android:fontFamily="@font/roboto_regular"
-                android:hint="@string/password"
-                android:inputType="textPassword"
+                android:hint="@string/team_name"
+                android:inputType="text"
                 android:padding="15dp"
-                android:text="@={viewModel.password}"
+                android:text="@={viewModel.teamName}"
                 android:textSize="15sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ti_password"
+            android:layout_below="@id/ti_teamName"
             android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
             android:layout_marginTop="@dimen/fragment_vertical_margin"
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/sign_in"
+            android:text="@string/save"
             android:textColor="@android:color/white" />
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_above="@id/swipeLeft"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="@string/swipe_left"
-            android:src="@drawable/ic_arrow_forward" />
-
-        <TextView
-            android:id="@+id/swipeLeft"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_skip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
             android:layout_marginBottom="@dimen/fragment_vertical_margin"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/custom_button_6"
             android:fontFamily="@font/roboto_regular"
-            android:text="@string/swipe_left_to_signup"
-            android:textSize="15sp" />
-
+            android:text="@string/skip"
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 </layout>

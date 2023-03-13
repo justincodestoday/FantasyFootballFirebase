@@ -25,4 +25,5 @@ interface TeamRepository {
 
     suspend fun getTeamWithPlayersByTeamId(teamId: Int): TeamsWithPlayers
 
+    suspend fun registerTeam(team: Team, teamName: String, callback: (message: String) -> Unit)
 }

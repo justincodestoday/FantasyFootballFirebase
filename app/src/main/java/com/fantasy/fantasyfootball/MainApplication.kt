@@ -28,13 +28,12 @@ class MainApplication : Application() {
             FantasyDatabase::class.java,
             FantasyDatabase.DATABASE_NAME
         ).fallbackToDestructiveMigration()
-            .addMigrations(FantasyDatabase.MIGRATION_1_2)
+//            .addMigrations(FantasyDatabase.MIGRATION_1_2)
             .build()
         userRepo = UserRepositoryImpl(fantasyDatabase.userDao)
         playerRepo = PlayerRepositoryImpl(fantasyDatabase.playerDao)
         teamRepo = TeamRepositoryImpl(fantasyDatabase.teamDao)
         matchRepo = MatchRepositoryImpl(fantasyDatabase.matchDao)
-
 
         val name: String = this.packageName ?: throw NullPointerException("No package name found")
         storageService = StorageService.getInstance(
