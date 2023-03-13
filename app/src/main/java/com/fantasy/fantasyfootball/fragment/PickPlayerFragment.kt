@@ -2,7 +2,6 @@ package com.fantasy.fantasyfootball.fragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,7 @@ import com.fantasy.fantasyfootball.adapter.PlayerAdapter
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
-import com.fantasy.fantasyfootball.util.AuthService
+import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 import com.google.android.material.snackbar.Snackbar
 

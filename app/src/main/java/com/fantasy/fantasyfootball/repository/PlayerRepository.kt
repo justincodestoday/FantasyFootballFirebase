@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.repository
 
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
 
 interface PlayerRepository {

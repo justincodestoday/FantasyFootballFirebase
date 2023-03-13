@@ -17,13 +17,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
-import com.fantasy.fantasyfootball.util.AuthService
-import com.fantasy.fantasyfootball.util.ImageStorageService
+import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -61,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.user.observe(this) {
             if (it != null) {
                 headerBinding.tvFullName.text = it.name
-                headerBinding.tvUsername.text = "@" + it.username
+                headerBinding.tvUsername.text = "@" + it.email
                 it.image?.let {fileName ->
                     ImageStorageService.getImageUri(fileName) { uri ->
                         Glide.with(this.applicationContext)

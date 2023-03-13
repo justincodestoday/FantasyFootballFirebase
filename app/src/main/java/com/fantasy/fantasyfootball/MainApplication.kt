@@ -8,7 +8,7 @@ import com.fantasy.fantasyfootball.repository.MatchRepositoryImpl
 import com.fantasy.fantasyfootball.repository.PlayerRepositoryImpl
 import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
 import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
-import com.fantasy.fantasyfootball.util.StorageService
+import com.fantasy.fantasyfootball.service.StorageService
 import com.google.gson.Gson
 import dagger.hilt.android.HiltAndroidApp
 

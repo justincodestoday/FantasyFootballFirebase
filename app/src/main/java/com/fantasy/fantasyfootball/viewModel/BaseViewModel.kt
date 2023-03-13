@@ -4,9 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.data.model.UserWithTeam
+import com.fantasy.fantasyfootball.repository.UserRepository
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel() : ViewModel() {
     val name: MutableLiveData<String?> = MutableLiveData()
     val username: MutableLiveData<String?> = MutableLiveData()
     val password: MutableLiveData<String?> = MutableLiveData()
@@ -14,7 +15,7 @@ abstract class BaseViewModel : ViewModel() {
 
     val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
     val loggedIn: MutableLiveData<Boolean?> = MutableLiveData()
-    val user: MutableLiveData<User?> = MutableLiveData()
+    val user: MutableLiveData<User> = MutableLiveData()
     val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
 
     val fixtures: MutableSharedFlow<Unit> = MutableSharedFlow()
@@ -26,6 +27,7 @@ abstract class BaseViewModel : ViewModel() {
 
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
+    val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
 
     open fun onViewCreated() {}
 
