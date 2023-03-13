@@ -18,6 +18,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
@@ -105,8 +106,7 @@ class MainActivity : AppCompatActivity() {
             if (it == null) {
                 navController.popBackStack(R.id.main_nav_graph, true)
                 navController.navigate(R.id.credentialsFragment)
-            }
-            if (it != null) {
+            } else {
                 headerBinding.tvFullName.text = it.name
                 headerBinding.tvEmail.text = "@" + it.email
                 it.image?.let { fileName ->

@@ -17,9 +17,11 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRepository, private val teamRepo: FireStoreTeamRepository): BaseViewModel() {
-
-//    val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
+class ProfileViewModel @Inject constructor(
+    private val userRepo: FireStoreUserRepository,
+    private val teamRepo: FireStoreTeamRepository
+) : BaseViewModel() {
+    val loggedIn: MutableLiveData<Boolean?> = MutableLiveData()
 
     init {
         viewModelScope.launch {
@@ -34,9 +36,7 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
     fun updateProfile(
         imageUri: Uri?
     ) {
-
-        val imageName = user.value?.image?: Utils.getCurrentTime()
-
+        val imageName = user.value?.image ?: Utils.getCurrentTime()
         viewModelScope.launch {
             imageUri?.let {
                 ImageStorageService.addImage(imageUri, imageName) { status ->
@@ -61,7 +61,6 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
         }
     }
 
-
     fun editUser(user: User) {
         viewModelScope.launch {
             val _user = userRepo.getCurrentUser()
@@ -84,7 +83,7 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
         }
     }
 
-    fun isLoggedIn(): Boolean? {
+    fun isLoggedIn() {
         viewModelScope.launch {
             try {
                 val res = safeApiCall { userRepo.isAuthenticated() }
@@ -95,7 +94,6 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
                 error.emit(e.message.toString())
             }
         }
-        return loggedIn.value
     }
 
     fun logout() {
@@ -109,7 +107,6 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
         }
     }
 
-
     fun fetchCurrentUser() {
         viewModelScope.launch {
             try {
@@ -120,7 +117,6 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
             }
         }
     }
-
 
 //    class Provider(
 //        private val userRepo: UserRepositoryImpl,

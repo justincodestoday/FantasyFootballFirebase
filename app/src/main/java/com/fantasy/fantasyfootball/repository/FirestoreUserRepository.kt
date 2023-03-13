@@ -32,8 +32,13 @@ class FireStoreUserRepository(
         TODO("Not yet implemented")
     }
 
-    override suspend fun editUser(id: Int, user: User): Long {
+    override suspend fun editUser(id: String, user: User): Long {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun updateUser(id: String, user: User) {
+        val doc = ref.document(id)
+        doc.set(user).await()
     }
 
     override suspend fun getUsersWithTeams(): List<UserWithTeam> {
