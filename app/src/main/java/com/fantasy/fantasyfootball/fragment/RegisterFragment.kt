@@ -63,13 +63,16 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         super.onBindData(view)
 
         lifecycleScope.launch {
-            viewModel.success.collect {
+            viewModel.register.collect {
                 binding?.run {
                     etName.text?.clear()
                     etEmail.text?.clear()
                     etPassword.text?.clear()
                     etPasswordConfirm.text?.clear()
                 }
+
+                val action = CredentialsFragmentDirections.actionCredentialsFragmentToOptionalFragment()
+                navController.navigate(action)
             }
         }
     }

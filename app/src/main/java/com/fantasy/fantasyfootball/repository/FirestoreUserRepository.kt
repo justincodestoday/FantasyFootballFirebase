@@ -69,6 +69,11 @@ class FireStoreUserRepository(
         return auth.uid
     }
 
+//    fun fetchUser(id: String) {
+//        val doc = ref.document(id).get().await()
+//        return doc
+//    }
+
     fun isAuthenticated(): Boolean {
         val user = auth.currentUser
         if (user == null) {

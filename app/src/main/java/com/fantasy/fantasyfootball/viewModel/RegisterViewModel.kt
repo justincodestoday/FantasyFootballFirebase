@@ -67,6 +67,7 @@ class RegisterViewModel @Inject constructor(
 
                     val res = safeApiCall { userRepo.register(user) }
                     if (res != null) {
+                        register.emit(Unit)
                         success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
                     } else {
                         error.emit(Enums.FormError.USER_EXISTS.name)
