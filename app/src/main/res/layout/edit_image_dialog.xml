@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -34,12 +35,12 @@
 
             <TextView
                 android:id="@+id/tv_choose_image"
-                android:padding="5dp"
-                android:textSize="18sp"
                 android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@drawable/custom_select_button"
-                android:layout_height="wrap_content"
-                android:text="@string/choose_image" />
+                android:padding="5dp"
+                android:text="@string/choose_image"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_image_name"

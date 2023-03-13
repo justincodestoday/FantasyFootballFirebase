@@ -16,7 +16,7 @@ import com.fantasy.fantasyfootball.adapter.MatchAdapter
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.databinding.FragmentMatchBinding
-import com.fantasy.fantasyfootball.util.AuthService
+import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.viewModel.MatchViewModel
 
 class MatchFragment : Fragment() {

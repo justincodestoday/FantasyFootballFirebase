@@ -1,6 +1,5 @@
 package com.fantasy.fantasyfootball.data.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -16,3 +15,4 @@ data class User(
 //    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
 //    val image: ByteArray? = null,
 )
+
