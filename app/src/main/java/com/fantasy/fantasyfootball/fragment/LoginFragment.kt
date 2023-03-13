@@ -29,26 +29,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
 //        val authService = AuthService.getInstance(requireContext())
 
-        viewModel.success.asLiveData().observe(viewLifecycleOwner) {
-            val msg = enumToString(it)
-            binding?.run {
-                etEmail.text?.clear()
-                etPassword.text?.clear()
-            }
-            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-        }
-
-        viewModel.error.asLiveData().observe(viewLifecycleOwner) {
-            val msg = enumToString(it)
-            val snackBar = Snackbar.make(binding!!.root, "$msg", Snackbar.LENGTH_LONG)
-            snackBar.setBackgroundTint(
-                ContextCompat.getColor(requireContext(), R.color.red_500)
-            )
-            snackBar.setAction("Hide") {
-                snackBar.dismiss()
-            }
-            snackBar.show()
-        }
+//        viewModel.success.asLiveData().observe(viewLifecycleOwner) {
+//            val msg = enumToString(it)
+//            binding?.run {
+//                etEmail.text?.clear()
+//                etPassword.text?.clear()
+//            }
+//            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+//        }
+//
+//        viewModel.error.asLiveData().observe(viewLifecycleOwner) {
+//            val msg = enumToString(it)
+//            val snackBar = Snackbar.make(binding!!.root, "$msg", Snackbar.LENGTH_LONG)
+//            snackBar.setBackgroundTint(
+//                ContextCompat.getColor(requireContext(), R.color.red_500)
+//            )
+//            snackBar.setAction("Hide") {
+//                snackBar.dismiss()
+//            }
+//            snackBar.show()
+//        }
 
 //        viewModel.user.asLiveData().observe(viewLifecycleOwner) {
 //            binding?.run {
@@ -61,20 +61,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 //            NavHostFragment.findNavController(this).navigate(action)
 //        }
 
-        viewModel.login.asLiveData().observe(viewLifecycleOwner) {
-            binding?.run {
-                etEmail.text?.clear()
-                etPassword.text?.clear()
-            }
-
-            (activity as MainActivity).identify()
-            val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
-            NavHostFragment.findNavController(this).navigate(action)
-        }
-
         binding?.btnLogin?.setOnClickListener {
             lifecycleScope.launch {
                 viewModel.login()
+            }
+        }
+    }
+
+    override fun onBindData(view: View) {
+        super.onBindData(view)
+
+        lifecycleScope.launch {
+            viewModel.login.collect {
+                binding?.run {
+                    etEmail.text?.clear()
+                    etPassword.text?.clear()
+                }
+
+                (activity as MainActivity).identify()
+                val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
+                navController.navigate(action)
             }
         }
     }

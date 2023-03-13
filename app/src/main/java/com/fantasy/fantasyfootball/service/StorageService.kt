@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.util
+package com.fantasy.fantasyfootball.service
 
 import android.content.SharedPreferences
 import com.fantasy.fantasyfootball.data.model.User

@@ -14,7 +14,9 @@ interface UserRepository {
 
     suspend fun createUser(user: User): Long
 
-    suspend fun editUser(id: Int, user: User): Long
+    suspend fun editUser(id: String, user: User): Long
+
+    suspend fun updateUser(id: String, user: User)
 
     suspend fun getUsersWithTeams(): List<UserWithTeam>
 

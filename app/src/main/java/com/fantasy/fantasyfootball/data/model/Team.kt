@@ -22,6 +22,10 @@ data class Team(
     var points: Int = 0,
     var budget: Float = 100.0f,
     var lastUpdated: String? = null,
+<<<<<<< HEAD
     val ownerId: Int? = null
 //    val ownerId: Int
+=======
+    val ownerId: Int? = null,
+>>>>>>> ccb1fbedf5805d1071b96018e184db97958d4ccc
 )

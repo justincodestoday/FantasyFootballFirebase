@@ -23,8 +23,13 @@ class UserRepositoryImpl(private val userDao: UserDao) : UserRepository {
         return userDao.insert(user)
     }
 
-    override suspend fun editUser(id: Int, user: User): Long {
-        return userDao.insert(user.copy(userId = id))
+    override suspend fun editUser(id: String, user: User): Long {
+//        return userDao.insert(user.copy(userId = id))
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateUser(id: String, user: User) {
+        TODO("Not yet implemented")
     }
 
     override suspend fun getUsersWithTeams(): List<UserWithTeam> {

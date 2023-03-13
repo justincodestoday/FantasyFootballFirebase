@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,13 +18,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
-import com.fantasy.fantasyfootball.util.AuthService
-import com.fantasy.fantasyfootball.util.ImageStorageService
+import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         headerView = binding.navigationView.getHeaderView(0)
         headerBinding = DrawerHeaderBinding.bind(headerView)
 
-
 //        val authService = AuthService.getInstance(this)
 //        val user = authService.getAuthenticatedUser()
 //
@@ -56,22 +53,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         viewModel.getCurrentUser()
-        val loggedIn = viewModel.isLoggedIn()
-
-        viewModel.user.observe(this) {
-            if (it != null) {
-                headerBinding.tvFullName.text = it.name
-                headerBinding.tvEmail.text = "@" + it.email
-                it.image?.let {fileName ->
-                    ImageStorageService.getImageUri(fileName) { uri ->
-                        Glide.with(this.applicationContext)
-                            .load(uri)
-                            .placeholder(R.drawable.vector__3_)
-                            .into(headerBinding.ivImage)
-                    }
-                }
-            }
-        }
+        viewModel.isLoggedIn()
 
         headerBinding.ivClose.setOnClickListener {
             drawerLayout.closeDrawers()
@@ -117,15 +99,43 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
 //        authenticate(user, graph)
-        if (loggedIn == true) {
-            authenticate(loggedIn, graph)
-        }
-        
-        navController.setGraph(graph, savedInstanceState)
 
-        viewModel.success
+        viewModel.user.observe(this) {
+            authenticate(it, graph)
+            if (it == null) {
+                navController.popBackStack(R.id.main_nav_graph, true)
+                navController.navigate(R.id.credentialsFragment)
+            }
+            if (it != null) {
+                headerBinding.tvFullName.text = it.name
+                headerBinding.tvEmail.text = "@" + it.email
+                it.image?.let { fileName ->
+                    ImageStorageService.getImageUri(fileName) { uri ->
+                        Glide.with(this.applicationContext)
+                            .load(uri)
+                            .placeholder(R.drawable.vector__3_)
+                            .into(headerBinding.ivImage)
+                    }
+                }
+            }
+        }
 
         binding.btnLogoutDrawer.setOnClickListener {
+            viewModel.logout()
+            Toast.makeText(
+                this,
+                applicationContext.getString(R.string.logout_successful),
+                Toast.LENGTH_SHORT
+            ).show()
+
+            navController.popBackStack(R.id.main_nav_graph, true)
+            navController.navigate(R.id.credentialsFragment)
+            drawerLayout.close()
+        }
+
+        navController.setGraph(graph, savedInstanceState)
+
+//        binding.btnLogoutDrawer.setOnClickListener {
 //            authService.unauthenticate()
 //            if (!authService.isAuthenticated()) {
 //                Toast.makeText(
@@ -138,41 +148,20 @@ class MainActivity : AppCompatActivity() {
 //                navController.navigate(R.id.credentialsFragment)
 //                drawerLayout.close()
 //            }
-
-            viewModel.logout()
-            if (loggedIn != true) {
-                Toast.makeText(
-                    this,
-                    applicationContext.getString(R.string.logout_successful),
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                navController.popBackStack(R.id.main_nav_graph, true)
-                navController.navigate(R.id.credentialsFragment)
-                drawerLayout.close()
-            }
-        }
+//        }
     }
 
-//    private fun authenticate(user: User?, graph: NavGraph) {
-//        if (user != null) {
-//            graph.setStartDestination(R.id.homeFragment)
-//        } else {
-//            graph.setStartDestination(R.id.credentialsFragment)
-//        }
-//    }
-//
-//    fun identify(user: User?) {
-//        viewModel.getUserById(user?.userId!!)
-//    }
-
-    private fun authenticate(authenticated: Boolean, graph: NavGraph) {
-        if (authenticated) {
+    private fun authenticate(user: User?, graph: NavGraph) {
+        if (user != null) {
             graph.setStartDestination(R.id.homeFragment)
         } else {
             graph.setStartDestination(R.id.credentialsFragment)
         }
     }
+
+//    fun identify(user: User?) {
+//        viewModel.getUserById(user?.userId!!)
+//    }
 
     fun identify() {
         viewModel.getCurrentUser()

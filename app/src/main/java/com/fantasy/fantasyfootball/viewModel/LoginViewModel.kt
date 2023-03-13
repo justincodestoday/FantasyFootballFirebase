@@ -5,11 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repo: FireStoreUserRepository) : BaseViewModel() {
+    val login: MutableSharedFlow<Unit> = MutableSharedFlow()
+
     suspend fun login() {
         if (email.value?.trim { it <= ' ' }
                 .isNullOrEmpty() || password.value?.trim { it <= ' ' }.isNullOrEmpty()

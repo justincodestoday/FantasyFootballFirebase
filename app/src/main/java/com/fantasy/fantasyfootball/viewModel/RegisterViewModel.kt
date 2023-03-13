@@ -8,6 +8,7 @@ import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +17,8 @@ class RegisterViewModel @Inject constructor(
     private val userRepo: FireStoreUserRepository,
     private val teamRepo: FireStoreTeamRepository
 ) : BaseViewModel() {
+    val register: MutableSharedFlow<Unit> = MutableSharedFlow()
+
     suspend fun register() {
         if (name.value?.trim { it <= ' ' }.isNullOrEmpty()) {
             error.emit(Enums.FormError.MISSING_NAME.name)

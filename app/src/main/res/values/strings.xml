@@ -34,6 +34,9 @@
     <string name="register">Register</string>
     <string name="create_account">Create a Fantasy account</string>
     <string name="sign_into_account">Sign into your Fantasy account</string>
+    <string name="optional_info">You can either complete this step, or skip it for now</string>
+    <string name="save">Save</string>
+    <string name="skip">Skip</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -147,5 +150,5 @@
 
     <!-- strings -->
     <string name="empty_string" />
-    <string name="empty_spacing"> </string>
+    <string name="empty_spacing" />
 </resources>
