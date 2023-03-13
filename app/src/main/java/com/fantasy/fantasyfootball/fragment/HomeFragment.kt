@@ -44,6 +44,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
             user?.let {
+<<<<<<< HEAD
                 binding?.run {
                     it.image?.let { it1 ->
                         ImageStorageService.getImageUri(it1) { uri ->
@@ -51,11 +52,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                 Glide.with(view)
                                     .load(uri)
                                     .into(it2.ivProfile)
+=======
+                binding.run {
+                    it.image?.let { picture ->
+                        ImageStorageService.getImageUri(picture) { uri ->
+                            binding?.ivProfile?.let {
+                                Glide.with(view)
+                                    .load(uri)
+                                    .into(it)
+>>>>>>> a5f97eb8d08ac6e4055735cb9bd27edef41c7cbd
                             }
                         }
                     }
                 }
             }
+
 //            binding.apply {
 //                points.text = it.team.points.toString() + " Points"
 //                tvProfile.text = it.user.username
@@ -120,7 +131,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         setFragmentResultListener("from_profile") { _, result ->
             val refresh = result.getBoolean("refresh")
-            if(refresh) {
+            if (refresh) {
                 viewModel.getCurrentUser()
             }
         }

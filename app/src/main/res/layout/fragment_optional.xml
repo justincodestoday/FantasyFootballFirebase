@@ -4,12 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="com.fantasy.fantasyfootball.constant.Enums.FormError" />
-
         <variable
             name="viewModel"
-            type="com.fantasy.fantasyfootball.viewModel.LoginViewModel" />
+            type="com.fantasy.fantasyfootball.viewModel.OptionalViewModel" />
     </data>
 
     <RelativeLayout

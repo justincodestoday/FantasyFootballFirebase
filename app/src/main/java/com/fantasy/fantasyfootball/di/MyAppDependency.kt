@@ -57,4 +57,10 @@ object MyAppDependency {
     fun getAuthRepository(auth: FirebaseAuth, db: FirebaseFirestore): FireStoreUserRepository {
         return FireStoreUserRepository(auth, db.collection("users"))
     }
+
+    @Provides
+    @Singleton
+    fun getFireStoreAccountRepository(db: FirebaseFirestore): FireStoreAccountRepository {
+        return FireStoreAccountRepository(db.collection("accounts"))
+    }
 }
