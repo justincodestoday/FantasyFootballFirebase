@@ -67,10 +67,11 @@ class FireStoreUserRepository(
         return auth.uid
     }
 
-//    fun fetchUser(id: String) {
-//        val doc = ref.document(id).get().await()
-//        return doc
-//    }
+    suspend fun fetchUser(user: User): FirebaseUser? {
+        val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
+
+        return res.user
+    }
 
     fun isAuthenticated(): Boolean {
         val user = auth.currentUser

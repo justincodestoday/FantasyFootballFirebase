@@ -43,25 +43,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.getCurrentUser()
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
-            user?.let {
-<<<<<<< HEAD
-                binding?.run {
-                    it.image?.let { it1 ->
-                        ImageStorageService.getImageUri(it1) { uri ->
-                            binding?.let { it2 ->
-                                Glide.with(view)
-                                    .load(uri)
-                                    .into(it2.ivProfile)
-=======
-                binding.run {
-                    it.image?.let { picture ->
-                        ImageStorageService.getImageUri(picture) { uri ->
-                            binding?.ivProfile?.let {
-                                Glide.with(view)
-                                    .load(uri)
-                                    .into(it)
->>>>>>> a5f97eb8d08ac6e4055735cb9bd27edef41c7cbd
-                            }
+            binding?.apply {
+                if (user != null) {
+                    tvProfile.text = user.email
+                    user.image?.let { imageName ->
+                        ImageStorageService.getImageUri(imageName) { uri ->
+                            Glide.with(root)
+                                .load(uri)
+                                .placeholder(R.drawable.vector__3_)
+                                .into(ivProfile)
                         }
                     }
                 }
@@ -96,16 +86,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.logout.asLiveData().observe(viewLifecycleOwner) {
 //            authService.unauthenticate()
+//            NavHostFragment.findNavController(this).popBackStack(R.id.main_nav_graph, true)
+//            NavHostFragment.findNavController(this).navigate(R.id.credentialsFragment)
 
-            NavHostFragment.findNavController(this).popBackStack(R.id.main_nav_graph, true)
-            NavHostFragment.findNavController(this).navigate(R.id.credentialsFragment)
+            viewModel.logout()
+            Toast.makeText(
+                requireContext(),
+                context?.getString(R.string.logout_successful),
+                Toast.LENGTH_SHORT
+            ).show()
+            navController.popBackStack(R.id.main_nav_graph, true)
+            navController.navigate(R.id.credentialsFragment)
         }
 
-        viewModel.success.asLiveData().observe(viewLifecycleOwner) {
-            val msg = enumToString(it)
-            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
-        }
-
+//        viewModel.success.asLiveData().observe(viewLifecycleOwner) {
+//            val msg = enumToString(it)
+//            Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+//        }
     }
 
     private fun setFragmentResults() {

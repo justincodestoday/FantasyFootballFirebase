@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -107,11 +106,11 @@ class MainActivity : AppCompatActivity() {
                 navController.popBackStack(R.id.main_nav_graph, true)
                 navController.navigate(R.id.credentialsFragment)
             } else {
-                identify()
+//                identify()
                 headerBinding.tvFullName.text = it.name
                 headerBinding.tvEmail.text = "@" + it.email
-                it.image?.let { fileName ->
-                    ImageStorageService.getImageUri(fileName) { uri ->
+                it.image?.let { imageName ->
+                    ImageStorageService.getImageUri(imageName) { uri ->
                         Glide.with(this.applicationContext)
                             .load(uri)
                             .placeholder(R.drawable.vector__3_)

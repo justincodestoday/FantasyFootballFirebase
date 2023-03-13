@@ -73,5 +73,9 @@
         android:id="@+id/optionalFragment"
         android:name="com.fantasy.fantasyfootball.fragment.OptionalFragment"
         android:label="OptionalFragment"
-        tools:layout="@layout/fragment_optional" />
+        tools:layout="@layout/fragment_optional">
+        <argument
+            android:name="email"
+            app:argType="string" />
+    </fragment>
 </navigation>

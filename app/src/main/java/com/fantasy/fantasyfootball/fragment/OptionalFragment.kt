@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentOptionalBinding
 import com.fantasy.fantasyfootball.viewModel.OptionalViewModel
@@ -21,14 +22,11 @@ class OptionalFragment : BaseFragment<FragmentOptionalBinding>() {
         binding?.viewModel = viewModel
         binding?.lifecycleOwner = viewLifecycleOwner
 
+        val args: OptionalFragmentArgs by navArgs()
         binding?.btnSave?.setOnClickListener {
             lifecycleScope.launch {
-                viewModel.registerTeam()
+                viewModel.registerTeam(args.email)
             }
-        }
-
-        binding?.btnSkip?.setOnClickListener {
-            navController.popBackStack()
         }
     }
 
@@ -40,7 +38,10 @@ class OptionalFragment : BaseFragment<FragmentOptionalBinding>() {
                 binding?.run {
                     etTeamName.text?.clear()
                 }
-                navController.popBackStack()
+//                navController.popBackStack()
+                viewModel.login()
+                val action = OptionalFragmentDirections.toHomeFragment()
+                navController.navigate(action)
             }
         }
     }
