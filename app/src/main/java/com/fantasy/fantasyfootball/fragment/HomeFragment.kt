@@ -42,14 +42,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         viewModel.getCurrentUser()
 
-        viewModel.user.observe(viewLifecycleOwner) {
-            binding.run {
-                it.image?.let { it1 ->
-                    ImageStorageService.getImageUri(it1) { uri ->
-                        binding?.let { it2 ->
-                            Glide.with(view)
-                                .load(uri)
-                                .into(it2.ivProfile)
+        viewModel.user.observe(viewLifecycleOwner) { user ->
+            user?.let {
+                binding?.run {
+                    it.image?.let { it1 ->
+                        ImageStorageService.getImageUri(it1) { uri ->
+                            binding?.let { it2 ->
+                                Glide.with(view)
+                                    .load(uri)
+                                    .into(it2.ivProfile)
+                            }
                         }
                     }
                 }
