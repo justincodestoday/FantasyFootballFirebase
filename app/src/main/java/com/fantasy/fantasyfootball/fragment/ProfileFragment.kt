@@ -35,18 +35,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private lateinit var imageDialogBinding: EditImageDialogBinding
     private lateinit var accountDialogBinding: EditProfileDialogBinding
     private lateinit var passwordDialogBinding: EditPasswordDialogBinding
-    private lateinit var authService: AuthService
-    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
     private lateinit var filePickerLauncher: ActivityResultLauncher<String>
     var fileUri: Uri? = null
 
-    var name = ""
-    var username = ""
-    var password = ""
-    var teamId = 0
-    var teamName = ""
-    var teamPoints = 0
-    var teamBudget = 0f
+//    var name = ""
+//    var username = ""
+//    var email = ""
+//    var password = ""
+//    var teamId = 0
+//    var teamName = ""
+//    var teamPoints = 0
+//    var teamBudget = 0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,26 +78,30 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         accountDialogBinding = EditProfileDialogBinding.inflate(layoutInflater)
         val accountDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
 
+        passwordDialogBinding = EditPasswordDialogBinding.inflate(layoutInflater)
+        val passwordDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
+
         binding?.run {
-            val loggedIn = viewModel.isLoggedIn()
 
             btnUpdateInfo.setOnClickListener {
-                accountDialog.setContentView(accountDialogBinding.root)
-                accountDialogBinding.etName.setText(name)
-                accountDialogBinding.etUsername.setText(username)
-                accountDialogBinding.etTeamName.setText(teamName)
-                accountDialogBinding.btnSaveAccount.setOnClickListener {
-                    val _name = accountDialogBinding.etName.text.toString().trim()
-                    val _username = accountDialogBinding.etUsername.text.toString().trim()
-                    val _teamName = accountDialogBinding.etTeamName.text.toString().trim()
+                viewModel.user.observe(viewLifecycleOwner) { user ->
+                    accountDialog.setContentView(accountDialogBinding.root)
+                    accountDialogBinding.etName.setText(user.name)
+                    accountDialogBinding.etUsername.setText(user.email)
 
-                    if (validate(_name, _username, _teamName)) {
-                        val bundle = Bundle()
-                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
-                        viewModel.editUser(
-                            User(name = _name, username = _username, password = password)
-                        )
+                    // accountDialogBinding.etTeamName.setText(teamName)
+                    accountDialogBinding.btnSaveAccount.setOnClickListener {
+                        val name = accountDialogBinding.etName.text.toString().trim()
+                        val username = accountDialogBinding.etUsername.text.toString().trim()
+//                    val _teamName = accountDialogBinding.etTeamName.text.toString().trim()
+
+                        if (validate(name, username)) {
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+                            viewModel.editUser(
+                                user.copy(name = name, email = username)
+                            )
 //                        val team = Team(
 //                            name = _teamName,
 //                            points = teamPoints,
@@ -107,18 +110,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 //                            ownerId = user.userId
 //                        )
 //                        viewModel.editTeam(teamId, team)
-                        Toast.makeText(
-                            requireContext(),
-                            context?.getString(R.string.update_successful),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                        accountDialog.dismiss()
-                    } else {
-                        accountDialogBinding.tvError.text =
-                            context?.getString(R.string.empty_field)
-                        accountDialogBinding.tvError.visibility = View.VISIBLE
+                            Toast.makeText(
+                                requireContext(),
+                                context?.getString(R.string.update_successful),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            accountDialog.dismiss()
+                        } else {
+                            accountDialogBinding.tvError.text =
+                                context?.getString(R.string.empty_field)
+                            accountDialogBinding.tvError.visibility = View.VISIBLE
+                        }
                     }
+
                 }
                 accountDialog.setCancelable(true)
                 accountDialog.setOnCancelListener {
@@ -127,16 +132,60 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 }
                 accountDialog.setOnDismissListener {
 //                    viewModel.getUserWithTeam(user?.userId!!)
+                    viewModel.fetchCurrentUser()
                 }
                 accountDialog.show()
             }
 
-//            viewModel.user.observe(viewLifecycleOwner) {
-//                if (it != null) {
-//                    tvName.text = it.name
-//                    tvUsername.text = it.username
-//                }
-//            }
+
+            btnChangePassword.setOnClickListener {
+                viewModel.user.observe(viewLifecycleOwner) { user ->
+                    passwordDialog.setContentView(passwordDialogBinding.root)
+                    passwordDialogBinding.etPassword.setText(user.password)
+                    passwordDialogBinding.btnSavePassword.setOnClickListener {
+                        val _password = passwordDialogBinding.etPassword.text.toString().trim()
+
+                        if (validate(_password)) {
+                            val bundle = Bundle()
+                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                            setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+                            viewModel.editUser(
+                                user.copy(password = _password)
+                            )
+                            passwordDialog.dismiss()
+//                            val team = Team(
+//                                name = teamName,
+//                                points = teamPoints,
+//                                budget = teamBudget,
+//                                lastUpdated = date,
+//                                ownerId = user.userId
+//                            )
+//                            viewModel.editTeam(teamId, team)
+                            Toast.makeText(
+                                requireContext(),
+                                context?.getString(R.string.update_successful),
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        } else {
+                            passwordDialogBinding.tvError.text =
+                                context?.getString(R.string.empty_single_field)
+                            passwordDialogBinding.tvError.visibility = View.VISIBLE
+                        }
+                    }
+                    passwordDialog.setCancelable(true)
+                    passwordDialog.setOnCancelListener {
+                        passwordDialogBinding.tvError.text =
+                            context?.getString(R.string.empty_single_field)
+                        passwordDialogBinding.tvError.visibility = View.GONE
+                    }
+                    passwordDialog.setOnDismissListener {
+//                        viewModel.getUserWithTeam(user?.userId!!)
+                        viewModel.fetchCurrentUser()
+                    }
+                }
+                passwordDialog.show()
+            }
 
             imageDialogBinding.tvChooseImage.setOnClickListener {
                 filePickerLauncher.launch("image/*")
@@ -149,6 +198,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     Log.d("debugging", "Button clicked")
 
                     viewModel.updateProfile(fileUri)
+                    imageDialog.dismiss()
 
                 } else {
                     imageDialogBinding.tvError.text =
@@ -168,20 +218,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 }
                 imageDialog.setOnDismissListener {
 //                    viewModel.getUserWithTeam(user?.userId!!)
-
+                    viewModel.fetchCurrentUser()
                 }
                 imageDialog.show()
             }
 
             btnSignOut.setOnClickListener {
                 viewModel.logout()
-//                if (loggedIn != true){
-//                    Toast.makeText(
-//                        this,
-//                        applicationContext.getString(R.string.logout_successful),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
+                Toast.makeText(
+                    requireContext(),
+                    context?.getString(R.string.logout_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                navController.popBackStack(R.id.main_nav_graph, true)
+                navController.navigate(R.id.credentialsFragment)
             }
         }
     }
@@ -195,7 +246,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("from_profile", bundle)
-                navController.popBackStack()
+                viewModel.fetchCurrentUser()
+//                navController.popBackStack()
             }
         }
         viewModel.user.observe(viewLifecycleOwner) {
@@ -222,8 +274,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 //
 
 //
-//        passwordDialogBinding = EditPasswordDialogBinding.inflate(layoutInflater)
-//        val passwordDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
+
 
 //
 //        viewModel.userTeam.observe(viewLifecycleOwner) {
@@ -267,53 +318,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 //
 
 //
-//            btnChangePassword.setOnClickListener {
-//                passwordDialog.setContentView(passwordDialogBinding.root)
-//                passwordDialogBinding.etPassword.setText(password)
-//                passwordDialogBinding.btnSavePassword.setOnClickListener {
-//                    val _password = passwordDialogBinding.etPassword.text.toString().trim()
-//
-//                    if (validate(_password)) {
-//                        val bundle = Bundle()
-//                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
-//                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
-//                        viewModel.editUser(
-//                            user?.userId!!,
-//                            User(user.userId, name, username, _password, image)
-//                        )
-//                        val team = Team(
-//                            name = teamName,
-//                            points = teamPoints,
-//                            budget = teamBudget,
-//                            lastUpdated = date,
-//                            ownerId = user.userId
-//                        )
-//                        viewModel.editTeam(teamId, team)
-//                        Toast.makeText(
-//                            requireContext(),
-//                            context?.getString(R.string.update_successful),
-//                            Toast.LENGTH_SHORT
-//                        )
-//                            .show()
-//                        passwordDialog.dismiss()
-//                    } else {
-//                        passwordDialogBinding.tvError.text =
-//                            context?.getString(R.string.empty_single_field)
-//                        passwordDialogBinding.tvError.visibility = View.VISIBLE
-//                    }
-//                }
-//                passwordDialog.setCancelable(true)
-//                passwordDialog.setOnCancelListener {
-//                    passwordDialogBinding.tvError.text =
-//                        context?.getString(R.string.empty_single_field)
-//                    passwordDialogBinding.tvError.visibility = View.GONE
-//                }
-//                passwordDialog.setOnDismissListener {
-//                    viewModel.getUserWithTeam(user?.userId!!)
-//                }
-//                passwordDialog.show()
-//            }
-//        }
+
 //
 //        binding.btnSignOut.setOnClickListener {
 //            authService.unauthenticate()

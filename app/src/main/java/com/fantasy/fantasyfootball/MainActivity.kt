@@ -107,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 navController.popBackStack(R.id.main_nav_graph, true)
                 navController.navigate(R.id.credentialsFragment)
             } else {
+                identify()
                 headerBinding.tvFullName.text = it.name
                 headerBinding.tvEmail.text = "@" + it.email
                 it.image?.let { fileName ->
