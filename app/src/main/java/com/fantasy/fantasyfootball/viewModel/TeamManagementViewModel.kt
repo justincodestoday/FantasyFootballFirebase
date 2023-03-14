@@ -21,7 +21,7 @@ class TeamManagementViewModel @Inject constructor(
     private val playerRepo: FireStorePlayerRepository,
     private val teamRepo: FireStoreTeamRepository,
     private val userRepo: FireStoreUserRepository
-) : ViewModel() {
+) : BaseViewModel() {
     val userTeam: MutableLiveData<User> = MutableLiveData()
     val teamPlayer: MutableLiveData<Team> = MutableLiveData()
     val player: MutableLiveData<Player> = MutableLiveData()
@@ -361,6 +361,17 @@ class TeamManagementViewModel @Inject constructor(
     fun updateBudget(teamId: Int, budget: Float) {
         viewModelScope.launch {
             teamRepo.updateBudget(teamId, budget)
+        }
+    }
+
+    fun fetchCurrentUser() {
+        viewModelScope.launch {
+            try {
+                val res = safeApiCall { userRepo.getCurrentUser() }
+                user.value = res
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 

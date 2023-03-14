@@ -88,19 +88,20 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     accountDialog.setContentView(accountDialogBinding.root)
                     accountDialogBinding.etName.setText(user.name)
                     accountDialogBinding.etUsername.setText(user.email)
+                    accountDialogBinding.etTeamName.setText(user.team.name)
 
                     // accountDialogBinding.etTeamName.setText(teamName)
                     accountDialogBinding.btnSaveAccount.setOnClickListener {
                         val name = accountDialogBinding.etName.text.toString().trim()
-                        val username = accountDialogBinding.etUsername.text.toString().trim()
-//                    val _teamName = accountDialogBinding.etTeamName.text.toString().trim()
+                        val email = accountDialogBinding.etUsername.text.toString().trim()
+                        val teamName = accountDialogBinding.etTeamName.text.toString().trim()
 
-                        if (validate(name, username)) {
+                        if (validate(name, email, teamName)) {
                             val bundle = Bundle()
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
                             viewModel.editUser(
-                                user.copy(name = name, email = username)
+                                user.copy(name = name, email = email, team = user.team.copy(name = teamName))
                             )
 //                        val team = Team(
 //                            name = _teamName,
@@ -247,7 +248,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("from_profile", bundle)
                 viewModel.fetchCurrentUser()
-//                navController.popBackStack()
+                navController.popBackStack()
             }
         }
         viewModel.user.observe(viewLifecycleOwner) {

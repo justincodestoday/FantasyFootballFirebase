@@ -23,29 +23,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MatchFragment : Fragment() {
+class MatchFragment : BaseFragment<FragmentMatchBinding>() {
     private lateinit var adapter: MatchAdapter
-    private lateinit var binding: FragmentMatchBinding
-    private lateinit var authService: AuthService
-    private val viewModel: MatchViewModel by viewModels()
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMatchBinding.inflate(layoutInflater)
-        return binding.root
-    }
+    override fun getLayoutResource(): Int = R.layout.fragment_match
+    override val viewModel: MatchViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        authService = AuthService.getInstance(requireActivity().applicationContext)
-        val user = authService.getAuthenticatedUser()
-
-        if (user != null) {
-//            viewModel.getTeamWithPlayers(user.userId!!)
-        }
 
         var teamId = 0
         var teamPoints = 0
@@ -103,7 +87,7 @@ class MatchFragment : Fragment() {
                 }
             }
         }
-        binding.rvMatches.adapter = adapter
-        binding.rvMatches.layoutManager = layoutManager
+        binding?.rvMatches?.adapter = adapter
+        binding?.rvMatches?.layoutManager = layoutManager
     }
 }

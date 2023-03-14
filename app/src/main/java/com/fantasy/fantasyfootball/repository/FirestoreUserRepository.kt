@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.repository
 
+import android.util.Log
 import com.fantasy.fantasyfootball.data.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -33,7 +34,13 @@ class FireStoreUserRepository(
     }
 
     override suspend fun updateUser(id: String, user: User) {
-        val doc = ref.document(id)
+        val email = auth.currentUser?.email
+        var docId = ""
+        val query = ref.whereEqualTo("email", email).get().await()
+        query.documents.forEach {
+            docId = it.id
+        }
+        val doc = ref.document(docId)
         doc.set(user).await()
     }
 

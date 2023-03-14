@@ -13,10 +13,10 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val name: String = this.packageName ?: throw NullPointerException("No package name found")
-        storageService = StorageService.getInstance(
-            this.getSharedPreferences(name, Context.MODE_PRIVATE),
-            Gson()
-        )
+//        val name: String = this.packageName ?: throw NullPointerException("No package name found")
+//        storageService = StorageService.getInstance(
+//            this.getSharedPreferences(name, Context.MODE_PRIVATE),
+//            Gson()
+//        )
     }
 }
