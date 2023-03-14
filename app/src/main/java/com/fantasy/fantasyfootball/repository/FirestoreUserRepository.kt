@@ -1,8 +1,6 @@
 package com.fantasy.fantasyfootball.repository
 
-import android.util.Log
 import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
@@ -39,19 +37,12 @@ class FireStoreUserRepository(
         doc.set(user).await()
     }
 
-    override suspend fun getUsersWithTeams(): List<UserWithTeam> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getUserWithTeam(userId: Int): UserWithTeam? {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun register(user: User): FirebaseUser? {
         val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
 
         if (res.user != null) {
-            ref.document(user.email).set(user).await()
+//            ref.document(user.email).set(user).await()
+            ref.add(user).await()
         }
 
         return res.user
@@ -83,12 +74,22 @@ class FireStoreUserRepository(
 
     fun deAuthenticate() {
         auth.signOut()
-        Log.d("debugging", "logged out")
     }
 
+//    suspend fun getCurrentUser(): User? {
+//        // this one returns based on the uuid that is the email
+//        return auth.currentUser?.email?.let {
+//            ref.document(it).get().await().toObject(User::class.java)
+//        }
+//    }
+
     suspend fun getCurrentUser(): User? {
-        return auth.currentUser?.email?.let {
-            ref.document(it).get().await().toObject(User::class.java)
+        val email = auth.currentUser?.email
+        var docId = ""
+        val query = ref.whereEqualTo("email", email).get().await()
+        query.documents.forEach {
+            docId = it.id
         }
+        return ref.document(docId).get().await().toObject(User::class.java)
     }
 }

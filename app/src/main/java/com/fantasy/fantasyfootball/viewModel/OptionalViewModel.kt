@@ -3,9 +3,7 @@ package com.fantasy.fantasyfootball.viewModel
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.Account
 import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.repository.FireStoreAccountRepository
 import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OptionalViewModel @Inject constructor(
     private val userRepo: FireStoreUserRepository,
-    private val teamRepo: FireStoreTeamRepository,
-    private val accountRepo: FireStoreAccountRepository
+    private val teamRepo: FireStoreTeamRepository
 ) :
     BaseViewModel() {
     val navigate: MutableSharedFlow<Unit> = MutableSharedFlow()
@@ -35,29 +32,8 @@ class OptionalViewModel @Inject constructor(
                             }
                         }
                         if (it == "No duplicates") {
-                            registerAccount(email)
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                error.emit(e.message.toString())
-            }
-        }
-    }
-
-    private fun registerAccount(email: String) {
-        viewModelScope.launch {
-            try {
-                val account = Account(teamName = teamName.value)
-                safeApiCall {
-                    accountRepo.updateAccount(email, account) { status ->
-                        if (status) {
                             viewModelScope.launch {
                                 navigate.emit(Unit)
-                            }
-                        } else {
-                            viewModelScope.launch {
-                                error.emit(Enums.FormError.FAILURE.name)
                             }
                         }
                     }

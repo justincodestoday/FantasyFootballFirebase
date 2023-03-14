@@ -36,7 +36,7 @@ object MyAppDependency {
 
     @Provides
     @Singleton
-    fun getFireStorePlayerRepository(db: FirebaseFirestore): PlayerRepository {
+    fun getFireStorePlayerRepository(db: FirebaseFirestore): FireStorePlayerRepository {
         return FireStorePlayerRepository(db.collection("players"))
     }
 
@@ -48,7 +48,7 @@ object MyAppDependency {
 
     @Provides
     @Singleton
-    fun getFireStoreMatchRepository(db: FirebaseFirestore): MatchRepository {
+    fun getFireStoreMatchRepository(db: FirebaseFirestore): FireStoreMatchRepository {
         return FireStoreMatchRepository(db.collection("matches"))
     }
 
@@ -56,11 +56,5 @@ object MyAppDependency {
     @Singleton
     fun getAuthRepository(auth: FirebaseAuth, db: FirebaseFirestore): FireStoreUserRepository {
         return FireStoreUserRepository(auth, db.collection("users"))
-    }
-
-    @Provides
-    @Singleton
-    fun getFireStoreAccountRepository(db: FirebaseFirestore): FireStoreAccountRepository {
-        return FireStoreAccountRepository(db.collection("accounts"))
     }
 }

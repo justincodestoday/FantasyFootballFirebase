@@ -74,15 +74,6 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun getUserWithTeam(userId: Int) {
-        viewModelScope.launch {
-            val res = userRepo.getUserWithTeam(userId)
-            res?.let {
-                userTeam.value = it
-            }
-        }
-    }
-
     fun isLoggedIn() {
         viewModelScope.launch {
             try {

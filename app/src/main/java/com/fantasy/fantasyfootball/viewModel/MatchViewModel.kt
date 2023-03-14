@@ -6,15 +6,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
-import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
-import com.fantasy.fantasyfootball.repository.MatchRepositoryImpl
-import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
+import com.fantasy.fantasyfootball.data.model.Team
+import com.fantasy.fantasyfootball.repository.FireStoreMatchRepository
+import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MatchViewModel(private val matchRepo: MatchRepositoryImpl, private val teamRepo: TeamRepositoryImpl) :
+@HiltViewModel
+class MatchViewModel @Inject constructor(private val matchRepo: FireStoreMatchRepository, private val teamRepo: FireStoreTeamRepository) :
     ViewModel() {
     val matches: MutableLiveData<List<Matches>> = MutableLiveData()
-    val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
+    val teamPlayer: MutableLiveData<Team> = MutableLiveData()
 
     val game = listOf(
         Matches(
@@ -53,21 +56,14 @@ class MatchViewModel(private val matchRepo: MatchRepositoryImpl, private val tea
         }
     }
 
-    fun getTeamWithPlayers(userId: Int) {
-        viewModelScope.launch {
-            val team = teamRepo.getTeamByOwnerId(userId)
-            val teamId = team?.teamId
-            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
-            res?.let {
-                teamPlayer.value = it
-            }
-        }
-    }
-
-    class Provider(private val matchRepo: MatchRepositoryImpl, private val teamRepo: TeamRepositoryImpl) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MatchViewModel(matchRepo, teamRepo) as T
-        }
-    }
+//    fun getTeamWithPlayers(userId: Int) {
+//        viewModelScope.launch {
+//            val team = teamRepo.getTeamByOwnerId(userId)
+//            val teamId = team?.teamId
+//            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
+//            res?.let {
+//                teamPlayer.value = it
+//            }
+//        }
+//    }
 }

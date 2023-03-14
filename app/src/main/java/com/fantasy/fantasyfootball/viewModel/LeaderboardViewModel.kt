@@ -4,24 +4,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.data.model.UserWithTeam
-import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.data.model.User
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LeaderboardViewModel(val repo: UserRepositoryImpl) : ViewModel() {
-    val users: MutableLiveData<List<UserWithTeam>> = MutableLiveData()
+@HiltViewModel
+class LeaderboardViewModel @Inject constructor(val repo: FireStoreUserRepository) : ViewModel() {
+    val users: MutableLiveData<List<User>> = MutableLiveData()
 
-    fun getUsersWithTeams() {
-        viewModelScope.launch {
-            users.value = repo.getUsersWithTeams().sortedWith(compareBy() {
-                it.team.points
-            }).reversed()
-        }
-    }
-
-    class Provider(val repo: UserRepositoryImpl) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return LeaderboardViewModel(repo) as T
-        }
-    }
+//    fun getUsersWithTeams() {
+//        viewModelScope.launch {
+//            users.value = repo.getUsersWithTeams().sortedWith(compareBy() {
+//                it.team.points
+//            }).reversed()
+//        }
+//    }
 }

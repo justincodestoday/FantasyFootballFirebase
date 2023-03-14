@@ -14,16 +14,12 @@ import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 import com.fantasy.fantasyfootball.dialog.ConfirmDialogs
 import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TeamManagementFragment : Fragment() {
     private lateinit var binding: FragmentTeamManagementBinding
-    private val viewModel: TeamManagementViewModel by viewModels {
-        TeamManagementViewModel.Provider(
-            (requireContext().applicationContext as MainApplication).playerRepo,
-            (requireContext().applicationContext as MainApplication).teamRepo,
-            (requireContext().applicationContext as MainApplication).userRepo,
-        )
-    }
+    private val viewModel: TeamManagementViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +36,8 @@ class TeamManagementFragment : Fragment() {
         val user = authService.getAuthenticatedUser()
 
         if (user != null) {
-            viewModel.getUserWithTeam(user.userId!!)
-            viewModel.getTeamWithPlayers(user.userId)
+//            viewModel.getUserWithTeam(user.userId!!)
+//            viewModel.getTeamWithPlayers(user.userId)
         }
         viewModel.userTeam.observe(viewLifecycleOwner) {
             binding.apply {
@@ -55,8 +51,8 @@ class TeamManagementFragment : Fragment() {
         var teamBudget: Float = 0.0f
         val dialogInstance = ConfirmDialogs()
         viewModel.teamPlayer.observe(viewLifecycleOwner) {
-            teamId = it.team.teamId!!
-            teamBudget = it.team.budget
+//            teamId = it.teamId!!
+            teamBudget = it.budget
             val listOfPositions = mutableListOf<String>()
             it.players.forEach { player ->
                 listOfPositions.add(player.position)
@@ -597,8 +593,8 @@ class TeamManagementFragment : Fragment() {
         setFragmentResultListener(Enums.Result.ADD_PLAYER_RESULT.name) { _, result ->
             val refresh = result.getBoolean(Enums.Result.REFRESH.name)
             if (refresh && user != null) {
-                viewModel.getUserWithTeam(user.userId!!)
-                viewModel.getTeamWithPlayers(user.userId)
+//                viewModel.getUserWithTeam(user.userId!!)
+//                viewModel.getTeamWithPlayers(user.userId)
             }
         }
     }

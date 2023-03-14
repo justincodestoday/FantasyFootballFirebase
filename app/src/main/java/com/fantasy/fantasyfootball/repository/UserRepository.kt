@@ -1,7 +1,6 @@
 package com.fantasy.fantasyfootball.repository
 
 import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.data.model.UserWithTeam
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 
@@ -17,10 +16,6 @@ interface UserRepository {
     suspend fun editUser(id: String, user: User): Long
 
     suspend fun updateUser(id: String, user: User)
-
-    suspend fun getUsersWithTeams(): List<UserWithTeam>
-
-    suspend fun getUserWithTeam(userId: Int): UserWithTeam?
 
     suspend fun register(user: User): FirebaseUser?
 

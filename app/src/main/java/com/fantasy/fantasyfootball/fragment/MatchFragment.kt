@@ -15,20 +15,19 @@ import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.MatchAdapter
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
+import com.fantasy.fantasyfootball.data.model.Player
 import com.fantasy.fantasyfootball.databinding.FragmentMatchBinding
 import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.viewModel.MatchViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MatchFragment : Fragment() {
     private lateinit var adapter: MatchAdapter
     private lateinit var binding: FragmentMatchBinding
     private lateinit var authService: AuthService
-    private val viewModel: MatchViewModel by viewModels {
-        MatchViewModel.Provider(
-            (requireContext().applicationContext as MainApplication).matchRepo,
-            (requireContext().applicationContext as MainApplication).teamRepo
-        )
-    }
+    private val viewModel: MatchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,15 +44,15 @@ class MatchFragment : Fragment() {
         val user = authService.getAuthenticatedUser()
 
         if (user != null) {
-            viewModel.getTeamWithPlayers(user.userId!!)
+//            viewModel.getTeamWithPlayers(user.userId!!)
         }
 
         var teamId = 0
         var teamPoints = 0
         var list: MutableList<FantasyPlayer> = mutableListOf()
         viewModel.teamPlayer.observe(viewLifecycleOwner) {
-            teamId = it.team.teamId!!
-            teamPoints = it.team.points
+//            teamId = it.teamId!!
+            teamPoints = it.points
             it.players.forEach { player ->
                 list.add(player)
             }

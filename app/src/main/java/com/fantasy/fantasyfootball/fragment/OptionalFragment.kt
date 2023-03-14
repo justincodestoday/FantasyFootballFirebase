@@ -38,10 +38,10 @@ class OptionalFragment : BaseFragment<FragmentOptionalBinding>() {
                 binding?.run {
                     etTeamName.text?.clear()
                 }
-//                navController.popBackStack()
-                viewModel.login()
-                val action = OptionalFragmentDirections.toHomeFragment()
-                navController.navigate(action)
+                navController.popBackStack()
+//                viewModel.login()
+//                val action = OptionalFragmentDirections.toHomeFragment()
+//                navController.navigate(action)
             }
         }
     }
