@@ -69,6 +69,7 @@
     <string name="edit_error">Error Text</string>
     <string name="edit_full_name">Full Name</string>
     <string name="edit_username">Username</string>
+    <string name="edit_email">Email</string>
     <string name="edit_password">Password</string>
     <string name="edit_team_name">Team Name</string>
     <string name="my_profile">My Profile</string>

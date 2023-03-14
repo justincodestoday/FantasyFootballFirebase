@@ -5,7 +5,6 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -16,12 +15,11 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.User
+import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.databinding.EditImageDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditPasswordDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditProfileDialogBinding
 import com.fantasy.fantasyfootball.databinding.FragmentProfileBinding
-import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,23 +33,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private lateinit var imageDialogBinding: EditImageDialogBinding
     private lateinit var accountDialogBinding: EditProfileDialogBinding
     private lateinit var passwordDialogBinding: EditPasswordDialogBinding
-    private lateinit var filePickerLauncher: ActivityResultLauncher<String>
-    var fileUri: Uri? = null
-
-//    var name = ""
-//    var username = ""
-//    var email = ""
-//    var password = ""
-//    var teamId = 0
-//    var teamName = ""
-//    var teamPoints = 0
-//    var teamBudget = 0f
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
+    var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        filePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-            fileUri = it
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
+            imageUri = it
             it?.let { uri ->
                 binding?.profilePicture?.setImageURI(uri)
                 imageDialogBinding.ivImage.setImageURI(uri)
@@ -64,14 +53,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
-//        authService = AuthService.getInstance(requireActivity().applicationContext)
-//        val user = authService.getAuthenticatedUser()
-
-//        if (user != null) {
-//            viewModel.getUserWithTeam(user.userId!!)
-//        }
-
-
         imageDialogBinding = EditImageDialogBinding.inflate(layoutInflater)
         val imageDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
 
@@ -81,19 +62,31 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         passwordDialogBinding = EditPasswordDialogBinding.inflate(layoutInflater)
         val passwordDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
 
-        binding?.run {
+        viewModel.user.observe(viewLifecycleOwner) {
+            binding?.run {
+                tvName.text = it.name
+                tvUsername.text = it.email
+                it.image?.let { it1 ->
+                    ImageStorageService.getImageUri(it1) { uri ->
+                        Glide.with(view)
+                            .load(uri)
+                            .into(profilePicture)
+                    }
+                }
+            }
+        }
 
+        binding?.run {
             btnUpdateInfo.setOnClickListener {
                 viewModel.user.observe(viewLifecycleOwner) { user ->
                     accountDialog.setContentView(accountDialogBinding.root)
                     accountDialogBinding.etName.setText(user.name)
-                    accountDialogBinding.etUsername.setText(user.email)
+                    accountDialogBinding.etEmail.setText(user.email)
                     accountDialogBinding.etTeamName.setText(user.team.name)
 
-                    // accountDialogBinding.etTeamName.setText(teamName)
                     accountDialogBinding.btnSaveAccount.setOnClickListener {
                         val name = accountDialogBinding.etName.text.toString().trim()
-                        val email = accountDialogBinding.etUsername.text.toString().trim()
+                        val email = accountDialogBinding.etEmail.text.toString().trim()
                         val teamName = accountDialogBinding.etTeamName.text.toString().trim()
 
                         if (validate(name, email, teamName)) {
@@ -101,22 +94,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
                             viewModel.editUser(
-                                user.copy(name = name, email = email, team = user.team.copy(name = teamName))
+                                user.copy(name = name, email = email, team = Team(name = teamName))
                             )
-//                        val team = Team(
-//                            name = _teamName,
-//                            points = teamPoints,
-//                            budget = teamBudget,
-//                            lastUpdated = date,
-//                            ownerId = user.userId
-//                        )
-//                        viewModel.editTeam(teamId, team)
                             Toast.makeText(
                                 requireContext(),
                                 context?.getString(R.string.update_successful),
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
                             accountDialog.dismiss()
                         } else {
                             accountDialogBinding.tvError.text =
@@ -132,12 +116,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     accountDialogBinding.tvError.visibility = View.GONE
                 }
                 accountDialog.setOnDismissListener {
-//                    viewModel.getUserWithTeam(user?.userId!!)
                     viewModel.fetchCurrentUser()
                 }
                 accountDialog.show()
             }
-
 
             btnChangePassword.setOnClickListener {
                 viewModel.user.observe(viewLifecycleOwner) { user ->
@@ -153,21 +135,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                             viewModel.editUser(
                                 user.copy(password = _password)
                             )
-                            passwordDialog.dismiss()
-//                            val team = Team(
-//                                name = teamName,
-//                                points = teamPoints,
-//                                budget = teamBudget,
-//                                lastUpdated = date,
-//                                ownerId = user.userId
-//                            )
-//                            viewModel.editTeam(teamId, team)
                             Toast.makeText(
                                 requireContext(),
                                 context?.getString(R.string.update_successful),
                                 Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            ).show()
+                            passwordDialog.dismiss()
                         } else {
                             passwordDialogBinding.tvError.text =
                                 context?.getString(R.string.empty_single_field)
@@ -181,7 +154,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                         passwordDialogBinding.tvError.visibility = View.GONE
                     }
                     passwordDialog.setOnDismissListener {
-//                        viewModel.getUserWithTeam(user?.userId!!)
                         viewModel.fetchCurrentUser()
                     }
                 }
@@ -189,28 +161,37 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             }
 
             imageDialogBinding.tvChooseImage.setOnClickListener {
-                filePickerLauncher.launch("image/*")
+                imagePickerLauncher.launch("image/*")
             }
 
-            imageDialogBinding.btnSaveImage.setOnClickListener {
+            viewModel.user.observe(viewLifecycleOwner) { user->
+                imageDialogBinding.tvImageName.setText(user.image)
+                user.image?.let { imageName ->
+                    ImageStorageService.getImageUri(imageName) { uri ->
+                        Glide.with(view)
+                            .load(uri)
+                            .into(profilePicture)
+                    }
+                }
 
-                val imageName = imageDialogBinding.tvImageName.text.toString()
-                if (validate(imageName)) {
-                    Log.d("debugging", "Button clicked")
-
-                    viewModel.updateProfile(fileUri)
-                    imageDialog.dismiss()
-
-                } else {
-                    imageDialogBinding.tvError.text =
-                        context?.getString(R.string.empty_single_field)
-                    imageDialogBinding.tvError.visibility = View.VISIBLE
+                imageDialogBinding.btnSaveImage.setOnClickListener {
+                    val imageName = imageDialogBinding.tvImageName.text.toString()
+                    if (validate(imageName)) {
+                        val bundle = Bundle()
+                        bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                        setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+                        viewModel.updateProfile(imageUri)
+                        imageDialog.dismiss()
+                    } else {
+                        imageDialogBinding.tvError.text =
+                            context?.getString(R.string.empty_single_field)
+                        imageDialogBinding.tvError.visibility = View.VISIBLE
+                    }
                 }
             }
 
             profilePicture.setOnClickListener {
                 imageDialog.setContentView(imageDialogBinding.root)
-
                 imageDialog.setCancelable(true)
                 imageDialog.setOnCancelListener {
                     imageDialogBinding.tvError.text =
@@ -218,7 +199,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     imageDialogBinding.tvError.visibility = View.GONE
                 }
                 imageDialog.setOnDismissListener {
-//                    viewModel.getUserWithTeam(user?.userId!!)
                     viewModel.fetchCurrentUser()
                 }
                 imageDialog.show()
@@ -243,95 +223,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
         lifecycleScope.launch {
             viewModel.finish.collect {
-
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("from_profile", bundle)
                 viewModel.fetchCurrentUser()
-                navController.popBackStack()
-            }
-        }
-        viewModel.user.observe(viewLifecycleOwner) {
-            binding?.run {
-                tvName.text = it.name
-                tvUsername.text = it.email
-                it.image?.let { it1 ->
-                    ImageStorageService.getImageUri(it1) { uri ->
-                        Glide.with(view)
-                            .load(uri)
-                            .into(profilePicture)
-                    }
-                }
+//                navController.popBackStack()
             }
         }
     }
-
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-
-
-//
-
-//
-
-
-//
-//        viewModel.userTeam.observe(viewLifecycleOwner) {
-//            binding.apply {
-//                tvName.text = it.user.name
-//                tvUsername.text = it.user.username
-//                if (it.user.image != null) {
-//                    val bitmap =
-//                        BitmapFactory.decodeByteArray(it.user.image, 0, it.user.image.size)
-//                    profilePicture.setImageBitmap(bitmap)
-//                    imageDialogBinding.ivImage.setImageBitmap(bitmap)
-//                }
-//
-//                name = it.user.name.toString()
-//                username = it.user.username.toString()
-//                password = it.user.password.toString()
-//                image = it.user.image
-//                teamId = it.team.teamId!!
-//                teamName = it.team.name.toString()
-//                teamPoints = it.team.points
-//                teamBudget = it.team.budget
-//            }
-//        }
-//
-//        binding.apply {
-//            var bytes: ByteArray? = null
-//            filePickerLauncher =
-//                registerForActivityResult(ActivityResultContracts.GetContent()) {
-//                    it?.let { uri ->
-//
-//                        imageDialogBinding.tvImageName.movementMethod =
-//                            ScrollingMovementMethod()
-//                        val inputStream = requireContext().contentResolver.openInputStream(uri)
-//                        bytes = inputStream?.readBytes()!!
-//                        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes!!.size)
-//                        imageDialogBinding.ivImage.setImageBitmap(bitmap)
-//                        inputStream.close()
-//                    }
-//                }
-
-//
-
-//
-
-//
-//        binding.btnSignOut.setOnClickListener {
-//            authService.unauthenticate()
-//            NavHostFragment.findNavController(this).popBackStack(R.id.main_nav_graph, true)
-//            NavHostFragment.findNavController(this).navigate(R.id.credentialsFragment)
-//            Toast.makeText(
-//                requireContext(),
-//                context?.getString(R.string.logout_successful),
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-//    }
 
     private fun validate(vararg list: String): Boolean {
         for (field in list) {
@@ -342,8 +241,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         return true
     }
 
-    private fun ContentResolver.getFileName(fileUri: Uri): String {
-        val cursor = this.query(fileUri, null, null, null, null)
+    private fun ContentResolver.getFileName(imageUri: Uri): String {
+        val cursor = this.query(imageUri, null, null, null, null)
 
         cursor?.let {
             val name = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)

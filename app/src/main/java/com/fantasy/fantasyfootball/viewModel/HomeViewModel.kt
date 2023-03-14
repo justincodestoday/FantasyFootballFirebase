@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
@@ -17,6 +18,10 @@ class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
     val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
     val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    init {
+        getCurrentUser()
+    }
 
     fun refreshPage(refresh: Boolean) {
         refreshPage.value = refresh
@@ -62,14 +67,16 @@ class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
         }
     }
 
-//    fun getUserWithTeam(userId: Int) {
-//        viewModelScope.launch {
-//            val res = userRepo.getUserWithTeam(userId)
-//            res?.let {
-//                userTeam.value = it
-//            }
-//        }
-//    }
+    fun navigateToLogin() {
+        viewModelScope.launch {
+            try {
+                logout()
+                logout.emit(Unit)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
+        }
+    }
 
     fun getCurrentUser() {
         viewModelScope.launch {
@@ -92,10 +99,4 @@ class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
             }
         }
     }
-
-//    fun logout() {
-//        viewModelScope.launch {
-//            logout.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
-//        }
-//    }
 }

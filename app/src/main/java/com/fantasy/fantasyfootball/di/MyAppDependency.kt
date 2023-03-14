@@ -15,13 +15,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object MyAppDependency {
-    //    @Provides
-//    @Singleton
-//    fun getUserRepository(userDao: UserDao): UserRepositoryImpl {
-//        return UserRepositoryImpl(userDao)
-//    }
-
-    //For Firebase
     @Provides
     @Singleton
     fun getFireStore(): FirebaseFirestore {
