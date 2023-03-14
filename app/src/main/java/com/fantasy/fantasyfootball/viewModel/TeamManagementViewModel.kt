@@ -2,7 +2,6 @@ package com.fantasy.fantasyfootball.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
@@ -11,7 +10,6 @@ import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.repository.FireStorePlayerRepository
 import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

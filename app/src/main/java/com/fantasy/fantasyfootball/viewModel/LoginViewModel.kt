@@ -1,12 +1,10 @@
 package com.fantasy.fantasyfootball.viewModel
 
 import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,22 +12,6 @@ class LoginViewModel @Inject constructor(private val repo: FireStoreUserReposito
     BaseViewModel() {
     val login: MutableSharedFlow<Unit> = MutableSharedFlow()
     val formErrors = ObservableArrayList<Enums.FormError>()
-
-//    suspend fun login() {
-//        if (email.value?.trim { it <= ' ' }
-//                .isNullOrEmpty() || password.value?.trim { it <= ' ' }.isNullOrEmpty()
-//        ) {
-//            error.emit(Enums.FormError.EMPTY_FIELD.name)
-//        } else {
-//            val existingUser = repo.login(username.value!!, password.value!!)
-//            if (existingUser) {
-//                user.emit(User(username = username.value, password = password.value))
-//                success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
-//            } else {
-//                error.emit(Enums.FormError.WRONG_CREDENTIALS.name)
-//            }
-//        }
-//    }
 
     suspend fun login() {
         if (isFormValid()) {

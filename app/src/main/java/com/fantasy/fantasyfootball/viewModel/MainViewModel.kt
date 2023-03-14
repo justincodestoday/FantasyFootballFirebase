@@ -13,16 +13,6 @@ class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
     BaseViewModel() {
     val loggedIn: MutableLiveData<Boolean?> = MutableLiveData()
 
-//    fun getUserById(userId: Int) {
-//        viewModelScope.launch {
-//            userRepo.getUserById(userId).collect {
-//                if (it != null) {
-//                    user.value = it
-//                }
-//            }
-//        }
-//    }
-
     fun getCurrentUser() {
         viewModelScope.launch {
             try {
@@ -57,10 +47,4 @@ class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
             }
         }
     }
-
-//    class Provider(private val userRepo: UserRepositoryImpl) : ViewModelProvider.Factory {
-//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//            return MainViewModel(userRepo) as T
-//        }
-//    }
 }
