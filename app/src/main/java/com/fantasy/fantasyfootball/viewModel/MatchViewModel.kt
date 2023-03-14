@@ -15,9 +15,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MatchViewModel @Inject constructor(private val matchRepo: FireStoreMatchRepository, private val teamRepo: FireStoreTeamRepository) :
-    ViewModel() {
+    BaseViewModel() {
     val matches: MutableLiveData<List<Matches>> = MutableLiveData()
     val teamPlayer: MutableLiveData<Team> = MutableLiveData()
+
+    init {
+        getMatches()
+    }
 
     val game = listOf(
         Matches(

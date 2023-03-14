@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -22,6 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 //    private lateinit var authService: AuthService
 
+    @SuppressLint("SetTextI18n")
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
@@ -46,6 +48,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             binding?.apply {
                 if (user != null) {
                     tvProfile.text = user.email
+                    points.text = user.team.points.toString() + " Points"
                     user.image?.let { imageName ->
                         ImageStorageService.getImageUri(imageName) { uri ->
                             Glide.with(root)

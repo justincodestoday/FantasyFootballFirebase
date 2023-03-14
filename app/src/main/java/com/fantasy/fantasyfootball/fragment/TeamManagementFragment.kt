@@ -17,33 +17,20 @@ import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TeamManagementFragment : Fragment() {
-    private lateinit var binding: FragmentTeamManagementBinding
-    private val viewModel: TeamManagementViewModel by viewModels()
+class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
+    override fun getLayoutResource(): Int = R.layout.fragment_team_management
+    override val viewModel: TeamManagementViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentTeamManagementBinding.inflate(layoutInflater)
-        return binding.root
-    }
+    override fun onBindView(view: View, savedInstanceState: Bundle?) {
+        super.onBindView(view,savedInstanceState)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val user = viewModel.fetchCurrentUser()
 
-        val authService = AuthService.getInstance(requireContext())
-        val user = authService.getAuthenticatedUser()
-
-        if (user != null) {
-//            viewModel.getUserWithTeam(user.userId!!)
-//            viewModel.getTeamWithPlayers(user.userId)
-        }
-        viewModel.userTeam.observe(viewLifecycleOwner) {
+        viewModel.user.observe(viewLifecycleOwner) {
             binding.apply {
-                binding.tvTeamName.text = it.team.name
-                binding.tvPoints.text = it.team.points.toString()
-                binding.tvBudget.text = "£" + it.team.budget.toString() + "m"
+                binding?.tvTeamName?.text = it.team.name
+                binding?.tvPoints?.text = it.team.points.toString()
+                binding?.tvBudget?.text = "£" + it.team.budget + "m"
             }
         }
 
@@ -61,7 +48,7 @@ class TeamManagementFragment : Fragment() {
                 setPlayerName(player.position, player.lastName)
             }
 
-            binding.gk.setOnClickListener { _ ->
+            binding?.gk?.setOnClickListener { _ ->
                 val area = Enums.Area.Goalkeeper
                 val position = Enums.Position.GK
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -109,7 +96,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.lb.setOnClickListener { _ ->
+            binding?.lb?.setOnClickListener { _ ->
                 val area = Enums.Area.Defender
                 val position = Enums.Position.LB
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -157,7 +144,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.lcb.setOnClickListener { _ ->
+            binding?.lcb?.setOnClickListener { _ ->
                 val area = Enums.Area.Defender
                 val position = Enums.Position.LCB
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -205,7 +192,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.rcb.setOnClickListener { _ ->
+            binding?.rcb?.setOnClickListener { _ ->
                 val area = Enums.Area.Defender
                 val position = Enums.Position.RCB
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -253,7 +240,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.rb.setOnClickListener { _ ->
+            binding?.rb?.setOnClickListener { _ ->
                 val area = Enums.Area.Defender
                 val position = Enums.Position.RB
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -301,7 +288,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.lm.setOnClickListener { _ ->
+            binding?.lm?.setOnClickListener { _ ->
                 val area = Enums.Area.Midfielder
                 val position = Enums.Position.LM
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -349,7 +336,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.lcm.setOnClickListener { _ ->
+            binding?.lcm?.setOnClickListener { _ ->
                 val area = Enums.Area.Midfielder
                 val position = Enums.Position.LCM
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -397,7 +384,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.rcm.setOnClickListener { _ ->
+            binding?.rcm?.setOnClickListener { _ ->
                 val area = Enums.Area.Midfielder
                 val position = Enums.Position.RCM
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -445,7 +432,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.rm.setOnClickListener { _ ->
+            binding?.rm?.setOnClickListener { _ ->
                 val area = Enums.Area.Midfielder
                 val position = Enums.Position.RM
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -493,7 +480,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.ls.setOnClickListener { _ ->
+            binding?.ls?.setOnClickListener { _ ->
                 val area = Enums.Area.Striker
                 val position = Enums.Position.LS
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -541,7 +528,7 @@ class TeamManagementFragment : Fragment() {
                 }
             }
 
-            binding.rs.setOnClickListener { _ ->
+            binding?.rs?.setOnClickListener { _ ->
                 val area = Enums.Area.Striker
                 val position = Enums.Position.RS
                 if (listOfPositions.any { pos -> pos == position.name }) {
@@ -601,17 +588,17 @@ class TeamManagementFragment : Fragment() {
 
     private fun setImageForPosition(position: String, color: Int) {
         when (position) {
-            Enums.Position.GK.name -> binding.gk.setImageResource(color)
-            Enums.Position.LB.name -> binding.lb.setImageResource(color)
-            Enums.Position.LCB.name -> binding.lcb.setImageResource(color)
-            Enums.Position.RCB.name -> binding.rcb.setImageResource(color)
-            Enums.Position.RB.name -> binding.rb.setImageResource(color)
-            Enums.Position.LM.name -> binding.lm.setImageResource(color)
-            Enums.Position.LCM.name -> binding.lcm.setImageResource(color)
-            Enums.Position.RCM.name -> binding.rcm.setImageResource(color)
-            Enums.Position.RM.name -> binding.rm.setImageResource(color)
-            Enums.Position.LS.name -> binding.ls.setImageResource(color)
-            Enums.Position.RS.name -> binding.rs.setImageResource(color)
+            Enums.Position.GK.name -> binding?.gk?.setImageResource(color)
+            Enums.Position.LB.name -> binding?.lb?.setImageResource(color)
+            Enums.Position.LCB.name -> binding?.lcb?.setImageResource(color)
+            Enums.Position.RCB.name -> binding?.rcb?.setImageResource(color)
+            Enums.Position.RB.name -> binding?.rb?.setImageResource(color)
+            Enums.Position.LM.name -> binding?.lm?.setImageResource(color)
+            Enums.Position.LCM.name -> binding?.lcm?.setImageResource(color)
+            Enums.Position.RCM.name -> binding?.rcm?.setImageResource(color)
+            Enums.Position.RM.name -> binding?.rm?.setImageResource(color)
+            Enums.Position.LS.name -> binding?.ls?.setImageResource(color)
+            Enums.Position.RS.name -> binding?.rs?.setImageResource(color)
         }
     }
 
@@ -631,17 +618,17 @@ class TeamManagementFragment : Fragment() {
 
     private fun setPlayerName(position: String, lastName: String) {
         when (position) {
-            Enums.Position.GK.name -> binding.goalKeeper.text = lastName
-            Enums.Position.LB.name -> binding.leftBack.text = lastName
-            Enums.Position.LCB.name -> binding.leftCenterBack.text = lastName
-            Enums.Position.RCB.name -> binding.rightCenterBack.text = lastName
-            Enums.Position.RB.name -> binding.rightBack.text = lastName
-            Enums.Position.LM.name -> binding.leftMidfielder.text = lastName
-            Enums.Position.LCM.name -> binding.leftCenterMid.text = lastName
-            Enums.Position.RCM.name -> binding.rightCenterMid.text = lastName
-            Enums.Position.RM.name -> binding.rightMidfielder.text = lastName
-            Enums.Position.LS.name -> binding.leftStriker.text = lastName
-            Enums.Position.RS.name -> binding.rightStriker.text = lastName
+            Enums.Position.GK.name -> binding?.goalKeeper?.text = lastName
+            Enums.Position.LB.name -> binding?.leftBack?.text = lastName
+            Enums.Position.LCB.name -> binding?.leftCenterBack?.text = lastName
+            Enums.Position.RCB.name -> binding?.rightCenterBack?.text = lastName
+            Enums.Position.RB.name -> binding?.rightBack?.text = lastName
+            Enums.Position.LM.name -> binding?.leftMidfielder?.text = lastName
+            Enums.Position.LCM.name -> binding?.leftCenterMid?.text = lastName
+            Enums.Position.RCM.name -> binding?.rightCenterMid?.text = lastName
+            Enums.Position.RM.name -> binding?.rightMidfielder?.text = lastName
+            Enums.Position.LS.name -> binding?.leftStriker?.text = lastName
+            Enums.Position.RS.name -> binding?.rightStriker?.text = lastName
         }
     }
 }
