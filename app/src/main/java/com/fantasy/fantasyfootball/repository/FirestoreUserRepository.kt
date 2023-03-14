@@ -12,25 +12,6 @@ class FireStoreUserRepository(
     private val ref: CollectionReference
 ) :
     UserRepository {
-    override suspend fun getUserById(userId: Int): Flow<User?> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getUserByUsername(username: String): User? {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getUserCredentials(username: String, password: String): User? {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun createUser(user: User): Long {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun editUser(id: String, user: User): Long {
-        TODO("Not yet implemented")
-    }
 
     override suspend fun updateUser(id: String, user: User) {
         val doc = ref.document(id)
