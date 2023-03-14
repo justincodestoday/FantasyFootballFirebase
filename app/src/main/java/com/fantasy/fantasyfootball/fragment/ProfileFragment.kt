@@ -66,8 +66,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             binding?.run {
                 tvName.text = it.name
                 tvUsername.text = it.email
-                it.image?.let { it1 ->
-                    ImageStorageService.getImageUri(it1) { uri ->
+                it.image?.let { imageName ->
+                    ImageStorageService.getImageUri(imageName) { uri ->
                         Glide.with(view)
                             .load(uri)
                             .into(profilePicture)
@@ -170,7 +170,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     ImageStorageService.getImageUri(imageName) { uri ->
                         Glide.with(view)
                             .load(uri)
-                            .into(profilePicture)
+                            .into(imageDialogBinding.ivImage)
                     }
                 }
 
