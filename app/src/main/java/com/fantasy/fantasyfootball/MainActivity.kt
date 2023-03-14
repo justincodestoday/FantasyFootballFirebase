@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -108,38 +110,46 @@ class MainActivity : AppCompatActivity() {
 //        authenticate(user, graph)
 
         viewModel.user.observe(this) {
-            authenticate(it, graph)
+//            authenticate(it, graph)
             if (it == null) {
                 navController.popBackStack(R.id.main_nav_graph, true)
                 navController.navigate(R.id.credentialsFragment)
             } else {
+                identify()
                 headerBinding.tvFullName.text = it.name
                 headerBinding.tvEmail.text = "@" + it.email
-                it.image?.let { imageName ->
-                    ImageStorageService.getImageUri(imageName) { uri ->
-                        Glide.with(this.applicationContext)
-                            .load(uri)
-                            .placeholder(R.drawable.vector__3_)
-                            .into(headerBinding.ivImage)
+
+                if (it.image != null) {
+                    it.image?.let { imageName ->
+                        ImageStorageService.getImageUri(imageName) { uri ->
+                            Glide.with(this.applicationContext)
+                                .load(uri)
+                                .placeholder(R.drawable.vector__3_)
+                                .into(headerBinding.ivImage)
+                        }
                     }
+                } else {
+                    Glide.with(this.applicationContext)
+                        .load(R.drawable.vector__3_)
+                        .into(headerBinding.ivImage)
                 }
             }
         }
 
-        binding.btnLogoutDrawer.setOnClickListener {
-            viewModel.logout()
-            Toast.makeText(
-                this,
-                applicationContext.getString(R.string.logout_successful),
-                Toast.LENGTH_SHORT
-            ).show()
+            binding.btnLogoutDrawer.setOnClickListener {
+                viewModel.logout()
+                Toast.makeText(
+                    this,
+                    applicationContext.getString(R.string.logout_successful),
+                    Toast.LENGTH_SHORT
+                ).show()
 
-            navController.popBackStack(R.id.main_nav_graph, true)
-            navController.navigate(R.id.credentialsFragment)
-            drawerLayout.close()
-        }
+                navController.popBackStack(R.id.main_nav_graph, true)
+                navController.navigate(R.id.credentialsFragment)
+                drawerLayout.close()
+            }
 
-        navController.setGraph(graph, savedInstanceState)
+//            navController.setGraph(graph, savedInstanceState)
 
 //        binding.btnLogoutDrawer.setOnClickListener {
 //            authService.unauthenticate()
@@ -155,46 +165,46 @@ class MainActivity : AppCompatActivity() {
 //                drawerLayout.close()
 //            }
 //        }
-    }
-
-    private fun authenticate(user: User?, graph: NavGraph) {
-        if (user != null) {
-            graph.setStartDestination(R.id.homeFragment)
-        } else {
-            graph.setStartDestination(R.id.credentialsFragment)
         }
-    }
+
+        private fun authenticate(user: User?, graph: NavGraph) {
+            if (user != null) {
+                graph.setStartDestination(R.id.homeFragment)
+            } else {
+                graph.setStartDestination(R.id.credentialsFragment)
+            }
+        }
 
 //    fun identify(user: User?) {
 //        viewModel.getUserById(user?.userId!!)
 //    }
 
-    fun identify() {
-        viewModel.getCurrentUser()
-    }
+        fun identify() {
+            viewModel.getCurrentUser()
+        }
 
-    fun navigate(destination: String) {
-        when (destination) {
-            Enums.Fragment.Team.name -> {
-                val item = binding.bottomNav.menu.findItem(R.id.teamManagementFragment)
-                NavigationUI.onNavDestinationSelected(item, navController)
-            }
-            Enums.Fragment.Leaderboard.name -> {
-                val item = binding.bottomNav.menu.findItem(R.id.leaderboardFragment)
-                NavigationUI.onNavDestinationSelected(item, navController)
-            }
-            Enums.Fragment.Profile.name -> {
-                val item = binding.navigationView.menu.findItem(R.id.profileFragment)
-                NavigationUI.onNavDestinationSelected(item, navController)
-            }
-            Enums.Fragment.Match.name -> {
-                val item = binding.navigationView.menu.findItem(R.id.matchFragment)
-                NavigationUI.onNavDestinationSelected(item, navController)
+        fun navigate(destination: String) {
+            when (destination) {
+                Enums.Fragment.Team.name -> {
+                    val item = binding.bottomNav.menu.findItem(R.id.teamManagementFragment)
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                }
+                Enums.Fragment.Leaderboard.name -> {
+                    val item = binding.bottomNav.menu.findItem(R.id.leaderboardFragment)
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                }
+                Enums.Fragment.Profile.name -> {
+                    val item = binding.navigationView.menu.findItem(R.id.profileFragment)
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                }
+                Enums.Fragment.Match.name -> {
+                    val item = binding.navigationView.menu.findItem(R.id.matchFragment)
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                }
             }
         }
-    }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        override fun onSupportNavigateUp(): Boolean {
+            return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        }
     }
-}
