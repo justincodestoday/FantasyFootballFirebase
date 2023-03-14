@@ -5,16 +5,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.data.model.*
-import com.fantasy.fantasyfootball.repository.PlayerRepositoryImpl
-import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
+import com.fantasy.fantasyfootball.repository.FireStorePlayerRepository
+import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PickPlayerViewModel(
-    private val playerRepo: PlayerRepositoryImpl,
-    private val teamRepo: TeamRepositoryImpl
+@HiltViewModel
+class PickPlayerViewModel @Inject constructor(
+    private val playerRepo: FireStorePlayerRepository,
+    private val teamRepo: FireStoreTeamRepository
 ) : ViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
-    val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
+    val teamPlayer: MutableLiveData<Team> = MutableLiveData()
 
     fun addPlayer(fantasyPlayer: FantasyPlayer) {
         viewModelScope.launch {
@@ -28,16 +31,16 @@ class PickPlayerViewModel(
         }
     }
 
-    fun getTeamWithPlayers(userId: Int) {
-        viewModelScope.launch {
-            val team = teamRepo.getTeamByOwnerId(userId)
-            val teamId = team?.teamId
-            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
-            res?.let {
-                teamPlayer.value = it
-            }
-        }
-    }
+//    fun getTeamWithPlayers(userId: Int) {
+//        viewModelScope.launch {
+//            val team = teamRepo.getTeamByOwnerId(userId)
+//            val teamId = team?.teamId
+//            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
+//            res?.let {
+//                teamPlayer.value = it
+//            }
+//        }
+//    }
 
     fun getPlayersByArea(area: String, existingPlayer: List<String>) {
         viewModelScope.launch {
@@ -60,15 +63,6 @@ class PickPlayerViewModel(
             val res = playerRepo.sortPlayer(order, by, area)
             val filtered = res.filterNot { player -> existingPlayer.any { it == player.lastName } }
             players.value = filtered
-        }
-    }
-
-    class Provider(
-        private val playerRepo: PlayerRepositoryImpl,
-        private val teamRepo: TeamRepositoryImpl
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return PickPlayerViewModel(playerRepo, teamRepo) as T
         }
     }
 }

@@ -2,7 +2,6 @@ package com.fantasy.fantasyfootball.repository
 
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
 
 interface TeamRepository {
     suspend fun getTeamById(teamId: Int): Team?
@@ -20,10 +19,6 @@ interface TeamRepository {
     suspend fun updateBudget(teamId: Int, budget: Float)
 
     suspend fun updatePoints(teamId: Int, points: Int)
-
-    suspend fun getTeamsWithPlayers(): List<TeamsWithPlayers>
-
-    suspend fun getTeamWithPlayersByTeamId(teamId: Int): TeamsWithPlayers
 
     suspend fun registerTeam(team: Team, teamName: String, callback: (message: String) -> Unit)
 }

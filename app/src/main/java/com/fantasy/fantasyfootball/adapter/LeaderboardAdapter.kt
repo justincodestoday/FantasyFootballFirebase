@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fantasy.fantasyfootball.data.model.UserWithTeam
+import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.LeaderboardBinding
 
-class LeaderboardAdapter(var users: List<UserWithTeam>) :
+class LeaderboardAdapter(var users: List<User>) :
     RecyclerView.Adapter<LeaderboardAdapter.LeaderboardViewHolder>() {
     class LeaderboardViewHolder(val binding: LeaderboardBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -20,7 +20,7 @@ class LeaderboardAdapter(var users: List<UserWithTeam>) :
     override fun onBindViewHolder(holder: LeaderboardViewHolder, position: Int) {
         val user = users[position]
         holder.binding.run {
-            tvUsername.text = user.user.username
+//            tvUsername.text = user.user.username
             tvTeamName.text = "@${user.team.name}"
             tvPoints.text = user.team.points.toString() + " pts"
             tvRanking.text = (position + 1).toString()
@@ -36,7 +36,7 @@ class LeaderboardAdapter(var users: List<UserWithTeam>) :
         return users.size
     }
 
-    fun setLeaderboard(users: List<UserWithTeam>) {
+    fun setLeaderboard(users: List<User>) {
         this.users = users
         notifyDataSetChanged()
     }

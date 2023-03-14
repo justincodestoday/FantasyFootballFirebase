@@ -11,13 +11,13 @@ import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.adapter.LeaderboardAdapter
 import com.fantasy.fantasyfootball.databinding.FragmentLeaderboardBinding
 import com.fantasy.fantasyfootball.viewModel.LeaderboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LeaderboardFragment : Fragment() {
     private lateinit var adapter: LeaderboardAdapter
     private lateinit var binding: FragmentLeaderboardBinding
-    private val viewModel: LeaderboardViewModel by viewModels {
-        LeaderboardViewModel.Provider((requireContext().applicationContext as MainApplication).userRepo)
-    }
+    private val viewModel: LeaderboardViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,10 +32,10 @@ class LeaderboardFragment : Fragment() {
 
         setupAdapter()
 
-        viewModel.getUsersWithTeams()
-        viewModel.users.observe(viewLifecycleOwner) {users ->
-            adapter.setLeaderboard(users)
-        }
+//        viewModel.getUsersWithTeams()
+//        viewModel.users.observe(viewLifecycleOwner) {users ->
+//            adapter.setLeaderboard(users)
+//        }
     }
 
     private fun setupAdapter() {

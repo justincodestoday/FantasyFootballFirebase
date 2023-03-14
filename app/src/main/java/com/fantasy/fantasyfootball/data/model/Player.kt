@@ -4,9 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.fantasy.fantasyfootball.constant.Enums
 
-@Entity
 data class Player(
-    @PrimaryKey(autoGenerate = true)
     val playerId: Int? = null,
     var firstName: String,
     var lastName: String,

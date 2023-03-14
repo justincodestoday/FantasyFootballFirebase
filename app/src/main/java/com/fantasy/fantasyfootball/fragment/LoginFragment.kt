@@ -79,7 +79,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
 
                 (activity as MainActivity).identify()
-                val action = CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
+                val action =
+                    CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
                 navController.navigate(action)
             }
         }

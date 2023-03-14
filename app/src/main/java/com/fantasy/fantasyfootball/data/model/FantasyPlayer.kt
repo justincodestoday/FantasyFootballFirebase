@@ -5,17 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.fantasy.fantasyfootball.constant.Enums
 
-@Entity(
-    foreignKeys = [ForeignKey(
-        entity = Team::class,
-        parentColumns = ["teamId"],
-        childColumns = ["teamOwnerId"],
-        onDelete = ForeignKey.CASCADE,
-        onUpdate = ForeignKey.CASCADE
-    )]
-)
 data class FantasyPlayer(
-    @PrimaryKey(autoGenerate = true)
     val fanPlayerId: Int? = null,
     val teamOwnerId: Int,
     var firstName: String,

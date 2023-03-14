@@ -14,6 +14,9 @@
         app:destination="@id/homeFragment"
         app:popUpTo="@id/credentialsFragment"
         app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/toProfileFragment"
+        app:destination="@id/profileFragment" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.fantasy.fantasyfootball.fragment.HomeFragment"

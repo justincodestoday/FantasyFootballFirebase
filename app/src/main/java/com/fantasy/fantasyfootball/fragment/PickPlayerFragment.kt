@@ -22,18 +22,15 @@ import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
 import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PickPlayerFragment : Fragment() {
     private lateinit var adapter: PlayerAdapter
     private lateinit var binding: FragmentPickPlayerBinding
     private lateinit var authService: AuthService
     var currentFilter = ""
-    private val viewModel: PickPlayerViewModel by viewModels {
-        PickPlayerViewModel.Provider(
-            (requireContext().applicationContext as MainApplication).playerRepo,
-            (requireContext().applicationContext as MainApplication).teamRepo
-        )
-    }
+    private val viewModel: PickPlayerViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,14 +51,14 @@ class PickPlayerFragment : Fragment() {
         val selectedPosition = args.position
 
         if (user != null) {
-            viewModel.getTeamWithPlayers(user.userId!!)
+//            viewModel.getTeamWithPlayers(user.userId!!)
         }
 
         var teamId = 0
         var teamBudget = 0.0f
         viewModel.teamPlayer.observe(viewLifecycleOwner) {
-            teamId = it.team.teamId!!
-            teamBudget = it.team.budget
+//            teamId = it.teamId!!
+            teamBudget = it.budget
             val listOfLastNames = mutableListOf<String>()
             it.players.forEach { player ->
                 listOfLastNames.add(player.lastName)

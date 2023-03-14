@@ -5,10 +5,7 @@ import android.util.Log
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
 import com.google.firebase.firestore.CollectionReference
-import kotlinx.coroutines.tasks.await
-import javax.security.auth.callback.Callback
 
 class FireStoreTeamRepository(private val ref: CollectionReference) : TeamRepository {
     override suspend fun getTeamById(teamId: Int): Team? {
@@ -40,14 +37,6 @@ class FireStoreTeamRepository(private val ref: CollectionReference) : TeamReposi
     }
 
     override suspend fun updatePoints(teamId: Int, points: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getTeamsWithPlayers(): List<TeamsWithPlayers> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getTeamWithPlayersByTeamId(teamId: Int): TeamsWithPlayers {
         TODO("Not yet implemented")
     }
 

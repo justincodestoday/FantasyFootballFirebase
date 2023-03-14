@@ -10,6 +10,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
@@ -23,6 +26,9 @@ import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var headerBinding: DrawerHeaderBinding
     private val viewModel: MainViewModel by viewModels()
 
+    override fun onRestart() {
+        super.onRestart()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,18 +51,16 @@ class MainActivity : AppCompatActivity() {
 //        val binding =
 //            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        headerView = binding.navigationView.getHeaderView(0)
-        headerBinding = DrawerHeaderBinding.bind(headerView)
-
-//        val authService = AuthService.getInstance(this)
+        //        val authService = AuthService.getInstance(this)
 //        val user = authService.getAuthenticatedUser()
 //
 //        if (user?.userId != null) {
 //            viewModel.getUserById(user.userId)
 //        }
-
         viewModel.getCurrentUser()
-        viewModel.isLoggedIn()
+
+        headerView = binding.navigationView.getHeaderView(0)
+        headerBinding = DrawerHeaderBinding.bind(headerView)
 
         headerBinding.ivClose.setOnClickListener {
             drawerLayout.closeDrawers()
@@ -106,7 +113,6 @@ class MainActivity : AppCompatActivity() {
                 navController.popBackStack(R.id.main_nav_graph, true)
                 navController.navigate(R.id.credentialsFragment)
             } else {
-//                identify()
                 headerBinding.tvFullName.text = it.name
                 headerBinding.tvEmail.text = "@" + it.email
                 it.image?.let { imageName ->

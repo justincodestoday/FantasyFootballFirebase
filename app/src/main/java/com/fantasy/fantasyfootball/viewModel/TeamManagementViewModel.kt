@@ -6,20 +6,24 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
-import com.fantasy.fantasyfootball.data.model.TeamsWithPlayers
-import com.fantasy.fantasyfootball.data.model.UserWithTeam
-import com.fantasy.fantasyfootball.repository.PlayerRepositoryImpl
-import com.fantasy.fantasyfootball.repository.TeamRepositoryImpl
-import com.fantasy.fantasyfootball.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.data.model.Team
+import com.fantasy.fantasyfootball.data.model.User
+import com.fantasy.fantasyfootball.repository.FireStorePlayerRepository
+import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TeamManagementViewModel(
-    private val playerRepo: PlayerRepositoryImpl,
-    private val teamRepo: TeamRepositoryImpl,
-    private val userRepo: UserRepositoryImpl
+@HiltViewModel
+class TeamManagementViewModel @Inject constructor(
+    private val playerRepo: FireStorePlayerRepository,
+    private val teamRepo: FireStoreTeamRepository,
+    private val userRepo: FireStoreUserRepository
 ) : ViewModel() {
-    val userTeam: MutableLiveData<UserWithTeam> = MutableLiveData()
-    val teamPlayer: MutableLiveData<TeamsWithPlayers> = MutableLiveData()
+    val userTeam: MutableLiveData<User> = MutableLiveData()
+    val teamPlayer: MutableLiveData<Team> = MutableLiveData()
     val player: MutableLiveData<Player> = MutableLiveData()
 
     val players = listOf(
@@ -360,34 +364,23 @@ class TeamManagementViewModel(
         }
     }
 
-    fun getTeamWithPlayers(userId: Int) {
-        viewModelScope.launch {
-            val team = teamRepo.getTeamByOwnerId(userId)
-            val teamId = team?.teamId
-            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
-            res?.let {
-                teamPlayer.value = it
-            }
-        }
-    }
+//    fun getTeamWithPlayers(userId: Int) {
+//        viewModelScope.launch {
+//            val team = teamRepo.getTeamByOwnerId(userId)
+//            val teamId = team?.teamId
+//            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
+//            res?.let {
+//                teamPlayer.value = it
+//            }
+//        }
+//    }
 
-    fun getUserWithTeam(userId: Int) {
-        viewModelScope.launch {
-            val res = userRepo.getUserWithTeam(userId)
-            res?.let {
-                userTeam.value = it
-            }
-        }
-    }
-
-    class Provider(
-        private val playerRepo: PlayerRepositoryImpl,
-        private val teamRepo: TeamRepositoryImpl,
-        private val userRepo: UserRepositoryImpl
-    ) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return TeamManagementViewModel(playerRepo, teamRepo, userRepo) as T
-        }
-    }
+//    fun getUserWithTeam(userId: Int) {
+//        viewModelScope.launch {
+//            val res = userRepo.getUserWithTeam(userId)
+//            res?.let {
+//                userTeam.value = it
+//            }
+//        }
+//    }
 }
