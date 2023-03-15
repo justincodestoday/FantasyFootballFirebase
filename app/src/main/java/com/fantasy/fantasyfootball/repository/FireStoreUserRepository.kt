@@ -12,7 +12,7 @@ class FireStoreUserRepository(
     private val ref: CollectionReference
 ) :
     UserRepository {
-override suspend fun register(user: User): FirebaseUser? {
+    override suspend fun register(user: User): FirebaseUser? {
         val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
 
         if (res.user != null) {
@@ -72,7 +72,7 @@ override suspend fun register(user: User): FirebaseUser? {
         }
         return ref.document(docId).get().await().toObject(User::class.java)
     }
-    
+
     fun getUid(): String? {
         return auth.uid
     }
