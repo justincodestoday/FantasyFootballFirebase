@@ -35,7 +35,7 @@ class FireStoreUserRepository(
 
     override suspend fun updateUser(id: String, user: User) {
         val email = auth.currentUser?.email
-        var docId = ""
+        var docId = "testId"
         val query = ref.whereEqualTo("email", email).get().await()
         query.documents.forEach {
             docId = it.id
@@ -92,7 +92,7 @@ class FireStoreUserRepository(
 
     suspend fun getCurrentUser(): User? {
         val email = auth.currentUser?.email
-        var docId = ""
+        var docId = "testId"
         val query = ref.whereEqualTo("email", email).get().await()
         query.documents.forEach {
             docId = it.id

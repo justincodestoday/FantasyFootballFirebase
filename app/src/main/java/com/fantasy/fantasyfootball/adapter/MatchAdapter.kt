@@ -25,7 +25,7 @@ class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> 
             tvAwayScore.text = match.awayScore.toString()
             tvDate.text = match.date
 
-            when (match.homeTeam.name) {
+            when (match.homeTeam?.name) {
                 Enums.Team.Liverpool.name -> {
                     home.setImageResource(R.drawable.liverpool)
                 }
@@ -40,7 +40,7 @@ class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> 
                 }
             }
 
-            when (match.awayTeam.name) {
+            when (match.awayTeam?.name) {
                 Enums.Team.Liverpool.name -> {
                     away.setImageResource(R.drawable.liverpool)
                 }

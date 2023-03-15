@@ -14,13 +14,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MatchViewModel @Inject constructor(private val matchRepo: FireStoreMatchRepository, private val teamRepo: FireStoreTeamRepository) :
+class MatchViewModel @Inject constructor(
+    private val matchRepo: FireStoreMatchRepository,
+    private val teamRepo: FireStoreTeamRepository
+) :
     BaseViewModel() {
     val matches: MutableLiveData<List<Matches>> = MutableLiveData()
     val teamPlayer: MutableLiveData<Team> = MutableLiveData()
 
     init {
-        getMatches()
+        viewModelScope.launch {
+            addMatches()
+            if (matches.value == null) {
+                getMatches()
+            }
+        }
     }
 
     val game = listOf(
@@ -36,7 +44,7 @@ class MatchViewModel @Inject constructor(private val matchRepo: FireStoreMatchRe
             awayTeam = Enums.Team.Chelsea,
             homeScore = 2,
             awayScore = 3,
-            date = "8/2/2023"
+            date = "15/2/2023"
         )
     )
 
@@ -51,6 +59,22 @@ class MatchViewModel @Inject constructor(private val matchRepo: FireStoreMatchRe
     fun getMatches() {
         viewModelScope.launch {
             matches.value = matchRepo.getMatches()
+        }
+    }
+
+    fun addMatches() {
+        viewModelScope.launch {
+            game.forEach {
+                matchRepo.addMatches(it)
+            }
+        }
+    }
+
+    fun addMatches() {
+        viewModelScope.launch {
+            game.forEach {
+                matchRepo.addMatches(it)
+            }
         }
     }
 

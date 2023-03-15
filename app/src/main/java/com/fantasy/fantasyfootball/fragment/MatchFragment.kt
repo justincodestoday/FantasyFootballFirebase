@@ -28,12 +28,17 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
     override fun getLayoutResource(): Int = R.layout.fragment_match
     override val viewModel: MatchViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onBindView(view: View, savedInstanceState: Bundle?) {
+        super.onBindView(view, savedInstanceState)
 
         var teamId = 0
         var teamPoints = 0
         var list: MutableList<FantasyPlayer> = mutableListOf()
+
+        viewModel.matches.observe(viewLifecycleOwner) { matches ->
+            adapter.setMatch(matches)
+        }
+
         viewModel.teamPlayer.observe(viewLifecycleOwner) {
 //            teamId = it.teamId!!
             teamPoints = it.points
@@ -42,20 +47,17 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
             }
 
             viewModel.getMatches()
-            viewModel.matches.observe(viewLifecycleOwner) { matches ->
-                adapter.setMatch(matches)
-            }
         }
 
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = MatchAdapter(emptyList()) { match ->
-            if (match.homeScore > match.awayScore) {
+            if (match.homeScore!! > match.awayScore!!) {
                 val bundle = Bundle()
                 bundle.putBoolean(Enums.Result.REFRESH.name, true)
                 setFragmentResult(Enums.Result.COLLECTED_POINTS.name, bundle)
                 val matchingPlayers =
                     list.filter { player -> player.teamConst == match.homeTeam }.size
-                val points = matchingPlayers * match.homeScore * 2
+                val points = matchingPlayers * match.homeScore!! * 2
                 val totalPoints = teamPoints + points
                 viewModel.updatePoints(teamId, totalPoints)
                 NavHostFragment.findNavController(this).popBackStack()
@@ -73,7 +75,7 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
                 setFragmentResult(Enums.Result.COLLECTED_POINTS.name, bundle)
                 val matchingPlayers =
                     list.filter { player -> player.teamConst == match.awayTeam }.size
-                val points = matchingPlayers * match.awayScore * 2
+                val points = matchingPlayers * match.awayScore!! * 2
                 val totalPoints = teamPoints + points
                 viewModel.updatePoints(teamId, totalPoints)
                 NavHostFragment.findNavController(this).popBackStack()
