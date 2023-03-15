@@ -23,7 +23,7 @@ class MatchViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            addMatches()
+//            addMatches()
             if (matches.value == null) {
                 getMatches()
             }
@@ -47,25 +47,9 @@ class MatchViewModel @Inject constructor(
         )
     )
 
-//    init {
-//        viewModelScope.launch {
-//            game.forEach {
-//                matchRepo.insert(it)
-//            }
-//        }
-//    }
-
     fun getMatches() {
         viewModelScope.launch {
             matches.value = matchRepo.getMatches()
-        }
-    }
-
-    fun addMatches() {
-        viewModelScope.launch {
-            game.forEach {
-                matchRepo.addMatches(it)
-            }
         }
     }
 

@@ -54,8 +54,6 @@ class FireStoreUserRepository(
         if (user != null) {
             doc.set(user.copy(image = image, team = team))
         }
-//        doc.update("image", image).await()
-//        doc.update("team", team).await()
     }
 
     suspend fun getCurrentUser(): User? {
@@ -87,11 +85,5 @@ class FireStoreUserRepository(
 
     fun getUid(): String? {
         return auth.uid
-    }
-
-    suspend fun fetchUser(user: User): FirebaseUser? {
-        val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
-
-        return res.user
     }
 }

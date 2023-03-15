@@ -10,244 +10,250 @@
             type="com.fantasy.fantasyfootball.viewModel.HomeViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/img3"
-        android:orientation="vertical"
-        tools:context=".fragment.HomeFragment">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:contentDescription="@string/logo"
-                android:src="@drawable/img2" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/font1"
-                android:text="@string/logo_name"
-                android:textColor="@color/dark_purple_700"
-                android:textSize="48sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="205dp"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="@color/light_green_200"
-                app:cardCornerRadius="3dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="@font/font1"
-                        android:paddingHorizontal="2dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/forward"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="44dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/img2" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="@font/font1"
-                        android:paddingHorizontal="2dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/league"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="30dp"
-                        android:fontFamily="@font/font2"
-                        android:text="@string/logo_welcome_message"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="0dp"
-                        android:fontFamily="@font/font1"
-                        android:text="@string/logo_subtitle"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnManageTeam"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:backgroundTint="@color/dark_green_200"
-                        android:drawableEnd="@drawable/ic_arrow"
-                        android:onClick="@{() -> viewModel.navigateToTeam()}"
-                        android:text="@string/manage_team"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        app:cornerRadius="5dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnSignOut"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:backgroundTint="@color/light_green_500"
-                        android:drawableEnd="@drawable/ic_arrow"
-                        android:onClick="@{() -> viewModel.navigateToLogin()}"
-                        android:text="@string/sign_me_out"
-                        android:textAllCaps="false"
-                        android:textColor="@color/black"
-                        app:cornerRadius="5dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            android:background="@drawable/img3"
+            android:orientation="vertical"
+            tools:context=".fragment.HomeFragment">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="20dp"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cvLeaderBoard"
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/light_green_200"
-                    android:onClick="@{() -> viewModel.navigateToLeaderboard()}">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:src="@drawable/trophy" />
-
-                    <TextView
-                        android:id="@+id/points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/font1"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/profile"
-                    android:layout_width="0dp"
-                    android:layout_height="140dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/light_green_200"
-                    android:onClick="@{() -> viewModel.navigateToProfile()}">
-
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/ivProfile"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="5dp"
-                        android:padding="3dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_person"
-                        app:shapeAppearanceOverlay="@style/Circular"
-                        app:strokeColor="@color/green_900"
-                        app:strokeWidth="3dp" />
-
-                    <TextView
-                        android:id="@+id/tvProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|center_horizontal"
-                        android:fontFamily="@font/font1"
-                        android:text="@string/profile"
-                        android:textColor="@color/black"
-                        android:textStyle="bold" />
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvMatch"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/light_green_200"
-                android:elevation="20dp"
-                android:onClick="@{() -> viewModel.navigateToMatches()}">
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/running_man"
-                    android:paddingEnd="120dp"
-                    android:src="@drawable/img"
-                    tools:ignore="RtlSymmetry" />
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:contentDescription="@string/logo"
+                    android:src="@drawable/img2" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|end"
-                    android:layout_marginEnd="30dp"
-                    android:fontFamily="@font/font2"
-                    android:gravity="center_horizontal"
-                    android:text="@string/live_matches"
-                    android:textColor="@color/black"
-                    android:textSize="28sp" />
-            </com.google.android.material.card.MaterialCardView>
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/font1"
+                    android:text="@string/logo_name"
+                    android:textColor="@color/dark_purple_700"
+                    android:textSize="48sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="205dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@color/light_green_200"
+                    app:cardCornerRadius="3dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/font1"
+                            android:paddingHorizontal="2dp"
+                            android:paddingTop="10dp"
+                            android:text="@string/forward"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="44dp"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/img2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/font1"
+                            android:paddingHorizontal="2dp"
+                            android:paddingTop="10dp"
+                            android:text="@string/league"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/font2"
+                            android:text="@string/logo_welcome_message"
+                            android:textColor="@color/black"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="0dp"
+                            android:fontFamily="@font/font1"
+                            android:text="@string/logo_subtitle"
+                            android:textColor="@color/black"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnManageTeam"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:backgroundTint="@color/dark_green_200"
+                            android:drawableEnd="@drawable/ic_arrow"
+                            android:onClick="@{() -> viewModel.navigateToTeam()}"
+                            android:text="@string/manage_team"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            app:cornerRadius="5dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSignOut"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:backgroundTint="@color/light_green_500"
+                            android:drawableEnd="@drawable/ic_arrow"
+                            android:onClick="@{() -> viewModel.navigateToLogin()}"
+                            android:text="@string/sign_me_out"
+                            android:textAllCaps="false"
+                            android:textColor="@color/black"
+                            app:cornerRadius="5dp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="20dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvLeaderBoard"
+                        android:layout_width="0dp"
+                        android:layout_height="140dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="0.5"
+                        android:backgroundTint="@color/light_green_200"
+                        android:onClick="@{() -> viewModel.navigateToLeaderboard()}">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:src="@drawable/trophy" />
+
+                        <TextView
+                            android:id="@+id/points"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/font1"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/profile"
+                        android:layout_width="0dp"
+                        android:layout_height="140dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="0.5"
+                        android:backgroundTint="@color/light_green_200"
+                        android:onClick="@{() -> viewModel.navigateToProfile()}">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/ivProfile"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="5dp"
+                            android:padding="3dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_person"
+                            app:shapeAppearanceOverlay="@style/Circular"
+                            app:strokeColor="@color/green_900"
+                            app:strokeWidth="3dp" />
+
+                        <TextView
+                            android:id="@+id/tvProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:fontFamily="@font/font1"
+                            android:text="@string/profile"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvMatch"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/light_green_200"
+                    android:elevation="20dp"
+                    android:onClick="@{() -> viewModel.navigateToMatches()}">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/running_man"
+                        android:paddingEnd="120dp"
+                        android:src="@drawable/img"
+                        tools:ignore="RtlSymmetry" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|end"
+                        android:layout_marginEnd="30dp"
+                        android:fontFamily="@font/font2"
+                        android:gravity="center_horizontal"
+                        android:text="@string/live_matches"
+                        android:textColor="@color/black"
+                        android:textSize="28sp" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
