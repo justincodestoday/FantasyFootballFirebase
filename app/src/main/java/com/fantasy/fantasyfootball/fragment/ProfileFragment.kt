@@ -1,10 +1,8 @@
 package com.fantasy.fantasyfootball.fragment
 
 import android.app.Dialog
-import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
-import android.provider.OpenableColumns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -21,6 +19,8 @@ import com.fantasy.fantasyfootball.databinding.EditPasswordDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditProfileDialogBinding
 import com.fantasy.fantasyfootball.databinding.FragmentProfileBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.util.Utils.getFileName
+import com.fantasy.fantasyfootball.util.Utils.validate
 import com.fantasy.fantasyfootball.viewModel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -229,27 +229,5 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 viewModel.fetchCurrentUser()
             }
         }
-    }
-
-    private fun validate(vararg list: String): Boolean {
-        for (field in list) {
-            if (field.isEmpty()) {
-                return false
-            }
-        }
-        return true
-    }
-
-    private fun ContentResolver.getFileName(imageUri: Uri): String {
-        val cursor = this.query(imageUri, null, null, null, null)
-
-        cursor?.let {
-            val name = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-            cursor.moveToFirst()
-            return cursor.getString(name)
-        }
-        cursor?.close()
-
-        return "Unknown"
     }
 }

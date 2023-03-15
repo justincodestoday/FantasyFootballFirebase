@@ -9,12 +9,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 abstract class BaseViewModel() : ViewModel() {
     val name: MutableLiveData<String?> = MutableLiveData()
     val email: MutableLiveData<String?> = MutableLiveData()
-    val teamName: MutableLiveData<String> = MutableLiveData()
     val password: MutableLiveData<String?> = MutableLiveData()
     val passwordConfirm: MutableLiveData<String?> = MutableLiveData()
-
     val user: MutableLiveData<User> = MutableLiveData()
-    val team: MutableLiveData<Team> = MutableLiveData()
 
     val logout: MutableSharedFlow<Unit> = MutableSharedFlow()
     val finish: MutableSharedFlow<Unit> = MutableSharedFlow()

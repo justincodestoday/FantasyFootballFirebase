@@ -35,4 +35,8 @@ class FireStoreMatchRepository(private val ref: CollectionReference): MatchRepos
     override suspend fun delete(matchId: Int) {
         TODO("Not yet implemented")
     }
+
+    suspend fun addMatches(matches: Matches) {
+        ref.add(matches).await()
+    }
 }

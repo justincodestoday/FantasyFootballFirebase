@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.LeaderboardBinding
+import com.fantasy.fantasyfootball.util.Utils.update
 
-class LeaderboardAdapter(var users: List<User>) :
+class LeaderboardAdapter(private var users: List<User>) :
     RecyclerView.Adapter<LeaderboardAdapter.LeaderboardViewHolder>() {
     class LeaderboardViewHolder(val binding: LeaderboardBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -20,7 +21,7 @@ class LeaderboardAdapter(var users: List<User>) :
     override fun onBindViewHolder(holder: LeaderboardViewHolder, position: Int) {
         val user = users[position]
         holder.binding.run {
-//            tvUsername.text = user.user.username
+            tvEmail.text = user.email
             tvTeamName.text = "@${user.team.name}"
             tvPoints.text = user.team.points.toString() + " pts"
             tvRanking.text = (position + 1).toString()
@@ -37,7 +38,16 @@ class LeaderboardAdapter(var users: List<User>) :
     }
 
     fun setLeaderboard(users: List<User>) {
-        this.users = users
-        notifyDataSetChanged()
+        val oldItems = this.users
+        this.users = users as MutableList<User>
+        if (oldItems.isEmpty()) {
+            update(emptyList(), users) { user1, user2 ->
+                user1.id == user2.id
+            }
+        } else {
+            update(oldItems, users) { user1, user2 ->
+                user1.id == user2.id
+            }
+        }
     }
 }
