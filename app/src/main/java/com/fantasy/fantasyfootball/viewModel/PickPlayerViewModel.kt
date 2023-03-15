@@ -14,7 +14,7 @@ import javax.inject.Inject
 class PickPlayerViewModel @Inject constructor(
     private val playerRepo: FireStorePlayerRepository,
     private val teamRepo: FireStoreTeamRepository
-) : ViewModel() {
+) : BaseViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
     val teamPlayer: MutableLiveData<Team> = MutableLiveData()
 

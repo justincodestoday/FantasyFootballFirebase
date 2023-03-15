@@ -25,34 +25,18 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PickPlayerFragment : Fragment() {
+class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
+    override fun getLayoutResource(): Int = R.layout.fragment_pick_player
+    override val viewModel: PickPlayerViewModel by viewModels()
     private lateinit var adapter: PlayerAdapter
-    private lateinit var binding: FragmentPickPlayerBinding
-    private lateinit var authService: AuthService
     var currentFilter = ""
-    private val viewModel: PickPlayerViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentPickPlayerBinding.inflate(layoutInflater)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        authService = AuthService.getInstance(requireActivity().applicationContext)
-        val user = authService.getAuthenticatedUser()
+    override fun onBindView(view: View, savedInstanceState: Bundle?) {
+        super.onBindView(view, savedInstanceState)
 
         val args: PickPlayerFragmentArgs by navArgs()
         val selectedArea = args.area
         val selectedPosition = args.position
-
-        if (user != null) {
-//            viewModel.getTeamWithPlayers(user.userId!!)
-        }
 
         var teamId = 0
         var teamBudget = 0.0f
@@ -70,7 +54,7 @@ class PickPlayerFragment : Fragment() {
                 adapter.setPlayer(players)
             }
 
-            binding.search.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            binding?.search?.svSearch?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     p0?.let {
                         currentFilter = it
@@ -88,7 +72,7 @@ class PickPlayerFragment : Fragment() {
                 }
             })
 
-            binding.search.ivFilter.setOnClickListener {
+            binding?.search?.ivFilter?.setOnClickListener {
                 val dialogView = layoutInflater.inflate(R.layout.filter_dialog, null)
                 val filterDialog = Dialog(requireContext(), R.style.Filter_AlertDialog)
                 filterDialog.setContentView(dialogView)
@@ -149,7 +133,7 @@ class PickPlayerFragment : Fragment() {
                         .show()
                 } else if (teamBudget.compareTo(it.price) < 0) {
                     val snackBar = Snackbar.make(
-                        binding.root,
+                        view,
                         "${context?.getString(R.string.insufficient_funds)}",
                         Snackbar.LENGTH_LONG
                     )
@@ -190,8 +174,8 @@ class PickPlayerFragment : Fragment() {
                 }
             }
         }
-        binding.rvPlayers.adapter = adapter
-        binding.rvPlayers.layoutManager = layoutManager
+        binding?.rvPlayers?.adapter = adapter
+        binding?.rvPlayers?.layoutManager = layoutManager
     }
 
     private fun refresh(area: String, playerName: String, existingPlayer: List<String>) {

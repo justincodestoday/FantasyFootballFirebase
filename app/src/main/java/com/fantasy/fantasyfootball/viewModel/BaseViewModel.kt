@@ -12,10 +12,6 @@ abstract class BaseViewModel() : ViewModel() {
     val password: MutableLiveData<String?> = MutableLiveData()
     val passwordConfirm: MutableLiveData<String?> = MutableLiveData()
     val user: MutableLiveData<User> = MutableLiveData()
-
-    val logout: MutableSharedFlow<Unit> = MutableSharedFlow()
-    val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
-
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
 

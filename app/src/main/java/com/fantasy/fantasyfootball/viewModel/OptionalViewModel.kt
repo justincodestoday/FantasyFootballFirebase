@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Team
+import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.util.Utils
@@ -21,25 +22,34 @@ class OptionalViewModel @Inject constructor(private val userRepo: FireStoreUserR
     val navigate: MutableSharedFlow<Unit> = MutableSharedFlow()
     val formErrors = ObservableArrayList<Enums.FormError>()
 
-    suspend fun addInfo(email: String, imageUri: Uri?) {
-        if (isFormValid()) {
-            try {
-                val imageName = Utils.getCurrentTime()
-                viewModelScope.launch {
-                    imageUri?.let {
-                        ImageStorageService.addImage(imageUri, imageName) { status ->
-                            if (!status) {
-                                viewModelScope.launch {
-                                    error.emit("Image upload failed")
+    fun addInfo(email: String, imageUri: Uri?) {
+        viewModelScope.launch {
+            if (isFormValid()) {
+                try {
+                    val imageName = Utils.getCurrentTime()
+                    viewModelScope.launch {
+                        imageUri?.let {
+                            ImageStorageService.addImage(imageUri, imageName) { status ->
+                                if (!status) {
+                                    viewModelScope.launch { error.emit("Image upload failed") }
                                 }
                             }
-                        }
-                        val team = Team(name = teamName.value?.trim())
-                        safeApiCall {
-                            userRepo.addInfo(email, imageName, team)
-                            navigate.emit(Unit)
+                            addInfo(email, imageName, Team(name = teamName.value?.trim()))
                         }
                     }
+                } catch (e: Exception) {
+                    error.emit(e.message.toString())
+                }
+            }
+        }
+    }
+
+    fun addInfo(email: String, imageName: String, team: Team) {
+        viewModelScope.launch {
+            try {
+                safeApiCall {
+                    userRepo.addInfo(email, imageName, team)
+                    navigate.emit(Unit)
                 }
             } catch (e: Exception) {
                 error.emit(e.message.toString())
@@ -47,12 +57,14 @@ class OptionalViewModel @Inject constructor(private val userRepo: FireStoreUserR
         }
     }
 
-    suspend fun login() {
-        try {
-            safeApiCall { userRepo.login(email.value!!, password.value!!) }
-            success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
-        } catch (e: Exception) {
-            error.emit(e.message.toString())
+    fun login() {
+        viewModelScope.launch {
+            try {
+                safeApiCall { userRepo.login(user.value?.email!!, user.value?.password!!) }
+                success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 

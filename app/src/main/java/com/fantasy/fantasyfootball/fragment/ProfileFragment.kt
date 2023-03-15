@@ -222,7 +222,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         super.onBindData(view)
 
         lifecycleScope.launch {
-            viewModel.finish.collect {
+            viewModel.update.collect {
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("from_profile", bundle)

@@ -18,6 +18,7 @@ class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
     val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
     val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
+    val logout: MutableSharedFlow<Unit> = MutableSharedFlow()
 
     init {
         getCurrentUser()
