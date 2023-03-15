@@ -227,7 +227,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("from_profile", bundle)
                 viewModel.fetchCurrentUser()
-//                navController.popBackStack()
             }
         }
     }
@@ -254,10 +253,3 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         return "Unknown"
     }
 }
-//Toast.makeText(
-//requireContext(),
-//context?.getString(R.string.update_successful),
-//Toast.LENGTH_SHORT
-//)
-//.show()
-//imageDialog.dismiss()
