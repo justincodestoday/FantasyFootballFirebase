@@ -25,7 +25,6 @@ class RegisterViewModel @Inject constructor(private val userRepo: FireStoreUserR
                 )
                 val res = safeApiCall { userRepo.register(user) }
                 if (res != null) {
-                    safeApiCall {  }
                     register.emit(Unit)
                     success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
                 } else {
