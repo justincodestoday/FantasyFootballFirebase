@@ -66,8 +66,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             binding?.run {
                 tvName.text = it.name
                 tvUsername.text = it.email
-                it.image?.let { it1 ->
-                    ImageStorageService.getImageUri(it1) { uri ->
+                it.image?.let { imageName ->
+                    ImageStorageService.getImageUri(imageName) { uri ->
                         Glide.with(view)
                             .load(uri)
                             .into(profilePicture)
@@ -170,7 +170,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     ImageStorageService.getImageUri(imageName) { uri ->
                         Glide.with(view)
                             .load(uri)
-                            .into(profilePicture)
+                            .into(imageDialogBinding.ivImage)
                     }
                 }
 
@@ -227,7 +227,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("from_profile", bundle)
                 viewModel.fetchCurrentUser()
-//                navController.popBackStack()
             }
         }
     }
@@ -254,10 +253,3 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         return "Unknown"
     }
 }
-//Toast.makeText(
-//requireContext(),
-//context?.getString(R.string.update_successful),
-//Toast.LENGTH_SHORT
-//)
-//.show()
-//imageDialog.dismiss()

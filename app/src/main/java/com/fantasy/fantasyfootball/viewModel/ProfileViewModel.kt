@@ -30,7 +30,7 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
                 ImageStorageService.addImage(imageUri, imageName) { status ->
                     if (!status) {
                         viewModelScope.launch {
-                            error.emit("Image GG Already")
+                            error.emit("Image upload failed")
                         }
                     }
                 }
