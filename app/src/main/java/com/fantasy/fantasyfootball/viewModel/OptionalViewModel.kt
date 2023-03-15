@@ -1,27 +1,45 @@
 package com.fantasy.fantasyfootball.viewModel
 
+import android.net.Uri
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OptionalViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
     BaseViewModel() {
+    val teamName: MutableLiveData<String> = MutableLiveData()
     val navigate: MutableSharedFlow<Unit> = MutableSharedFlow()
     val formErrors = ObservableArrayList<Enums.FormError>()
 
-    suspend fun registerTeam(email: String) {
+    suspend fun addInfo(email: String, imageUri: Uri?) {
         if (isFormValid()) {
             try {
-                val team = Team(name = teamName.value?.trim())
-                safeApiCall {
-                    userRepo.registerTeam(email, team = team)
-                    navigate.emit(Unit)
+                val imageName = Utils.getCurrentTime()
+                viewModelScope.launch {
+                    imageUri?.let {
+                        ImageStorageService.addImage(imageUri, imageName) { status ->
+                            if (!status) {
+                                viewModelScope.launch {
+                                    error.emit("Image upload failed")
+                                }
+                            }
+                        }
+                        val team = Team(name = teamName.value?.trim())
+                        safeApiCall {
+                            userRepo.addInfo(email, imageName, team)
+                            navigate.emit(Unit)
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 error.emit(e.message.toString())

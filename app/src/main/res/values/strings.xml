@@ -92,7 +92,8 @@
     <string name="user_card">User Card</string>
     <string name="user_user">User</string>
     <string name="user_username">Username</string>
-    <string name="user_teamname">Team Name</string>
+    <string name="user_email">Email</string>
+    <string name="user_team_name">Team Name</string>
     <string name="user_points">Points</string>
     <string name="user_rank">Rank</string>
 
@@ -135,6 +136,7 @@
     <string name="missing_team_name">Team name is required</string>
     <string name="missing_email">Email is required</string>
     <string name="missing_password">Password is required</string>
+    <string name="missing_image">Image is required</string>
     <string name="invalid_email">Invalid email format</string>
     <string name="invalid_username">Username must be at least 8 characters long</string>
     <string name="invalid_password">Password must be at least 8 characters long</string>

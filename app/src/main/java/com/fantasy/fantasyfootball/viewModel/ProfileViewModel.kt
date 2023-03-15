@@ -50,6 +50,17 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
         }
     }
 
+    fun fetchCurrentUser() {
+        viewModelScope.launch {
+            try {
+                val res = safeApiCall { userRepo.getCurrentUser() }
+                user.value = res
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
+        }
+    }
+
     fun isLoggedIn() {
         viewModelScope.launch {
             try {
@@ -68,17 +79,6 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
             try {
                 safeApiCall { userRepo.deAuthenticate() }
                 success.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
-            } catch (e: Exception) {
-                error.emit(e.message.toString())
-            }
-        }
-    }
-
-    fun fetchCurrentUser() {
-        viewModelScope.launch {
-            try {
-                val res = safeApiCall { userRepo.getCurrentUser() }
-                user.value = res
             } catch (e: Exception) {
                 error.emit(e.message.toString())
             }

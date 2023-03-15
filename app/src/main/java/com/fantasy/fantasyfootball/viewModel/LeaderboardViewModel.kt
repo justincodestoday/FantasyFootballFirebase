@@ -11,14 +11,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LeaderboardViewModel @Inject constructor(val repo: FireStoreUserRepository) : ViewModel() {
+class LeaderboardViewModel @Inject constructor(private val repo: FireStoreUserRepository) : BaseViewModel() {
     val users: MutableLiveData<List<User>> = MutableLiveData()
 
-//    fun getUsersWithTeams() {
-//        viewModelScope.launch {
-//            users.value = repo.getUsersWithTeams().sortedWith(compareBy() {
-//                it.team.points
-//            }).reversed()
-//        }
-//    }
+    init {
+        getUsers()
+    }
+    fun getUsers() {
+        viewModelScope.launch {
+            users.value = repo.getAllUsers()
+        }
+    }
 }

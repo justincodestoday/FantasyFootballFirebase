@@ -49,18 +49,70 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/ti_teamName"
+            android:layout_above="@id/iv_image"
             android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/merriweather_regular"
             android:text="@string/optional_info"
             android:textSize="20sp" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_above="@id/ll_profile"
+            android:layout_centerInParent="true"
+            android:layout_marginVertical="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/vector__3_"
+            app:shapeAppearanceOverlay="@style/Circular" />
+
+        <LinearLayout
+            android:id="@+id/ll_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/tv_choose_image"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/custom_select_button"
+                android:padding="5dp"
+                android:text="@string/choose_image"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_image_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/custom_image_text"
+                android:padding="5dp"
+                android:scrollbars="vertical"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_below="@id/ll_profile"
+            android:gravity="center_horizontal"
+            android:text="@string/edit_error"
+            android:textColor="@color/red_500"
+            android:visibility="gone" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ti_teamName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_below="@id/tv_error"
             android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"

@@ -11,5 +11,5 @@ interface UserRepository {
 
     suspend fun updateUser(user: User)
 
-    suspend fun registerTeam(email: String, team: Team)
+    suspend fun addInfo(email: String, image: String, team: Team)
 }
