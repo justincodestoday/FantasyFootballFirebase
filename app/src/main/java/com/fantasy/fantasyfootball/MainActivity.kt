@@ -24,12 +24,15 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,6 +43,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var headerView: View
     private lateinit var headerBinding: DrawerHeaderBinding
     private val viewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var authService: FireStoreUserRepository
 
     override fun onRestart() {
         super.onRestart()
@@ -107,6 +113,12 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+//        lifecycleScope.launch {
+//            if (authService.getCurrentUser() != null) {
+//                navController.navigate(R.id.homeFragment)
+//            }
+//        }
+
 //        authenticate(user, graph)
 
         viewModel.user.observe(this) {
@@ -117,7 +129,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 identify()
                 headerBinding.tvFullName.text = it.name
-                headerBinding.tvEmail.text = "@" + it.email
+                headerBinding.tvEmail.text = it.email
 
                 if (it.image != null) {
                     it.image?.let { imageName ->

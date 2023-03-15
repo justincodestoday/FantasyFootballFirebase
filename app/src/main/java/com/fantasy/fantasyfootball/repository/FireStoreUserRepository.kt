@@ -12,13 +12,12 @@ class FireStoreUserRepository(
     private val ref: CollectionReference
 ) :
     UserRepository {
-    override suspend fun register(user: User): FirebaseUser? {
+override suspend fun register(user: User): FirebaseUser? {
         val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
 
         if (res.user != null) {
             ref.add(user).await()
         }
-
         return res.user
     }
 
@@ -52,16 +51,6 @@ class FireStoreUserRepository(
         doc.update("team", team).await()
     }
 
-    suspend fun getCurrentUser(): User? {
-        val email = auth.currentUser?.email
-        var docId = ""
-        val query = ref.whereEqualTo("email", email).get().await()
-        query.documents.forEach {
-            docId = it.id
-        }
-        return ref.document(docId).get().await().toObject(User::class.java)
-    }
-
     fun isAuthenticated(): Boolean {
         val user = auth.currentUser
         if (user == null) {
@@ -74,6 +63,16 @@ class FireStoreUserRepository(
         auth.signOut()
     }
 
+    suspend fun getCurrentUser(): User? {
+        val email = auth.currentUser?.email
+        var docId = "testId"
+        val query = ref.whereEqualTo("email", email).get().await()
+        query.documents.forEach {
+            docId = it.id
+        }
+        return ref.document(docId).get().await().toObject(User::class.java)
+    }
+    
     fun getUid(): String? {
         return auth.uid
     }
