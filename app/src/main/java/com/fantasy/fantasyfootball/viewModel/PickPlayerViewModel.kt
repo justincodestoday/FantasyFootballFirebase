@@ -19,7 +19,6 @@ class PickPlayerViewModel @Inject constructor(
 
     ) : BaseViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
-    val teamPlayer: MutableLiveData<Team> = MutableLiveData()
 
     fun addPlayer(fantasyPlayer: FantasyPlayer) {
         viewModelScope.launch {

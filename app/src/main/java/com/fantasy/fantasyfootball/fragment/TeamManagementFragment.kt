@@ -50,8 +50,6 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
             }
 
             binding?.gk?.setOnClickListener { _ ->
-                Log.d("debugging", "Button clicked")
-                Log.d("debugging", "Please")
                 val area = Enums.Area.Goalkeeper
                 val position = Enums.Position.GK
                 if (listOfPositions.any { pos -> pos == position.name }) {

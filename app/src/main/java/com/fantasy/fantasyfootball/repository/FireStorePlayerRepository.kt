@@ -4,8 +4,11 @@ import com.fantasy.fantasyfootball.data.model.Player
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.tasks.await
 
-class FireStorePlayerRepository(private val ref: CollectionReference): PlayerRepository {
-    override suspend fun getPlayersByArea(area: String, existingPlayer: List<String>): List<Player> {
+class FireStorePlayerRepository(private val ref: CollectionReference) : PlayerRepository {
+    override suspend fun getPlayersByArea(
+        area: String,
+        existingPlayer: List<String>
+    ): List<Player> {
         val query = ref.whereEqualTo("area", area).get().await()
         return query.toObjects(Player::class.java).filterNot { player ->
             existingPlayer.any { it == player.lastName }
@@ -42,19 +45,17 @@ class FireStorePlayerRepository(private val ref: CollectionReference): PlayerRep
             .whereGreaterThan("lastName", playerName)
             .whereLessThan("lastName", playerName + "\uf8ff")
             .orderBy("lastName")
-        val snapshot = query.get().await()
-        val result = snapshot.toObjects(Player::class.java).map { it.copy(playerId = it.playerId) }
+        val lastNameSnapshot = query.get().await()
+        val lastNameResult = lastNameSnapshot.toObjects(Player::class.java).map { it.copy(playerId = it.playerId) }
 
-        // Filter by first name as well
         val firstNameQuery = ref.whereEqualTo("area", area)
             .whereGreaterThan("firstName", playerName)
             .whereLessThan("firstName", playerName + "\uf8ff")
             .orderBy("firstName")
         val firstNameSnapshot = firstNameQuery.get().await()
-        val firstNameResult = firstNameSnapshot.toObjects(Player::class.java).map { it.copy(playerId = it.playerId) }
-
-        // Merge the two results and return the distinct list
-        return (result + firstNameResult).distinctBy { it.playerId }
+        val firstNameResult =
+            firstNameSnapshot.toObjects(Player::class.java).map { it.copy(playerId = it.playerId) }
+        return (lastNameResult + firstNameResult).distinctBy { it.playerId }
     }
 
     override suspend fun sortPlayer(order: String, by: String, area: String): List<Player> {

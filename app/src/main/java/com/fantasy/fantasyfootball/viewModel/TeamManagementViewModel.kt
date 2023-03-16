@@ -1,12 +1,9 @@
 package com.fantasy.fantasyfootball.viewModel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
-import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.repository.FireStorePlayerRepository
 import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
@@ -20,10 +17,7 @@ class TeamManagementViewModel @Inject constructor(
     private val teamRepo: FireStoreTeamRepository,
     private val userRepo: FireStoreUserRepository
 ) : BaseViewModel() {
-    val userTeam: MutableLiveData<User> = MutableLiveData()
-    val teamPlayer: MutableLiveData<Team> = MutableLiveData()
     val player: MutableLiveData<Player> = MutableLiveData()
-
     val players: MutableLiveData<List<Player>> = MutableLiveData()
 
     init {

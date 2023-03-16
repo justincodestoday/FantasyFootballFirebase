@@ -6,7 +6,7 @@ import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-abstract class BaseViewModel() : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     val name: MutableLiveData<String?> = MutableLiveData()
     val email: MutableLiveData<String?> = MutableLiveData()
     val password: MutableLiveData<String?> = MutableLiveData()
@@ -22,7 +22,7 @@ abstract class BaseViewModel() : ViewModel() {
             apiCall.invoke()
         } catch (e: Exception) {
             error.emit(e.message.toString())
-            e.printStackTrace() // ask Khayrul about this along with add image function
+            e.printStackTrace()
             null
         }
     }
