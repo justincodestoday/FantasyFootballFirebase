@@ -15,13 +15,15 @@ import javax.inject.Inject
 class TeamManagementViewModel @Inject constructor(
     private val playerRepo: FireStorePlayerRepository,
     private val teamRepo: FireStoreTeamRepository,
-    private val userRepo: FireStoreUserRepository
+    private val userRepo: FireStoreUserRepository,
 ) : BaseViewModel() {
     val player: MutableLiveData<Player> = MutableLiveData()
     val players: MutableLiveData<List<Player>> = MutableLiveData()
 
     init {
-//        createPlayer()
+        viewModelScope.launch {
+//            createPlayer()
+        }
     }
 
     val players2 = listOf(
@@ -347,6 +349,17 @@ class TeamManagementViewModel @Inject constructor(
             teamRepo.deletePlayer(fanPlayerId)
         }
     }
+
+//    fun createPlayer(area: String) {
+//        viewModelScope.launch {
+//            val existingPlayers = playerRepo.getPlayersByArea(area, emptyList()).map { it.lastName }
+//            val newPlayers =
+//                players2.filterNot { player -> existingPlayers.any { it == player.lastName } }
+//            newPlayers.forEach { player ->
+//                playerRepo.createPlayer(player)
+//            }
+//        }
+//    }
 
     fun createPlayer() {
         viewModelScope.launch {

@@ -1,8 +1,11 @@
 package com.fantasy.fantasyfootball.repository
 
+import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
+import java.util.*
 
 class FireStorePlayerRepository(private val ref: CollectionReference) : PlayerRepository {
     override suspend fun getPlayersByArea(
@@ -41,24 +44,31 @@ class FireStorePlayerRepository(private val ref: CollectionReference) : PlayerRe
 //    }
 
     override suspend fun getPlayersBySearch(area: String, playerName: String): List<Player> {
-        val query = ref.whereEqualTo("area", area)
-            .whereGreaterThan("lastName", playerName)
-            .whereLessThan("lastName", playerName + "\uf8ff")
-            .orderBy("lastName")
-        val lastNameSnapshot = query.get().await()
-        val lastNameResult = lastNameSnapshot.toObjects(Player::class.java).map { it.copy(playerId = it.playerId) }
+        val query = ref.whereEqualTo("area", area).orderBy("lastName")
+        val snapshot = query.get().await()
+        val result = snapshot.toObjects(Player::class.java).filter {
+            it.lastName?.lowercase(Locale.getDefault())!!
+                .contains(playerName.lowercase(Locale.getDefault()))
+        }.map { it.copy(playerId = it.playerId) }
 
+        // Filter by first name as well
         val firstNameQuery = ref.whereEqualTo("area", area)
-            .whereGreaterThan("firstName", playerName)
-            .whereLessThan("firstName", playerName + "\uf8ff")
             .orderBy("firstName")
         val firstNameSnapshot = firstNameQuery.get().await()
-        val firstNameResult =
-            firstNameSnapshot.toObjects(Player::class.java).map { it.copy(playerId = it.playerId) }
-        return (lastNameResult + firstNameResult).distinctBy { it.playerId }
+        val firstNameResult = firstNameSnapshot.toObjects(Player::class.java).filter {
+            it.firstName?.lowercase(Locale.getDefault())!!
+                .contains(playerName.lowercase(Locale.getDefault()))
+        }.map { it.copy(playerId = it.playerId) }
+
+        // Merge the two results and return the distinct list
+        return (result + firstNameResult).distinctBy { it.playerId }
     }
 
     override suspend fun sortPlayer(order: String, by: String, area: String): List<Player> {
-        TODO("Not yet implemented")
+        val query = ref.whereEqualTo("area", area)
+        val orderByField = if (by == Enums.SortBy.Price.name) "price" else "firstName"
+        val sortOrder = if (order == Enums.SortOrder.Ascending.name) Query.Direction.ASCENDING else Query.Direction.DESCENDING
+        val snapshot = query.orderBy(orderByField, sortOrder).get().await()
+        return snapshot.toObjects(Player::class.java)
     }
 }
