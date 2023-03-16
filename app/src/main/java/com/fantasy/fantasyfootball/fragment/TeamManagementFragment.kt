@@ -1,6 +1,7 @@
 package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,11 +38,11 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
         var teamId: Int = 0
         var teamBudget: Float = 0.0f
         val dialogInstance = ConfirmDialogs()
-        viewModel.teamPlayer.observe(viewLifecycleOwner) {
+        viewModel.user.observe(viewLifecycleOwner) {
 //            teamId = it.teamId!!
-            teamBudget = it.budget
+            teamBudget = it.team.budget
             val listOfPositions = mutableListOf<String>()
-            it.players.forEach { player ->
+            it.team.players.forEach { player ->
                 listOfPositions.add(player.position)
                 val color = setShirtColor(player.color)
                 setImageForPosition(player.position, color)
@@ -49,11 +50,13 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
             }
 
             binding?.gk?.setOnClickListener { _ ->
+                Log.d("debugging", "Button clicked")
+                Log.d("debugging", "Please")
                 val area = Enums.Area.Goalkeeper
                 val position = Enums.Position.GK
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -101,7 +104,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.LB
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -149,7 +152,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.LCB
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -197,7 +200,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.RCB
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -245,7 +248,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.RB
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -293,7 +296,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.LM
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -341,7 +344,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.LCM
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -389,7 +392,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.RCM
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -437,7 +440,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.RM
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -485,7 +488,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.LS
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),
@@ -533,7 +536,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                 val position = Enums.Position.RS
                 if (listOfPositions.any { pos -> pos == position.name }) {
                     val player =
-                        it.players.single { fanPlayer -> fanPlayer.position == position.name }
+                        it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
                         dialogInstance.showDeleteDialog(
                             requireContext(),

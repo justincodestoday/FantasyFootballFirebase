@@ -24,7 +24,13 @@ class TeamManagementViewModel @Inject constructor(
     val teamPlayer: MutableLiveData<Team> = MutableLiveData()
     val player: MutableLiveData<Player> = MutableLiveData()
 
-    val players = listOf(
+    val players: MutableLiveData<List<Player>> = MutableLiveData()
+
+    init {
+//        createPlayer()
+    }
+
+    val players2 = listOf(
         Player(
             firstName = "Kylian",
             lastName = "Mbappe",
@@ -342,17 +348,17 @@ class TeamManagementViewModel @Inject constructor(
         )
     )
 
-//    init {
-//        viewModelScope.launch {
-//            players.forEach {
-//                playerRepo.createPlayer(it)
-//            }
-//        }
-//    }
-
     fun removePlayer(fanPlayerId: Int) {
         viewModelScope.launch {
             teamRepo.deletePlayer(fanPlayerId)
+        }
+    }
+
+    fun createPlayer() {
+        viewModelScope.launch {
+            players2.forEach {
+                playerRepo.createPlayer(it)
+            }
         }
     }
 

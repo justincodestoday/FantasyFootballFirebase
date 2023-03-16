@@ -36,7 +36,9 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
         var list: MutableList<FantasyPlayer> = mutableListOf()
 
         viewModel.matches.observe(viewLifecycleOwner) { matches ->
-            adapter.setMatch(matches)
+            if (matches != null) {
+                adapter.setMatch(matches)
+            }
         }
 
         viewModel.teamPlayer.observe(viewLifecycleOwner) {

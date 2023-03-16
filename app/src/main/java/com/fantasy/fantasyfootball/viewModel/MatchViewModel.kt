@@ -18,16 +18,19 @@ class MatchViewModel @Inject constructor(
     private val teamRepo: FireStoreTeamRepository
 ) :
     BaseViewModel() {
-    val matches: MutableLiveData<List<Matches>> = MutableLiveData()
+
+    val matches: MutableLiveData<List<Matches>?> = MutableLiveData()
     val teamPlayer: MutableLiveData<Team> = MutableLiveData()
 
+//    init {
+//        viewModelScope.launch {
+//            getMatches() // Always get the latest matches
+//        }
+//    }
+
     init {
-        viewModelScope.launch {
-//            addMatches()
-            if (matches.value == null) {
-                getMatches()
-            }
-        }
+        getMatches()
+        addMatches()
     }
 
     val game = listOf(
@@ -47,18 +50,40 @@ class MatchViewModel @Inject constructor(
         )
     )
 
+//    init {
+//        viewModelScope.launch {
+//            game.forEach {
+//                matchRepo.insert(it)
+//            }
+//        }
+//    }
+
     fun getMatches() {
         viewModelScope.launch {
             matches.value = matchRepo.getMatches()
         }
     }
 
-    fun addMatches() {
+
+    private fun addMatches() {
         viewModelScope.launch {
-            game.forEach {
-                matchRepo.addMatches(it)
+            val existingMatches = matches.value
+            if (existingMatches == null || existingMatches.isEmpty()) {
+                game.forEach { match ->
+                    val matchExists = matchRepo.getMatches()
+                        .any { it.homeTeam == match.homeTeam && it.awayTeam == match.awayTeam && it.date == match.date }
+                    if (!matchExists) {
+                        matchRepo.addMatches(match)
+                    }
+                }
+                getMatches()
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        matches.value = null
     }
 
     fun updatePoints(teamId: Int, points: Int) {

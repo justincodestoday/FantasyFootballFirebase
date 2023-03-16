@@ -26,25 +26,33 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
-    override fun getLayoutResource(): Int = R.layout.fragment_pick_player
-    override val viewModel: PickPlayerViewModel by viewModels()
     private lateinit var adapter: PlayerAdapter
+    private lateinit var authService: AuthService
     var currentFilter = ""
+    override val viewModel: PickPlayerViewModel by viewModels()
+
+    override fun getLayoutResource(): Int = R.layout.fragment_pick_player
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
+
+        val user = viewModel.fetchCurrentUser()
 
         val args: PickPlayerFragmentArgs by navArgs()
         val selectedArea = args.area
         val selectedPosition = args.position
 
+        if (user != null) {
+//            viewModel.getTeamWithPlayers(user.userId!!)
+        }
+
         var teamId = 0
         var teamBudget = 0.0f
-        viewModel.teamPlayer.observe(viewLifecycleOwner) {
+        viewModel.user.observe(viewLifecycleOwner) {
 //            teamId = it.teamId!!
-            teamBudget = it.budget
+            teamBudget = it.team.budget
             val listOfLastNames = mutableListOf<String>()
-            it.players.forEach { player ->
+            it.team.players.forEach { player ->
                 listOfLastNames.add(player.lastName)
             }
 
@@ -100,26 +108,26 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
 
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {
-            if (it.playerId != null) {
+            if (it.playerId != null && it != null) {
                 // 0: if f1 is numerically equal to f2.
                 // Negative value: if f1 is numerically less than f2.
                 // Positive value: if f1 is numerically greater than f2.
                 if (teamBudget.compareTo(it.price) == 0) {
                     val updatedValue = teamBudget - it.price
                     viewModel.updateBudget(teamId, updatedValue)
-                    viewModel.addPlayer(
-                        FantasyPlayer(
-                            teamOwnerId = teamId,
-                            firstName = it.firstName,
-                            lastName = it.lastName,
-                            team = it.team,
-                            teamConst = it.teamConst,
-                            price = it.price,
-                            color = it.color,
-                            position = selectedPosition,
-                            isSet = true
-                        )
-                    )
+//                    viewModel.addPlayer(
+//                        FantasyPlayer(
+//                            teamOwnerId = teamId,
+//                            firstName = it.firstName,
+//                            lastName = it.lastName,
+//                            team = it.team,
+//                            teamConst = it.teamConst,
+//                            price = it.price,
+//                            color = it.color,
+//                            position = selectedPosition,
+//                            isSet = true
+//                        )
+//                    )
                     val bundle = Bundle()
                     bundle.putBoolean(Enums.Result.REFRESH.name, true)
                     setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
@@ -133,7 +141,7 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                         .show()
                 } else if (teamBudget.compareTo(it.price) < 0) {
                     val snackBar = Snackbar.make(
-                        view,
+                        binding!!.root,
                         "${context?.getString(R.string.insufficient_funds)}",
                         Snackbar.LENGTH_LONG
                     )
@@ -147,19 +155,19 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                 } else {
                     val updatedValue = teamBudget - it.price
                     viewModel.updateBudget(teamId, updatedValue)
-                    viewModel.addPlayer(
-                        FantasyPlayer(
-                            teamOwnerId = teamId,
-                            firstName = it.firstName,
-                            lastName = it.lastName,
-                            team = it.team,
-                            teamConst = it.teamConst,
-                            price = it.price,
-                            color = it.color,
-                            position = selectedPosition,
-                            isSet = true
-                        )
-                    )
+//                    viewModel.addPlayer(
+//                        FantasyPlayer(
+//                            teamOwnerId = teamId,
+//                            firstName = it.firstName,
+//                            lastName = it.lastName,
+//                            team = it.team,
+//                            teamConst = it.teamConst,
+//                            price = it.price,
+//                            color = it.color,
+//                            position = selectedPosition,
+//                            isSet = true
+//                        )
+//                    )
                     val bundle = Bundle()
                     bundle.putBoolean(Enums.Result.REFRESH.name, true)
                     setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
