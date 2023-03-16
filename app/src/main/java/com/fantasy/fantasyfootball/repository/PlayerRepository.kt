@@ -4,16 +4,16 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
 
 interface PlayerRepository {
-    suspend fun getPlayersByArea(area: String): List<Player>
+    suspend fun getPlayersByArea(area: String, existingPlayer: List<String>): List<Player>
 
     // Get player by id
-    suspend fun getPlayerById(playerId: Int): Player?
+    suspend fun getPlayerById(playerId: String): Player?
 
     // Insert a new player
     suspend fun createPlayer(player: Player)
 
     // Delete a player
-    suspend fun delete(playerId: Int)
+    suspend fun delete(playerId: String)
 
     // Get players by searching for name
     suspend fun getPlayersBySearch(area: String, playerName: String): List<Player>

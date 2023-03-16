@@ -7,17 +7,6 @@ import kotlinx.coroutines.tasks.await
 class FireStoreMatchRepository(private val ref: CollectionReference): MatchRepository {
 
     override suspend fun getMatches(): List<Matches> {
-//        val querySnapshot = ref.get().await()
-//        val matchesList = mutableListOf<Matches>()
-//
-//        for (document in querySnapshot.documents) {
-//            val matches = document.toObject(Matches::class.java)
-//            matches?.let {
-//                matchesList.add(it)
-//            }
-//        }
-//
-//        return matchesList
         return ref.get().await().toObjects(Matches::class.java)
     }
 
@@ -34,9 +23,5 @@ class FireStoreMatchRepository(private val ref: CollectionReference): MatchRepos
 
     override suspend fun delete(matchId: Int) {
         TODO("Not yet implemented")
-    }
-
-    suspend fun addMatches(matches: Matches) {
-        ref.add(matches).await()
     }
 }
