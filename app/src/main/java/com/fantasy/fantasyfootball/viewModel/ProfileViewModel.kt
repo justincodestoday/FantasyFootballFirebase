@@ -9,6 +9,7 @@ import com.fantasy.fantasyfootball.repository.*
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +17,7 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
     BaseViewModel() {
     val loggedIn: MutableLiveData<Boolean?> = MutableLiveData()
+    val update: MutableSharedFlow<Unit> = MutableSharedFlow()
 
     init {
         fetchCurrentUser()
@@ -24,29 +26,33 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
     fun updateProfile(
         imageUri: Uri?
     ) {
-        val imageName = user.value?.image ?: Utils.getCurrentTime()
         viewModelScope.launch {
-            imageUri?.let {
-                ImageStorageService.addImage(imageUri, imageName) { status ->
-                    if (!status) {
-                        viewModelScope.launch {
-                            error.emit("Image upload failed")
+            try {
+                val imageName = user.value?.image ?: Utils.getCurrentTime()
+                imageUri?.let {
+                    ImageStorageService.addImage(imageUri, imageName) { status ->
+                        if (!status) {
+                            viewModelScope.launch { error.emit("Image upload failed") }
                         }
                     }
-                }
-                user.value?.let {
-                    safeApiCall {
-                        userRepo.updateUser(it.copy(image = imageName))
+                    user.value?.let {
+                        safeApiCall { userRepo.updateUser(it.copy(image = imageName)) }
+                        update.emit(Unit)
                     }
-                    finish.emit(Unit)
                 }
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
             }
         }
     }
 
     fun editUser(user: User) {
         viewModelScope.launch {
-            safeApiCall { userRepo.updateUser(user) }
+            try {
+                safeApiCall { userRepo.updateUser(user) }
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 

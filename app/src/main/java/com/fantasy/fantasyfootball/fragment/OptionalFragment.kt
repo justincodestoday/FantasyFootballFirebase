@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.fantasy.fantasyfootball.MainActivity
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentOptionalBinding
 import com.fantasy.fantasyfootball.util.Utils
@@ -51,9 +52,7 @@ class OptionalFragment : BaseFragment<FragmentOptionalBinding>() {
         binding?.btnSave?.setOnClickListener {
             val imageName = binding?.tvImageName?.text.toString()
             if (Utils.validate(imageName)) {
-                lifecycleScope.launch {
                     viewModel.addInfo(args.email, imageUri)
-                }
             } else {
                 binding?.tvError?.text =
                     context?.getString(R.string.missing_image)
@@ -73,14 +72,11 @@ class OptionalFragment : BaseFragment<FragmentOptionalBinding>() {
                         context?.getString(R.string.missing_image)
                     tvError.visibility = View.GONE
                 }
-                navController.popBackStack(R.id.main_nav_graph, true)
-                navController.navigate(R.id.credentialsFragment)
-
-                // if closed app without logging in, the app launched will log in automatically,
-                // ask khayrul
-                // viewModel.login()
-//                val action = OptionalFragmentDirections.toHomeFragment()
-//                navController.navigate(action)
+                (activity as MainActivity).identify()
+                val action = OptionalFragmentDirections.toHomeFragment()
+                navController.navigate(action)
+            // if closed app without logging in,
+            // the app launched will log in automatically,
             }
         }
     }

@@ -62,6 +62,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             navController.popBackStack(R.id.main_nav_graph, true)
             navController.navigate(R.id.credentialsFragment)
         }
+
+        binding?.swiperefresh?.setOnRefreshListener {
+            viewModel.getCurrentUser()
+            binding?.swiperefresh?.isRefreshing = false
+        }
     }
 
     private fun setFragmentResults() {
