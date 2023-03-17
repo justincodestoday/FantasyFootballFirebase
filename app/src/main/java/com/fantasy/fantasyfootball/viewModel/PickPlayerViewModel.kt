@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.data.model.*
+import com.fantasy.fantasyfootball.repository.FireStoreFantasyRepository
 import com.fantasy.fantasyfootball.repository.FireStorePlayerRepository
 import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
@@ -16,6 +17,7 @@ class PickPlayerViewModel @Inject constructor(
     private val playerRepo: FireStorePlayerRepository,
     private val teamRepo: FireStoreTeamRepository,
     private val userRepo: FireStoreUserRepository,
+    private val fantasyRepo: FireStoreFantasyRepository
 
     ) : BaseViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
@@ -23,7 +25,13 @@ class PickPlayerViewModel @Inject constructor(
 
     fun addPlayer(fantasyPlayer: FantasyPlayer) {
         viewModelScope.launch {
-            teamRepo.createPlayer(fantasyPlayer)
+            fantasyRepo.createPlayer(fantasyPlayer)
+        }
+    }
+
+    fun addPlayerToTeam(fantasyPlayer: FantasyPlayer) {
+        viewModelScope.launch {
+            userRepo.addPlayerToTeam(fantasyPlayer)
         }
     }
 

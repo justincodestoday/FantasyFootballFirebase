@@ -1,10 +1,13 @@
 package com.fantasy.fantasyfootball.repository
 
+import android.util.Log
+import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 
@@ -15,10 +18,11 @@ class FireStoreUserRepository(
     UserRepository {
     override suspend fun register(user: User): FirebaseUser? {
         val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
-        val doc = ref.document()
-        val id = doc.id
-        if (res.user != null) {
-            ref.document(id).set(user.copy(id = id)).await()
+//        val doc = ref.document()
+//        val id = doc.id
+
+        res.user?.let {
+            ref.document(it.uid).set(user.copy(id = it.uid)).await()
         }
         return res.user
     }
@@ -54,6 +58,32 @@ class FireStoreUserRepository(
         if (user != null) {
             doc.set(user.copy(image = image, team = team))
         }
+    }
+
+    override suspend fun addPlayerToTeam(fantasyPlayer: FantasyPlayer) {
+        Log.d("debugging", "Are you even working?")
+        val email = auth.uid ?: ""
+//        var docId = "default"
+        Log.d("debugging", email)
+//        val query = ref.whereEqualTo("email", email).get().await()
+//        query.documents.forEach {
+//            docId = it.id
+//        }
+        val user = ref.document(email)
+//        val player = user.get().await().toObject(User::class.java)?.team?.players?.find {
+//            it.lastName == fantasyPlayer.lastName
+//        }
+        user.update("team.players", FieldValue.arrayUnion(fantasyPlayer)).addOnSuccessListener {
+            Log.d("debugging", "success")
+        }.addOnFailureListener {
+            Log.d("debugging", "failed")
+        }
+//        if (player == null) {
+//            callback(true)
+//            user.update("teams.players", FieldValue.arrayUnion(fantasyPlayer)).await()
+//        } else {
+//            callback(false)
+//        }
     }
 
     suspend fun getCurrentUser(): User? {
