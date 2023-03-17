@@ -16,5 +16,9 @@ interface UserRepository {
 
     suspend fun addPlayerToTeam(fantasyPlayer: FantasyPlayer)
 
-//    suspend fun removePlayer(fantasyPlayer: FantasyPlayer)
+    suspend fun removePlayer(fanPlayerId: String)
+
+    suspend fun updateBudget(budget: Float)
+
+    suspend fun updatePoints(points: Int)
 }

@@ -1,6 +1,7 @@
 package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,14 +42,15 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
             }
         }
 
-        viewModel.teamPlayer.observe(viewLifecycleOwner) {
+        viewModel.user.observe(viewLifecycleOwner) {
 //            teamId = it.teamId!!
-            teamPoints = it.points
-            it.players.forEach { player ->
+            teamPoints = it.team.points
+            it.team.players.forEach { player ->
                 list.add(player)
             }
 
             viewModel.getMatches()
+
         }
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -60,8 +62,9 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
                 val matchingPlayers =
                     list.filter { player -> player.teamConst == match.homeTeam }.size
                 val points = matchingPlayers * match.homeScore!! * 2
+            Log.d("debugging", list.toString())
                 val totalPoints = teamPoints + points
-                viewModel.updatePoints(teamId, totalPoints)
+                viewModel.updatePoints(totalPoints)
                 NavHostFragment.findNavController(this).popBackStack()
                 context?.let { context ->
                     Toast.makeText(
@@ -79,7 +82,7 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
                     list.filter { player -> player.teamConst == match.awayTeam }.size
                 val points = matchingPlayers * match.awayScore!! * 2
                 val totalPoints = teamPoints + points
-                viewModel.updatePoints(teamId, totalPoints)
+                viewModel.updatePoints(totalPoints)
                 NavHostFragment.findNavController(this).popBackStack()
                 context?.let { context ->
                     Toast.makeText(
