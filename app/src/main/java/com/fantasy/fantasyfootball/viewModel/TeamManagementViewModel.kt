@@ -367,13 +367,13 @@ class TeamManagementViewModel @Inject constructor(
 //        }
 //    }
 
-    fun createPlayer() {
-        viewModelScope.launch {
-            players2.forEach {
-                playerRepo.createPlayer(it)
-            }
-        }
-    }
+//    fun createPlayer() {
+//        viewModelScope.launch {
+//            players2.forEach {
+//                playerRepo.createPlayer(it)
+//            }
+//        }
+//    }
 
     fun updateBudget(teamId: Int, budget: Float) {
         viewModelScope.launch {
