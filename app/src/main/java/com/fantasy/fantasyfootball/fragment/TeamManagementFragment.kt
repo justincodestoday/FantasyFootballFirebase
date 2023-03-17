@@ -35,7 +35,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
             }
         }
 
-        var teamId: Int = 0
+//        var teamId: Int = 0
         var teamBudget: Float = 0.0f
         val dialogInstance = ConfirmDialogs()
         viewModel.user.observe(viewLifecycleOwner) {
@@ -43,10 +43,18 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
             teamBudget = it.team.budget
             val listOfPositions = mutableListOf<String>()
             it.team.players.forEach { player ->
-                listOfPositions.add(player.position)
-                val color = setShirtColor(player.color)
-                setImageForPosition(player.position, color)
-                setPlayerName(player.position, player.lastName)
+                player.position?.let { it1 -> listOfPositions.add(it1) }
+                val color = player.color?.let { it1 -> setShirtColor(it1) }
+                player.position?.let { it1 ->
+                    if (color != null) {
+                        setImageForPosition(it1, color)
+                    }
+                }
+                player.position?.let { it1 -> player.lastName?.let { it2 ->
+                    setPlayerName(it1,
+                        it2
+                    )
+                } }
             }
 
             binding?.gk?.setOnClickListener { _ ->
@@ -68,7 +76,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -116,7 +124,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -164,7 +172,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -212,7 +220,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -260,7 +268,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -308,7 +316,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -356,7 +364,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -404,7 +412,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -452,7 +460,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -500,7 +508,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId
@@ -548,7 +556,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.REMOVE_PLAYER_RESULT.name, bundle)
                             val updatedValue = teamBudget + player.price
-                            viewModel.updateBudget(teamId, updatedValue)
+                            viewModel.updateBudget(updatedValue)
                             player.fanPlayerId?.let { fanPlayerId ->
                                 viewModel.removePlayer(
                                     fanPlayerId

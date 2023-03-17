@@ -41,6 +41,12 @@ object MyAppDependency {
 
     @Provides
     @Singleton
+    fun getFireStoreFantasyRepository(db: FirebaseFirestore): FireStoreFantasyRepository {
+        return FireStoreFantasyRepository(db.collection("fantasy"))
+    }
+
+    @Provides
+    @Singleton
     fun getFireStoreMatchRepository(db: FirebaseFirestore): FireStoreMatchRepository {
         return FireStoreMatchRepository(db.collection("matches"))
     }
