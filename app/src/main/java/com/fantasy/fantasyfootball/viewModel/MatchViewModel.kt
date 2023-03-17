@@ -8,6 +8,7 @@ import com.fantasy.fantasyfootball.data.model.Matches
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.repository.FireStoreMatchRepository
 import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MatchViewModel @Inject constructor(
     private val matchRepo: FireStoreMatchRepository,
-    private val teamRepo: FireStoreTeamRepository
+    private val teamRepo: FireStoreTeamRepository,
+    private val userRepo: FireStoreUserRepository
 ) :
     BaseViewModel() {
 
@@ -86,9 +88,9 @@ class MatchViewModel @Inject constructor(
         matches.value = null
     }
 
-    fun updatePoints(teamId: Int, points: Int) {
+    fun updatePoints(points: Int) {
         viewModelScope.launch {
-            teamRepo.updatePoints(teamId, points)
+            userRepo.updatePoints(points)
         }
     }
 

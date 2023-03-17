@@ -350,9 +350,9 @@ class TeamManagementViewModel @Inject constructor(
         )
     )
 
-    fun removePlayer(fanPlayerId: Int) {
+    fun removePlayer(fanPlayerId: String) {
         viewModelScope.launch {
-            teamRepo.deletePlayer(fanPlayerId)
+            userRepo.removePlayer(fanPlayerId)
         }
     }
 
@@ -375,9 +375,9 @@ class TeamManagementViewModel @Inject constructor(
 //        }
 //    }
 
-    fun updateBudget(teamId: Int, budget: Float) {
+    fun updateBudget (budget: Float) {
         viewModelScope.launch {
-            teamRepo.updateBudget(teamId, budget)
+            userRepo.updateBudget(budget)
         }
     }
 

@@ -2,19 +2,14 @@ package com.fantasy.fantasyfootball.fragment
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.PlayerAdapter
 import com.fantasy.fantasyfootball.constant.Enums
@@ -115,7 +110,7 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                 // Positive value: if f1 is numerically greater than f2.
                 if (teamBudget.compareTo(it.price) == 0) {
                     val updatedValue = teamBudget - it.price
-//                    viewModel.updateBudget(teamId, updatedValue)
+                    viewModel.updateBudget(updatedValue)
                     viewModel.addPlayerToTeam(
                         FantasyPlayer(
                             firstName = it.firstName,
@@ -128,18 +123,18 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                             isSet = true
                         )
                     )
-                    viewModel.addPlayer(
-                        FantasyPlayer(
-                            firstName = it.firstName,
-                            lastName = it.lastName,
-                            team = it.team,
-                            teamConst = it.teamConst,
-                            price = it.price,
-                            color = it.color,
-                            position = selectedPosition,
-                            isSet = true
-                        )
-                    )
+//                    viewModel.addPlayer(
+//                        FantasyPlayer(
+//                            firstName = it.firstName,
+//                            lastName = it.lastName,
+//                            team = it.team,
+//                            teamConst = it.teamConst,
+//                            price = it.price,
+//                            color = it.color,
+//                            position = selectedPosition,
+//                            isSet = true
+//                        )
+//                    )
                     val bundle = Bundle()
                     bundle.putBoolean(Enums.Result.REFRESH.name, true)
                     setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
@@ -166,7 +161,7 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                     snackBar.show()
                 } else {
                     val updatedValue = teamBudget - it.price
-//                    viewModel.updateBudget(teamId, updatedValue)
+                    viewModel.updateBudget(updatedValue)
                     viewModel.addPlayerToTeam(
                         FantasyPlayer(
                             firstName = it.firstName,
@@ -179,18 +174,18 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                             isSet = true
                         )
                     )
-                    viewModel.addPlayer(
-                        FantasyPlayer(
-                            firstName = it.firstName,
-                            lastName = it.lastName,
-                            team = it.team,
-                            teamConst = it.teamConst,
-                            price = it.price,
-                            color = it.color,
-                            position = selectedPosition,
-                            isSet = true
-                        )
-                    )
+//                    viewModel.addPlayer(
+//                        FantasyPlayer(
+//                            firstName = it.firstName,
+//                            lastName = it.lastName,
+//                            team = it.team,
+//                            teamConst = it.teamConst,
+//                            price = it.price,
+//                            color = it.color,
+//                            position = selectedPosition,
+//                            isSet = true
+//                        )
+//                    )
                     val bundle = Bundle()
                     bundle.putBoolean(Enums.Result.REFRESH.name, true)
                     setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
