@@ -2,18 +2,14 @@ package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.*
 import androidx.navigation.fragment.NavHostFragment
-import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 import com.fantasy.fantasyfootball.dialog.ConfirmDialogs
-import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

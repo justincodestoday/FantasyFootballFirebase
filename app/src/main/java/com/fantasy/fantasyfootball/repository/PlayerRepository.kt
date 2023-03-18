@@ -12,9 +12,6 @@ interface PlayerRepository {
     // Insert a new player
     suspend fun createPlayer(player: Player)
 
-    // Delete a player
-    suspend fun delete(playerId: String)
-
     // Get players by searching for name
     suspend fun getPlayersBySearch(area: String, playerName: String): List<Player>
 

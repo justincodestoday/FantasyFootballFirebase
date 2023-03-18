@@ -22,8 +22,25 @@ class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> 
     override fun onBindViewHolder(holder: MatchHolder, position: Int) {
         val match = matches[position]
         holder.binding.run {
-            tvHomeTeam.text = match.homeTeam.toString()
-            tvAwayTeam.text = match.awayTeam.toString()
+
+            when (match.homeTeam) {
+                Enums.Team.ManUnited -> tvHomeTeam.text = "Man United"
+                Enums.Team.Liverpool -> tvHomeTeam.text = "Liverpool"
+                Enums.Team.Arsenal -> tvHomeTeam.text = "Arsenal"
+                Enums.Team.Chelsea -> tvHomeTeam.text = "Chelsea"
+                // Add more cases for other teams as needed
+                else -> tvHomeTeam.text = match.homeTeam.toString()
+            }
+
+            when (match.awayTeam) {
+                Enums.Team.ManUnited -> tvAwayTeam.text = "Man United"
+                Enums.Team.Liverpool -> tvAwayTeam.text = "Liverpool"
+                Enums.Team.Chelsea -> tvAwayTeam.text = "Chelsea"
+                Enums.Team.Arsenal -> tvAwayTeam.text = "Arsenal"
+                // Add more cases for other teams as needed
+                else -> tvAwayTeam.text = match.awayTeam.toString()
+            }
+
             tvHomeScore.text = match.homeScore.toString()
             tvAwayScore.text = match.awayScore.toString()
             tvDate.text = match.date
@@ -31,35 +48,6 @@ class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> 
             match.homeTeam?.name?.let { setTeamImage(it, home) }
             match.awayTeam?.name?.let { setTeamImage(it, away) }
 
-//            when (match.homeTeam?.name) {
-//                Enums.Team.Liverpool.name -> {
-//                    home.setImageResource(R.drawable.liverpool)
-//                }
-//                Enums.Team.ManUnited.name -> {
-//                    home.setImageResource(R.drawable.manutd)
-//                }
-//                Enums.Team.Arsenal.name -> {
-//                    home.setImageResource(R.drawable.arsenal)
-//                }
-//                Enums.Team.Chelsea.name -> {
-//                    home.setImageResource(R.drawable.chelsea)
-//                }
-//            }
-//
-//            when (match.awayTeam?.name) {
-//                Enums.Team.Liverpool.name -> {
-//                    away.setImageResource(R.drawable.liverpool)
-//                }
-//                Enums.Team.ManUnited.name -> {
-//                    away.setImageResource(R.drawable.manutd)
-//                }
-//                Enums.Team.Arsenal.name -> {
-//                    away.setImageResource(R.drawable.arsenal)
-//                }
-//                Enums.Team.Chelsea.name -> {
-//                    away.setImageResource(R.drawable.chelsea)
-//                }
-//            }
 
             cvMatchCard.setOnClickListener {
                 onClick(match)

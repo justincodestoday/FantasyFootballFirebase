@@ -7,9 +7,4 @@ interface MatchRepository {
     suspend fun getMatches(): List<Matches>
 
     suspend fun addMatches(matches: Matches)
-
-    suspend fun insert(match: Matches)
-
-    suspend fun delete(matchId: Int)
-
 }

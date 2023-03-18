@@ -46,6 +46,7 @@
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/m"
                     android:paddingTop="@dimen/m"
+                    android:layout_marginStart="3dp"
                     android:weightSum="1">
 
                     <TextView
@@ -53,6 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
                         android:fontFamily="@font/font2"
+
                         android:text="@string/user_rank"
                         android:textColor="@color/dark_purple_700"
                         android:textSize="16sp" />

@@ -16,12 +16,4 @@ class FireStoreMatchRepository(private val ref: CollectionReference): MatchRepos
         val updatedMatches = matches.copy(matchId = id)
         doc.set(updatedMatches).await()
     }
-
-    override suspend fun insert(match: Matches) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun delete(matchId: Int) {
-        TODO("Not yet implemented")
-    }
 }
