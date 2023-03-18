@@ -14,6 +14,7 @@ abstract class BaseViewModel : ViewModel() {
     val user: MutableLiveData<User> = MutableLiveData()
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
+    val dialog: MutableSharedFlow<String> = MutableSharedFlow()
 
     open fun onViewCreated() {}
 

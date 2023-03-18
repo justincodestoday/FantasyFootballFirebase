@@ -148,6 +148,7 @@
     <string name="user_already_exists">User already exists</string>
     <string name="team_name_already_exists">Team name already exists</string>
     <string name="insufficient_funds">Insufficient funds</string>
+    <string name="image_upload_failed">Image upload failed</string>
     <string name="failure">Failure</string>
     <string name="unrecognised_error">Unrecognised error</string>
     <string name="nothing">Nothing</string>

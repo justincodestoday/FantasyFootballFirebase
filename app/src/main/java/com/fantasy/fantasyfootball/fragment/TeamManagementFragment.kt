@@ -1,7 +1,6 @@
 package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.*
@@ -10,6 +9,9 @@ import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 import com.fantasy.fantasyfootball.dialog.ConfirmDialogs
+import com.fantasy.fantasyfootball.util.TeamUtil.setImageForPosition
+import com.fantasy.fantasyfootball.util.TeamUtil.setPlayerName
+import com.fantasy.fantasyfootball.util.TeamUtil.setShirtColor
 import com.fantasy.fantasyfootball.viewModel.TeamManagementViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,9 +21,9 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
     override val viewModel: TeamManagementViewModel by viewModels()
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
-        super.onBindView(view,savedInstanceState)
+        super.onBindView(view, savedInstanceState)
 
-        val user = viewModel.fetchCurrentUser()
+        viewModel.fetchCurrentUser()
 
         viewModel.user.observe(viewLifecycleOwner) {
             binding.apply {
@@ -31,26 +33,24 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
             }
         }
 
-//        var teamId: Int = 0
-        var teamBudget: Float = 0.0f
+        var teamBudget: Float
         val dialogInstance = ConfirmDialogs()
         viewModel.user.observe(viewLifecycleOwner) {
-//            teamId = it.teamId!!
             teamBudget = it.team.budget
             val listOfPositions = mutableListOf<String>()
-            it.team.players.forEach { player ->
-                player.position?.let { it1 -> listOfPositions.add(it1) }
-                val color = player.color?.let { it1 -> setShirtColor(it1) }
-                player.position?.let { it1 ->
-                    if (color != null) {
-                        setImageForPosition(it1, color)
+            it.team.players.forEach { fanPlayer ->
+                val color = fanPlayer.color?.let { shirtColor -> setShirtColor(shirtColor) }
+                fanPlayer.position?.let { playerPosition ->
+                    listOfPositions.add(playerPosition)
+                    if (color != null) binding?.let { imageButton ->
+                        setImageForPosition(playerPosition, color, imageButton)
+                    }
+                    fanPlayer.lastName?.let { lastName ->
+                        binding?.let { textView ->
+                            setPlayerName(playerPosition, lastName, textView)
+                        }
                     }
                 }
-                player.position?.let { it1 -> player.lastName?.let { it2 ->
-                    setPlayerName(it1,
-                        it2
-                    )
-                } }
             }
 
             binding?.gk?.setOnClickListener { _ ->
@@ -580,60 +580,6 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     NavHostFragment.findNavController(this).navigate(action)
                 }
             }
-        }
-
-        setFragmentResultListener(Enums.Result.ADD_PLAYER_RESULT.name) { _, result ->
-            val refresh = result.getBoolean(Enums.Result.REFRESH.name)
-            if (refresh && user != null) {
-//                viewModel.getUserWithTeam(user.userId!!)
-//                viewModel.getTeamWithPlayers(user.userId)
-            }
-        }
-    }
-
-    private fun setImageForPosition(position: String, color: Int) {
-        when (position) {
-            Enums.Position.GK.name -> binding?.gk?.setImageResource(color)
-            Enums.Position.LB.name -> binding?.lb?.setImageResource(color)
-            Enums.Position.LCB.name -> binding?.lcb?.setImageResource(color)
-            Enums.Position.RCB.name -> binding?.rcb?.setImageResource(color)
-            Enums.Position.RB.name -> binding?.rb?.setImageResource(color)
-            Enums.Position.LM.name -> binding?.lm?.setImageResource(color)
-            Enums.Position.LCM.name -> binding?.lcm?.setImageResource(color)
-            Enums.Position.RCM.name -> binding?.rcm?.setImageResource(color)
-            Enums.Position.RM.name -> binding?.rm?.setImageResource(color)
-            Enums.Position.LS.name -> binding?.ls?.setImageResource(color)
-            Enums.Position.RS.name -> binding?.rs?.setImageResource(color)
-        }
-    }
-
-    private fun setShirtColor(color: Enums.ShirtColor): Int {
-        return when (color) {
-            Enums.ShirtColor.LIGHTRED -> R.drawable.shirt_light_red
-            Enums.ShirtColor.DARKRED -> R.drawable.shirt_dark_red
-            Enums.ShirtColor.LIGHTBLUE -> R.drawable.shirt_light_blue
-            Enums.ShirtColor.DARKBLUE -> R.drawable.shirt_dark_blue
-            Enums.ShirtColor.YELLOW -> R.drawable.shirt_yellow
-            Enums.ShirtColor.WHITE -> R.drawable.shirt_white
-            Enums.ShirtColor.BLACK -> R.drawable.shirt_black
-            Enums.ShirtColor.PURPLE -> R.drawable.shirt_pink
-            else -> R.drawable.shirt2
-        }
-    }
-
-    private fun setPlayerName(position: String, lastName: String) {
-        when (position) {
-            Enums.Position.GK.name -> binding?.goalKeeper?.text = lastName
-            Enums.Position.LB.name -> binding?.leftBack?.text = lastName
-            Enums.Position.LCB.name -> binding?.leftCenterBack?.text = lastName
-            Enums.Position.RCB.name -> binding?.rightCenterBack?.text = lastName
-            Enums.Position.RB.name -> binding?.rightBack?.text = lastName
-            Enums.Position.LM.name -> binding?.leftMidfielder?.text = lastName
-            Enums.Position.LCM.name -> binding?.leftCenterMid?.text = lastName
-            Enums.Position.RCM.name -> binding?.rightCenterMid?.text = lastName
-            Enums.Position.RM.name -> binding?.rightMidfielder?.text = lastName
-            Enums.Position.LS.name -> binding?.leftStriker?.text = lastName
-            Enums.Position.RS.name -> binding?.rightStriker?.text = lastName
         }
     }
 }

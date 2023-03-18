@@ -1,17 +1,16 @@
 package com.fantasy.fantasyfootball.viewModel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.service.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
+class HomeViewModel @Inject constructor(private val auth: AuthService) :
     BaseViewModel() {
     val fixtures: MutableSharedFlow<Unit> = MutableSharedFlow()
     val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
@@ -19,10 +18,6 @@ class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
     val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
     val logout: MutableSharedFlow<Unit> = MutableSharedFlow()
-
-    init {
-        getCurrentUser()
-    }
 
     fun refreshPage(refresh: Boolean) {
         refreshPage.value = refresh
@@ -82,7 +77,7 @@ class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
     fun getCurrentUser() {
         viewModelScope.launch {
             try {
-                val res = safeApiCall { userRepo.getCurrentUser() }
+                val res = safeApiCall { auth.getCurrentUser() }
                 user.value = res
             } catch (e: Exception) {
                 error.emit(e.message.toString())
@@ -93,7 +88,7 @@ class HomeViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
     fun logout() {
         viewModelScope.launch {
             try {
-                safeApiCall { userRepo.deAuthenticate() }
+                safeApiCall { auth.deAuthenticate() }
                 success.emit(Enums.FormSuccess.LOGOUT_SUCCESSFUL.name)
             } catch (e: Exception) {
                 error.emit(e.message.toString())

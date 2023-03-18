@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.util.AlertUtil.enumToString
 import com.fantasy.fantasyfootball.viewModel.BaseViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
@@ -52,14 +52,14 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
         lifecycleScope.launch {
             viewModel.success.collect {
-                val msg = enumToString(it)
+                val msg = enumToString(it, requireContext())
                 Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
             }
         }
 
         lifecycleScope.launch {
             viewModel.error.collect {
-                val msg = enumToString(it)
+                val msg = enumToString(it, requireContext())
                 val snackBar = Snackbar.make(view, "$msg", Snackbar.LENGTH_SHORT)
                 snackBar.setBackgroundTint(
                     ContextCompat.getColor(requireContext(), R.color.red_500)
@@ -73,26 +73,4 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     }
 
     open fun onBindData(view: View) {}
-
-    fun enumToString(type: String?): String? {
-        return when (type) {
-            Enums.FormError.EMPTY_FIELD.name -> context?.getString(R.string.empty_field)
-            Enums.FormError.MISSING_NAME.name -> context?.getString(R.string.missing_name)
-            Enums.FormError.MISSING_TEAM_NAME.name -> context?.getString(R.string.missing_team_name)
-            Enums.FormError.MISSING_EMAIL.name -> context?.getString(R.string.missing_email)
-            Enums.FormError.MISSING_PASSWORD.name -> context?.getString(R.string.missing_password)
-            Enums.FormError.INVALID_EMAIL.name -> context?.getString(R.string.invalid_email)
-            Enums.FormError.INVALID_USERNAME.name -> context?.getString(R.string.invalid_username)
-            Enums.FormError.INVALID_PASSWORD.name -> context?.getString(R.string.invalid_password)
-            Enums.FormError.PASSWORDS_NOT_MATCHING.name -> context?.getString(R.string.passwords_not_matching)
-            Enums.FormError.USER_EXISTS.name -> context?.getString(R.string.user_already_exists)
-            Enums.FormError.TEAM_NAME_EXISTS.name -> context?.getString(R.string.team_name_already_exists)
-            Enums.FormError.WRONG_CREDENTIALS.name -> context?.getString(R.string.wrong_credentials)
-            Enums.FormError.FAILURE.name -> context?.getString(R.string.failure)
-            Enums.FormSuccess.REGISTER_SUCCESSFUL.name -> context?.getString(R.string.register_successful)
-            Enums.FormSuccess.LOGIN_SUCCESSFUL.name -> context?.getString(R.string.login_successful)
-            Enums.FormSuccess.LOGOUT_SUCCESSFUL.name -> context?.getString(R.string.logout_successful)
-            else -> context?.getString(R.string.unrecognised_error)
-        }
-    }
 }

@@ -21,6 +21,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
+        viewModel.getCurrentUser()
+
         binding?.viewModel = viewModel
         binding?.lifecycleOwner = viewLifecycleOwner
 
@@ -29,13 +31,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.user.observe(viewLifecycleOwner) { user ->
             binding?.apply {
                 if (user != null) {
-                    tvProfile.text = user.team.name
-                    points.text = user.team.points.toString() + " Points"
+                    points.text = "${user.team.points} points"
+                    tvProfile.text = user.email
                     user.image?.let { imageName ->
                         ImageStorageService.getImageUri(imageName) { uri ->
-                            Glide.with(root)
-                                .load(uri)
-                                .placeholder(R.drawable.vector__3_)
+                            Glide.with(root).load(uri).placeholder(R.drawable.vector__3_)
                                 .into(ivProfile)
                         }
                     }
