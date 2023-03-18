@@ -30,19 +30,6 @@ class FireStorePlayerRepository(private val ref: CollectionReference) : PlayerRe
         doc.set(updatedPlayers).await()
     }
 
-    override suspend fun delete(playerId: String) {
-        TODO("Not yet implemented")
-    }
-
-//    override suspend fun getPlayersBySearch(area: String, playerName: String): List<Player> {
-//        val query = ref.whereEqualTo("area", area)
-//            .whereGreaterThan("lastName", playerName)
-//            .whereLessThan("lastName", playerName + "\uf8ff")
-//            .orderBy("lastName")
-//        val snapshot = query.get().await()
-//        return snapshot.toObjects(Player::class.java).map { it.copy(playerId = it.playerId) }
-//    }
-
     override suspend fun getPlayersBySearch(area: String, playerName: String): List<Player> {
         val query = ref.whereEqualTo("area", area).orderBy("lastName")
         val snapshot = query.get().await()

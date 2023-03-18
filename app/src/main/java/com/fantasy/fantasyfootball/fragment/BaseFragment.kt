@@ -60,7 +60,6 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
         lifecycleScope.launch {
             viewModel.error.collect {
                 val msg = enumToString(it)
-//                val snackBar = Snackbar.make(view, it, Snackbar.LENGTH_SHORT)
                 val snackBar = Snackbar.make(view, "$msg", Snackbar.LENGTH_SHORT)
                 snackBar.setBackgroundTint(
                     ContextCompat.getColor(requireContext(), R.color.red_500)

@@ -29,7 +29,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.user.observe(viewLifecycleOwner) { user ->
             binding?.apply {
                 if (user != null) {
-                    tvProfile.text = user.email
+                    tvProfile.text = user.team.name
+                    points.text = user.team.points.toString() + " Points"
                     user.image?.let { imageName ->
                         ImageStorageService.getImageUri(imageName) { uri ->
                             Glide.with(root)

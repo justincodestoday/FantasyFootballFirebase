@@ -1,13 +1,11 @@
 package com.fantasy.fantasyfootball.viewModel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.repository.FireStoreMatchRepository
-import com.fantasy.fantasyfootball.repository.FireStoreTeamRepository
 import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,19 +14,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MatchViewModel @Inject constructor(
     private val matchRepo: FireStoreMatchRepository,
-    private val teamRepo: FireStoreTeamRepository,
     private val userRepo: FireStoreUserRepository
 ) :
     BaseViewModel() {
 
     val matches: MutableLiveData<List<Matches>?> = MutableLiveData()
-    val teamPlayer: MutableLiveData<Team> = MutableLiveData()
-
-//    init {
-//        viewModelScope.launch {
-//            getMatches() // Always get the latest matches
-//        }
-//    }
 
     init {
         getMatches()
@@ -52,20 +42,11 @@ class MatchViewModel @Inject constructor(
         )
     )
 
-//    init {
-//        viewModelScope.launch {
-//            game.forEach {
-//                matchRepo.insert(it)
-//            }
-//        }
-//    }
-
     fun getMatches() {
         viewModelScope.launch {
             matches.value = matchRepo.getMatches()
         }
     }
-
 
     private fun addMatches() {
         viewModelScope.launch {
@@ -94,14 +75,14 @@ class MatchViewModel @Inject constructor(
         }
     }
 
-//    fun getTeamWithPlayers(userId: Int) {
-//        viewModelScope.launch {
-//            val team = teamRepo.getTeamByOwnerId(userId)
-//            val teamId = team?.teamId
-//            val res = teamId?.let { teamRepo.getTeamWithPlayersByTeamId(it) }
-//            res?.let {
-//                teamPlayer.value = it
-//            }
-//        }
-//    }
+    fun fetchCurrentUser() {
+        viewModelScope.launch {
+            try {
+                val res = safeApiCall { userRepo.getCurrentUser() }
+                user.value = res
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
+        }
+    }
 }

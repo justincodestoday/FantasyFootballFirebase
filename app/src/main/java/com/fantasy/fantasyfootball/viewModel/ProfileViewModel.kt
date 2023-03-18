@@ -31,9 +31,7 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
                 val imageName = user.value?.image ?: Utils.getCurrentTime()
                 imageUri?.let {
                     ImageStorageService.addImage(imageUri, imageName) { status ->
-                        if (!status) {
-                            viewModelScope.launch { error.emit("Image upload failed") }
-                        }
+                        if (!status) viewModelScope.launch { error.emit("Image upload failed") }
                     }
                     user.value?.let {
                         safeApiCall { userRepo.updateUser(it.copy(image = imageName)) }
@@ -61,19 +59,6 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
             try {
                 val res = safeApiCall { userRepo.getCurrentUser() }
                 user.value = res
-            } catch (e: Exception) {
-                error.emit(e.message.toString())
-            }
-        }
-    }
-
-    fun isLoggedIn() {
-        viewModelScope.launch {
-            try {
-                val res = safeApiCall { userRepo.isAuthenticated() }
-                res.let {
-                    loggedIn.value = res
-                }
             } catch (e: Exception) {
                 error.emit(e.message.toString())
             }
