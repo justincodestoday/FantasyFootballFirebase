@@ -36,22 +36,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
     var imageUri: Uri? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onBindView(view: View, savedInstanceState: Bundle?) {
+        super.onBindView(view, savedInstanceState)
+
+        viewModel.fetchCurrentUser()
 
         imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             imageUri = it
             it?.let { uri ->
-                binding?.profilePicture?.setImageURI(uri)
                 imageDialogBinding.ivImage.setImageURI(uri)
                 imageDialogBinding.tvImageName.text =
                     requireContext().contentResolver.getFileName(uri)
             }
         }
-    }
-
-    override fun onBindView(view: View, savedInstanceState: Bundle?) {
-        super.onBindView(view, savedInstanceState)
 
         imageDialogBinding = EditImageDialogBinding.inflate(layoutInflater)
         val imageDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
@@ -81,20 +78,18 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 viewModel.user.observe(viewLifecycleOwner) { user ->
                     accountDialog.setContentView(accountDialogBinding.root)
                     accountDialogBinding.etName.setText(user.name)
-                    accountDialogBinding.etEmail.setText(user.email)
                     accountDialogBinding.etTeamName.setText(user.team.name)
 
                     accountDialogBinding.btnSaveAccount.setOnClickListener {
                         val name = accountDialogBinding.etName.text.toString().trim()
-                        val email = accountDialogBinding.etEmail.text.toString().trim()
                         val teamName = accountDialogBinding.etTeamName.text.toString().trim()
 
-                        if (validate(name, email, teamName)) {
+                        if (validate(name, teamName)) {
                             val bundle = Bundle()
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
                             viewModel.editUser(
-                                user.copy(name = name, email = email, team = Team(name = teamName))
+                                user.copy(name = name, team = user.team.copy(name = teamName))
                             )
                             Toast.makeText(
                                 requireContext(),
@@ -217,16 +212,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
     }
 
-    override fun onBindData(view: View) {
-        super.onBindData(view)
-
-        lifecycleScope.launch {
-            viewModel.update.collect {
-                val bundle = Bundle()
-                bundle.putBoolean("refresh", true)
-                setFragmentResult("from_profile", bundle)
-                viewModel.fetchCurrentUser()
-            }
-        }
-    }
+//    override fun onBindData(view: View) {
+//        super.onBindData(view)
+//
+//        lifecycleScope.launch {
+//            viewModel.update.collect {
+//                val bundle = Bundle()
+//                bundle.putBoolean("refresh", true)
+//                setFragmentResult("from_profile", bundle)
+//                viewModel.fetchCurrentUser()
+//            }
+//        }
+//    }
 }

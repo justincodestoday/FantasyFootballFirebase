@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
 import com.fantasy.fantasyfootball.repository.FireStorePlayerRepository
-import com.fantasy.fantasyfootball.service.AuthService
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamManagementViewModel @Inject constructor(
     private val playerRepo: FireStorePlayerRepository,
-    private val auth: AuthService
+    private val auth: FireStoreUserRepository
 ) : BaseViewModel() {
     val player: MutableLiveData<Player> = MutableLiveData()
     val players: MutableLiveData<List<Player>> = MutableLiveData()

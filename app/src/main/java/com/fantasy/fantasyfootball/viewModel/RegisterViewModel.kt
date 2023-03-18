@@ -4,13 +4,13 @@ import android.util.Patterns
 import androidx.databinding.ObservableArrayList
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.service.AuthService
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val auth: AuthService) :
+class RegisterViewModel @Inject constructor(private val auth: FireStoreUserRepository) :
     BaseViewModel() {
     val register: MutableSharedFlow<Unit> = MutableSharedFlow()
     val formErrors = ObservableArrayList<Enums.FormError>()

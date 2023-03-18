@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
 import com.fantasy.fantasyfootball.repository.FireStoreMatchRepository
-import com.fantasy.fantasyfootball.service.AuthService
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MatchViewModel @Inject constructor(
     private val matchRepo: FireStoreMatchRepository,
-    private val auth: AuthService
+    private val auth: FireStoreUserRepository
 ) :
     BaseViewModel() {
     val matches: MutableLiveData<List<Matches>?> = MutableLiveData()

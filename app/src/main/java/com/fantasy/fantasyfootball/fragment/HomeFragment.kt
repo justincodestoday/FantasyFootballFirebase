@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             binding?.apply {
                 if (user != null) {
                     points.text = "${user.team.points} points"
-                    tvProfile.text = user.email
+                    tvProfile.text = user.team.name
                     user.image?.let { imageName ->
                         ImageStorageService.getImageUri(imageName) { uri ->
                             Glide.with(root).load(uri).placeholder(R.drawable.vector__3_)

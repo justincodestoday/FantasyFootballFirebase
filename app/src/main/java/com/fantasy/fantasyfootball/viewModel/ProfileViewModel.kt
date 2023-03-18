@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.service.AuthService
+import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val auth: AuthService) :
+class ProfileViewModel @Inject constructor(private val auth: FireStoreUserRepository) :
     BaseViewModel() {
     val loggedIn: MutableLiveData<Boolean?> = MutableLiveData()
 
@@ -51,7 +51,7 @@ class ProfileViewModel @Inject constructor(private val auth: AuthService) :
     fun updatePassword(currentPassword: String, newPassword: String) {
         viewModelScope.launch {
             try {
-                userRepo.updatePassword(currentPassword, newPassword)
+                auth.updatePassword(currentPassword, newPassword)
                 fetchCurrentUser()
             } catch (e: Exception) {
                 Timber.e(e)
