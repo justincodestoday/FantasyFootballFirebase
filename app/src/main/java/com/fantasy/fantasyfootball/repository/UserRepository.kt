@@ -21,4 +21,6 @@ interface UserRepository {
     suspend fun updateBudget(budget: Float)
 
     suspend fun updatePoints(points: Int)
+
+    suspend fun updatePassword(currentPassword: String, newPassword: String)
 }

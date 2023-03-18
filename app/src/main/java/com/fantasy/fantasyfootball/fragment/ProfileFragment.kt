@@ -124,17 +124,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             btnChangePassword.setOnClickListener {
                 viewModel.user.observe(viewLifecycleOwner) { user ->
                     passwordDialog.setContentView(passwordDialogBinding.root)
-                    passwordDialogBinding.etPassword.setText(user.password)
                     passwordDialogBinding.btnSavePassword.setOnClickListener {
-                        val _password = passwordDialogBinding.etPassword.text.toString().trim()
+                        val currentPassword = passwordDialogBinding.etPassword.text.toString().trim()
+                        val newPassword = passwordDialogBinding.etNewPassword.text.toString().trim()
 
-                        if (validate(_password)) {
+                        if (validate(currentPassword) && validate(newPassword)) {
                             val bundle = Bundle()
                             bundle.putBoolean(Enums.Result.REFRESH.name, true)
                             setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
-                            viewModel.editUser(
-                                user.copy(password = _password)
-                            )
+                            viewModel.updatePassword(currentPassword, newPassword)
+                            viewModel.editUser(user.copy(password = newPassword))
                             Toast.makeText(
                                 requireContext(),
                                 context?.getString(R.string.update_successful),

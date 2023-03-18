@@ -4,12 +4,15 @@ import android.util.Log
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
+import timber.log.Timber
 import java.util.*
 
 class FireStoreUserRepository(
@@ -113,6 +116,24 @@ class FireStoreUserRepository(
             Log.d("debugging", "successful")
         }.addOnFailureListener {
             Log.d("debugging", "failure")
+        }
+    }
+
+    override suspend fun updatePassword(currentPassword: String, newPassword: String) {
+        val user = auth.currentUser
+        val credential = EmailAuthProvider.getCredential(user!!.email!!, currentPassword)
+        user.reauthenticate(credential).addOnCompleteListener { authResult ->
+            if (authResult.isSuccessful) {
+                user.updatePassword(newPassword).addOnCompleteListener { updateResult ->
+                    if (updateResult.isSuccessful) {
+                        Timber.d("Password updated successfully")
+                    } else {
+                        Timber.e("Failed to update password: ${updateResult.exception?.message}")
+                    }
+                }
+            } else {
+                Timber.e("Failed to re-authenticate user: ${authResult.exception?.message}")
+            }
         }
     }
 

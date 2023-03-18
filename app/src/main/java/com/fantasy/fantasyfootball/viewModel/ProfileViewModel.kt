@@ -11,6 +11,7 @@ import com.fantasy.fantasyfootball.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,6 +51,17 @@ class ProfileViewModel @Inject constructor(private val userRepo: FireStoreUserRe
                 safeApiCall { userRepo.updateUser(user) }
             } catch (e: Exception) {
                 error.emit(e.message.toString())
+            }
+        }
+    }
+
+    fun updatePassword(currentPassword: String, newPassword: String) {
+        viewModelScope.launch {
+            try {
+                userRepo.updatePassword(currentPassword, newPassword)
+                fetchCurrentUser()
+            } catch (e: Exception) {
+                Timber.e(e)
             }
         }
     }
