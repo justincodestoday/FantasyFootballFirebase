@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_height="match_parent"
-        android:background="@color/off_white"
-        android:orientation="vertical"
-        android:weightSum="1"
-        tools:context=".fragment.MatchFragment">
+        android:layout_width="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/font2"
-            android:text="Matches"
-            android:textSize="32sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMatches"
+        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingVertical="@dimen/m" />
+            android:layout_height="match_parent"
+            android:background="@color/off_white"
+            android:orientation="vertical"
+            android:weightSum="1"
+            tools:context=".fragment.MatchFragment">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/font2"
+                android:text="Matches"
+                android:textSize="32sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMatches"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingVertical="@dimen/m" />
+
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

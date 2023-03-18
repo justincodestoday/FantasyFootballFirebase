@@ -1,10 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:orientation="vertical">
+
+        <io.github.florent37.shapeofview.shapes.ArcView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:shape_arc_height="26dp"
+            app:shape_arc_position="bottom"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/overlay_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/gradient"
+                    android:elevation="1dp"
+                     />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_2" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+        <!-- YOUR CONTENT -->
 
         <ImageView
             android:id="@+id/ivClose"
@@ -12,7 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_close" />
+            android:src="@drawable/ic_close"
+            android:elevation="1dp"
+            app:tint="@color/white" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivImage"
@@ -21,7 +61,11 @@
             android:scaleType="centerCrop"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/m"
+            android:padding="2dp"
+            android:elevation="2dp"
             app:shapeAppearanceOverlay="@style/Circular"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp"
             app:srcCompat="@drawable/vector__3_" />
 
         <TextView
@@ -32,7 +76,8 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:fontFamily="@font/font2"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
+            android:elevation="1dp"
             android:text="@string/drawer_name"
             android:textSize="@dimen/extra_large_text_size" />
 
@@ -43,13 +88,14 @@
             android:layout_marginHorizontal="@dimen/m"
             android:fontFamily="@font/font1"
             android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:elevation="1dp"
+
             android:text="@string/drawer_email"
             android:textSize="@dimen/medium_text_size" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/xxxxxs"
-            android:layout_marginVertical="@dimen/m"
-            android:background="@color/black" />
+
+            </LinearLayout>
+        </io.github.florent37.shapeofview.shapes.ArcView>
     </LinearLayout>
 </layout>

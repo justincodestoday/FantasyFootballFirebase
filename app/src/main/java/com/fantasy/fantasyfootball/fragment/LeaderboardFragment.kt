@@ -19,6 +19,8 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
+        viewModel.getUsers()
+
         setupAdapter()
 
         viewModel.users.observe(viewLifecycleOwner) {users ->

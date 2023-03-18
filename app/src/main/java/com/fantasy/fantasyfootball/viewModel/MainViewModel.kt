@@ -23,6 +23,12 @@ class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
         }
     }
 
+    fun isLoggedIn() {
+        viewModelScope.launch {
+            userRepo.isAuthenticated()
+        }
+    }
+
     fun logout() {
         viewModelScope.launch {
             try {

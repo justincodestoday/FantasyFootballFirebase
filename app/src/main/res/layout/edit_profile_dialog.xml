@@ -30,20 +30,20 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp" />
 
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/edit_email" />
+<!--        <TextView-->
+<!--            android:id="@+id/tv_email"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:text="@string/edit_email" />-->
 
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/custom_edit_text"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp" />
+<!--        <EditText-->
+<!--            android:id="@+id/et_email"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/custom_edit_text"-->
+<!--            android:paddingHorizontal="10dp"-->
+<!--            android:paddingVertical="5dp" />-->
 
         <TextView
             android:id="@+id/tv_team_name"

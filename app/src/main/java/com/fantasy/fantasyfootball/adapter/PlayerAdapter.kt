@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fantasy.fantasyfootball.data.model.Player
 import com.fantasy.fantasyfootball.databinding.PlayerCardBinding
+import com.fantasy.fantasyfootball.util.Utils.update
 
 class PlayerAdapter(var players: List<Player>, val onClick: (player: Player) -> Unit) :
     RecyclerView.Adapter<PlayerAdapter.PlayerHolder>() {
@@ -30,8 +31,17 @@ class PlayerAdapter(var players: List<Player>, val onClick: (player: Player) -> 
     override fun getItemCount() = players.size
 
     fun setPlayer(players: List<Player>) {
-        this.players = players
-        notifyDataSetChanged()
+        val oldItems = this.players
+        this.players = players as MutableList<Player>
+        if (oldItems.isEmpty()) {
+            update(emptyList(), players) { player1, player2 ->
+                player1.playerId == player2.playerId
+            }
+        } else {
+            update(oldItems, players) { player1, player2 ->
+                player1.playerId == player2.playerId
+            }
+        }
     }
 
     class PlayerHolder(val binding: PlayerCardBinding) : RecyclerView.ViewHolder(binding.root)

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
+class RegisterViewModel @Inject constructor(private val auth: FireStoreUserRepository) :
     BaseViewModel() {
     val register: MutableSharedFlow<Unit> = MutableSharedFlow()
     val formErrors = ObservableArrayList<Enums.FormError>()
@@ -18,12 +18,8 @@ class RegisterViewModel @Inject constructor(private val userRepo: FireStoreUserR
     suspend fun register() {
         if (isFormValid()) {
             try {
-                val user = User(
-                    name = name.value,
-                    email = email.value,
-                    password = password.value,
-                )
-                val res = safeApiCall { userRepo.register(user) }
+                val user = User(name = name.value, email = email.value, password = password.value)
+                val res = safeApiCall { auth.register(user) }
                 if (res != null) {
                     register.emit(Unit)
                     success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)

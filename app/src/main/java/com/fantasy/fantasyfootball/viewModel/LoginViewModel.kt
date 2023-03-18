@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val repo: FireStoreUserRepository) :
+class LoginViewModel @Inject constructor(private val auth: FireStoreUserRepository) :
     BaseViewModel() {
     val login: MutableSharedFlow<Unit> = MutableSharedFlow()
     val formErrors = ObservableArrayList<Enums.FormError>()
@@ -16,7 +16,7 @@ class LoginViewModel @Inject constructor(private val repo: FireStoreUserReposito
     suspend fun login() {
         if (isFormValid()) {
             try {
-                val res = safeApiCall { repo.login(email.value!!, password.value!!) }
+                val res = safeApiCall { auth.login(email.value!!, password.value!!) }
                 if (res == true) {
                     login.emit(Unit)
                     success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)

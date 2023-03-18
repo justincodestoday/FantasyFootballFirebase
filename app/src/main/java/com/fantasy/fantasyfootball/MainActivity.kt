@@ -20,11 +20,9 @@ import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
-import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -36,28 +34,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var headerBinding: DrawerHeaderBinding
     private val viewModel: MainViewModel by viewModels()
 
-    @Inject
-    lateinit var authService: FireStoreUserRepository
-
-    override fun onRestart() {
-        super.onRestart()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.getCurrentUser()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //        val binding =
 //            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
-
-        //        val authService = AuthService.getInstance(this)
-//        val user = authService.getAuthenticatedUser()
-//
-//        if (user?.userId != null) {
-//            viewModel.getUserById(user.userId)
-//        }
-        viewModel.getCurrentUser()
 
         headerView = binding.navigationView.getHeaderView(0)
         headerBinding = DrawerHeaderBinding.bind(headerView)
@@ -105,14 +90,6 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-//        lifecycleScope.launch {
-//            if (authService.getCurrentUser() != null) {
-//                navController.navigate(R.id.homeFragment)
-//            }
-//        }
-
-//        authenticate(user, graph)
-
         viewModel.user.observe(this) {
 //            authenticate(it, graph)
             if (it == null) {
@@ -124,7 +101,7 @@ class MainActivity : AppCompatActivity() {
                 headerBinding.tvEmail.text = it.email
 
                 if (it.image != null) {
-                    it.image?.let { imageName ->
+                    it.image.let { imageName ->
                         ImageStorageService.getImageUri(imageName) { uri ->
                             Glide.with(this.applicationContext)
                                 .load(uri)
@@ -140,75 +117,56 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-            binding.btnLogoutDrawer.setOnClickListener {
-                viewModel.logout()
-                Toast.makeText(
-                    this,
-                    applicationContext.getString(R.string.logout_successful),
-                    Toast.LENGTH_SHORT
-                ).show()
+        binding.btnLogoutDrawer.setOnClickListener {
+            viewModel.logout()
+            Toast.makeText(
+                this,
+                applicationContext.getString(R.string.logout_successful),
+                Toast.LENGTH_SHORT
+            ).show()
 
-                navController.popBackStack(R.id.main_nav_graph, true)
-                navController.navigate(R.id.credentialsFragment)
-                drawerLayout.close()
-            }
+            navController.popBackStack(R.id.main_nav_graph, true)
+            navController.navigate(R.id.credentialsFragment)
+            drawerLayout.close()
+        }
 
-//            navController.setGraph(graph, savedInstanceState)
+        navController.setGraph(graph, savedInstanceState)
+    }
 
-//        binding.btnLogoutDrawer.setOnClickListener {
-//            authService.unauthenticate()
-//            if (!authService.isAuthenticated()) {
-//                Toast.makeText(
-//                    this,
-//                    applicationContext.getString(R.string.logout_successful),
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//
-//                navController.popBackStack(R.id.main_nav_graph, true)
-//                navController.navigate(R.id.credentialsFragment)
-//                drawerLayout.close()
-//            }
+//    private fun authenticate(user: User?, graph: NavGraph) {
+//        if (user != null) {
+//            graph.setStartDestination(R.id.homeFragment)
+//        } else {
+//            graph.setStartDestination(R.id.credentialsFragment)
 //        }
-        }
-
-        private fun authenticate(user: User?, graph: NavGraph) {
-            if (user != null) {
-                graph.setStartDestination(R.id.homeFragment)
-            } else {
-                graph.setStartDestination(R.id.credentialsFragment)
-            }
-        }
-
-//    fun identify(user: User?) {
-//        viewModel.getUserById(user?.userId!!)
 //    }
 
-        fun identify() {
-            viewModel.getCurrentUser()
-        }
+    fun identify() {
+        viewModel.getCurrentUser()
+    }
 
-        fun navigate(destination: String) {
-            when (destination) {
-                Enums.Fragment.Team.name -> {
-                    val item = binding.bottomNav.menu.findItem(R.id.teamManagementFragment)
-                    NavigationUI.onNavDestinationSelected(item, navController)
-                }
-                Enums.Fragment.Leaderboard.name -> {
-                    val item = binding.bottomNav.menu.findItem(R.id.leaderboardFragment)
-                    NavigationUI.onNavDestinationSelected(item, navController)
-                }
-                Enums.Fragment.Profile.name -> {
-                    val item = binding.navigationView.menu.findItem(R.id.profileFragment)
-                    NavigationUI.onNavDestinationSelected(item, navController)
-                }
-                Enums.Fragment.Match.name -> {
-                    val item = binding.navigationView.menu.findItem(R.id.matchFragment)
-                    NavigationUI.onNavDestinationSelected(item, navController)
-                }
+    fun navigate(destination: String) {
+        when (destination) {
+            Enums.Fragment.Team.name -> {
+                val item = binding.bottomNav.menu.findItem(R.id.teamManagementFragment)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+            Enums.Fragment.Leaderboard.name -> {
+                val item = binding.bottomNav.menu.findItem(R.id.leaderboardFragment)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+            Enums.Fragment.Profile.name -> {
+                val item = binding.navigationView.menu.findItem(R.id.profileFragment)
+                NavigationUI.onNavDestinationSelected(item, navController)
+            }
+            Enums.Fragment.Match.name -> {
+                val item = binding.navigationView.menu.findItem(R.id.matchFragment)
+                NavigationUI.onNavDestinationSelected(item, navController)
             }
         }
-
-        override fun onSupportNavigateUp(): Boolean {
-            return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-        }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+}
