@@ -4,9 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
-import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.repository.FireStoreMatchRepository
-import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.service.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,14 +13,13 @@ import javax.inject.Inject
 @HiltViewModel
 class MatchViewModel @Inject constructor(
     private val matchRepo: FireStoreMatchRepository,
-    private val userRepo: FireStoreUserRepository
+    private val auth: AuthService
 ) :
     BaseViewModel() {
-
     val matches: MutableLiveData<List<Matches>?> = MutableLiveData()
 
     init {
-        getMatches()
+//        getMatches()
         addMatches()
     }
 
@@ -42,11 +40,17 @@ class MatchViewModel @Inject constructor(
         )
     )
 
+
     fun getMatches() {
         viewModelScope.launch {
-            matches.value = matchRepo.getMatches()
+            try {
+                safeApiCall { matches.value = matchRepo.getMatches() }
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
+
 
     private fun addMatches() {
         viewModelScope.launch {
@@ -71,14 +75,18 @@ class MatchViewModel @Inject constructor(
 
     fun updatePoints(points: Int) {
         viewModelScope.launch {
-            userRepo.updatePoints(points)
+            try {
+                auth.updatePoints(points)
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 
     fun fetchCurrentUser() {
         viewModelScope.launch {
             try {
-                val res = safeApiCall { userRepo.getCurrentUser() }
+                val res = safeApiCall { auth.getCurrentUser() }
                 user.value = res
             } catch (e: Exception) {
                 error.emit(e.message.toString())

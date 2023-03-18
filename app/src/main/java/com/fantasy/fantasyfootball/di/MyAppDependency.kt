@@ -1,6 +1,7 @@
 package com.fantasy.fantasyfootball.di
 
 import com.fantasy.fantasyfootball.repository.*
+import com.fantasy.fantasyfootball.service.AuthService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -41,7 +42,7 @@ object MyAppDependency {
 
     @Provides
     @Singleton
-    fun getAuthRepository(auth: FirebaseAuth, db: FirebaseFirestore): FireStoreUserRepository {
-        return FireStoreUserRepository(auth, db.collection("users"))
+    fun getAuthRepository(auth: FirebaseAuth, db: FirebaseFirestore): AuthService {
+        return AuthService(auth, db.collection("users"))
     }
 }

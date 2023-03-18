@@ -4,10 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Player
-import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.repository.FireStorePlayerRepository
-import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.service.AuthService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,12 +13,9 @@ import javax.inject.Inject
 @HiltViewModel
 class TeamManagementViewModel @Inject constructor(
     private val playerRepo: FireStorePlayerRepository,
-    private val userRepo: FireStoreUserRepository,
+    private val auth: AuthService
 ) : BaseViewModel() {
-    val userTeam: MutableLiveData<User> = MutableLiveData()
-    val teamPlayer: MutableLiveData<Team> = MutableLiveData()
     val player: MutableLiveData<Player> = MutableLiveData()
-
     val players: MutableLiveData<List<Player>> = MutableLiveData()
 
     init {
@@ -349,7 +344,11 @@ class TeamManagementViewModel @Inject constructor(
 
     fun removePlayer(fanPlayerId: String) {
         viewModelScope.launch {
-            userRepo.removePlayer(fanPlayerId)
+            try {
+                safeApiCall { auth.removePlayer(fanPlayerId) }
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 
@@ -372,16 +371,20 @@ class TeamManagementViewModel @Inject constructor(
 //        }
 //    }
 
-    fun updateBudget (budget: Float) {
+    fun updateBudget(budget: Float) {
         viewModelScope.launch {
-            userRepo.updateBudget(budget)
+            try {
+                safeApiCall { auth.updateBudget(budget) }
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
+            }
         }
     }
 
     fun fetchCurrentUser() {
         viewModelScope.launch {
             try {
-                val res = safeApiCall { userRepo.getCurrentUser() }
+                val res = safeApiCall { auth.getCurrentUser() }
                 user.value = res
             } catch (e: Exception) {
                 error.emit(e.message.toString())

@@ -3,10 +3,8 @@ package com.fantasy.fantasyfootball.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.MatchCardBinding
 import com.fantasy.fantasyfootball.util.BadgeUtil.setTeamImage
 import com.fantasy.fantasyfootball.util.Utils.update
@@ -58,19 +56,17 @@ class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> 
     override fun getItemCount() = matches.size
 
     fun setMatch(matches: List<Matches>) {
-        this.matches = matches
-        notifyDataSetChanged()
-//        val oldItems = this.matches
-//        this.matches = matches as MutableList<Matches>
-//        if (oldItems.isEmpty()) {
-//            update(emptyList(), matches) { user1, user2 ->
-//                user1.id == user2.id
-//            }
-//        } else {
-//            update(oldItems, matches) { user1, user2 ->
-//                user1.id == user2.id
-//            }
-//        }
+        val oldItems = this.matches
+        this.matches = matches as MutableList<Matches>
+        if (oldItems.isEmpty()) {
+            update(emptyList(), matches) { match1, match2 ->
+                match1.matchId == match2.matchId
+            }
+        } else {
+            update(oldItems, matches) { match1, match2 ->
+                match1.matchId == match2.matchId
+            }
+        }
     }
 
     class MatchHolder(val binding: MatchCardBinding) : RecyclerView.ViewHolder(binding.root)

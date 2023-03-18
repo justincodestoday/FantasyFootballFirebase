@@ -1,7 +1,6 @@
 package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
@@ -27,9 +26,8 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
 
         viewModel.fetchCurrentUser()
 
-        var teamId = 0
         var teamPoints = 0
-        var list: MutableList<FantasyPlayer> = mutableListOf()
+        val list: MutableList<FantasyPlayer> = mutableListOf()
 
         viewModel.matches.observe(viewLifecycleOwner) { matches ->
             if (matches != null) {
@@ -38,7 +36,6 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
         }
 
         viewModel.user.observe(viewLifecycleOwner) {
-//            teamId = it.teamId!!
             teamPoints = it.team.points
             it.team.players.forEach { player ->
                 list.add(player)
@@ -54,7 +51,6 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
                 val matchingPlayers =
                     list.filter { player -> player.teamConst == match.homeTeam }.size
                 val points = matchingPlayers * match.homeScore!! * 2
-            Log.d("debugging", list.toString())
                 val totalPoints = teamPoints + points
                 viewModel.updatePoints(totalPoints)
                 NavHostFragment.findNavController(this).popBackStack()
@@ -88,5 +84,10 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
         }
         binding?.rvMatches?.adapter = adapter
         binding?.rvMatches?.layoutManager = layoutManager
+
+        binding?.swiperefresh?.setOnRefreshListener {
+            viewModel.fetchCurrentUser()
+            binding?.swiperefresh?.isRefreshing = false
+        }
     }
 }
