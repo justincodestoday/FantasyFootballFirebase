@@ -15,7 +15,6 @@ import com.fantasy.fantasyfootball.adapter.PlayerAdapter
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
-import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
     private lateinit var adapter: PlayerAdapter
-    private lateinit var authService: AuthService
     var currentFilter = ""
     override val viewModel: PickPlayerViewModel by viewModels()
 
@@ -32,20 +30,14 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
-        val user = viewModel.fetchCurrentUser()
+        viewModel.fetchCurrentUser()
 
         val args: PickPlayerFragmentArgs by navArgs()
         val selectedArea = args.area
         val selectedPosition = args.position
 
-        if (user != null) {
-//            viewModel.getTeamWithPlayers(user.userId!!)
-        }
-
-        var teamId = 0
         var teamBudget = 0.0f
         viewModel.user.observe(viewLifecycleOwner) { it ->
-//            teamId = it.teamId!!
             teamBudget = it.team.budget
             val listOfLastNames = mutableListOf<String>()
             it.team.players.forEach { player ->
@@ -58,7 +50,8 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                 adapter.setPlayer(players)
             }
 
-            binding?.search?.svSearch?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            binding?.search?.svSearch?.setOnQueryTextListener(object :
+                SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     p0?.let {
                         currentFilter = it
@@ -104,10 +97,7 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
 
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {
-            if (it.playerId != null && it != null) {
-                // 0: if f1 is numerically equal to f2.
-                // Negative value: if f1 is numerically less than f2.
-                // Positive value: if f1 is numerically greater than f2.
+            if (it.playerId != null) {
                 if (teamBudget.compareTo(it.price) == 0) {
                     val updatedValue = teamBudget - it.price
                     viewModel.updateBudget(updatedValue)
@@ -123,18 +113,6 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                             isSet = true
                         )
                     )
-//                    viewModel.addPlayer(
-//                        FantasyPlayer(
-//                            firstName = it.firstName,
-//                            lastName = it.lastName,
-//                            team = it.team,
-//                            teamConst = it.teamConst,
-//                            price = it.price,
-//                            color = it.color,
-//                            position = selectedPosition,
-//                            isSet = true
-//                        )
-//                    )
                     val bundle = Bundle()
                     bundle.putBoolean(Enums.Result.REFRESH.name, true)
                     setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
@@ -144,8 +122,7 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                         context?.getString(R.string.added_player_successful)
                             ?.let { context -> String.format(context, it.lastName) },
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 } else if (teamBudget.compareTo(it.price) < 0) {
                     val snackBar = Snackbar.make(
                         binding!!.root,
@@ -174,18 +151,6 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                             isSet = true
                         )
                     )
-//                    viewModel.addPlayer(
-//                        FantasyPlayer(
-//                            firstName = it.firstName,
-//                            lastName = it.lastName,
-//                            team = it.team,
-//                            teamConst = it.teamConst,
-//                            price = it.price,
-//                            color = it.color,
-//                            position = selectedPosition,
-//                            isSet = true
-//                        )
-//                    )
                     val bundle = Bundle()
                     bundle.putBoolean(Enums.Result.REFRESH.name, true)
                     setFragmentResult(Enums.Result.ADD_PLAYER_RESULT.name, bundle)
@@ -195,8 +160,7 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                         context?.getString(R.string.added_player_successful)
                             ?.let { context -> String.format(context, it.lastName) },
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
                 }
             }
         }

@@ -15,13 +15,10 @@ import java.util.*
 class FireStoreUserRepository(
     private val auth: FirebaseAuth,
     private val ref: CollectionReference
-) :
-    UserRepository {
+) : UserRepository {
+
     override suspend fun register(user: User): FirebaseUser? {
         val res = auth.createUserWithEmailAndPassword(user.email!!, user.password!!).await()
-//        val doc = ref.document()
-//        val id = doc.id
-
         res.user?.let {
             ref.document(it.uid).set(user.copy(id = it.uid)).await()
         }
@@ -61,17 +58,6 @@ class FireStoreUserRepository(
         }
     }
 
-//    override suspend fun addPlayerToTeam(fantasyPlayer: FantasyPlayer) {
-//        val email = auth.uid ?: ""
-//        val user = ref.document(email)
-//        val playerId = fantasyPlayer.copy(fanPlayerId = UUID.randomUUID().toString())
-//        user.update("team.players", FieldValue.arrayUnion(playerId)).addOnSuccessListener {
-//            Log.d("debugging", "success")
-//        }.addOnFailureListener {
-//            Log.d("debugging", "failed")
-//        }
-//    }
-
     override suspend fun addPlayerToTeam(fantasyPlayer: FantasyPlayer) {
         val email = auth.uid ?: ""
         val user = ref.document(email)
@@ -82,22 +68,6 @@ class FireStoreUserRepository(
             Log.d("debugging", "failed")
         }
     }
-
-//    override suspend fun removePlayer(fanPlayerId: String) {
-//        val email = auth.uid ?: ""
-//        val user = ref.document(email)
-//        val query = user.collection("team.players").whereEqualTo("fanPlayerId", fanPlayerId)
-//        query.get().addOnSuccessListener { snapshot ->
-//            snapshot.documents.forEach { document ->
-//                user.update("team.players", FieldValue.arrayRemove(document.toObject(FantasyPlayer::class.java)))
-//                    .addOnSuccessListener {
-//                        Log.d("debugging", "success")
-//                    }.addOnFailureListener {
-//                        Log.d("debugging", "failed")
-//                    }
-//            }
-//        }
-//    }
 
     override suspend fun removePlayer(fanPlayerId: String) {
         val email = auth.uid ?: ""
@@ -171,9 +141,5 @@ class FireStoreUserRepository(
 
     fun deAuthenticate() {
         auth.signOut()
-    }
-
-    fun getUid(): String? {
-        return auth.uid
     }
 }

@@ -21,8 +21,8 @@ class LeaderboardAdapter(private var users: List<User>) :
     override fun onBindViewHolder(holder: LeaderboardViewHolder, position: Int) {
         val user = users[position]
         holder.binding.run {
-            tvEmail.text = user.email
-            tvTeamName.text = "@${user.team.name}"
+            tvEmail.text ="${ user.team.name} |"
+            tvTeamName.text = user.email
             tvPoints.text = user.team.points.toString() + " pts"
             tvRanking.text = (position + 1).toString()
             if (position == 0) {

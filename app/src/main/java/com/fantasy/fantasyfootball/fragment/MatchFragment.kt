@@ -2,26 +2,19 @@ package com.fantasy.fantasyfootball.fragment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fantasy.fantasyfootball.MainApplication
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.adapter.MatchAdapter
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
-import com.fantasy.fantasyfootball.data.model.Player
 import com.fantasy.fantasyfootball.databinding.FragmentMatchBinding
-import com.fantasy.fantasyfootball.service.AuthService
 import com.fantasy.fantasyfootball.viewModel.MatchViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MatchFragment : BaseFragment<FragmentMatchBinding>() {
@@ -31,6 +24,8 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
+
+        viewModel.fetchCurrentUser()
 
         var teamId = 0
         var teamPoints = 0
@@ -48,9 +43,6 @@ class MatchFragment : BaseFragment<FragmentMatchBinding>() {
             it.team.players.forEach { player ->
                 list.add(player)
             }
-
-            viewModel.getMatches()
-
         }
 
         val layoutManager = LinearLayoutManager(requireContext())
