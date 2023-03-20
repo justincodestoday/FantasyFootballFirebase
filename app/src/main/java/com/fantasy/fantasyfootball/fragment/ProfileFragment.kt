@@ -116,11 +116,16 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 accountDialog.show()
             }
 
+            accountDialogBinding.ivClose.setOnClickListener {
+                accountDialog.dismiss()
+            }
+
             btnChangePassword.setOnClickListener {
                 viewModel.user.observe(viewLifecycleOwner) { user ->
                     passwordDialog.setContentView(passwordDialogBinding.root)
                     passwordDialogBinding.btnSavePassword.setOnClickListener {
-                        val currentPassword = passwordDialogBinding.etPassword.text.toString().trim()
+                        val currentPassword =
+                            passwordDialogBinding.etPassword.text.toString().trim()
                         val newPassword = passwordDialogBinding.etNewPassword.text.toString().trim()
 
                         if (validate(currentPassword) && validate(newPassword)) {
@@ -154,11 +159,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 passwordDialog.show()
             }
 
+            passwordDialogBinding.ivClose.setOnClickListener {
+                passwordDialog.dismiss()
+            }
+
             imageDialogBinding.tvChooseImage.setOnClickListener {
                 imagePickerLauncher.launch("image/*")
             }
 
-            viewModel.user.observe(viewLifecycleOwner) { user->
+            viewModel.user.observe(viewLifecycleOwner) { user ->
                 imageDialogBinding.tvImageName.setText(user.image)
                 user.image?.let { imageName ->
                     ImageStorageService.getImageUri(imageName) { uri ->
@@ -209,6 +218,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 navController.popBackStack(R.id.main_nav_graph, true)
                 navController.navigate(R.id.credentialsFragment)
             }
+        }
+        binding?.swiperefresh?.setOnRefreshListener {
+            viewModel.fetchCurrentUser()
+            binding?.swiperefresh?.isRefreshing = false
         }
     }
 

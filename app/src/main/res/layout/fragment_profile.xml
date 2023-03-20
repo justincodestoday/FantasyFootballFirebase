@@ -2,160 +2,167 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/img3"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        tools:context=".fragment.ProfileFragment">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineTop"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.15" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineCenter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineBottom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.8" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:fontFamily="@font/roboto_regular"
-            android:gravity="bottom|center"
-            android:text="@string/my_profile"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="32sp"
-            app:layout_constraintBottom_toTopOf="@id/guidelineTop"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profile_picture"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginTop="15dp"
-            android:padding="5dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guidelineTop"
-            app:shapeAppearanceOverlay="@style/Circular"
-            app:srcCompat="@drawable/vector__3_"
-            app:strokeColor="@color/green_900"
-            app:strokeWidth="5dp" />
-
-        <ImageView
-            android:id="@+id/ivEditImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/bg_circle"
-            android:minWidth="40dp"
-            android:minHeight="40dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_edit"
-            app:layout_constraintBottom_toBottomOf="@id/profile_picture"
-            app:layout_constraintEnd_toEndOf="@id/profile_picture"
-            app:tint="@color/white" />
-
-        <LinearLayout
-            android:id="@+id/llProfile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:background="@drawable/img_6"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_picture">
+            tools:context=".fragment.ProfileFragment">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineTop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.15" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineCenter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineBottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.8" />
 
             <TextView
-                android:id="@+id/tvName"
-                style="@style/Profile.Text.Full.Name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="bottom|center"
+                android:text="@string/my_profile"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="32sp"
+                app:layout_constraintBottom_toTopOf="@id/guidelineTop"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="15dp"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guidelineTop"
+                app:shapeAppearanceOverlay="@style/Circular"
+                app:srcCompat="@drawable/vector__3_"
+                app:strokeColor="@color/green_900"
+                app:strokeWidth="5dp" />
+
+            <ImageView
+                android:id="@+id/ivEditImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/font2"
-                android:text="@string/edit_full_name" />
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_circle"
+                android:minWidth="40dp"
+                android:minHeight="40dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toBottomOf="@id/profile_picture"
+                app:layout_constraintEnd_toEndOf="@id/profile_picture"
+                app:tint="@color/white" />
 
-            <TextView
-                android:id="@+id/tvUsername"
-                style="@style/Profile.Text.Username"
+            <LinearLayout
+                android:id="@+id/llProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_picture">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    style="@style/Profile.Text.Full.Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/font2"
+                    android:text="@string/edit_full_name" />
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    style="@style/Profile.Text.Username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/font1"
+                    android:text="@string/edit_username" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+                app:layout_constraintTop_toBottomOf="@id/llProfile">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnUpdateInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:background="@drawable/custom_button_4"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawableEnd="@drawable/ic_arrow_forward"
+                    android:drawablePadding="25dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/update_account_info"
+                    android:textColor="@color/white"
+                    app:drawableTint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnChangePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/custom_button_4"
+                    android:drawableStart="@drawable/ic_key"
+                    android:drawableEnd="@drawable/ic_arrow_forward"
+                    android:drawablePadding="25dp"
+                    android:elevation="4dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/change_password"
+                    android:textColor="@color/white"
+                    app:drawableTint="@color/white" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSignOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/font1"
-                android:text="@string/edit_username" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
-            app:layout_constraintTop_toBottomOf="@id/llProfile">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnUpdateInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
+                android:layout_marginStart="24dp"
                 android:background="@drawable/custom_button_4"
-                android:drawableStart="@drawable/ic_person"
-                android:drawableEnd="@drawable/ic_arrow_forward"
+                android:drawableStart="@drawable/ic_logout"
                 android:drawablePadding="25dp"
                 android:gravity="center_vertical"
-                android:text="@string/update_account_info"
+                android:text="@string/sign_out"
                 android:textColor="@color/white"
-                app:drawableTint="@color/white" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChangePassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_button_4"
-                android:drawableStart="@drawable/ic_key"
-                android:drawableEnd="@drawable/ic_arrow_forward"
-                android:drawablePadding="25dp"
-                android:elevation="4dp"
-                android:gravity="center_vertical"
-                android:text="@string/change_password"
-                android:textColor="@color/white"
-                app:drawableTint="@color/white" />
-        </LinearLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSignOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:background="@drawable/custom_button_4"
-            android:drawableStart="@drawable/ic_logout"
-            android:drawablePadding="25dp"
-            android:gravity="center_vertical"
-            android:text="@string/sign_out"
-            android:textColor="@color/white"
-            app:drawableTint="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guidelineBottom" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                app:drawableTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guidelineBottom" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
