@@ -37,10 +37,9 @@
                 android:layout_gravity="bottom"
                 app:backgroundTint="@color/teal_700"
                 app:elevation="8dp"
-                app:itemIconTint="@color/bottom_nav_color"
-                app:itemRippleColor="@color/teal_900"
                 app:itemTextAppearanceActive="@style/Text.Font2"
                 app:itemTextAppearanceInactive="@style/Text.Font2"
+                app:itemIconTint="@color/bottom_nav_color"
                 app:itemTextColor="@color/bottom_nav_color"
                 app:labelVisibilityMode="auto"
                 app:menu="@menu/bottom_nav_menu" />

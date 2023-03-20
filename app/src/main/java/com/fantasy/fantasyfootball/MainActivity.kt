@@ -1,9 +1,12 @@
 package com.fantasy.fantasyfootball
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.AbsoluteSizeSpan
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -12,17 +15,17 @@ import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
+import com.google.android.material.badge.BadgeDrawable
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var headerBinding: DrawerHeaderBinding
     private val viewModel: MainViewModel by viewModels()
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -77,6 +81,38 @@ class MainActivity : AppCompatActivity() {
             ),
             drawerLayout
         )
+
+
+        val menuBottomView = binding.bottomNav.menu
+        val homeMenu = menuBottomView.findItem(R.id.homeFragment)
+
+
+
+        val homeMenuItemId: Int = binding.bottomNav.getMenu().getItem(0).getItemId()
+        val teamManagementMenuItemId: Int = binding.bottomNav.getMenu().getItem(1).getItemId()
+        val leaderboardMenuItemId: Int = binding.bottomNav.getMenu().getItem(2).getItemId()
+
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                homeMenuItemId -> {
+                    Log.d("debugging", "Bruh are you even here?")
+                    binding.bottomNav.removeBadge(leaderboardMenuItemId)
+                    binding.bottomNav.removeBadge(teamManagementMenuItemId)
+                    binding.bottomNav.getOrCreateBadge(homeMenuItemId)
+                }
+                leaderboardMenuItemId -> {
+                    binding.bottomNav.removeBadge(homeMenuItemId)
+                    binding.bottomNav.removeBadge(teamManagementMenuItemId)
+                    binding.bottomNav.getOrCreateBadge(leaderboardMenuItemId)
+                }
+                teamManagementMenuItemId -> {
+                    binding.bottomNav.removeBadge(homeMenuItemId)
+                    binding.bottomNav.removeBadge(leaderboardMenuItemId)
+                    binding.bottomNav.getOrCreateBadge(teamManagementMenuItemId)
+                }
+            }
+            true
+        }
 
         binding.navigationView.setupWithNavController(navController)
         binding.bottomNav.setupWithNavController(navController)
