@@ -15,8 +15,8 @@ android {
         applicationId "com.fantasy.fantasyfootball"
         minSdk 21
         targetSdk 33
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -78,4 +78,5 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'io.github.florent37:shapeofview:1.4.7'
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
 }

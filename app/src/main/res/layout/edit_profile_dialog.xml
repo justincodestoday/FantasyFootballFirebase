@@ -5,20 +5,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/m">
+        >
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/ic_close"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:elevation="1dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/font2"
+            android:paddingBottom="10dp"
             android:text="@string/update_account_info"
             android:textSize="24sp" />
+
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:text="@string/edit_full_name" />
 
         <EditText
@@ -28,6 +42,7 @@
             android:background="@drawable/custom_edit_text"
             android:ems="10"
             android:paddingHorizontal="10dp"
+            android:layout_marginHorizontal="16dp"
             android:paddingVertical="5dp" />
 
 <!--        <TextView-->
@@ -50,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="16dp"
             android:text="@string/edit_team_name" />
 
         <EditText
@@ -58,6 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
+            android:layout_marginHorizontal="16dp"
             android:paddingHorizontal="10dp"
             android:paddingVertical="5dp" />
 
