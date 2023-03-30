@@ -48,6 +48,7 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
 
             viewModel.players.observe(viewLifecycleOwner) { players ->
                 adapter.setPlayer(players)
+                binding?.progress?.visibility = View.GONE
             }
 
             binding?.search?.svSearch?.setOnQueryTextListener(object :
@@ -94,6 +95,7 @@ class PickPlayerFragment : BaseFragment<FragmentPickPlayerBinding>() {
                 }
             }
         }
+
 
         val layoutManager = LinearLayoutManager(requireContext())
         adapter = PlayerAdapter(emptyList()) {

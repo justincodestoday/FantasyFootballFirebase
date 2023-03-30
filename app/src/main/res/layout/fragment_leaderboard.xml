@@ -19,6 +19,20 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.08" />
 
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="visible"
+                app:indicatorColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:trackCornerRadius="4dp"
+                app:trackThickness="4dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -43,10 +57,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
                     android:orientation="horizontal"
                     android:paddingHorizontal="@dimen/m"
                     android:paddingTop="@dimen/m"
-                    android:layout_marginStart="3dp"
                     android:weightSum="1">
 
                     <TextView
@@ -86,6 +100,7 @@
                     android:paddingTop="8dp"
                     android:paddingBottom="@dimen/m" />
             </LinearLayout>
+            <!--            </RelativeLayout>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

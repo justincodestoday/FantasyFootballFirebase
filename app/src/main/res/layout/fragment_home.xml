@@ -28,22 +28,20 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/img_6"
                     android:scaleType="centerCrop"
                     android:scaleX="-1"
-                    />
+                    android:src="@drawable/img_6" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -145,22 +143,21 @@
                                     android:id="@+id/btnManageTeam"
                                     android:layout_width="300dp"
                                     android:layout_height="40dp"
-                                    android:layout_marginTop="3dp"
                                     android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="3dp"
                                     android:background="@drawable/button_green"
                                     android:drawableEnd="@drawable/ic_arrow"
                                     android:onClick="@{() -> viewModel.navigateToTeam()}"
                                     android:text="@string/manage_team"
                                     android:textAllCaps="false"
-                                    android:textColor="@color/black"
-                                     />
+                                    android:textColor="@color/black" />
 
                                 <androidx.appcompat.widget.AppCompatButton
                                     android:id="@+id/btnSignOut"
                                     android:layout_width="300dp"
                                     android:layout_height="40dp"
-                                    android:layout_marginTop="10dp"
                                     android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="10dp"
                                     android:background="@drawable/button_transparent"
                                     android:drawableEnd="@drawable/ic_arrow"
                                     android:onClick="@{() -> viewModel.navigateToLogin()}"
@@ -226,8 +223,7 @@
                                     android:layout_marginBottom="5dp"
                                     android:scaleType="centerCrop"
                                     android:src="@drawable/ic_person"
-                                    app:shapeAppearanceOverlay="@style/Circular"
-                                    />
+                                    app:shapeAppearanceOverlay="@style/Circular" />
 
                                 <TextView
                                     android:id="@+id/tvProfile"

@@ -25,6 +25,7 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
 
         viewModel.users.observe(viewLifecycleOwner) {users ->
             adapter.setLeaderboard(users)
+            binding?.progress?.visibility = View.GONE
         }
 
         binding?.swiperefresh?.setOnRefreshListener {
