@@ -27,6 +27,8 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
 //            viewModel.getUsers()
 //            binding?.swiperefresh?.isRefreshing = false
 //        }
+
+        // fixing swiperefresh
     }
 
     override fun onBindData(view: View) {
