@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.adapter
+package com.fantasy.fantasyfootball.ui.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -33,14 +33,8 @@ class PlayerAdapter(var players: List<Player>, val onClick: (player: Player) -> 
     fun setPlayer(players: List<Player>) {
         val oldItems = this.players
         this.players = players as MutableList<Player>
-        if (oldItems.isEmpty()) {
-            update(emptyList(), players) { player1, player2 ->
-                player1.playerId == player2.playerId
-            }
-        } else {
-            update(oldItems, players) { player1, player2 ->
-                player1.playerId == player2.playerId
-            }
+        update(oldItems, players) { player1, player2 ->
+            player1.playerId == player2.playerId
         }
     }
 

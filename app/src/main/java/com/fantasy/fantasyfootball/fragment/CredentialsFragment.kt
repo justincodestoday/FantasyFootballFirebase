@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.fantasy.fantasyfootball.adapter.CredentialsAdapter
+import com.fantasy.fantasyfootball.ui.presentation.adapter.CredentialsAdapter
 import com.fantasy.fantasyfootball.databinding.FragmentCredentialsBinding
 
 class CredentialsFragment : Fragment() {

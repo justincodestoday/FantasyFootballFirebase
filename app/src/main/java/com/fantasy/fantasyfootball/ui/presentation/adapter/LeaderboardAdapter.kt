@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.adapter
+package com.fantasy.fantasyfootball.ui.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -40,14 +40,8 @@ class LeaderboardAdapter(private var users: List<User>) :
     fun setLeaderboard(users: List<User>) {
         val oldItems = this.users
         this.users = users as MutableList<User>
-        if (oldItems.isEmpty()) {
-            update(emptyList(), users) { user1, user2 ->
-                user1.id == user2.id
-            }
-        } else {
-            update(oldItems, users) { user1, user2 ->
-                user1.id == user2.id
-            }
+        update(oldItems, users) { user1, user2 ->
+            user1.id == user2.id
         }
     }
 }

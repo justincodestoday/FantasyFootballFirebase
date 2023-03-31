@@ -9,21 +9,19 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.databinding.EditImageDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditPasswordDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditProfileDialogBinding
 import com.fantasy.fantasyfootball.databinding.FragmentProfileBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
 import com.fantasy.fantasyfootball.util.Utils.getFileName
 import com.fantasy.fantasyfootball.util.Utils.validate
 import com.fantasy.fantasyfootball.viewModel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
@@ -224,17 +222,4 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             binding?.swiperefresh?.isRefreshing = false
         }
     }
-
-//    override fun onBindData(view: View) {
-//        super.onBindData(view)
-//
-//        lifecycleScope.launch {
-//            viewModel.update.collect {
-//                val bundle = Bundle()
-//                bundle.putBoolean("refresh", true)
-//                setFragmentResult("from_profile", bundle)
-//                viewModel.fetchCurrentUser()
-//            }
-//        }
-//    }
 }

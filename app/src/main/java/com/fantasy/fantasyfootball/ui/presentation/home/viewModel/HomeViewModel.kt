@@ -1,9 +1,10 @@
-package com.fantasy.fantasyfootball.viewModel
+package com.fantasy.fantasyfootball.ui.presentation.home.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
-import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.data.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.ui.presentation.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -16,8 +17,13 @@ class HomeViewModel @Inject constructor(private val auth: FireStoreUserRepositor
     val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()
     val teamManagement: MutableSharedFlow<Unit> = MutableSharedFlow()
     val profile: MutableSharedFlow<Unit> = MutableSharedFlow()
-    val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
     val logout: MutableSharedFlow<Unit> = MutableSharedFlow()
+    val refreshPage: MutableLiveData<Boolean> = MutableLiveData(false)
+
+    override fun onViewCreated() {
+        super.onViewCreated()
+        getCurrentUser()
+    }
 
     fun refreshPage(refresh: Boolean) {
         refreshPage.value = refresh
@@ -85,7 +91,7 @@ class HomeViewModel @Inject constructor(private val auth: FireStoreUserRepositor
         }
     }
 
-    fun logout() {
+    private fun logout() {
         viewModelScope.launch {
             try {
                 safeApiCall { auth.deAuthenticate() }

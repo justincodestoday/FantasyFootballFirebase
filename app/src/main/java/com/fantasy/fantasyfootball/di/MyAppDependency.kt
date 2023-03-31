@@ -1,6 +1,8 @@
 package com.fantasy.fantasyfootball.di
 
-import com.fantasy.fantasyfootball.repository.*
+import com.fantasy.fantasyfootball.data.repository.FireStoreMatchRepository
+import com.fantasy.fantasyfootball.data.repository.FireStorePlayerRepository
+import com.fantasy.fantasyfootball.data.repository.FireStoreUserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore

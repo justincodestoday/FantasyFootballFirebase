@@ -1,17 +1,20 @@
-package com.fantasy.fantasyfootball.fragment
+package com.fantasy.fantasyfootball.ui.presentation.home
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.*
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.fantasy.fantasyfootball.MainActivity
+import com.fantasy.fantasyfootball.ui.MainActivity
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
-import com.fantasy.fantasyfootball.viewModel.HomeViewModel
+import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
+import com.fantasy.fantasyfootball.ui.presentation.home.viewModel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
@@ -21,12 +24,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
-        viewModel.getCurrentUser()
-
         binding?.viewModel = viewModel
         binding?.lifecycleOwner = viewLifecycleOwner
 
         setFragmentResults()
+
+        binding?.swiperefresh?.setOnRefreshListener {
+            viewModel.getCurrentUser()
+            binding?.swiperefresh?.isRefreshing = false
+        }
+    }
+
+    override fun onBindData(view: View) {
+        super.onBindData(view)
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
             binding?.apply {
@@ -43,31 +53,56 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
 
-        viewModel.teamManagement.asLiveData().observe(viewLifecycleOwner) {
-            (activity as MainActivity).navigate(Enums.Fragment.Team.name)
+        lifecycleScope.launch {
+            viewModel.teamManagement.collect {
+                navigateToTeamManagement()
+            }
         }
 
-        viewModel.profile.asLiveData().observe(viewLifecycleOwner) {
-            (activity as MainActivity).navigate(Enums.Fragment.Profile.name)
+        lifecycleScope.launch {
+            viewModel.leaderboard.collect {
+                navigateToLeaderboard()
+            }
         }
 
-        viewModel.leaderboard.asLiveData().observe(viewLifecycleOwner) {
-            (activity as MainActivity).navigate(Enums.Fragment.Leaderboard.name)
+        lifecycleScope.launch {
+            viewModel.profile.collect {
+                navigateToProfile()
+            }
         }
 
-        viewModel.fixtures.asLiveData().observe(viewLifecycleOwner) {
-            (activity as MainActivity).navigate(Enums.Fragment.Match.name)
+        lifecycleScope.launch {
+            viewModel.fixtures.collect {
+                navigateToFixtures()
+            }
         }
 
-        viewModel.logout.asLiveData().observe(viewLifecycleOwner) {
-            navController.popBackStack(R.id.main_nav_graph, true)
-            navController.navigate(R.id.credentialsFragment)
+        lifecycleScope.launch {
+            viewModel.logout.collect {
+                navigateToLogin()
+            }
         }
+    }
 
-        binding?.swiperefresh?.setOnRefreshListener {
-            viewModel.getCurrentUser()
-            binding?.swiperefresh?.isRefreshing = false
-        }
+    private fun navigateToTeamManagement() {
+        (activity as MainActivity).navigate(Enums.Fragment.Team.name)
+    }
+
+    private fun navigateToLeaderboard() {
+        (activity as MainActivity).navigate(Enums.Fragment.Leaderboard.name)
+    }
+
+    private fun navigateToProfile() {
+        (activity as MainActivity).navigate(Enums.Fragment.Profile.name)
+    }
+
+    private fun navigateToFixtures() {
+        (activity as MainActivity).navigate(Enums.Fragment.Match.name)
+    }
+
+    private fun navigateToLogin() {
+        navController.popBackStack(R.id.main_nav_graph, true)
+        navController.navigate(R.id.credentialsFragment)
     }
 
     private fun setFragmentResults() {
@@ -89,13 +124,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         setFragmentResultListener(Enums.Result.COLLECTED_POINTS.name) { _, result ->
             val refresh = result.getBoolean(Enums.Result.REFRESH.name)
             viewModel.refreshPage(refresh)
-        }
-
-        setFragmentResultListener("from_profile") { _, result ->
-            val refresh = result.getBoolean("refresh")
-            if (refresh) {
-                viewModel.getCurrentUser()
-            }
         }
     }
 }

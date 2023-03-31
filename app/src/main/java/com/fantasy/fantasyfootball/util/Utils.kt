@@ -3,10 +3,8 @@ package com.fantasy.fantasyfootball.util
 import android.content.ContentResolver
 import android.net.Uri
 import android.provider.OpenableColumns
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.fantasy.fantasyfootball.constant.Enums
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.fragment
+package com.fantasy.fantasyfootball.ui.presentation.leaderboard
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.adapter.LeaderboardAdapter
+import com.fantasy.fantasyfootball.ui.presentation.adapter.LeaderboardAdapter
 import com.fantasy.fantasyfootball.databinding.FragmentLeaderboardBinding
-import com.fantasy.fantasyfootball.viewModel.LeaderboardViewModel
+import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
+import com.fantasy.fantasyfootball.ui.presentation.leaderboard.viewModel.LeaderboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -23,12 +24,10 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
 
         setupAdapter()
 
-//        binding?.swiperefresh?.setOnRefreshListener {
-//            viewModel.getUsers()
-//            binding?.swiperefresh?.isRefreshing = false
-//        }
-
-        // fixing swiperefresh 2
+        binding?.swiperefresh?.setOnRefreshListener {
+            viewModel.getAllUsers()
+            binding?.swiperefresh?.isRefreshing = false
+        }
     }
 
     override fun onBindData(view: View) {

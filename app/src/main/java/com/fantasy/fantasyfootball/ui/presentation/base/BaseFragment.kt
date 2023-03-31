@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.fragment
+package com.fantasy.fantasyfootball.ui.presentation.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,14 +16,13 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.util.AlertUtil.enumToString
-import com.fantasy.fantasyfootball.viewModel.BaseViewModel
+import com.fantasy.fantasyfootball.ui.presentation.base.viewModel.BaseViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     lateinit var navController: NavController
     var binding: T? = null
-
     abstract val viewModel: BaseViewModel
     abstract fun getLayoutResource(): Int
 

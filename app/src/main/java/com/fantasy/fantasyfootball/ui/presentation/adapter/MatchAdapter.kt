@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.adapter
+package com.fantasy.fantasyfootball.ui.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -58,14 +58,8 @@ class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> 
     fun setMatch(matches: List<Matches>) {
         val oldItems = this.matches
         this.matches = matches as MutableList<Matches>
-        if (oldItems.isEmpty()) {
-            update(emptyList(), matches) { match1, match2 ->
-                match1.matchId == match2.matchId
-            }
-        } else {
-            update(oldItems, matches) { match1, match2 ->
-                match1.matchId == match2.matchId
-            }
+        update(oldItems, matches) { match1, match2 ->
+            match1.matchId == match2.matchId
         }
     }
 
