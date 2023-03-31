@@ -1,9 +1,10 @@
-package com.fantasy.fantasyfootball.viewModel
+package com.fantasy.fantasyfootball.ui.presentation.leaderboard.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.data.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.ui.presentation.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow

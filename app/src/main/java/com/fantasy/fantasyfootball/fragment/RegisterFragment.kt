@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentRegisterBinding
+import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
 import com.fantasy.fantasyfootball.viewModel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

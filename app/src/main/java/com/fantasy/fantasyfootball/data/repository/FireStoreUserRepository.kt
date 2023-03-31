@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.repository
+package com.fantasy.fantasyfootball.data.repository
 
 import android.util.Log
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer

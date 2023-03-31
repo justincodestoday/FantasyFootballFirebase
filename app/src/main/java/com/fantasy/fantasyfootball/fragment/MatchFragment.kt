@@ -8,10 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.adapter.MatchAdapter
+import com.fantasy.fantasyfootball.ui.presentation.adapter.MatchAdapter
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.databinding.FragmentMatchBinding
+import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
 import com.fantasy.fantasyfootball.viewModel.MatchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

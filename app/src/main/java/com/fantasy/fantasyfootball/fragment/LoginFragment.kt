@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.fantasy.fantasyfootball.MainActivity
+import com.fantasy.fantasyfootball.ui.MainActivity
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
+import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
 import com.fantasy.fantasyfootball.viewModel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

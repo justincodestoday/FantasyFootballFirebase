@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.repository
+package com.fantasy.fantasyfootball.data.repository
 
 import com.fantasy.fantasyfootball.data.model.Matches
 

@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.adapter
+package com.fantasy.fantasyfootball.ui.presentation.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

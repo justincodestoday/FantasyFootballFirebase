@@ -8,9 +8,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.fantasy.fantasyfootball.MainActivity
+import com.fantasy.fantasyfootball.ui.MainActivity
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentOptionalBinding
+import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
 import com.fantasy.fantasyfootball.util.Utils
 import com.fantasy.fantasyfootball.util.Utils.getFileName
 import com.fantasy.fantasyfootball.viewModel.OptionalViewModel

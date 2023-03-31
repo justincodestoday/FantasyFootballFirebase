@@ -11,10 +11,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.adapter.PlayerAdapter
+import com.fantasy.fantasyfootball.ui.presentation.adapter.PlayerAdapter
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.FantasyPlayer
 import com.fantasy.fantasyfootball.databinding.FragmentPickPlayerBinding
+import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
 import com.fantasy.fantasyfootball.viewModel.PickPlayerViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

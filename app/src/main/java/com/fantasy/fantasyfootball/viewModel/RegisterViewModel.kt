@@ -4,7 +4,8 @@ import android.util.Patterns
 import androidx.databinding.ObservableArrayList
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.data.repository.FireStoreUserRepository
+import com.fantasy.fantasyfootball.ui.presentation.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import javax.inject.Inject

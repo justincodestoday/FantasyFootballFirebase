@@ -1,8 +1,7 @@
-package com.fantasy.fantasyfootball.viewModel
+package com.fantasy.fantasyfootball.ui.presentation.base.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.model.User
 import kotlinx.coroutines.flow.MutableSharedFlow
 
@@ -14,7 +13,6 @@ abstract class BaseViewModel : ViewModel() {
     val user: MutableLiveData<User> = MutableLiveData()
     val success: MutableSharedFlow<String> = MutableSharedFlow()
     val error: MutableSharedFlow<String> = MutableSharedFlow()
-    val dialog: MutableSharedFlow<String> = MutableSharedFlow()
 
     open fun onViewCreated() {}
 
