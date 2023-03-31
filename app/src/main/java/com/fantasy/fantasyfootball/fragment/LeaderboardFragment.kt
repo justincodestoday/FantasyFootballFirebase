@@ -28,7 +28,7 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
 //            binding?.swiperefresh?.isRefreshing = false
 //        }
 
-        // fixing swiperefresh
+        // fixing swiperefresh 2
     }
 
     override fun onBindData(view: View) {
