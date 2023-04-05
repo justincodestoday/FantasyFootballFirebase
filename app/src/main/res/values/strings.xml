@@ -59,6 +59,7 @@
     <string name="manage_team">Manage Team</string>
     <string name="sign_me_out">Sign Me Out</string>
     <string name="running_man">Running Man</string>
+    <string name="how_to_play">How To Play</string>
 
     <!-- Team Management -->
     <string name="team_points">Points</string>
@@ -77,6 +78,7 @@
     <string name="choose_image">Choose image</string>
     <string name="update_account_info">Update Account Info</string>
     <string name="change_password">Change Password</string>
+    <string name="new_password">New Password</string>
     <string name="edit_image">Edit Image</string>
     <string name="sign_out_account">Sign out of your account</string>
 
@@ -97,6 +99,8 @@
     <string name="user_team_name">Team Name</string>
     <string name="user_points">Points</string>
     <string name="user_rank">Rank</string>
+    <string name="scroll_email"><font color='blue'>%1$s</font></string>
+    <string name="scroll_team_name"><b><font color='#FFF'>%1$s</font></b></string>
 
     <!-- Player Card -->
     <string name="player_card">Player Card</string>
@@ -108,6 +112,11 @@
     <!--  Positions  -->
     <string name="ls">LS</string>
     <string name="rs">RS</string>
+
+    <!-- How to play -->
+    <string name="how_to_play_1">● <b>Build your squad:</b> Build your dream squad of football players from around the world.</string>
+    <string name="how_to_play_2">● <b>Compete in real-time:</b> Compete against other players in leagues or tournaments.</string>
+    <string name="how_to_play_3">● <b>Score points:</b> Score points for your team when your players win in real-life matches.</string>
 
     <!-- Alert -->
     <string name="dialog_button_positive">Confirm</string>

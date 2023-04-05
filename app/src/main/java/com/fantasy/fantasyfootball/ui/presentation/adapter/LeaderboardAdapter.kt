@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.LeaderboardBinding
 import com.fantasy.fantasyfootball.util.Utils.update
 
 class LeaderboardAdapter(private var users: List<User>) :
     RecyclerView.Adapter<LeaderboardAdapter.LeaderboardViewHolder>() {
+
     class LeaderboardViewHolder(val binding: LeaderboardBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -21,8 +23,15 @@ class LeaderboardAdapter(private var users: List<User>) :
     override fun onBindViewHolder(holder: LeaderboardViewHolder, position: Int) {
         val user = users[position]
         holder.binding.run {
-            tvEmail.text ="${ user.team.name} |"
-            tvTeamName.text = user.email
+//            tvEmail.text ="${ user.team.name} |"
+//            tvTeamName.text = user.email
+            val email = holder.itemView.context.getText(R.string.scroll_email).toString()
+                .let { context -> String.format(context, user.email) }
+            val teamName = holder.itemView.context.getText(R.string.scroll_team_name).toString()
+                .let { context -> String.format(context, user.team.name) }
+
+            tvEmail.text = "$teamName | $email"
+            tvEmail.isSelected = true
             tvPoints.text = user.team.points.toString() + " pts"
             tvRanking.text = (position + 1).toString()
             if (position == 0) {

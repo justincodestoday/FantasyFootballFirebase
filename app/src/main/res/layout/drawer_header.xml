@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -11,8 +11,7 @@
             android:layout_height="wrap_content"
             android:elevation="4dp"
             app:shape_arc_height="26dp"
-            app:shape_arc_position="bottom"
-            >
+            app:shape_arc_position="bottom">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -23,8 +22,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gradient"
-                    android:elevation="1dp"
-                     />
+                    android:elevation="1dp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -39,60 +37,59 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
-        <!-- YOUR CONTENT -->
+                <!-- YOUR CONTENT -->
 
-        <ImageView
-            android:id="@+id/ivClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_close"
-            android:elevation="1dp"
-            app:tint="@color/white" />
+                <ImageView
+                    android:id="@+id/ivClose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="10dp"
+                    android:elevation="1dp"
+                    android:src="@drawable/ic_close"
+                    app:tint="@color/white" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/m"
-            android:padding="2dp"
-            android:elevation="2dp"
-            app:shapeAppearanceOverlay="@style/Circular"
-            app:strokeColor="@color/white"
-            app:strokeWidth="2dp"
-            app:srcCompat="@drawable/vector__3_" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/m"
+                    android:elevation="2dp"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/Circular"
+                    app:srcCompat="@drawable/vector__3_"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="2dp" />
 
-        <TextView
-            android:id="@+id/tvFullName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/m"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:fontFamily="@font/font2"
-            android:textColor="@color/white"
-            android:elevation="1dp"
-            android:text="@string/drawer_name"
-            android:textSize="@dimen/extra_large_text_size" />
+                <TextView
+                    android:id="@+id/tvFullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/m"
+                    android:layout_marginTop="10dp"
+                    android:elevation="1dp"
+                    android:fontFamily="@font/font2"
+                    android:text="@string/drawer_name"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/extra_large_text_size" />
 
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/m"
-            android:fontFamily="@font/font1"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:elevation="1dp"
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/m"
+                    android:elevation="1dp"
+                    android:fontFamily="@font/font1"
+                    android:text="@string/drawer_email"
 
-            android:text="@string/drawer_email"
-            android:textSize="@dimen/medium_text_size" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/medium_text_size" />
 
 
             </LinearLayout>

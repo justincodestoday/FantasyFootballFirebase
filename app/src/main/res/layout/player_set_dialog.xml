@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/green_900"
-            android:text="@string/edit_button" />
+            android:text="Confirm" />
 
     </LinearLayout>
 </layout>

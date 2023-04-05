@@ -17,10 +17,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.ui.enums.Directory
 import com.fantasy.fantasyfootball.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var headerBinding: DrawerHeaderBinding
     private val viewModel: MainViewModel by viewModels()
 
-    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -148,19 +147,19 @@ class MainActivity : AppCompatActivity() {
 
     fun navigate(destination: String) {
         when (destination) {
-            Enums.Fragment.Team.name -> {
+            Directory.Team.name -> {
                 val item = binding.bottomNav.menu.findItem(R.id.teamManagementFragment)
                 NavigationUI.onNavDestinationSelected(item, navController)
             }
-            Enums.Fragment.Leaderboard.name -> {
+            Directory.Leaderboard.name -> {
                 val item = binding.bottomNav.menu.findItem(R.id.leaderboardFragment)
                 NavigationUI.onNavDestinationSelected(item, navController)
             }
-            Enums.Fragment.Profile.name -> {
+            Directory.Profile.name -> {
                 val item = binding.navigationView.menu.findItem(R.id.profileFragment)
                 NavigationUI.onNavDestinationSelected(item, navController)
             }
-            Enums.Fragment.Match.name -> {
+            Directory.Match.name -> {
                 val item = binding.navigationView.menu.findItem(R.id.matchFragment)
                 NavigationUI.onNavDestinationSelected(item, navController)
             }

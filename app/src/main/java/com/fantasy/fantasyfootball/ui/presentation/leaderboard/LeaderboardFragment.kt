@@ -25,8 +25,7 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
         setupAdapter()
 
         binding?.swiperefresh?.setOnRefreshListener {
-            viewModel.getAllUsers()
-            binding?.swiperefresh?.isRefreshing = false
+            viewModel.getUsersBySwipe()
         }
     }
 
@@ -34,15 +33,23 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
         super.onBindData(view)
 
         viewModel.users.observe(viewLifecycleOwner) { users ->
-            adapter.setLeaderboard(users)
-        }
+            lifecycleScope.launch {
+                viewModel.isLoading.collect {
+                    if (it) {
+                        binding?.progress?.visibility = View.VISIBLE
+                    } else {
+                        adapter.setLeaderboard(users)
+                        binding?.progress?.visibility = View.GONE
+                    }
+                }
+            }
 
-        lifecycleScope.launch {
-            viewModel.isLoading.collect {
-                if (it) {
-                    binding?.progress?.visibility = View.VISIBLE
-                } else {
-                    binding?.progress?.visibility = View.GONE
+            lifecycleScope.launch {
+                viewModel.isRefreshing.collect {
+                    if (!it) {
+                        adapter.setLeaderboard(users)
+                        binding?.swiperefresh?.isRefreshing = false
+                    }
                 }
             }
         }

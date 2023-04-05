@@ -34,21 +34,22 @@ class FireStorePlayerRepository(private val ref: CollectionReference) : PlayerRe
         val query = ref.whereEqualTo("area", area).orderBy("lastName")
         val snapshot = query.get().await()
         val result = snapshot.toObjects(Player::class.java).filter {
-            it.lastName?.lowercase(Locale.getDefault())!!
+            it.name.lowercase(Locale.getDefault())
                 .contains(playerName.lowercase(Locale.getDefault()))
         }.map { it.copy(playerId = it.playerId) }
 
-        // Filter by first name as well
-        val firstNameQuery = ref.whereEqualTo("area", area)
-            .orderBy("firstName")
-        val firstNameSnapshot = firstNameQuery.get().await()
-        val firstNameResult = firstNameSnapshot.toObjects(Player::class.java).filter {
-            it.firstName?.lowercase(Locale.getDefault())!!
-                .contains(playerName.lowercase(Locale.getDefault()))
-        }.map { it.copy(playerId = it.playerId) }
+//        // Filter by first name as well
+//        val firstNameQuery = ref.whereEqualTo("area", area)
+//            .orderBy("firstName")
+//        val firstNameSnapshot = firstNameQuery.get().await()
+//        val firstNameResult = firstNameSnapshot.toObjects(Player::class.java).filter {
+//            it.firstName?.lowercase(Locale.getDefault())!!
+//                .contains(playerName.lowercase(Locale.getDefault()))
+//        }.map { it.copy(playerId = it.playerId) }
 
         // Merge the two results and return the distinct list
-        return (result + firstNameResult).distinctBy { it.playerId }
+//        return (result + firstNameResult).distinctBy { it.playerId }
+        return (result).distinctBy { it.playerId }
     }
 
     override suspend fun sortPlayer(order: String, by: String, area: String): List<Player> {
