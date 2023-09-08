@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/splashFragment"
+    >
     <action
         android:id="@+id/toLoginFragment"
         app:destination="@id/credentialsFragment"
@@ -81,4 +82,8 @@
             android:name="email"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.fantasy.fantasyfootball.ui.presentation.splash.SplashFragment"
+        android:label="SplashFragment" />
 </navigation>

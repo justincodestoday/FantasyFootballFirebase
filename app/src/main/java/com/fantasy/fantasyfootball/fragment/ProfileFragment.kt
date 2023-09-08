@@ -17,6 +17,7 @@ import com.fantasy.fantasyfootball.databinding.EditPasswordDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditProfileDialogBinding
 import com.fantasy.fantasyfootball.databinding.FragmentProfileBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.ui.MainActivity
 import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
 import com.fantasy.fantasyfootball.util.Utils.getFileName
 import com.fantasy.fantasyfootball.util.Utils.validate
@@ -89,6 +90,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                             viewModel.editUser(
                                 user.copy(name = name, team = user.team.copy(name = teamName))
                             )
+                            (activity as MainActivity).identify()
                             Toast.makeText(
                                 requireContext(),
                                 context?.getString(R.string.update_successful),
@@ -182,6 +184,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                         bundle.putBoolean(Enums.Result.REFRESH.name, true)
                         setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
                         viewModel.updateProfile(imageUri)
+                        (activity as MainActivity).identify()
                         imageDialog.dismiss()
                     } else {
                         imageDialogBinding.tvError.text =

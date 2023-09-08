@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.fantasy.fantasyfootball.ui.presentation.adapter.CredentialsAdapter
 import com.fantasy.fantasyfootball.databinding.FragmentCredentialsBinding
+import com.fantasy.fantasyfootball.ui.presentation.login.LoginFragment
+import com.fantasy.fantasyfootball.ui.presentation.register.RegisterFragment
 
 class CredentialsFragment : Fragment() {
     private lateinit var binding: FragmentCredentialsBinding
