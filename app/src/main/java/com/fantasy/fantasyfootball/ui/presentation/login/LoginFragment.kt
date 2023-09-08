@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.fragment
+package com.fantasy.fantasyfootball.ui.presentation.login
 
 import android.os.Bundle
 import android.view.View
@@ -7,8 +7,9 @@ import androidx.lifecycle.lifecycleScope
 import com.fantasy.fantasyfootball.ui.MainActivity
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentLoginBinding
+import com.fantasy.fantasyfootball.fragment.CredentialsFragmentDirections
 import com.fantasy.fantasyfootball.ui.presentation.base.BaseFragment
-import com.fantasy.fantasyfootball.viewModel.LoginViewModel
+import com.fantasy.fantasyfootball.ui.presentation.login.viewModel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -18,6 +18,7 @@ import androidx.navigation.ui.*
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
@@ -34,11 +35,33 @@ class MainActivity : AppCompatActivity() {
     private lateinit var headerBinding: DrawerHeaderBinding
     private val viewModel: MainViewModel by viewModels()
 
-    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewModel.getCurrentUser()
+
+        viewModel.nameLiveData.observe(this) { name ->
+            headerBinding.tvFullName.text = name
+        }
+
+        viewModel.emailLiveData.observe(this) { email ->
+            headerBinding.tvEmail.text = email
+        }
+
+        viewModel.imageLiveData.observe(this) { imageName ->
+            if (imageName != null) {
+                ImageStorageService.getImageUri(imageName) { uri ->
+                    Glide.with(this.applicationContext)
+                        .load(uri)
+                        .placeholder(R.drawable.vector__3_)
+                        .into(headerBinding.ivImage)
+                }
+            } else {
+                Glide.with(this.applicationContext)
+                    .load(R.drawable.vector__3_)
+                    .into(headerBinding.ivImage)
+            }
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -91,30 +114,43 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        viewModel.user.observe(this) {
-//            authenticate(it, graph)
-            if (it == null) {
+//        viewModel.user.observe(this) {
+////            authenticate(it, graph)
+//            if (it == null) {
+//                navController.popBackStack(R.id.main_nav_graph, true)
+//                navController.navigate(R.id.credentialsFragment)
+//            } else {
+////                identify()
+//                navController.popBackStack(R.id.main_nav_graph, true)
+//                navController.navigate(R.id.homeFragment)
+//                headerBinding.tvFullName.text = it.name
+//                headerBinding.tvEmail.text = it.email
+//
+//                if (it.image != null) {
+//                    it.image.let { imageName ->
+//                        ImageStorageService.getImageUri(imageName) { uri ->
+//                            Glide.with(this.applicationContext)
+//                                .load(uri)
+//                                .placeholder(R.drawable.vector__3_)
+//                                .into(headerBinding.ivImage)
+//                        }
+//                    }
+//                } else {
+//                    Glide.with(this.applicationContext)
+//                        .load(R.drawable.vector__3_)
+//                        .into(headerBinding.ivImage)
+//                }
+//            }
+//        }
+
+        viewModel.user.observe(this) { user ->
+            if (user == null) {
                 navController.popBackStack(R.id.main_nav_graph, true)
                 navController.navigate(R.id.credentialsFragment)
             } else {
-                identify()
-                headerBinding.tvFullName.text = it.name
-                headerBinding.tvEmail.text = it.email
-
-                if (it.image != null) {
-                    it.image.let { imageName ->
-                        ImageStorageService.getImageUri(imageName) { uri ->
-                            Glide.with(this.applicationContext)
-                                .load(uri)
-                                .placeholder(R.drawable.vector__3_)
-                                .into(headerBinding.ivImage)
-                        }
-                    }
-                } else {
-                    Glide.with(this.applicationContext)
-                        .load(R.drawable.vector__3_)
-                        .into(headerBinding.ivImage)
-                }
+                navController.popBackStack(R.id.main_nav_graph, true)
+                navController.navigate(R.id.homeFragment)
+                getData()
             }
         }
 
@@ -144,6 +180,12 @@ class MainActivity : AppCompatActivity() {
 
     fun identify() {
         viewModel.getCurrentUser()
+    }
+
+    fun getData() {
+        viewModel.updateNameData()
+        viewModel.updateEmailData()
+        viewModel.updateImageData()
     }
 
     fun navigate(destination: String) {

@@ -1,5 +1,7 @@
 package com.fantasy.fantasyfootball.viewModel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.data.repository.FireStoreUserRepository
@@ -12,6 +14,10 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepository) :
     BaseViewModel() {
 
+    val nameLiveData: MutableLiveData<String?> = MutableLiveData()
+    val emailLiveData: MutableLiveData<String?> = MutableLiveData()
+    val imageLiveData: MutableLiveData<String?> = MutableLiveData()
+
     fun getCurrentUser() {
         viewModelScope.launch {
             try {
@@ -23,9 +29,27 @@ class MainViewModel @Inject constructor(private val userRepo: FireStoreUserRepos
         }
     }
 
-    fun isLoggedIn() {
-        viewModelScope.launch {
-            userRepo.isAuthenticated()
+    fun updateNameData() {
+        (name != null).let { isNameNotNull ->
+            if (isNameNotNull) {
+                nameLiveData.postValue(user.value?.name)
+            }
+        }
+    }
+
+    fun updateEmailData() {
+        (email != null).let { isEmailNotNull ->
+            if (isEmailNotNull) {
+                emailLiveData.postValue(user.value?.email)
+            }
+        }
+    }
+
+    fun updateImageData() {
+        (image != null).let { isImageNotNull ->
+            if (isImageNotNull) {
+                imageLiveData.postValue(user.value?.image)
+            }
         }
     }
 

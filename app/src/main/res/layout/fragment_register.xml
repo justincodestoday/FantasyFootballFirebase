@@ -9,13 +9,13 @@
 
         <variable
             name="viewModel"
-            type="com.fantasy.fantasyfootball.viewModel.RegisterViewModel" />
+            type="com.fantasy.fantasyfootball.ui.presentation.register.viewModel.RegisterViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.RegisterFragment">
+        tools:context=".ui.presentation.register.RegisterFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -229,6 +229,7 @@
             android:layout_below="@+id/ti_passwordConfirm"
             android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
             android:layout_marginTop="@dimen/fragment_vertical_margin"
+            android:onClick="@{() -> viewModel.register()}"
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/sign_up"
