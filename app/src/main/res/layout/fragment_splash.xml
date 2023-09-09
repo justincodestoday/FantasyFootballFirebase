@@ -4,9 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.presentation.splash.SplashFragment"
     >
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/img_6"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24dp"
+            android:textColor="@color/dark_purple_700"
+            android:fontFamily="@font/font1"
+            android:text="Fantasy"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img2" />
+    </LinearLayout>
 
 </layout>

@@ -3,7 +3,6 @@ package com.fantasy.fantasyfootball.ui.presentation.home
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.*
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.ui.MainActivity
@@ -21,6 +20,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val viewModel: HomeViewModel by viewModels()
     override fun getLayoutResource(): Int = R.layout.fragment_home
 
+
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
 
@@ -32,6 +32,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding?.swiperefresh?.setOnRefreshListener {
             viewModel.getCurrentUser()
             binding?.swiperefresh?.isRefreshing = false
+        }
+
+        binding?.btnHowToPlay?.setOnClickListener {
+
         }
     }
 
