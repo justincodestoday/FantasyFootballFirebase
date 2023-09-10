@@ -8,12 +8,12 @@ import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
-import com.fantasy.fantasyfootball.dialog.ConfirmDialogs
 import com.fantasy.fantasyfootball.presentation.ui.base.BaseFragment
 import com.fantasy.fantasyfootball.util.TeamUtil.setImageForPosition
 import com.fantasy.fantasyfootball.util.TeamUtil.setPlayerName
 import com.fantasy.fantasyfootball.util.TeamUtil.setShirtColor
 import com.fantasy.fantasyfootball.presentation.ui.teamManagement.viewModel.TeamManagementViewModel
+import com.fantasy.fantasyfootball.util.DialogUtil.showDeleteDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,12 +30,19 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
             binding.apply {
                 binding?.tvTeamName?.text = it.team.name
                 binding?.tvPoints?.text = it.team.points.toString()
-                binding?.tvBudget?.text = "£" + it.team.budget + "m"
+//                binding?.tvBudget?.text = "£" + it.team.budget + "m"
+
+//                %1$s represents the currency symbol (string)
+//                %2$.1f represents the budget value (floating-point number with one decimal place)
+                binding?.tvBudget?.text = getString(
+                    R.string.currency_format,
+                    getString(R.string.currency_symbol),
+                    it.team.budget
+                )
             }
         }
 
         var teamBudget: Float
-        val dialogInstance = ConfirmDialogs()
         viewModel.user.observe(viewLifecycleOwner) {
             teamBudget = it.team.budget
             val listOfPositions = mutableListOf<String>()
@@ -61,7 +68,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -109,7 +116,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -157,7 +164,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -205,7 +212,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -253,7 +260,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -301,7 +308,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -349,7 +356,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -397,7 +404,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -445,7 +452,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -493,7 +500,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(
@@ -541,7 +548,7 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
                     val player =
                         it.team.players.single { fanPlayer -> fanPlayer.position == position.name }
                     context?.let { context ->
-                        dialogInstance.showDeleteDialog(
+                        showDeleteDialog(
                             requireContext(),
                             context.getString(R.string.dialog_remove_title),
                             String.format(

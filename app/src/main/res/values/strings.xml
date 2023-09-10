@@ -153,6 +153,10 @@
     <string name="unrecognised_error">Unrecognised error</string>
     <string name="nothing">Nothing</string>
 
+    <!--  Currency  -->
+    <string name="currency_symbol">£</string>
+    <string name="currency_format">%1$s%2$.1fm</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
