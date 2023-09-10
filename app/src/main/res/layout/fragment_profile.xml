@@ -13,7 +13,7 @@
             android:background="@drawable/img_6"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            tools:context=".fragment.ProfileFragment">
+            tools:context=".presentation.ui.profile.ProfileFragment">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineTop"

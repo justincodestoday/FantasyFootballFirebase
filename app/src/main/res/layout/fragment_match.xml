@@ -12,7 +12,7 @@
             android:background="@drawable/img_6"
             android:orientation="vertical"
             android:weightSum="1"
-            tools:context=".fragment.MatchFragment">
+            tools:context=".presentation.ui.match.MatchFragment">
 
             <TextView
                 android:layout_width="wrap_content"
