@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.presentation.ui.home
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.*
@@ -9,6 +10,7 @@ import com.fantasy.fantasyfootball.presentation.MainActivity
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.constant.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
+import com.fantasy.fantasyfootball.databinding.HowToPlayDialogBinding
 import com.fantasy.fantasyfootball.service.ImageStorageService
 import com.fantasy.fantasyfootball.presentation.ui.base.BaseFragment
 import com.fantasy.fantasyfootball.presentation.ui.home.viewModel.HomeViewModel
@@ -19,7 +21,7 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val viewModel: HomeViewModel by viewModels()
     override fun getLayoutResource(): Int = R.layout.fragment_home
-
+    private lateinit var howToPlayDialogBinding: HowToPlayDialogBinding
 
     override fun onBindView(view: View, savedInstanceState: Bundle?) {
         super.onBindView(view, savedInstanceState)
@@ -34,8 +36,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             binding?.swiperefresh?.isRefreshing = false
         }
 
+        howToPlayDialogBinding = HowToPlayDialogBinding.inflate(layoutInflater)
+        val howToPlayDialog = Dialog(requireContext(), R.style.Custom_AlertDialog)
         binding?.btnHowToPlay?.setOnClickListener {
-
+            howToPlayDialog.setContentView(howToPlayDialogBinding.root)
+            howToPlayDialog.setCancelable(true)
+            howToPlayDialog.show()
+        }
+        howToPlayDialogBinding.ivClose.setOnClickListener {
+            howToPlayDialog.dismiss()
         }
     }
 

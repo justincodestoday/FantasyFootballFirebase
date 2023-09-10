@@ -32,7 +32,7 @@ class LeaderboardViewModel @Inject constructor(private val auth: UserRepositoryI
     fun getAllUsers() {
         viewModelScope.launch {
             isLoading.emit(true)
-            delay(2000)
+//            delay(2000)
             users.value = auth.getAllUsers()
             isLoading.emit(false)
         }

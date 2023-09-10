@@ -30,10 +30,9 @@ class TeamManagementFragment : BaseFragment<FragmentTeamManagementBinding>() {
             binding.apply {
                 binding?.tvTeamName?.text = it.team.name
                 binding?.tvPoints?.text = it.team.points.toString()
-//                binding?.tvBudget?.text = "£" + it.team.budget + "m"
 
-//                %1$s represents the currency symbol (string)
-//                %2$.1f represents the budget value (floating-point number with one decimal place)
+                // %1$s represents the currency symbol (string)
+                // %2$.1f represents the budget value (floating-point number with one decimal place)
                 binding?.tvBudget?.text = getString(
                     R.string.currency_format,
                     getString(R.string.currency_symbol),

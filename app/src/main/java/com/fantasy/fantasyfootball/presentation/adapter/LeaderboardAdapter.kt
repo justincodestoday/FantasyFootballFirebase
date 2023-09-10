@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.databinding.LeaderboardBinding
 import com.fantasy.fantasyfootball.util.Utils.update
@@ -19,12 +20,18 @@ class LeaderboardAdapter(private var users: List<User>) :
     }
 
     override fun onBindViewHolder(holder: LeaderboardViewHolder, position: Int) {
-        val user = users[position]
+        val sortedUsers = users.sortedByDescending { it.team.points }
+        val user = sortedUsers[position]
+        val currentPosition = position + 1
+
         holder.binding.run {
-            tvEmail.text ="${ user.team.name} |"
-            tvTeamName.text = user.email
-            tvPoints.text = user.team.points.toString() + " pts"
-            tvRanking.text = (position + 1).toString()
+            tvTeamName.text = holder.itemView.context.getString(
+                R.string.user_card_text, user.team.name, user.email
+            )
+            tvTeamName.isSelected = true
+            tvPoints.text = holder.itemView.context.getString(R.string.user_card_points, user.team.points)
+            tvRanking.text = currentPosition.toString()
+
             if (position == 0) {
                 trophy.visibility = View.VISIBLE
             } else {
