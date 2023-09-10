@@ -9,13 +9,13 @@
 
         <variable
             name="viewModel"
-            type="com.fantasy.fantasyfootball.ui.presentation.register.viewModel.RegisterViewModel" />
+            type="com.fantasy.fantasyfootball.presentation.ui.credentials.register.viewModel.RegisterViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.presentation.register.RegisterFragment">
+        tools:context=".presentation.ui.credentials.register.RegisterFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

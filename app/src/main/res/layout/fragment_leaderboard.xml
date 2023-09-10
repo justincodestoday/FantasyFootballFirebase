@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.fantasy.fantasyfootball.ui.presentation.leaderboard.viewModel.LeaderboardViewModel" />
+            type="com.fantasy.fantasyfootball.presentation.ui.leaderboard.viewModel.LeaderboardViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/img_6"
-            tools:context=".ui.presentation.leaderboard.LeaderboardFragment">
+            tools:context=".presentation.ui.leaderboard.LeaderboardFragment">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineTop"

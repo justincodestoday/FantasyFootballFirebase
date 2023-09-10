@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/off_white"
-        tools:context=".fragment.PickPlayerFragment">
+        tools:context=".presentation.ui.pickPlayer.PickPlayerFragment">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress"

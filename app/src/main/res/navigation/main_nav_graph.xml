@@ -20,17 +20,17 @@
         app:destination="@id/profileFragment" />
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.fantasy.fantasyfootball.ui.presentation.home.HomeFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/leaderboardFragment"
-        android:name="com.fantasy.fantasyfootball.ui.presentation.leaderboard.LeaderboardFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.leaderboard.LeaderboardFragment"
         android:label="Leaderboard"
         tools:layout="@layout/fragment_leaderboard" />
     <fragment
         android:id="@+id/teamManagementFragment"
-        android:name="com.fantasy.fantasyfootball.fragment.TeamManagementFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.teamManagement.TeamManagementFragment"
         android:label="Team Management"
         tools:layout="@layout/fragment_team_management">
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/credentialsFragment"
-        android:name="com.fantasy.fantasyfootball.fragment.CredentialsFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.credentials.CredentialsFragment"
         android:label="Credentials"
         tools:layout="@layout/fragment_credentials">
         <action
@@ -53,12 +53,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.fantasy.fantasyfootball.fragment.ProfileFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/pickPlayerFragment"
-        android:name="com.fantasy.fantasyfootball.fragment.PickPlayerFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.pickPlayer.PickPlayerFragment"
         android:label="Pick Player"
         tools:layout="@layout/fragment_pick_player">
         <argument
@@ -70,12 +70,12 @@
     </fragment>
     <fragment
         android:id="@+id/matchFragment"
-        android:name="com.fantasy.fantasyfootball.fragment.MatchFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.match.MatchFragment"
         android:label="MatchFragment"
         tools:layout="@layout/fragment_match" />
     <fragment
         android:id="@+id/optionalFragment"
-        android:name="com.fantasy.fantasyfootball.fragment.OptionalFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.credentials.optional.OptionalFragment"
         android:label="OptionalFragment"
         tools:layout="@layout/fragment_optional">
         <argument
@@ -84,6 +84,6 @@
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.fantasy.fantasyfootball.ui.presentation.splash.SplashFragment"
+        android:name="com.fantasy.fantasyfootball.presentation.ui.splash.SplashFragment"
         android:label="SplashFragment" />
 </navigation>

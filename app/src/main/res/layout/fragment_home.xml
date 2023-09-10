@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.fantasy.fantasyfootball.ui.presentation.home.viewModel.HomeViewModel" />
+            type="com.fantasy.fantasyfootball.presentation.ui.home.viewModel.HomeViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context=".ui.presentation.home.HomeFragment">
+            tools:context=".presentation.ui.home.HomeFragment">
 
             <RelativeLayout
                 android:layout_width="match_parent"
