@@ -34,15 +34,14 @@ class LeaderboardFragment : BaseFragment<FragmentLeaderboardBinding>() {
         super.onBindData(view)
 
         viewModel.users.observe(viewLifecycleOwner) { users ->
-            adapter.setLeaderboard(users)
-        }
-
-        lifecycleScope.launch {
-            viewModel.isLoading.collect {
-                if (it) {
-                    binding?.progress?.visibility = View.VISIBLE
-                } else {
-                    binding?.progress?.visibility = View.GONE
+            lifecycleScope.launch {
+                viewModel.isLoading.collect {
+                    if (it) {
+                        binding?.progress?.visibility = View.VISIBLE
+                    } else {
+                        adapter.setLeaderboard(users)
+                        binding?.progress?.visibility = View.GONE
+                    }
                 }
             }
         }

@@ -97,6 +97,8 @@
     <string name="user_team_name">Team Name</string>
     <string name="user_points">Points</string>
     <string name="user_rank">Rank</string>
+    <string name="user_card_text">%1$s [%2$s]</string>
+    <string name="user_card_points">%1$d pts</string>
 
     <!-- Player Card -->
     <string name="player_card">Player Card</string>
