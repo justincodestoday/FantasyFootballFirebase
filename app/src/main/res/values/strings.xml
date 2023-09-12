@@ -135,6 +135,7 @@
     <!-- Errors -->
     <string name="empty_field">Please fill all the fields</string>
     <string name="empty_single_field">Please fill the field</string>
+    <string name="wrong_password_field">Your current password is wrong</string>
     <string name="missing_name">Name is required</string>
     <string name="missing_team_name">Team name is required</string>
     <string name="missing_email">Email is required</string>

@@ -124,28 +124,32 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                 viewModel.user.observe(viewLifecycleOwner) { user ->
                     passwordDialog.setContentView(passwordDialogBinding.root)
                     passwordDialogBinding.btnSavePassword.setOnClickListener {
-                        val currentPassword =
-                            passwordDialogBinding.etPassword.text.toString().trim()
+                        val currentPassword = passwordDialogBinding.etPassword.text.toString().trim()
                         val newPassword = passwordDialogBinding.etNewPassword.text.toString().trim()
 
-                        if (validate(currentPassword) && validate(newPassword)) {
-                            val bundle = Bundle()
-                            bundle.putBoolean(Enums.Result.REFRESH.name, true)
-                            setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
-                            viewModel.updatePassword(currentPassword, newPassword)
-                            viewModel.editUser(user.copy(password = newPassword))
-                            Toast.makeText(
-                                requireContext(),
-                                context?.getString(R.string.update_successful),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            passwordDialog.dismiss()
+                        if (validate(currentPassword, newPassword)) {
+                            if (currentPassword == user.password) {
+                                val bundle = Bundle()
+                                bundle.putBoolean(Enums.Result.REFRESH.name, true)
+                                setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+                                viewModel.updatePassword(currentPassword, newPassword)
+                                viewModel.editUser(user.copy(password = newPassword))
+                                Toast.makeText(
+                                    requireContext(),
+                                    context?.getString(R.string.update_successful),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                passwordDialog.dismiss()
+                            } else {
+                                passwordDialogBinding.tvError.text = context?.getString(R.string.wrong_password_field)
+                                passwordDialogBinding.tvError.visibility = View.VISIBLE
+                            }
                         } else {
-                            passwordDialogBinding.tvError.text =
-                                context?.getString(R.string.empty_single_field)
+                            passwordDialogBinding.tvError.text = context?.getString(R.string.empty_single_field)
                             passwordDialogBinding.tvError.visibility = View.VISIBLE
                         }
                     }
+
                     passwordDialog.setCancelable(true)
                     passwordDialog.setOnCancelListener {
                         passwordDialogBinding.tvError.text =
