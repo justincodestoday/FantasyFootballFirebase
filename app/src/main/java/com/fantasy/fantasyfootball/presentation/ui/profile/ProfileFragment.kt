@@ -11,12 +11,12 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.databinding.EditImageDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditPasswordDialogBinding
 import com.fantasy.fantasyfootball.databinding.EditProfileDialogBinding
 import com.fantasy.fantasyfootball.databinding.FragmentProfileBinding
-import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.data.service.ImageStorageService
 import com.fantasy.fantasyfootball.presentation.MainActivity
 import com.fantasy.fantasyfootball.presentation.ui.base.BaseFragment
 import com.fantasy.fantasyfootball.util.Utils.getFileName

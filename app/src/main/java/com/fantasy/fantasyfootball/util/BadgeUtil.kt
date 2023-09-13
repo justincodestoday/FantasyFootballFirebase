@@ -2,7 +2,7 @@ package com.fantasy.fantasyfootball.util
 
 import android.widget.ImageView
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 
 object BadgeUtil {
     fun setTeamImage(teamName: String, imageView: ImageView) {

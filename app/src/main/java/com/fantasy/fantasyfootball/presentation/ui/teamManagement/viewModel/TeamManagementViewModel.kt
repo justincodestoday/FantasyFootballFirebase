@@ -2,7 +2,7 @@ package com.fantasy.fantasyfootball.presentation.ui.teamManagement.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.model.Player
 import com.fantasy.fantasyfootball.data.repository.PlayerRepositoryImpl
 import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl

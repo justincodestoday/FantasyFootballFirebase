@@ -8,10 +8,10 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.presentation.MainActivity
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentHomeBinding
 import com.fantasy.fantasyfootball.databinding.HowToPlayDialogBinding
-import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.data.service.ImageStorageService
 import com.fantasy.fantasyfootball.presentation.ui.base.BaseFragment
 import com.fantasy.fantasyfootball.presentation.ui.home.viewModel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint

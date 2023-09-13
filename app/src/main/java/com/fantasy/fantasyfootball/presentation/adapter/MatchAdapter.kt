@@ -3,7 +3,7 @@ package com.fantasy.fantasyfootball.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
 import com.fantasy.fantasyfootball.databinding.MatchCardBinding
 import com.fantasy.fantasyfootball.util.BadgeUtil.setTeamImage

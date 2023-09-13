@@ -3,7 +3,7 @@ package com.fantasy.fantasyfootball.presentation.ui.credentials.login.viewModel
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.common.Resource
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.model.User
 import com.fantasy.fantasyfootball.domain.usecase.LoginUseCase
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel

@@ -1,7 +1,7 @@
 package com.fantasy.fantasyfootball.util
 
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 
 object TeamUtil {

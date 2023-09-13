@@ -16,10 +16,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.bumptech.glide.Glide
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.databinding.ActivityMainBinding
 import com.fantasy.fantasyfootball.databinding.DrawerHeaderBinding
-import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.data.service.ImageStorageService
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

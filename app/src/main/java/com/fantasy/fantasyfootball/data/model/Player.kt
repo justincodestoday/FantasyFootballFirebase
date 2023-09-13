@@ -1,6 +1,6 @@
 package com.fantasy.fantasyfootball.data.model
 
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 
 data class Player(
     val playerId: String? = null,

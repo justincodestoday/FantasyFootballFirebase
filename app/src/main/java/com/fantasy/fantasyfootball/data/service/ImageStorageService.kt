@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.service
+package com.fantasy.fantasyfootball.data.service
 
 import android.net.Uri
 import android.util.Log

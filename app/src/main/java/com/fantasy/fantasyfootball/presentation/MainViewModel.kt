@@ -2,7 +2,7 @@ package com.fantasy.fantasyfootball.presentation
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

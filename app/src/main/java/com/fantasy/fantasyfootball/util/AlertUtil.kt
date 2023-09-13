@@ -2,7 +2,7 @@ package com.fantasy.fantasyfootball.util
 
 import android.content.Context
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 
 object AlertUtil {
     fun enumToString(type: String?, context: Context): String {

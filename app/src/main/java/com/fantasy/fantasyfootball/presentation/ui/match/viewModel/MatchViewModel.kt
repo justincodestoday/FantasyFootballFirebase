@@ -1,10 +1,14 @@
 package com.fantasy.fantasyfootball.presentation.ui.match.viewModel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
 import com.fantasy.fantasyfootball.data.repository.MatchRepositoryImpl
+import com.fantasy.fantasyfootball.data.repository.MatchesRepositoryImpl
 import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MatchViewModel @Inject constructor(
     private val matchRepo: MatchRepositoryImpl,
-    private val auth: UserRepositoryImpl
+    private val auth: UserRepositoryImpl,
+//    private val getMatches: MatchesRepositoryImpl
 ) :
     BaseViewModel() {
     val matches: MutableLiveData<List<Matches>?> = MutableLiveData()
@@ -22,6 +27,7 @@ class MatchViewModel @Inject constructor(
     init {
 //        getMatches()
         addMatches()
+//        fetchMatches()
     }
 
     val game = listOf(
@@ -40,6 +46,14 @@ class MatchViewModel @Inject constructor(
             date = "15/2/2023"
         )
     )
+
+//    fun fetchMatches() {
+//        viewModelScope.launch {
+//            getMatches.getAllMatches {
+//                Log.d("debugging", it.toString())
+//            }
+//        }
+//    }
 
 
     fun getMatches() {
