@@ -3,7 +3,7 @@ package com.fantasy.fantasyfootball.presentation.ui.home.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.core.Enums
-import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.domain.repository.UserRepository
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val auth: UserRepositoryImpl) :
+class HomeViewModel @Inject constructor(private val auth: UserRepository) :
     BaseViewModel() {
     val fixtures: MutableSharedFlow<Unit> = MutableSharedFlow()
     val leaderboard: MutableSharedFlow<Unit> = MutableSharedFlow()

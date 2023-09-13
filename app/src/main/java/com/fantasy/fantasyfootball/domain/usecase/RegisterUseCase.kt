@@ -1,7 +1,7 @@
 package com.fantasy.fantasyfootball.domain.usecase
 
 import com.fantasy.fantasyfootball.common.Resource
-import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.domain.repository.UserRepository
 import com.fantasy.fantasyfootball.presentation.ui.credentials.register.RegisterEvent
 import com.fantasy.fantasyfootball.util.Utils
 import com.google.firebase.auth.FirebaseUser
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class RegisterUseCase @Inject constructor(
-    private val authService: UserRepositoryImpl
+    private val authService: UserRepository
 ) {
     operator fun invoke(event: RegisterEvent) = flow<Resource<FirebaseUser?>> {
         try {

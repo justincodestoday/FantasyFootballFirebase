@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.model.User
-import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
 import com.fantasy.fantasyfootball.data.service.ImageStorageService
+import com.fantasy.fantasyfootball.domain.repository.UserRepository
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import com.fantasy.fantasyfootball.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(private val auth: UserRepositoryImpl) :
+class ProfileViewModel @Inject constructor(private val auth: UserRepository) :
     BaseViewModel() {
     val loggedIn: MutableLiveData<Boolean?> = MutableLiveData()
 

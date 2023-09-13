@@ -136,7 +136,7 @@ class UserRepositoryImpl(
         }
     }
 
-    suspend fun getCurrentUser(): User? {
+    override suspend fun getCurrentUser(): User? {
         val email = auth.currentUser?.email
         var docId = "default"
         val query = ref.whereEqualTo("email", email).get().await()
@@ -146,12 +146,12 @@ class UserRepositoryImpl(
         return ref.document(docId).get().await().toObject(User::class.java)
     }
 
-    suspend fun getAllUsers(): List<User> {
+    override suspend fun getAllUsers(): List<User> {
         return ref.orderBy("team.points", Query.Direction.DESCENDING).get().await()
             .toObjects(User::class.java)
     }
 
-    fun isAuthenticated(): Boolean {
+   override fun isAuthenticated(): Boolean {
         val user = auth.currentUser
         if (user == null) {
             return false
@@ -159,7 +159,7 @@ class UserRepositoryImpl(
         return true
     }
 
-    fun deAuthenticate() {
+    override fun deAuthenticate() {
         auth.signOut()
     }
 }

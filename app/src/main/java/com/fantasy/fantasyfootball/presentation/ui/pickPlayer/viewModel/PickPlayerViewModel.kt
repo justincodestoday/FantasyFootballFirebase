@@ -3,8 +3,8 @@ package com.fantasy.fantasyfootball.presentation.ui.pickPlayer.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.data.model.*
-import com.fantasy.fantasyfootball.data.repository.PlayerRepositoryImpl
-import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.domain.repository.PlayerRepository
+import com.fantasy.fantasyfootball.domain.repository.UserRepository
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,8 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PickPlayerViewModel @Inject constructor(
-    private val playerRepo: PlayerRepositoryImpl,
-    private val auth: UserRepositoryImpl
+    private val playerRepo: PlayerRepository,
+    private val auth: UserRepository
 ) : BaseViewModel() {
     val players: MutableLiveData<List<Player>> = MutableLiveData()
 

@@ -23,4 +23,12 @@ interface UserRepository {
     suspend fun updatePoints(points: Int)
 
     suspend fun updatePassword(currentPassword: String, newPassword: String)
+
+    suspend fun getCurrentUser(): User?
+
+    suspend fun getAllUsers(): List<User>
+
+    fun isAuthenticated(): Boolean
+
+    fun deAuthenticate()
 }

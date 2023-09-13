@@ -1,15 +1,13 @@
 package com.fantasy.fantasyfootball.presentation.ui.match.viewModel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.model.Matches
-import com.fantasy.fantasyfootball.data.repository.MatchRepositoryImpl
-import com.fantasy.fantasyfootball.data.repository.MatchesRepositoryImpl
-import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.domain.repository.MatchRepository
+import com.fantasy.fantasyfootball.domain.repository.MatchesRepository
+import com.fantasy.fantasyfootball.domain.repository.UserRepository
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,9 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MatchViewModel @Inject constructor(
-    private val matchRepo: MatchRepositoryImpl,
-    private val auth: UserRepositoryImpl,
-//    private val getMatches: MatchesRepositoryImpl
+    private val matchRepo: MatchRepository,
+    private val auth: UserRepository,
+    private val matchesRepo: MatchesRepository
 ) :
     BaseViewModel() {
     val matches: MutableLiveData<List<Matches>?> = MutableLiveData()
@@ -27,7 +25,7 @@ class MatchViewModel @Inject constructor(
     init {
 //        getMatches()
         addMatches()
-//        fetchMatches()
+        fetchMatches()
     }
 
     val game = listOf(
@@ -47,13 +45,14 @@ class MatchViewModel @Inject constructor(
         )
     )
 
-//    fun fetchMatches() {
-//        viewModelScope.launch {
-//            getMatches.getAllMatches {
-//                Log.d("debugging", it.toString())
-//            }
-//        }
-//    }
+    fun fetchMatches() {
+        viewModelScope.launch {
+            val res = safeApiCall { matchesRepo.getAllMatches() }
+            res?.let {
+                Log.d("football", it.body().toString())
+            }
+        }
+    }
 
 
     fun getMatches() {

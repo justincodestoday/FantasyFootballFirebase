@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.model.Team
-import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
 import com.fantasy.fantasyfootball.data.service.ImageStorageService
+import com.fantasy.fantasyfootball.domain.repository.UserRepository
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import com.fantasy.fantasyfootball.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class OptionalViewModel @Inject constructor(private val auth: UserRepositoryImpl) :
+class OptionalViewModel @Inject constructor(private val auth: UserRepository) :
     BaseViewModel() {
     val teamName: MutableLiveData<String> = MutableLiveData()
     val navigate: MutableSharedFlow<Unit> = MutableSharedFlow()
