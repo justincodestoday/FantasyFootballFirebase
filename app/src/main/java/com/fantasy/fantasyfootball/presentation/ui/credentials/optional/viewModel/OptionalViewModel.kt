@@ -4,10 +4,10 @@ import android.net.Uri
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.data.model.Team
 import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
-import com.fantasy.fantasyfootball.service.ImageStorageService
+import com.fantasy.fantasyfootball.data.service.ImageStorageService
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import com.fantasy.fantasyfootball.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel

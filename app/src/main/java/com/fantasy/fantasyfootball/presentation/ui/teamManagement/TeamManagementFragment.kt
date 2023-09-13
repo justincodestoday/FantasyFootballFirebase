@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.*
 import androidx.navigation.fragment.NavHostFragment
 import com.fantasy.fantasyfootball.R
-import com.fantasy.fantasyfootball.constant.Enums
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentTeamManagementBinding
 import com.fantasy.fantasyfootball.presentation.ui.base.BaseFragment
 import com.fantasy.fantasyfootball.util.TeamUtil.setImageForPosition

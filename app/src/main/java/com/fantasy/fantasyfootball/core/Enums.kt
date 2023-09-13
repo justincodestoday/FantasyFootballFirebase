@@ -1,4 +1,4 @@
-package com.fantasy.fantasyfootball.constant
+package com.fantasy.fantasyfootball.core
 
 class Enums {
     enum class FormSuccess {

@@ -1,8 +1,10 @@
 package com.fantasy.fantasyfootball.di
 
 import com.fantasy.fantasyfootball.data.repository.MatchRepositoryImpl
+import com.fantasy.fantasyfootball.data.repository.MatchesRepositoryImpl
 import com.fantasy.fantasyfootball.data.repository.PlayerRepositoryImpl
 import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.data.service.RetrofitService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -31,13 +33,13 @@ object MyAppDependency {
 
     @Provides
     @Singleton
-    fun getFireStorePlayerRepository(db: FirebaseFirestore): PlayerRepositoryImpl {
+    fun getPlayerRepository(db: FirebaseFirestore): PlayerRepositoryImpl {
         return PlayerRepositoryImpl(db.collection("players"))
     }
 
     @Provides
     @Singleton
-    fun getFireStoreMatchRepository(db: FirebaseFirestore): MatchRepositoryImpl {
+    fun getMatchRepository(db: FirebaseFirestore): MatchRepositoryImpl {
         return MatchRepositoryImpl(db.collection("matches"))
     }
 
@@ -45,5 +47,11 @@ object MyAppDependency {
     @Singleton
     fun getAuthRepository(auth: FirebaseAuth, db: FirebaseFirestore): UserRepositoryImpl {
         return UserRepositoryImpl(auth, db.collection("users"))
+    }
+
+    @Provides
+    @Singleton
+    fun getMatchesRepository(retrofit: RetrofitService): MatchesRepositoryImpl {
+        return MatchesRepositoryImpl(retrofit.api)
     }
 }
