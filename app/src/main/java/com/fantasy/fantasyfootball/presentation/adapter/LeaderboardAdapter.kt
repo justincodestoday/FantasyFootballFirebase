@@ -25,9 +25,11 @@ class LeaderboardAdapter(private var users: List<User>) :
         val currentPosition = position + 1
 
         holder.binding.run {
-            tvTeamName.text = holder.itemView.context.getString(
-                R.string.user_card_text, user.team.name, user.email
-            )
+//            tvTeamName.text = holder.itemView.context.getString(
+//                R.string.user_card_text, user.team.name, user.email
+//            )
+            tvEmail.text ="${ user.team.name} "
+            tvTeamName.text = user.name
             tvTeamName.isSelected = true
             tvPoints.text = holder.itemView.context.getString(R.string.user_card_points, user.team.points)
             tvRanking.text = currentPosition.toString()

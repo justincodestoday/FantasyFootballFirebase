@@ -1,14 +1,14 @@
 package com.fantasy.fantasyfootball.domain.usecase
 
 import com.fantasy.fantasyfootball.common.Resource
-import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.domain.repository.UserRepository
 import com.fantasy.fantasyfootball.presentation.ui.credentials.login.LoginEvent
 import com.fantasy.fantasyfootball.util.Utils
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class LoginUseCase @Inject constructor(
-    private val authService: UserRepositoryImpl
+    private val authService: UserRepository
 ) {
     operator fun invoke(event: LoginEvent) = flow {
         try {

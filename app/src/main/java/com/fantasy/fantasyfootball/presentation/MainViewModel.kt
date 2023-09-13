@@ -3,14 +3,14 @@ package com.fantasy.fantasyfootball.presentation
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.core.Enums
-import com.fantasy.fantasyfootball.data.repository.UserRepositoryImpl
+import com.fantasy.fantasyfootball.domain.repository.UserRepository
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val userRepo: UserRepositoryImpl) :
+class MainViewModel @Inject constructor(private val userRepo: UserRepository) :
     BaseViewModel() {
 
     val nameLiveData: MutableLiveData<String?> = MutableLiveData()
