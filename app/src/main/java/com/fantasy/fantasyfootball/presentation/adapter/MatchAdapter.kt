@@ -26,6 +26,14 @@ class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> 
                 Enums.Team.Liverpool -> tvHomeTeam.text = "Liverpool"
                 Enums.Team.Arsenal -> tvHomeTeam.text = "Arsenal"
                 Enums.Team.Chelsea -> tvHomeTeam.text = "Chelsea"
+                Enums.Team.ManCity -> tvHomeTeam.text = "Man City"
+                Enums.Team.Newcastle -> tvHomeTeam.text = "Newcastle"
+                Enums.Team.Barcelona -> tvHomeTeam.text = "Barcelona"
+                Enums.Team.RealMadrid -> tvHomeTeam.text = "Real Madrid"
+                Enums.Team.BorussiaDort -> tvHomeTeam.text = "Dortmund"
+                Enums.Team.BayernMunich -> tvHomeTeam.text = "Bayern"
+                Enums.Team.ACMilan -> tvHomeTeam.text = "AC Milan"
+                Enums.Team.InterMilan -> tvHomeTeam.text = "Inter Milan"
                 // Add more cases for other teams as needed
                 else -> tvHomeTeam.text = match.homeTeam.toString()
             }
@@ -35,6 +43,14 @@ class MatchAdapter(var matches: List<Matches>, val onClick: (match: Matches) -> 
                 Enums.Team.Liverpool -> tvAwayTeam.text = "Liverpool"
                 Enums.Team.Chelsea -> tvAwayTeam.text = "Chelsea"
                 Enums.Team.Arsenal -> tvAwayTeam.text = "Arsenal"
+                Enums.Team.ManCity -> tvAwayTeam.text = "Man City"
+                Enums.Team.Newcastle -> tvAwayTeam.text = "Newcastle"
+                Enums.Team.Barcelona -> tvAwayTeam.text = "Barcelona"
+                Enums.Team.RealMadrid -> tvAwayTeam.text = "Real Madrid"
+                Enums.Team.BorussiaDort -> tvAwayTeam.text = "Dortmund"
+                Enums.Team.BayernMunich -> tvAwayTeam.text = "Bayern"
+                Enums.Team.ACMilan -> tvAwayTeam.text = "AC Milan"
+                Enums.Team.InterMilan -> tvAwayTeam.text = "Inter Milan"
                 // Add more cases for other teams as needed
                 else -> tvAwayTeam.text = match.awayTeam.toString()
             }
