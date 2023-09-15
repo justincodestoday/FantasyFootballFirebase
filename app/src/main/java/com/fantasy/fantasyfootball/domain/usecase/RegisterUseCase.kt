@@ -15,6 +15,9 @@ class RegisterUseCase @Inject constructor(
         try {
             when (event) {
                 is RegisterEvent.Register -> {
+//                    emit(Resource.Loading())
+//                    val res = authService.register(event.user)
+//                    emit(Resource.Success(res))
                     event.user.email?.let { email ->
                         event.user.password?.let { pass ->
                             event.user.name?.let { name ->

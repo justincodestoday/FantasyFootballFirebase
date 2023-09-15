@@ -120,6 +120,7 @@
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/sign_in"
+            android:onClick="@{() -> viewModel.login()}"
             android:textColor="@android:color/white" />
 
         <ImageView

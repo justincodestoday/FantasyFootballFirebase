@@ -14,17 +14,20 @@ class LoginUseCase @Inject constructor(
         try {
             when (event) {
                 is LoginEvent.Login -> {
-                    event.user.email?.let { email ->
-                        event.user.password?.let { pass ->
-                            if (Utils.validate(email, pass)) {
-                                emit(Resource.Loading(true))
-                                val res = authService.login(email, pass)
-                                emit(Resource.Success(res))
-                            } else {
-                                emit(Resource.Error("Validation failed"))
-                            }
-                        } ?: emit(Resource.Error("Password is null"))
-                    } ?: emit(Resource.Error("Email is null"))
+                    emit(Resource.Loading(true))
+                    val res = authService.login(event.user.email!!, event.user.password!!)
+                    emit(Resource.Success(res))
+//                    event.user.email?.let { email ->
+//                        event.user.password?.let { pass ->
+//                            if (Utils.validate(email, pass)) {
+//                                emit(Resource.Loading(true))
+//                                val res = authService.login(email, pass)
+//                                emit(Resource.Success(res))
+//                            } else {
+//                                emit(Resource.Error("Validation failed"))
+//                            }
+//                        } ?: emit(Resource.Error("Password is null"))
+//                    } ?: emit(Resource.Error("Email is null"))
                 }
             }
         } catch (e: Exception) {

@@ -17,7 +17,9 @@ abstract class BaseViewModel : ViewModel() {
 
     open fun onViewCreated() {}
 
-    suspend fun <T> safeApiCall(apiCall: suspend () -> T): T? {
+    suspend fun <T> safeApiCall(
+        apiCall: suspend () -> T
+    ): T? {
         return try {
             apiCall.invoke()
         } catch (e: Exception) {

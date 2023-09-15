@@ -21,53 +21,53 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     val login: MutableSharedFlow<Unit> = MutableSharedFlow()
     val formErrors = ObservableArrayList<Enums.FormError>()
 
-//    suspend fun login() {
-//        if (isFormValid()) {
-//            try {
-//                val res = safeApiCall { auth.login(email.value!!, password.value!!) }
-//                if (res == true) {
-//                    login.emit(Unit)
-//                    success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
-//                } else {
-//                    error.emit(Enums.FormError.WRONG_CREDENTIALS.name)
+//    fun login() {
+//        viewModelScope.launch {
+//            if (isFormValid()) {
+//                try {
+//                    val res = safeApiCall { repo.login(email.value!!, password.value!!) }
+//                    if (res == true) {
+//                        login.emit(Unit)
+//                        success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
+//                    } else {
+//                        error.emit(Enums.FormError.WRONG_CREDENTIALS.name)
+//                    }
+//                } catch (e: Exception) {
+//                    error.emit(e.message.toString())
 //                }
-//            } catch (e: Exception) {
-//                error.emit(e.message.toString())
 //            }
 //        }
 //    }
 
-    fun loginOnClick() {
+    fun login() {
         viewModelScope.launch {
-            login()
-        }
-    }
+            try {
+                if (isFormValid()) {
+                    safeApiCall {
+                        loginUseCase(
+                            LoginEvent.Login(
+                                User(email = email.value, password = password.value)
+                            )
+                        ).onEach {
+                            when (it) {
+                                is Resource.Loading -> {
 
-    suspend fun login() {
-        if (isFormValid()) {
-            viewModelScope.launch {
-                safeApiCall {
-                    loginUseCase(
-                        LoginEvent.Login(
-                            User(email = email.value, password = password.value)
-                        )
-                    ).onEach {
-                        when (it) {
-                            is Resource.Loading -> {
+                                }
 
+                                is Resource.Success -> {
+                                    login.emit(Unit)
+                                    success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
+                                }
+
+                                is Resource.Error -> {
+                                    error.emit(Enums.FormError.WRONG_CREDENTIALS.name)
+                                }
                             }
-
-                            is Resource.Success -> {
-                                login.emit(Unit)
-                                success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
-                            }
-
-                            is Resource.Error -> {
-                                error.emit(Enums.FormError.WRONG_CREDENTIALS.name)
-                            }
-                        }
-                    }.launchIn(viewModelScope)
+                        }.launchIn(viewModelScope)
+                    }
                 }
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
             }
         }
     }

@@ -99,46 +99,28 @@ class MainActivity : AppCompatActivity() {
             drawerLayout
         )
 
+        val specificDestinations = setOf(
+            R.id.homeFragment,
+            R.id.leaderboardFragment,
+            R.id.teamManagementFragment,
+            R.id.profileFragment,
+            R.id.matchFragment
+        )
+
+//        NavigationUI.setupWithNavController(binding.navigationView, navController, false)
+//        NavigationUI.setupWithNavController(binding.bottomNav, navController, false)
+
         binding.navigationView.setupWithNavController(navController)
         binding.bottomNav.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { controller: NavController, destination: NavDestination, bundle: Bundle? ->
-            binding.bottomNav.isVisible =
-                appBarConfiguration.topLevelDestinations.contains(destination.id)
-            binding.toolbar.isVisible =
-                appBarConfiguration.topLevelDestinations.contains(destination.id)
+            binding.bottomNav.isVisible = specificDestinations.contains(destination.id)
+//            binding.bottomNav.isVisible = appBarConfiguration.topLevelDestinations.contains(destination.id)
+//            binding.toolbar.isVisible =
+//                appBarConfiguration.topLevelDestinations.contains(destination.id)
         }
 
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-//        viewModel.user.observe(this) {
-////            authenticate(it, graph)
-//            if (it == null) {
-//                navController.popBackStack(R.id.main_nav_graph, true)
-//                navController.navigate(R.id.credentialsFragment)
-//            } else {
-////                identify()
-//                navController.popBackStack(R.id.main_nav_graph, true)
-//                navController.navigate(R.id.homeFragment)
-//                headerBinding.tvFullName.text = it.name
-//                headerBinding.tvEmail.text = it.email
-//
-//                if (it.image != null) {
-//                    it.image.let { imageName ->
-//                        ImageStorageService.getImageUri(imageName) { uri ->
-//                            Glide.with(this.applicationContext)
-//                                .load(uri)
-//                                .placeholder(R.drawable.vector__3_)
-//                                .into(headerBinding.ivImage)
-//                        }
-//                    }
-//                } else {
-//                    Glide.with(this.applicationContext)
-//                        .load(R.drawable.vector__3_)
-//                        .into(headerBinding.ivImage)
-//                }
-//            }
-//        }
 
         viewModel.user.observe(this) { user ->
             if (user == null) {
@@ -166,14 +148,6 @@ class MainActivity : AppCompatActivity() {
 
         navController.setGraph(graph, savedInstanceState)
     }
-
-//    private fun authenticate(user: User?, graph: NavGraph) {
-//        if (user != null) {
-//            graph.setStartDestination(R.id.homeFragment)
-//        } else {
-//            graph.setStartDestination(R.id.credentialsFragment)
-//        }
-//    }
 
     fun identify() {
         viewModel.getCurrentUser()

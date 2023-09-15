@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.fantasy.fantasyfootball.R
 import com.fantasy.fantasyfootball.databinding.FragmentRegisterBinding
+import com.fantasy.fantasyfootball.presentation.MainActivity
 import com.fantasy.fantasyfootball.presentation.ui.base.BaseFragment
 import com.fantasy.fantasyfootball.presentation.ui.credentials.CredentialsFragmentDirections
 import com.fantasy.fantasyfootball.presentation.ui.credentials.register.viewModel.RegisterViewModel
@@ -24,11 +25,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         binding?.viewModel = viewModel
         binding?.lifecycleOwner = viewLifecycleOwner
 
-        binding?.btnRegister?.setOnClickListener {
-            lifecycleScope.launch {
-                viewModel.register()
-            }
-        }
+//        binding?.btnRegister?.setOnClickListener {
+//            lifecycleScope.launch {
+//                viewModel.register()
+//            }
+//        }
     }
 
     // after register, the app thinks it is logged in after closing app
@@ -37,20 +38,24 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         lifecycleScope.launch {
             viewModel.register.collect {
-                val action =
-                    CredentialsFragmentDirections.actionCredentialsFragmentToOptionalFragment(
-                        binding?.etEmail?.text.toString()
-                    )
-                navController.navigate(action)
-
                 binding?.run {
                     etName.text?.clear()
                     etEmail.text?.clear()
                     etPassword.text?.clear()
                     etPasswordConfirm.text?.clear()
                 }
+
+                navigateToOptional()
             }
         }
+    }
+
+    private fun navigateToOptional() {
+        val action =
+            CredentialsFragmentDirections.actionCredentialsFragmentToOptionalFragment(
+                binding?.etEmail?.text.toString()
+            )
+        navController.navigate(action)
     }
 
     companion object {

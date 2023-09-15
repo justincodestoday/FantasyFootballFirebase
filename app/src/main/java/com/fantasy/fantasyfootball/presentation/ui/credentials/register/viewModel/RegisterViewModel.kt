@@ -41,29 +41,33 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
 
     fun register() {
         viewModelScope.launch {
-            if (isFormValid()) {
-                safeApiCall {
-                    registerUseCase(
-                        RegisterEvent.Register(
-                            User(name = name.value, email = email.value, password = password.value)
-                        )
-                    ).onEach {
-                        when (it) {
-                            is Resource.Loading -> {
+            try {
+                if (isFormValid()) {
+                    safeApiCall {
+                        registerUseCase(
+                            RegisterEvent.Register(
+                                User(name = name.value, email = email.value, password = password.value)
+                            )
+                        ).onEach {
+                            when (it) {
+                                is Resource.Loading -> {
 
-                            }
+                                }
 
-                            is Resource.Success -> {
-                                register.emit(Unit)
-                                success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
-                            }
+                                is Resource.Success -> {
+                                    register.emit(Unit)
+                                    success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
+                                }
 
-                            is Resource.Error -> {
-                                error.emit(Enums.FormError.USER_EXISTS.name)
+                                is Resource.Error -> {
+                                    error.emit(Enums.FormError.USER_EXISTS.name)
+                                }
                             }
-                        }
-                    }.launchIn(viewModelScope)
+                        }.launchIn(viewModelScope)
+                    }
                 }
+            } catch (e: Exception) {
+                error.emit(e.message.toString())
             }
         }
     }

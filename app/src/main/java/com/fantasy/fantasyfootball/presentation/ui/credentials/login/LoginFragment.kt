@@ -24,11 +24,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         binding?.viewModel = viewModel
         binding?.lifecycleOwner = viewLifecycleOwner
 
-        binding?.btnLogin?.setOnClickListener {
-            lifecycleScope.launch {
-                viewModel.login()
-            }
-        }
+//        binding?.btnLogin?.setOnClickListener {
+//            lifecycleScope.launch {
+//                viewModel.login()
+//            }
+//        }
     }
 
     override fun onBindData(view: View) {
@@ -41,12 +41,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     etPassword.text?.clear()
                 }
 
-                (activity as MainActivity).identify()
-                val action =
-                    CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
-                navController.navigate(action)
+                navigateToHome()
             }
         }
+    }
+
+    private fun navigateToHome() {
+        (activity as MainActivity).identify()
+        val action =
+            CredentialsFragmentDirections.actionCredentialsFragmentToHomeFragment()
+        navController.navigate(action)
     }
 
     companion object {

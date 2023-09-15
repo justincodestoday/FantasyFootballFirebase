@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.fantasy.fantasyfootball.presentation.MainActivity
 import com.fantasy.fantasyfootball.R
+import com.fantasy.fantasyfootball.core.Enums
 import com.fantasy.fantasyfootball.databinding.FragmentOptionalBinding
 import com.fantasy.fantasyfootball.presentation.ui.base.BaseFragment
 import com.fantasy.fantasyfootball.util.Utils
@@ -76,6 +78,13 @@ class OptionalFragment : BaseFragment<FragmentOptionalBinding>() {
                 (activity as MainActivity).identify()
                 val action = OptionalFragmentDirections.toHomeFragment()
                 navController.navigate(action)
+
+
+//                val bundle = Bundle()
+//                bundle.putBoolean(Enums.Result.REFRESH.name, true)
+//                setFragmentResult(Enums.Result.EDIT_PROFILE_RESULT.name, bundle)
+//                (activity as MainActivity).getData()
+
             // if closed app without logging in,
             // the app launched will log in automatically,
             }
