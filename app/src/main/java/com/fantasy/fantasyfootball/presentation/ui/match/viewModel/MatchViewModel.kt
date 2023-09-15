@@ -42,7 +42,35 @@ class MatchViewModel @Inject constructor(
             homeScore = 2,
             awayScore = 3,
             date = "15/2/2023"
-        )
+        ),
+        Matches(
+            homeTeam = Enums.Team.ManCity,
+            awayTeam = Enums.Team.Newcastle,
+            homeScore = 4,
+            awayScore = 0,
+            date = "22/2/2023"
+        ),
+        Matches(
+            homeTeam = Enums.Team.Barcelona,
+            awayTeam = Enums.Team.RealMadrid,
+            homeScore = 1,
+            awayScore = 1,
+            date = "1/3/2023"
+        ),
+        Matches(
+            homeTeam = Enums.Team.BorussiaDort,
+            awayTeam = Enums.Team.BayernMunich,
+            homeScore = 0,
+            awayScore = 2,
+            date = "8/3/2023"
+        ),
+        Matches(
+            homeTeam = Enums.Team.InterMilan,
+            awayTeam = Enums.Team.ACMilan,
+            homeScore = 2,
+            awayScore = 2,
+            date = "15/3/2023"
+        ),
     )
 
     fun fetchMatches() {
