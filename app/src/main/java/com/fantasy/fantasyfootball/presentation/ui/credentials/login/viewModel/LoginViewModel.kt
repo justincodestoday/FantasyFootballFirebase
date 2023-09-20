@@ -1,5 +1,6 @@
 package com.fantasy.fantasyfootball.presentation.ui.credentials.login.viewModel
 
+import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.viewModelScope
 import com.fantasy.fantasyfootball.common.Resource
@@ -9,9 +10,16 @@ import com.fantasy.fantasyfootball.domain.usecase.LoginUseCase
 import com.fantasy.fantasyfootball.presentation.ui.base.viewModel.BaseViewModel
 import com.fantasy.fantasyfootball.presentation.ui.credentials.login.LoginEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CompletableJob
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +28,9 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
     BaseViewModel() {
     val login: MutableSharedFlow<Unit> = MutableSharedFlow()
     val formErrors = ObservableArrayList<Enums.FormError>()
+
+    lateinit var viewModelJob: CompletableJob
+    lateinit var scope: CoroutineScope
 
 //    suspend fun login() {
 //        if (isFormValid()) {
@@ -37,37 +48,43 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
 //        }
 //    }
 
-    fun loginOnClick() {
-        viewModelScope.launch {
-            login()
-        }
+//    fun onLoginClicked() {
+//        viewModelScope.launch {
+//            login()
+//        }
+//    }
+
+    override fun onViewCreated() {
+        super.onViewCreated()
+
+        viewModelJob = SupervisorJob()
+        scope = CoroutineScope(Dispatchers.Main + viewModelJob)
+        Log.d("debugging", scope.coroutineContext.job.toString())
     }
 
     suspend fun login() {
         if (isFormValid()) {
-            viewModelScope.launch {
-                safeApiCall {
-                    loginUseCase(
-                        LoginEvent.Login(
-                            User(email = email.value, password = password.value)
-                        )
-                    ).onEach {
-                        when (it) {
-                            is Resource.Loading -> {
+            safeApiCall {
+                loginUseCase(
+                    LoginEvent.Login(
+                        User(email = email.value, password = password.value)
+                    )
+                ).onEach {
+                    when (it) {
+                        is Resource.Loading -> {
 
-                            }
-
-                            is Resource.Success -> {
-                                login.emit(Unit)
-                                success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
-                            }
-
-                            is Resource.Error -> {
-                                error.emit(Enums.FormError.WRONG_CREDENTIALS.name)
-                            }
                         }
-                    }.launchIn(viewModelScope)
-                }
+
+                        is Resource.Success -> {
+                            login.emit(Unit)
+                            success.emit(Enums.FormSuccess.LOGIN_SUCCESSFUL.name)
+                        }
+
+                        is Resource.Error -> {
+                            error.emit(Enums.FormError.WRONG_CREDENTIALS.name)
+                        }
+                    }
+                }.launchIn(scope)
             }
         }
     }
@@ -84,5 +101,10 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
             error.emit(Enums.FormError.MISSING_PASSWORD.name)
         }
         return formErrors.isEmpty()
+    }
+
+    fun clear() {
+        viewModelJob.cancel()
+        Log.d("debugging", scope.coroutineContext.job.toString())
     }
 }

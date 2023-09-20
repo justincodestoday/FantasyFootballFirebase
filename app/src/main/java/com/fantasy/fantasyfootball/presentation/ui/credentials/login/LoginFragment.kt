@@ -49,6 +49,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        viewModel.clear()
+    }
+
     companion object {
         private var loginFragmentInstance: LoginFragment? = null
 

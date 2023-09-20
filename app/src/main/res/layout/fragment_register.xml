@@ -229,7 +229,6 @@
             android:layout_below="@+id/ti_passwordConfirm"
             android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
             android:layout_marginTop="@dimen/fragment_vertical_margin"
-            android:onClick="@{() -> viewModel.register()}"
             android:background="@drawable/custom_button"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/sign_up"

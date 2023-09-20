@@ -39,31 +39,29 @@ class RegisterViewModel @Inject constructor(private val registerUseCase: Registe
 //        }
 //    }
 
-    fun register() {
-        viewModelScope.launch {
-            if (isFormValid()) {
-                safeApiCall {
-                    registerUseCase(
-                        RegisterEvent.Register(
-                            User(name = name.value, email = email.value, password = password.value)
-                        )
-                    ).onEach {
-                        when (it) {
-                            is Resource.Loading -> {
+    suspend fun register() {
+        if (isFormValid()) {
+            safeApiCall {
+                registerUseCase(
+                    RegisterEvent.Register(
+                        User(name = name.value, email = email.value, password = password.value)
+                    )
+                ).onEach {
+                    when (it) {
+                        is Resource.Loading -> {
 
-                            }
-
-                            is Resource.Success -> {
-                                register.emit(Unit)
-                                success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
-                            }
-
-                            is Resource.Error -> {
-                                error.emit(Enums.FormError.USER_EXISTS.name)
-                            }
                         }
-                    }.launchIn(viewModelScope)
-                }
+
+                        is Resource.Success -> {
+                            register.emit(Unit)
+                            success.emit(Enums.FormSuccess.REGISTER_SUCCESSFUL.name)
+                        }
+
+                        is Resource.Error -> {
+                            error.emit(Enums.FormError.USER_EXISTS.name)
+                        }
+                    }
+                }.launchIn(viewModelScope)
             }
         }
     }
